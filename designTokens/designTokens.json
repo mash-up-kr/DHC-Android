@@ -11,6 +11,10 @@
     "Dhcgrey": {
       "value": "#b2b2b2",
       "type": "color"
+    },
+     "Dhcblack": {
+      "value": "#000000",
+      "type": "color"
     }
   },
   "$themes": [],
