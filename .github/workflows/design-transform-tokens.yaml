@@ -29,7 +29,9 @@ jobs:
         run: |
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-          
+      
+      - name: Create new branch
+        run: git checkout -b update/design-tokens-${{ github.run_number }}    
 
       - name: Commit generated files
         run: |
