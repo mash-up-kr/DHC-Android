@@ -37,7 +37,7 @@ jobs:
         run: |
             git add .
             git commit -m "chore: update design tokens"
-            git push origin update/design-tokens-${{ github.run_number }}
+            git push update/design-tokens-${{ github.run_number }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
