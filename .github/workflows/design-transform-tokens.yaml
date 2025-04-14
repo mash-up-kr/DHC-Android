@@ -44,7 +44,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Transform tokens and update design
-          branch: update/design-tokens-${{ github.run_number }}
+          branch: update/design-tokens
           title: "Update design tokens"
           body: "This PR updates the design tokens from the latest Figma export."
           base: design
