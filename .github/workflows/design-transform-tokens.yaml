@@ -2,7 +2,7 @@ name : Create Pr Transformed Design Token
 
 on:
   push:
-    branches: ["design"]
+    branches: ["update/design-tokens"]
     paths:
       - designTokens/designTokens.json
 
@@ -31,13 +31,13 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
       
       - name: Create new branch
-        run: git checkout -b update/design-tokens-${{ github.run_number }}    
+        run: git checkout -b update/design-tokens
 
       - name: Commit generated files
         run: |
             git add .
             git commit -m "chore: update design tokens"
-            git push origin update/design-tokens-${{ github.run_number }}
+            git push origin update/design-tokens
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
