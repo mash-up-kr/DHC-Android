@@ -1,14 +1,14 @@
 {
   "global": {
-    "dhcpink": {
+    "Dhcpink": {
       "value": "#ffa3a3",
       "type": "color"
     },
-    "dchblue": {
+    "Dchblue": {
       "value": "#3e85f4",
       "type": "color"
     },
-    "dhcgrey": {
+    "Dhcgrey": {
       "value": "#b2b2b2",
       "type": "color"
     }
