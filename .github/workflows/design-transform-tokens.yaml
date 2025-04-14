@@ -30,8 +30,8 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
       
-      - name: Create new branch
-        run: git checkout -b update_designTokens
+      #- name: Create new branch
+      #  run: git checkout -b update_designTokens
 
       - name: Commit generated files
         run: |
