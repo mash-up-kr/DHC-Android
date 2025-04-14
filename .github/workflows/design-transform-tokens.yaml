@@ -2,8 +2,7 @@ name : Create Pr Transformed Design Token
 
 on:
   push:
-    branches:
-      - design
+    branches: [design]
     paths:
       - designTokens/designTokens.json
 
