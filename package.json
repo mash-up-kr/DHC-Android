@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "style-dictionary": "^4.3.3"
+  },
+  "scripts": {
+    "build:compose": "style-dictionary build --config style-dictionary.config.js"
+  }
+}
