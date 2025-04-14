@@ -2,7 +2,7 @@ name : Create Pr Transformed Design Token
 
 on:
   push:
-    branches: ["update_designToken"]
+    branches: ["update_designTokens"]
     paths:
       - designTokens/designTokens.json
 
@@ -37,14 +37,14 @@ jobs:
         run: |
             git add .
             git commit -m "chore: update design tokens"
-            git push origin update/design-tokens
+            git push origin update_designTokens
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Transform tokens and update design
-          branch: update/design-tokens
+          branch: update_designTokens
           title: "Update design tokens"
           body: "This PR updates the design tokens from the latest Figma export."
           base: design
