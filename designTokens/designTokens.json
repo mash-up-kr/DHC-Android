@@ -1,17 +1,17 @@
 {
   "global": {
-    "dhc-pink": {
+    "Dhcpink": {
       "value": "#ffa3a3",
       "type": "color"
     },
-    "dch-blue": {
+    "Dchblue": {
       "value": "#3e85f4",
       "type": "color"
     },
-    "dhc-grey": {
+    "Dhcgrey": {
       "value": "#b2b2b2",
       "type": "color"
-    }
+    },
   },
   "$themes": [],
   "$metadata": {
