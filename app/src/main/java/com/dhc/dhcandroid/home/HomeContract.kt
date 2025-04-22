@@ -10,7 +10,7 @@ class HomeContract {
     /**
      * 현재 화면에 필요한 상태들을 모아둔다.
      */
-    data class HomeState(
+    data class State(
         val isLoading: Boolean = false,
         val number: Int = 0,
     ): UiState
@@ -19,16 +19,16 @@ class HomeContract {
     /**
      * 액션 정의
      */
-    sealed interface HomeEvent: UiEvent {
-        data object ClickAddButton : HomeEvent
-        data object ClickMinusButton : HomeEvent
+    sealed interface Event: UiEvent {
+        data object ClickAddButton : Event
+        data object ClickMinusButton : Event
     }
 
     /**
      * SideEffect로 발생되는 이벤트를 정의
      */
-    sealed interface HomeSideEffect : UiSideEffect {
-        data class ShowToast(val msg: String): HomeSideEffect
+    sealed interface SideEffect : UiSideEffect {
+        data class ShowToast(val msg: String): SideEffect
 
     }
 }

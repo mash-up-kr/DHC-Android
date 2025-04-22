@@ -3,21 +3,24 @@ package com.dhc.dhcandroid.home
 import com.dhc.dhcandroid.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import com.dhc.dhcandroid.home.HomeContract.State
+import com.dhc.dhcandroid.home.HomeContract.Event
+import com.dhc.dhcandroid.home.HomeContract.SideEffect
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-): BaseViewModel<HomeContract.HomeState, HomeContract.HomeEvent, HomeContract.HomeSideEffect>() {
+): BaseViewModel<State, Event, SideEffect>() {
 
-    override fun createInitialState(): HomeContract.HomeState {
-        return HomeContract.HomeState()
+    override fun createInitialState(): State {
+        return State()
     }
 
-    override suspend fun handleEvent(event: HomeContract.HomeEvent) {
+    override suspend fun handleEvent(event: Event) {
         when(event) {
-            is HomeContract.HomeEvent.ClickAddButton -> {
+            is Event.ClickAddButton -> {
                 updateNumber(operator = +1, toastMsg = "add")
             }
-            is HomeContract.HomeEvent.ClickMinusButton -> {
+            is Event.ClickMinusButton -> {
                 updateNumber(operator = -1, toastMsg = "minus")
             }
         }
@@ -25,6 +28,6 @@ class HomeViewModel @Inject constructor(
 
     private fun updateNumber(operator: Int, toastMsg: String) {
         reduce { copy(number = state.value.number + operator) }
-        postSideEffect(HomeContract.HomeSideEffect.ShowToast(toastMsg))
+        postSideEffect(SideEffect.ShowToast(toastMsg))
     }
 }
