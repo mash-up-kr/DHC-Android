@@ -37,7 +37,7 @@ jobs:
           commit-message: "chore: update design tokens"
           title: "Update design tokens"
           body: "This PR updates the design tokens from the latest Figma export."
-          base: main
+          base: update_designTokens
           branch: update_designTokens-${{ github.run_id }}
           delete-branch: true
 
