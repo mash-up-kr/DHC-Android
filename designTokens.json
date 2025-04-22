@@ -15,10 +15,6 @@
     "dhcmint": {
       "value": "#b9ffe4",
       "type": "color"
-    },
-    "dhcblack": {
-      "value": "#000",
-      "type": "color"
     }
   },
   "$themes": [],
