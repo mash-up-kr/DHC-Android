@@ -4,7 +4,7 @@ on:
   push:
     branches: ["update_designTokens"]
     paths:
-      - designTokens/designTokens.json
+      - designTokens.json
 
 jobs:
   transform-tokens:
