@@ -52,5 +52,5 @@ jobs:
           branch: update_designTokens
           title: "Update design tokens"
           body: "This PR updates the design tokens from the latest Figma export."
-          base: design
+          base: main
 
