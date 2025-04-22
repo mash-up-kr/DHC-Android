@@ -1,0 +1,22 @@
+{
+  "global": {
+    "dhcpink": {
+      "value": "#ff6868",
+      "type": "color"
+    },
+    "dhcblue": {
+      "value": "#6c7aff",
+      "type": "color"
+    },
+    "dhcgrey": {
+      "value": "#888",
+      "type": "color"
+    }
+  },
+  "$themes": [],
+  "$metadata": {
+    "tokenSetOrder": [
+      "global"
+    ]
+  }
+}
