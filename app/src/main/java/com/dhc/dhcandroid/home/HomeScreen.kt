@@ -28,7 +28,7 @@ fun HomeRoute(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
             when(sideEffect) {
-                is HomeContract.HomeSideEffect.ShowToast -> {
+                is HomeContract.SideEffect.ShowToast -> {
                     Toast.makeText(context, sideEffect.msg, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -37,14 +37,14 @@ fun HomeRoute(
     }
     HomeScreen(
         state = state.value,
-        onClickAddButton = { viewModel.sendEvent(HomeContract.HomeEvent.ClickAddButton) },
-        onClickMinusButton = { viewModel.sendEvent(HomeContract.HomeEvent.ClickMinusButton) }
+        onClickAddButton = { viewModel.sendEvent(HomeContract.Event.ClickAddButton) },
+        onClickMinusButton = { viewModel.sendEvent(HomeContract.Event.ClickMinusButton) }
     )
 }
 
 @Composable
 fun HomeScreen(
-    state: HomeContract.HomeState,
+    state: HomeContract.State,
     onClickAddButton: () -> Unit,
     onClickMinusButton: () -> Unit
 ) {
