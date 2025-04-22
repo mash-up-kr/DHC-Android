@@ -1,8 +1,8 @@
-name : Create Pr Transformed Design Token
+name: Create PR Transformed Design Token
 
 on:
   push:
-    branches: ["design"]
+    branches: ["update_designTokens"]
     paths:
       - designTokens/designTokens.json
 
@@ -27,30 +27,17 @@ jobs:
 
       - name: Configure Git
         run: |
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-      
-      #- name: Create new branch
-      #  run: git checkout -b update_designTokens
-
-      - name: Commit generated files
-        run: |
-            git add .
-            git commit -m "chore: update design tokens"
-            git push origin update_designTokens
-    
-      - name: Show git status
-        run: |
-          git status
-          git log -3
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Transform tokens and update design
-          branch: update_designTokens
+          commit-message: "chore: update design tokens"
           title: "Update design tokens"
           body: "This PR updates the design tokens from the latest Figma export."
           base: main
+          branch: update_designTokens-${{ github.run_id }}
+          delete-branch: true
 
