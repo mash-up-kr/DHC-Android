@@ -37,8 +37,8 @@ fun HomeRoute(
     }
     HomeScreen(
         state = state.value,
-        onClickAddButton = { viewModel.intent(HomeContract.HomeEvent.ClickAddButton) },
-        onClickMinusButton = { viewModel.intent(HomeContract.HomeEvent.ClickMinusButton) }
+        onClickAddButton = { viewModel.sendEvent(HomeContract.HomeEvent.ClickAddButton) },
+        onClickMinusButton = { viewModel.sendEvent(HomeContract.HomeEvent.ClickMinusButton) }
     )
 }
 

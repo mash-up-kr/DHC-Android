@@ -30,7 +30,7 @@ abstract class BaseViewModel<State: UiState, Event: UiEvent, SideEffect: UiSideE
     /**
      * action이 발생하면 event 전달
      */
-    fun intent(event: Event) {
+    fun sendEvent(event: Event) {
         viewModelScope.launch {
             handleEvent(event)
         }
