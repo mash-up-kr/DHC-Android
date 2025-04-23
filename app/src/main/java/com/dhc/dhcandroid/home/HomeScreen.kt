@@ -16,13 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.runtime.getValue
 
 
 @Composable
 fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val state = viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsState()
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
@@ -36,7 +37,7 @@ fun HomeRoute(
         }
     }
     HomeScreen(
-        state = state.value,
+        state = state,
         onClickAddButton = { viewModel.sendEvent(HomeContract.Event.ClickAddButton) },
         onClickMinusButton = { viewModel.sendEvent(HomeContract.Event.ClickMinusButton) }
     )
