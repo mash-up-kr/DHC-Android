@@ -11,13 +11,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.compose.runtime.getValue
-
+import com.dhc.dhcandroid.mvi.EventHandler
 
 @Composable
 fun HomeRoute(
@@ -38,16 +38,14 @@ fun HomeRoute(
     }
     HomeScreen(
         state = state,
-        onClickAddButton = { viewModel.sendEvent(HomeContract.Event.ClickAddButton) },
-        onClickMinusButton = { viewModel.sendEvent(HomeContract.Event.ClickMinusButton) }
+        eventHandler = viewModel::sendEvent,
     )
 }
 
 @Composable
 fun HomeScreen(
     state: HomeContract.State,
-    onClickAddButton: () -> Unit,
-    onClickMinusButton: () -> Unit
+    eventHandler: EventHandler<HomeContract.Event>,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -56,11 +54,11 @@ fun HomeScreen(
     ) {
         Text(text = "Current Value : ${state.number}")
 
-        Button(onClick = { onClickAddButton() }) {
+        Button(onClick = { eventHandler(HomeContract.Event.ClickAddButton) }) {
             Text(text = "Add")
         }
         Spacer(modifier = Modifier.height(8.dp))
-        Button(onClick = { onClickMinusButton() }) {
+        Button(onClick = { eventHandler(HomeContract.Event.ClickMinusButton) }) {
             Text(text = "Minus")
         }
     }
