@@ -9,6 +9,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
@@ -40,8 +41,7 @@ abstract class BaseViewModel<State: UiState, Event: UiEvent, SideEffect: UiSideE
      * reduce : 상태 값 Update
      */
     protected fun reduce(reduce: State.() -> State) {
-        val state = currentUiState.reduce()
-        _state.value = state
+        _state.update { currentUiState.reduce()}
     }
 
     /**
