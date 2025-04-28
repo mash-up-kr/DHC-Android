@@ -25,7 +25,7 @@ abstract class BaseViewModel<State: UiState, Event: UiEvent, SideEffect: UiSideE
     private val _sideEffect: Channel<SideEffect> = Channel()
     val sideEffect = _sideEffect.receiveAsFlow()
 
-    private val currentUiState: State
+    protected val currentUiState: State
         get() = state.value
 
     /**
@@ -41,7 +41,7 @@ abstract class BaseViewModel<State: UiState, Event: UiEvent, SideEffect: UiSideE
      * reduce : 상태 값 Update
      */
     protected fun reduce(reduce: State.() -> State) {
-        _state.update { currentUiState.reduce()}
+        _state.update(reduce)
     }
 
     /**
