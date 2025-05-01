@@ -30,6 +30,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:designsystem"))
     implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)
 }
