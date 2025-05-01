@@ -1,6 +1,6 @@
 package com.dhc.dhcandroid.home
 
-import com.dhc.dhcandroid.BaseViewModel
+import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import com.dhc.dhcandroid.home.HomeContract.State
@@ -9,7 +9,7 @@ import com.dhc.dhcandroid.home.HomeContract.SideEffect
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-): BaseViewModel<State, Event, SideEffect>() {
+): com.dhc.presentation.mvi.BaseViewModel<State, Event, SideEffect>() {
 
     override fun createInitialState(): State {
         return State()

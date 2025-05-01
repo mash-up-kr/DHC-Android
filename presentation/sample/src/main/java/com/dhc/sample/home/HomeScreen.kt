@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dhc.dhcandroid.mvi.EventHandler
+import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun HomeRoute(
@@ -45,7 +45,7 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(
     state: HomeContract.State,
-    eventHandler: EventHandler<HomeContract.Event>,
+    eventHandler: com.dhc.presentation.mvi.EventHandler<HomeContract.Event>,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),

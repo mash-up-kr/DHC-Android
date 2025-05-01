@@ -1,8 +1,8 @@
 package com.dhc.dhcandroid.home
 
-import com.dhc.dhcandroid.mvi.UiEvent
-import com.dhc.dhcandroid.mvi.UiSideEffect
-import com.dhc.dhcandroid.mvi.UiState
+import com.dhc.presentation.mvi.UiEvent
+import com.dhc.presentation.mvi.UiSideEffect
+import com.dhc.presentation.mvi.UiState
 
 class HomeContract {
 
@@ -12,13 +12,13 @@ class HomeContract {
     data class State(
         val isLoading: Boolean = false,
         val number: Int = 0,
-    ): UiState
+    ): com.dhc.presentation.mvi.UiState
 
 
     /**
      * 액션 정의
      */
-    sealed interface Event: UiEvent {
+    sealed interface Event: com.dhc.presentation.mvi.UiEvent {
         data object ClickAddButton : Event
         data object ClickMinusButton : Event
     }
@@ -26,7 +26,7 @@ class HomeContract {
     /**
      * SideEffect로 발생되는 이벤트를 정의
      */
-    sealed interface SideEffect : UiSideEffect {
+    sealed interface SideEffect : com.dhc.presentation.mvi.UiSideEffect {
         data class ShowToast(val msg: String): SideEffect
 
     }
