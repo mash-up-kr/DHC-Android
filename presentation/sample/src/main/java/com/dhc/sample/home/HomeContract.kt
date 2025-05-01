@@ -1,4 +1,4 @@
-package com.dhc.dhcandroid.home
+package com.dhc.sample.home
 
 import com.dhc.presentation.mvi.UiEvent
 import com.dhc.presentation.mvi.UiSideEffect

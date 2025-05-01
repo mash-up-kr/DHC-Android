@@ -1,4 +1,4 @@
-package com.dhc.dhcandroid.home
+package com.dhc.sample.home
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement

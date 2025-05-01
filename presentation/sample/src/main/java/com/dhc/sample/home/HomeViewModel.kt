@@ -1,11 +1,11 @@
-package com.dhc.dhcandroid.home
+package com.dhc.sample.home
 
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import com.dhc.dhcandroid.home.HomeContract.State
-import com.dhc.dhcandroid.home.HomeContract.Event
-import com.dhc.dhcandroid.home.HomeContract.SideEffect
+import com.dhc.sample.home.HomeContract.State
+import com.dhc.sample.home.HomeContract.Event
+import com.dhc.sample.home.HomeContract.SideEffect
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
