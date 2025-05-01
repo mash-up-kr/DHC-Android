@@ -9,7 +9,7 @@ import com.dhc.sample.home.HomeContract.SideEffect
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-): com.dhc.presentation.mvi.BaseViewModel<State, Event, SideEffect>() {
+): BaseViewModel<State, Event, SideEffect>() {
 
     override fun createInitialState(): State {
         return State()

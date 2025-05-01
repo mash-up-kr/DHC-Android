@@ -12,13 +12,13 @@ class HomeContract {
     data class State(
         val isLoading: Boolean = false,
         val number: Int = 0,
-    ): com.dhc.presentation.mvi.UiState
+    ): UiState
 
 
     /**
      * 액션 정의
      */
-    sealed interface Event: com.dhc.presentation.mvi.UiEvent {
+    sealed interface Event: UiEvent {
         data object ClickAddButton : Event
         data object ClickMinusButton : Event
     }
@@ -26,7 +26,7 @@ class HomeContract {
     /**
      * SideEffect로 발생되는 이벤트를 정의
      */
-    sealed interface SideEffect : com.dhc.presentation.mvi.UiSideEffect {
+    sealed interface SideEffect : UiSideEffect {
         data class ShowToast(val msg: String): SideEffect
 
     }

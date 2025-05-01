@@ -45,7 +45,7 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(
     state: HomeContract.State,
-    eventHandler: com.dhc.presentation.mvi.EventHandler<HomeContract.Event>,
+    eventHandler: EventHandler<HomeContract.Event>,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
