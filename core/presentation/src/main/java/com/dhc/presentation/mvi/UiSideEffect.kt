@@ -1,3 +1,3 @@
-package com.dhc.dhcandroid.mvi
+package com.dhc.presentation.mvi
 
 interface UiSideEffect
