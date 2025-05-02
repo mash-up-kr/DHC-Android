@@ -18,5 +18,32 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run detekt
-        run: ./gradlew detekt
+        id: detekt
+        run: |
+          ./gradlew detekt > detekt-result.txt
 
+      - name : create comment on PR if failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const result = fs.readFileSync('detekt-result.txt', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `☠️ detekt 실패 ☠️ \n\n${result}`
+            })
+
+      - name: Comment on success
+        if: success() && steps.detekt.outcome == 'success'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "🎉 detekt 성공 🎉"
+            })
