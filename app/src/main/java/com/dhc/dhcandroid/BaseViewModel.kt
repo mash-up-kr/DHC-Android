@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-
 abstract class BaseViewModel<State: UiState, Event: UiEvent, SideEffect: UiSideEffect>: ViewModel() {
 
     private val initialUiState: State by lazy { createInitialState() }
@@ -56,4 +55,3 @@ abstract class BaseViewModel<State: UiState, Event: UiEvent, SideEffect: UiSideE
         _sideEffect.close()
     }
 
-}

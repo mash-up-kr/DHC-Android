@@ -4,7 +4,6 @@ import com.dhc.dhcandroid.mvi.UiEvent
 import com.dhc.dhcandroid.mvi.UiSideEffect
 import com.dhc.dhcandroid.mvi.UiState
 
-
 class HomeContract {
 
     /**
