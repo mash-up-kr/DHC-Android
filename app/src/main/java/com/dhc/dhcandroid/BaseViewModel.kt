@@ -54,5 +54,4 @@ abstract class BaseViewModel<State: UiState, Event: UiEvent, SideEffect: UiSideE
         super.onCleared()
         _sideEffect.close()
     }
-
 }
