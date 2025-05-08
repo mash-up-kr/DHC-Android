@@ -1,8 +1,8 @@
-package com.dhc.dhcandroid.home
+package com.dhc.sample.home
 
-import com.dhc.dhcandroid.mvi.UiEvent
-import com.dhc.dhcandroid.mvi.UiSideEffect
-import com.dhc.dhcandroid.mvi.UiState
+import com.dhc.presentation.mvi.UiEvent
+import com.dhc.presentation.mvi.UiSideEffect
+import com.dhc.presentation.mvi.UiState
 
 class HomeContract {
 

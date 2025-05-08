@@ -1,10 +1,7 @@
-package com.dhc.dhcandroid
+package com.dhc.presentation.mvi
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dhc.dhcandroid.mvi.UiEvent
-import com.dhc.dhcandroid.mvi.UiSideEffect
-import com.dhc.dhcandroid.mvi.UiState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

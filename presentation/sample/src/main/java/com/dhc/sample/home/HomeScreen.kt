@@ -1,4 +1,4 @@
-package com.dhc.dhcandroid.home
+package com.dhc.sample.home
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dhc.dhcandroid.mvi.EventHandler
+import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun HomeRoute(
