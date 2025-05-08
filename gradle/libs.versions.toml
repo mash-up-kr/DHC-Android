@@ -40,6 +40,12 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", name = "hilt-compi
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
+[bundles]
+hilt = [
+    "hilt-navigation",
+    "hilt-android",
+]
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

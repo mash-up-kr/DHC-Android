@@ -3,8 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.detekt)
-    alias(libs.plugins.dagger.hilt)
-    alias(libs.plugins.kotlin.kapt)
+    id("dhc.hilt")
     id("dhc.config-flavor")
 }
 
@@ -60,7 +59,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     detektPlugins(libs.detekt.formatting)
 
-    implementation(libs.hilt.android)
-    implementation(libs.hilt.navigation)
-    kapt(libs.hilt.compiler)
+//    implementation(libs.hilt.android)
+//    implementation(libs.hilt.navigation)
+//    kapt(libs.hilt.compiler)
 }
