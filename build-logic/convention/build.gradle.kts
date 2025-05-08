@@ -16,6 +16,9 @@ dependencies {
 
 gradlePlugin {
     plugins {
-
+        register("configFlavor") {
+            id = "dhc.config-flavor"
+            implementationClass = "ConfigFlavorPlugin"
+        }
     }
 }
