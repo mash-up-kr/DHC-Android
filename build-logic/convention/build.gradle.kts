@@ -20,5 +20,10 @@ gradlePlugin {
             id = "dhc.config-flavor"
             implementationClass = "ConfigFlavorPlugin"
         }
+
+        register("hilt") {
+            id = "dhc.hilt"
+            implementationClass = "HiltConventionPlugin"
+        }
     }
 }
