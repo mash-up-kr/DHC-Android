@@ -15,6 +15,12 @@ dagger-hilt-navigation-compose = "1.2.0"
 detekt = "1.22.0"
 jetbrainsKotlinJvm = "2.0.0"
 
+# 프로젝트 설정
+targetSdk = "35"
+versionCode = "1"
+versionName = "1.0"
+
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
