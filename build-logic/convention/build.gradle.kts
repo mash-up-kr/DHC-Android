@@ -25,5 +25,10 @@ gradlePlugin {
             id = "dhc.hilt"
             implementationClass = "HiltConventionPlugin"
         }
+
+        register("compose") {
+            id = "dhc.compose"
+            implementationClass = "ComposeConventionPlugin"
+        }
     }
 }
