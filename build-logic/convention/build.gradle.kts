@@ -16,11 +16,6 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("configFlavor") {
-            id = "dhc.config-flavor"
-            implementationClass = "ConfigFlavorPlugin"
-        }
-
         register("hilt") {
             id = "dhc.hilt"
             implementationClass = "HiltConventionPlugin"
@@ -39,6 +34,11 @@ gradlePlugin {
         register("presentation") {
             id = "dhc.presentation"
             implementationClass = "PresentationConventionPlugin"
+        }
+
+        register("module") {
+            id = "dhc.module"
+            implementationClass = "ModuleConventionPlugin"
         }
     }
 }

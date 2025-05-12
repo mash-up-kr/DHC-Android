@@ -9,13 +9,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":presentation:sample"))
-    implementation(project(":data"))
-    implementation(project(":core:designsystem"))
-    implementation(project(":core:presentation"))
-    implementation(project(":core:common"))
-    implementation(project(":core:navigation"))
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     testImplementation(libs.junit)
