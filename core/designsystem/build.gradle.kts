@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     id("dhc.config-flavor")
+    id("dhc.compose")
 }
 
 android {

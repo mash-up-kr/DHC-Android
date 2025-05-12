@@ -30,5 +30,15 @@ gradlePlugin {
             id = "dhc.compose"
             implementationClass = "ComposeConventionPlugin"
         }
+
+        register("application") {
+            id = "dhc.application"
+            implementationClass = "AndroidApplicationPlugin"
+        }
+
+        register("presentation") {
+            id = "dhc.presentation"
+            implementationClass = "PresentationConventionPlugin"
+        }
     }
 }
