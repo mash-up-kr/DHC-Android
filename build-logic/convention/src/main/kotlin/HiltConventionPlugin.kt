@@ -1,3 +1,5 @@
+import com.dhc.buildlogic.util.implementation
+import com.dhc.buildlogic.util.kapt
 import com.dhc.buildlogic.util.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -13,8 +15,8 @@ class HiltConventionPlugin : Plugin<Project> {
             }
 
             dependencies {
-                "implementation"(libs.findBundle("hilt").get())
-                "kapt"(libs.findLibrary("hilt.compiler").get())
+                implementation(libs.findBundle("hilt").get())
+                kapt(libs.findLibrary("hilt.compiler").get())
             }
         }
     }

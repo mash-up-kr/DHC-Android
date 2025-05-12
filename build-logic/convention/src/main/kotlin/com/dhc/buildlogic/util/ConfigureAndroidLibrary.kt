@@ -9,7 +9,7 @@ internal fun Project.configureAndroidLibrary(
 ) {
     with(commonExtension) {
         dependencies {
-            add("implementation", libs.findBundle("androidx").get())
+            implementation(libs.findBundle("androidx").get())
         }
     }
 }
