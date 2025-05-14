@@ -5,11 +5,9 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 internal fun Project.configureAndroidLibrary(
-    commonExtension: CommonExtension<*, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
-    with(commonExtension) {
-        dependencies {
-            implementation(libs.findBundle("androidx").get())
-        }
+    dependencies {
+        implementation(libs.bundle("androidx-ktx"))
     }
 }

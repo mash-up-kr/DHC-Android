@@ -5,6 +5,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
+// Android 의존성이 필요하지만 Application 이나 presentation 이 아닌 모듈에 사용
 class ModuleConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {

@@ -32,3 +32,7 @@ internal fun DependencyHandlerScope.kapt(
 ) {
     dependencies.add("kapt", dependencyNotation)
 }
+
+internal fun VersionCatalog.bundle(name: String) = findBundle(name).get()
+
+internal fun VersionCatalog.library(name: String) = findLibrary(name).get()

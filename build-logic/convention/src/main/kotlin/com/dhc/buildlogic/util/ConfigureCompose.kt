@@ -5,7 +5,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 internal fun Project.configureCompose(
-    commonExtension: CommonExtension<*, *, *, *>,
+    commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
     with(commonExtension) {
         with(pluginManager) {
@@ -17,13 +17,9 @@ internal fun Project.configureCompose(
         }
 
         dependencies {
-            val composeBom = platform(libs.findLibrary("androidx.compose.bom").get())
-            implementation(composeBom)
-            implementation(libs.findBundle("androidx.compose").get())
-            debugImplementation(libs.findLibrary("androidx.ui.tooling").get())
-            debugImplementation(libs.findLibrary("androidx.ui.test.manifest").get())
-            androidTestImplementation(composeBom)
-            androidTestImplementation(libs.findLibrary("androidx.ui.test.junit4").get())
+            implementation(platform(libs.library("androidx.compose.bom")))
+            implementation(libs.bundle("androidx.compose"))
+            debugImplementation(libs.library("androidx.ui.tooling"))
         }
     }
 }
