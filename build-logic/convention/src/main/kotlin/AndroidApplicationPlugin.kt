@@ -18,21 +18,17 @@ class AndroidApplicationPlugin : Plugin<Project> {
             }
 
             extensions.configure<ApplicationExtension> {
-                configureKotlinAndroid(this)
-                configureCompose(this)
-                configureFlavor(this)
-
                 defaultConfig.applicationId = "com.dhc.dhcandroid"
-            }
-
-            extensions.configure<ApplicationExtension> {
-                configureCompose(this)
 
                 with(defaultConfig) {
                     targetSdk = libs.findVersion("targetSdk").get().requiredVersion.toInt()
                     versionCode = libs.findVersion("versionCode").get().requiredVersion.toInt()
                     versionName = libs.findVersion("versionName").get().requiredVersion
                 }
+
+                configureKotlinAndroid(this)
+                configureCompose(this)
+                configureFlavor(this)
             }
 
             dependencies {

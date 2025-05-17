@@ -10,6 +10,8 @@ activityCompose = "1.10.1"
 composeBom = "2024.04.01"
 dagger-hilt = "2.51.1"
 dagger-hilt-navigation-compose = "1.2.0"
+flipper = "0.273.0"
+soloader = "0.10.5"
 
 detekt = "1.22.0"
 
@@ -19,7 +21,6 @@ versionCode = "1"
 versionName = "1.0"
 compileSdk = "35"
 minSdk = "24"
-
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -45,6 +46,11 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", name = "hilt-compi
 
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+
+flipper = { group = "com.facebook.flipper", name = "flipper", version.ref = "flipper" }
+flipper-soloader = { group = "com.facebook.soloader", name = "soloader", version.ref = "soloader" }
+flipper-noop = { group = "com.facebook.flipper", name = "flipper-noop", version.ref = "flipper" }
+flipper-network-plugin = { group = "com.facebook.flipper", name = "flipper-network-plugin", version.ref = "flipper" }
 
 [bundles]
 hilt = [
