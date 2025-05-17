@@ -27,7 +27,8 @@ private fun initFlipper(context: Context) {
                     context,
                     DescriptorMapping.withDefaults()
                 )
-            )
+            ) // 기본 Flipper 플러그인
+            addPlugin(InspectorFlipperPlugin(context, DescriptorMapping.withDefaults())) // Flipper Layout 플러그인
         }
         client.start()
     }
