@@ -16,6 +16,7 @@ dependencies {
 
     debugImplementation(libs.flipper)
     debugImplementation(libs.flipper.soloader)
+    debugImplementation(libs.flipper.network)
     releaseImplementation(libs.flipper.noop)
 
     testImplementation(libs.junit)
