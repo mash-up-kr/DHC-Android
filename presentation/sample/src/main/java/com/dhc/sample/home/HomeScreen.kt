@@ -39,7 +39,7 @@ fun HomeRoute(
     HomeScreen(
         state = state,
         eventHandler = viewModel::sendEvent,
-    )히히 버그지롱
+    )
 }
 
 @Composable
