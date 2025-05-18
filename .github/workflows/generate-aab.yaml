@@ -5,8 +5,8 @@ on:
     pull_request:
       branches:
         - develop # main 변경 예정
-      types:
-        - opened # closed 변경 예정
+#      types:
+#        - closed
 
 jobs:
   generate-aab:
