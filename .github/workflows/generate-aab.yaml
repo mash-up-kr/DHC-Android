@@ -1,10 +1,10 @@
 name: Generate AAB File
 
-on: 
-  workflow_run: 
-    pull_request:
-      branches:
-        - develop # main 변경 예정
+on: [pull_request]
+#  workflow_run:
+#    pull_request:
+#      branches:
+#        - develop # main 변경 예정
 #      types:
 #        - closed
 
