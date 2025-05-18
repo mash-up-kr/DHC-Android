@@ -1,4 +1,4 @@
-name: detekt Auto Testing
+name: debug build Testing
 
 on:
   pull_request:
