@@ -52,7 +52,7 @@ jobs:
         with:
           script: |
             const artifact_url_aab = `https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}/artifacts/${process.env.artifact_id_aab}`;
-            const comment_body = `AAB 파일 생성 완료! [AAB Downloads Link](${artifact_url_aab})`;
+            const comment_body = `🚗 AAB 파일 생성 완료! [AAB Downloads Link](${artifact_url_aab}) 🚗`;
             const pull_request_number = context.issue.number;
             await github.rest.issues.createComment({
               ...context.repo,
