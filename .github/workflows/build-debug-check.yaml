@@ -2,7 +2,7 @@ name: debug build Testing
 
 on:
   pull_request:
-    branches: [ "feature/**", "develop" ]
+    branches: [ "develop" ]
 
 jobs:
   build:
