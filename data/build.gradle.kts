@@ -1,5 +1,6 @@
 plugins {
     id("dhc.module")
+    id("dhc.hilt")
 }
 
 android {
@@ -9,6 +10,9 @@ android {
 dependencies {
     implementation(project(":core:common"))
 
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.bundles.network)
+
+    debugImplementation(libs.bundles.flipper)
+
     testImplementation(libs.junit)
 }

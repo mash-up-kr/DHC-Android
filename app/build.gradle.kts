@@ -9,10 +9,11 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    detektPlugins(libs.detekt.formatting)
+
+    implementation(libs.bundles.flipper)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    detektPlugins(libs.detekt.formatting)
 }
