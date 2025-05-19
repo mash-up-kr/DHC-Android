@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.dhc.buildlogic.util.configureAndroidLibrary
 import com.dhc.buildlogic.util.configureCompose
 import com.dhc.buildlogic.util.configureFlavor
 import com.dhc.buildlogic.util.configureKotlinAndroid
@@ -27,6 +28,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 }
 
                 configureKotlinAndroid(this)
+                configureAndroidLibrary(this)
                 configureCompose(this)
                 configureFlavor(this)
             }

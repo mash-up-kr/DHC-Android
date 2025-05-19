@@ -45,7 +45,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
-# dtekt
+# detekt
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 
 # hilt
@@ -88,6 +88,12 @@ network = [
     "okhttp",
     "okhttp-logging-interceptor",
     "retrofit",
+]
+
+flipper = [
+    "flipper",
+    "flipper-soloader",
+    "flipper-network",
 ]
 
 

@@ -1,7 +1,7 @@
 package com.dhc.dhcandroid
 
 import android.app.Application
-import android.content.Context
+import com.facebook.flipper.BuildConfig
 import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.android.utils.FlipperUtils
 import com.facebook.flipper.plugins.inspector.DescriptorMapping
@@ -18,24 +18,17 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        initFlipper(this, networkFlipperPlugin)
+        initFlipper(networkFlipperPlugin)
     }
-}
 
-private fun initFlipper(context: Context, networkFlipperPlugin: NetworkFlipperPlugin) {
-    SoLoader.init(context, false)
-    if (context.getString(R.string.build_type) == "debug" && FlipperUtils.shouldEnableFlipper(context)) {
-        val client = AndroidFlipperClient.getInstance(context).apply {
-            // 기본 Flipper 플러그인
-            addPlugin(
-                InspectorFlipperPlugin(
-                    context,
-                    DescriptorMapping.withDefaults()
-                )
-            )
-            addPlugin(InspectorFlipperPlugin(context, DescriptorMapping.withDefaults())) // Layout 플러그인
-            addPlugin(networkFlipperPlugin) // network 플러그인
+    private fun initFlipper(networkFlipperPlugin: NetworkFlipperPlugin) {
+        SoLoader.init(this, false)
+        if (BuildConfig.DEBUG && FlipperUtils.shouldEnableFlipper(this)) {
+            val client = AndroidFlipperClient.getInstance(this@MyApplication).apply {
+                addPlugin(InspectorFlipperPlugin(this@MyApplication, DescriptorMapping.withDefaults())) // Layout 플러그인
+                addPlugin(networkFlipperPlugin) // network 플러그인
+            }
+            client.start()
         }
-        client.start()
     }
 }

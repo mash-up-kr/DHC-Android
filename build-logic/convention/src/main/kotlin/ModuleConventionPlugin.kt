@@ -1,4 +1,5 @@
 import com.android.build.gradle.LibraryExtension
+import com.dhc.buildlogic.util.configureAndroidLibrary
 import com.dhc.buildlogic.util.configureFlavor
 import com.dhc.buildlogic.util.configureKotlinAndroid
 import org.gradle.api.Plugin
@@ -15,6 +16,7 @@ class ModuleConventionPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
+                configureAndroidLibrary(this)
                 configureFlavor(this)
 
                 defaultConfig.consumerProguardFiles("consumer-rules.pro")

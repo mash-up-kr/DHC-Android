@@ -9,15 +9,9 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-
     detektPlugins(libs.detekt.formatting)
 
-    debugImplementation(libs.flipper)
-    debugImplementation(libs.flipper.soloader)
-    debugImplementation(libs.flipper.network)
-    releaseImplementation(libs.flipper.noop)
+    implementation(libs.bundles.flipper)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
