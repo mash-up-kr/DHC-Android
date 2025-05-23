@@ -29,7 +29,6 @@ class PresentationConventionPlugin : Plugin<Project> {
                     implementation(project(":core:designsystem"))
                     implementation(project(":core:presentation"))
                     implementation(project(":core:common"))
-                    implementation(project(":core:navigation"))
                     implementation(project(":data"))
                 }
             }
