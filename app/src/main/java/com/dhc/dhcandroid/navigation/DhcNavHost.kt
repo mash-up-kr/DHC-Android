@@ -24,7 +24,7 @@ fun DhcNavHost(
         navController = navController,
         startDestination = startDestination,
     ) {
-        composable(DhcRoutes.INTRO) {
+        composable(DhcRoutes.INTRO.route) {
             // 아래 내용은 예시
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -33,14 +33,14 @@ fun DhcNavHost(
             ) {
                 Text("Intro")
                 Button(
-                    onClick = { navController.navigateToHomeFromIntro() }
+                    onClick = { navController.navigateToHomeFromIntro() },
                 ) {
                     Text("Go to Home")
                 }
             }
         }
 
-        composable(DhcRoutes.MAIN.HOME) {
+        composable(DhcRoutes.MAIN_HOME.route) {
             // 아래 내용은 예시
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -49,19 +49,19 @@ fun DhcNavHost(
             ) {
                 Text("Home")
                 Button(
-                    onClick = { navController.navigateToCalendar() }
+                    onClick = { navController.navigateToCalendar() },
                 ) {
                     Text("Go to Calendar")
                 }
                 Button(
-                    onClick = { navController.navigateToMy() }
+                    onClick = { navController.navigateToMy() },
                 ) {
                     Text("Go to My")
                 }
             }
         }
 
-        composable(DhcRoutes.MAIN.CALENDAR) {
+        composable(DhcRoutes.MAIN_CALENDAR.route) {
             // 아래 내용은 예시
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -70,19 +70,19 @@ fun DhcNavHost(
             ) {
                 Text("Calendar")
                 Button(
-                    onClick = { navController.navigateToHome() }
+                    onClick = { navController.navigateToHome() },
                 ) {
                     Text("Go to Home")
                 }
                 Button(
-                    onClick = { navController.navigateToMy() }
+                    onClick = { navController.navigateToMy() },
                 ) {
                     Text("Go to My")
                 }
             }
         }
 
-        composable(DhcRoutes.MAIN.MY) {
+        composable(DhcRoutes.MAIN_MY.route) {
             // 아래 내용은 예시
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -91,12 +91,12 @@ fun DhcNavHost(
             ) {
                 Text("My")
                 Button(
-                    onClick = { navController.navigateToHome() }
+                    onClick = { navController.navigateToHome() },
                 ) {
                     Text("Go to Home")
                 }
                 Button(
-                    onClick = { navController.navigateToCalendar() }
+                    onClick = { navController.navigateToCalendar() },
                 ) {
                     Text("Go to Calendar")
                 }
