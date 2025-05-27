@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-class DhcFirebaseMessagingService: FirebaseMessagingService() {
+class DhcFirebaseMessagingService : FirebaseMessagingService() {
 
     private val notificationManager by lazy {
         applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
@@ -35,7 +35,7 @@ class DhcFirebaseMessagingService: FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         Log.d(TAG, "onNewToken: Refreshed token= $token")
-        //서버에 전송 로직 추가 필요
+        // 서버에 전송 로직 추가 필요
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
