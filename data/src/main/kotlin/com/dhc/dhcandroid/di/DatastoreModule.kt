@@ -27,6 +27,12 @@ internal object DatastoreModule {
 
     @Provides
     @Singleton
+    fun provideUserPreferencesSerializer(): PreferencesUserSerializer {
+        return PreferencesUserSerializer()
+    }
+
+    @Provides
+    @Singleton
     fun provideSampleDatastore(
         @ApplicationContext context: Context,
         serializer: PreferencesSerializer,

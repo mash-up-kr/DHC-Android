@@ -11,20 +11,25 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.dhc.dhcandroid.ui.theme.DHCAndroidTheme
 import com.dhc.sample.home.HomeRoute
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.getValue
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val mainViewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         getUUID()
         askNotificationPermission()
+        getFcmToken()
 
         setContent {
             DHCAndroidTheme {
@@ -37,6 +42,7 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("HardwareIds")
     private fun getUUID() {
         val userId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+        Log.d(TAG, userId)
     }
 
     private val requestPermissionLauncher = registerForActivityResult(
@@ -68,6 +74,7 @@ class MainActivity : ComponentActivity() {
             }
             val token = task.result
             Log.d(TAG, token)
+            mainViewModel.setFcmToken(token)
         })
     }
 }
