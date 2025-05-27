@@ -22,6 +22,10 @@ protobuf = "0.9.5"
 proto-datastore = "1.1.6"
 protobuf-javalite = "3.25.5"
 
+#firebase
+firebase-gms = "4.4.2"
+firebase-bom = "33.14.0"
+
 
 # 프로젝트 설정
 targetSdk = "35"
@@ -74,6 +78,10 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 protobuf = { group = "androidx.datastore", name = "datastore", version.ref = "proto-datastore" }
 protobuf-javalite = { group = "com.google.protobuf", name = "protobuf-javalite", version.ref = "protobuf-javalite" }
 
+
+#firebase
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom"}
+
 [bundles]
 hilt = [
     "hilt-navigation",
@@ -122,3 +130,4 @@ kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
+google-gms = { id = "com.google.gms.google-services", version.ref = "firebase-gms"}
