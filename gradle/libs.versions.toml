@@ -25,7 +25,7 @@ protobuf-javalite = "3.25.5"
 #firebase
 firebase-gms = "4.4.2"
 firebase-bom = "33.14.0"
-
+firebase = "24.1.1"
 
 # 프로젝트 설정
 targetSdk = "35"
@@ -81,6 +81,7 @@ protobuf-javalite = { group = "com.google.protobuf", name = "protobuf-javalite",
 
 #firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom"}
+firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx", version.ref = "firebase" }
 
 [bundles]
 hilt = [
@@ -118,6 +119,7 @@ proto-datastore = [
     "protobuf",
     "protobuf-javalite",
 ]
+
 
 
 [plugins]
