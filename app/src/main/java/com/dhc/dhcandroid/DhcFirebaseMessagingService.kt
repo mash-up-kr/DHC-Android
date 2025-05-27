@@ -35,6 +35,7 @@ class DhcFirebaseMessagingService: FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         Log.d(TAG, "onNewToken: Refreshed token= $token")
+        //서버에 전송 로직 추가 필요
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
