@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.dhc.dhcandroid.navigation.DhcApp
 import com.dhc.dhcandroid.ui.theme.DHCAndroidTheme
-import com.dhc.sample.home.HomeRoute
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -30,7 +30,7 @@ fun DhcApp() {
 // Todo :: 추후 디자인 시스템 모듈로 이동하여 사용하자
 @Composable
 fun DhcTopBar(state: DhcTopBarState) {
-    when(state) {
+    when (state) {
         is DhcTopBarState.CenterTitle -> {
             // Todo :: Top bar Component
             Text(state.title)
@@ -44,7 +44,7 @@ fun DhcTopBar(state: DhcTopBarState) {
 // Todo :: 추후 디자인 시스템 모듈로 이동하여 사용하자
 @Composable
 fun DhcBottomBar(state: DhcBottomBarState) {
-    when(state) {
+    when (state) {
         is DhcBottomBarState.BottomNavigation -> {
             // Todo :: Bottom navigation bar Component
             Text("글로벌 내비게이션 바")

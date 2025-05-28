@@ -19,22 +19,23 @@ sealed interface DhcBottomBarState {
     data object None : DhcBottomBarState {
         override val items: List<BottomNavigationItem> = emptyList()
     }
+
     data object BottomNavigation : DhcBottomBarState {
         override val items = listOf(
             BottomNavigationItem(
                 name = "Home",
                 icon = "ic_home",
-                onClick = { /* Navigate to Home */ }
+                onClick = { /* Navigate to Home */ },
             ),
             BottomNavigationItem(
                 name = "Calendar",
                 icon = "ic_calendar",
-                onClick = { /* Navigate to Calendar */ }
+                onClick = { /* Navigate to Calendar */ },
             ),
             BottomNavigationItem(
                 name = "My",
                 icon = "ic_my",
-                onClick = { /* Navigate to My */ }
+                onClick = { /* Navigate to My */ },
             ),
         )
     }
