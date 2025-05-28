@@ -1,37 +1,47 @@
 package com.dhc.dhcandroid.navigation
 
 data class ScreenConfig(
-    val showTopBar: Boolean = true,
-    val showBottomBar: Boolean = false,
-    val title: String = "",
-    val showBackButton: Boolean = false,
+    val topBarState: DhcTopBarState = DhcTopBarState.None,
+    val bottomBarState: DhcBottomBarState = DhcBottomBarState.None,
 )
 
-object ScreenConfigs {
-    private val configs = mapOf(
-        DhcRoutes.INTRO to ScreenConfig(
-            showTopBar = false,
-            showBottomBar = false,
-            title = "Intro",
-        ),
-        DhcRoutes.MAIN_HOME to ScreenConfig(
-            showTopBar = false,
-            showBottomBar = true,
-            title = "Home",
-        ),
-        DhcRoutes.MAIN_CALENDAR to ScreenConfig(
-            showTopBar = true,
-            showBottomBar = true,
-            title = "이번 달 미션 현황",
-        ),
-        DhcRoutes.MAIN_MY to ScreenConfig(
-            showTopBar = false,
-            showBottomBar = true,
-            title = "My",
-        ),
-    )
+sealed interface DhcTopBarState {
+    data object None : DhcTopBarState
+    data class CenterTitle(
+        val title: String,
+        val showBackButton: Boolean,
+    ) : DhcTopBarState
+}
 
-    fun getConfig(route: DhcRoutes): ScreenConfig {
-        return configs[route] ?: ScreenConfig()
+sealed interface DhcBottomBarState {
+    val items: List<BottomNavigationItem>
+
+    data object None : DhcBottomBarState {
+        override val items: List<BottomNavigationItem> = emptyList()
+    }
+    data object BottomNavigation : DhcBottomBarState {
+        override val items = listOf(
+            BottomNavigationItem(
+                name = "Home",
+                icon = "ic_home",
+                onClick = { /* Navigate to Home */ }
+            ),
+            BottomNavigationItem(
+                name = "Calendar",
+                icon = "ic_calendar",
+                onClick = { /* Navigate to Calendar */ }
+            ),
+            BottomNavigationItem(
+                name = "My",
+                icon = "ic_my",
+                onClick = { /* Navigate to My */ }
+            ),
+        )
     }
 }
+
+data class BottomNavigationItem(
+    val name: String,
+    val icon: String,
+    val onClick: () -> Unit,
+)

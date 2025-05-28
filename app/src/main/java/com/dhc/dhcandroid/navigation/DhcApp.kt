@@ -4,42 +4,53 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import com.dhc.dhcandroid.navigation.DhcRoutes.Companion.getRouteByPattern
 
 @Composable
 fun DhcApp() {
-    val navController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
-
-    val screenConfig by remember(currentRoute) {
-        mutableStateOf(ScreenConfigs.getConfig(getRouteByPattern(currentRoute)))
-    }
+    val startDestination = DhcRoute.INTRO
+    val navController = rememberDhcNavController(startDestination)
 
     Scaffold(
         topBar = {
-            if (screenConfig.showTopBar) {
-                // Todo :: Top bar Component
-                Text(screenConfig.title)
-            }
+            DhcTopBar(navController.currentRoot.screenConfig.topBarState)
         },
         bottomBar = {
-            if (screenConfig.showBottomBar) {
-                // Todo :: Bottom navigation bar Component
-                Text("바텀 내비게이션 바")
-            }
+            DhcBottomBar(navController.currentRoot.screenConfig.bottomBarState)
         },
     ) { paddingValues ->
         DhcNavHost(
             navController = navController,
-            startDestination = DhcRoutes.INTRO.route,
+            startDestination = startDestination,
             modifier = Modifier.padding(paddingValues),
         )
+    }
+}
+
+// Todo :: 추후 디자인 시스템 모듈로 이동하여 사용하자
+@Composable
+fun DhcTopBar(state: DhcTopBarState) {
+    when(state) {
+        is DhcTopBarState.CenterTitle -> {
+            // Todo :: Top bar Component
+            Text(state.title)
+        }
+        is DhcTopBarState.None -> {
+            // No top bar
+        }
+    }
+}
+
+// Todo :: 추후 디자인 시스템 모듈로 이동하여 사용하자
+@Composable
+fun DhcBottomBar(state: DhcBottomBarState) {
+    when(state) {
+        is DhcBottomBarState.BottomNavigation -> {
+            // Todo :: Bottom navigation bar Component
+            Text("글로벌 내비게이션 바")
+        }
+        is DhcBottomBarState.None -> {
+            // No bottom bar
+        }
     }
 }

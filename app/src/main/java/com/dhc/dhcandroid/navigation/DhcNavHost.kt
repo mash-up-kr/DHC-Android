@@ -8,23 +8,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun DhcNavHost(
-    startDestination: String,
+    startDestination: DhcRoute,
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController(),
+    navController: DhcNavHostController = rememberDhcNavController(startDestination),
 ) {
     NavHost(
         modifier = modifier,
-        navController = navController,
-        startDestination = startDestination,
+        navController = navController.controller,
+        startDestination = startDestination.route,
     ) {
-        composable(DhcRoutes.INTRO.route) {
+        composable(DhcRoute.INTRO.route) {
             // 아래 내용은 예시
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -40,7 +38,7 @@ fun DhcNavHost(
             }
         }
 
-        composable(DhcRoutes.MAIN_HOME.route) {
+        composable(DhcRoute.MAIN_HOME.route) {
             // 아래 내용은 예시
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -61,7 +59,7 @@ fun DhcNavHost(
             }
         }
 
-        composable(DhcRoutes.MAIN_CALENDAR.route) {
+        composable(DhcRoute.MAIN_CALENDAR.route) {
             // 아래 내용은 예시
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -82,7 +80,7 @@ fun DhcNavHost(
             }
         }
 
-        composable(DhcRoutes.MAIN_MY.route) {
+        composable(DhcRoute.MAIN_MY.route) {
             // 아래 내용은 예시
             Column(
                 modifier = Modifier.fillMaxSize(),
