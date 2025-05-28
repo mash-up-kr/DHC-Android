@@ -34,6 +34,6 @@ enum class DhcRoute(
     ),
     NONE(
         route = "none",
-        screenConfig = ScreenConfig()
-    ),;
+        screenConfig = ScreenConfig(),
+    ), ;
 }
