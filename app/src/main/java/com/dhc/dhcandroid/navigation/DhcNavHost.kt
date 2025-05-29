@@ -27,7 +27,7 @@ fun DhcNavHost(
             SplashRoute(
                 navigateToNextScreen = {
                     navController.navigateToIntroFromSplash()
-                }
+                },
             )
         }
 
