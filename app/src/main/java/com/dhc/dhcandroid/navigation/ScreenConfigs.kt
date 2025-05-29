@@ -25,17 +25,17 @@ sealed interface DhcBottomBarState {
             BottomNavigationItem(
                 name = "Home",
                 icon = "ic_home",
-                onClick = { /* Navigate to Home */ },
+                route = DhcRoute.MAIN_HOME.name,
             ),
             BottomNavigationItem(
                 name = "Calendar",
                 icon = "ic_calendar",
-                onClick = { /* Navigate to Calendar */ },
+                route = DhcRoute.MAIN_CALENDAR.name,
             ),
             BottomNavigationItem(
                 name = "My",
                 icon = "ic_my",
-                onClick = { /* Navigate to My */ },
+                route = DhcRoute.MAIN_MY.name,
             ),
         )
     }
@@ -44,5 +44,5 @@ sealed interface DhcBottomBarState {
 data class BottomNavigationItem(
     val name: String,
     val icon: String,
-    val onClick: () -> Unit,
+    val route: String,
 )

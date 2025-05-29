@@ -1,5 +1,7 @@
 package com.dhc.dhcandroid.navigation
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -43,11 +45,26 @@ fun DhcTopBar(state: DhcTopBarState) {
 
 // Todo :: 추후 디자인 시스템 모듈로 이동하여 사용하자
 @Composable
-fun DhcBottomBar(state: DhcBottomBarState) {
+fun DhcBottomBar(
+    state: DhcBottomBarState,
+    modifier: Modifier = Modifier,
+    navigateToRoute: (DhcRoute) -> Unit = {},
+) {
     when (state) {
         is DhcBottomBarState.BottomNavigation -> {
             // Todo :: Bottom navigation bar Component
-            Text("글로벌 내비게이션 바")
+            Row(
+                modifier = modifier,
+            ) {
+                state.items.forEach { item ->
+                    Text(
+                        modifier = modifier.clickable {
+                            navigateToRoute(DhcRoute.from(item.route))
+                        },
+                        text = item.name,
+                    )
+                }
+            }
         }
         is DhcBottomBarState.None -> {
             // No bottom bar

@@ -36,4 +36,10 @@ enum class DhcRoute(
         route = "none",
         screenConfig = ScreenConfig(),
     ), ;
+
+    companion object {
+        fun from(name: String): DhcRoute {
+            return entries.find { it.name == name } ?: NONE
+        }
+    }
 }
