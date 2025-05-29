@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun DhcApp() {
-    val startDestination = DhcRoute.INTRO
+    val startDestination = DhcRoute.SPLASH
     val navController = rememberDhcNavController(startDestination)
 
     Scaffold(
