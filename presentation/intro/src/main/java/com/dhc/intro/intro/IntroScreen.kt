@@ -1,15 +1,15 @@
-package com.dhc.intro.tutorial
+package com.dhc.intro.intro
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun TutorialScreen() {
+fun IntroScreen() {
 
 }
 
 @Preview
 @Composable
 private fun TutorialScreenPreview() {
-    TutorialScreen()
+    IntroScreen()
 }
