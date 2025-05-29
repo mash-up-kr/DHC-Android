@@ -25,7 +25,7 @@ class DhcFirebaseMessagingService : FirebaseMessagingService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Channel title",
+                "Channel title", //TODO - 추후 정의 필요
                 NotificationManager.IMPORTANCE_HIGH,
             )
             notificationManager.createNotificationChannel(channel)
@@ -62,14 +62,6 @@ class DhcFirebaseMessagingService : FirebaseMessagingService() {
         )
 
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(title)
-            .setContentText(messageBody)
-            .setSound(defaultSoundUri)
-            .setContentIntent(pendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_HIGH).build()
-
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.POST_NOTIFICATIONS,
@@ -77,8 +69,16 @@ class DhcFirebaseMessagingService : FirebaseMessagingService() {
         ) {
             Log.i(TAG, "sendNotification: message Fail, no permission")
             return
+        } else {
+            val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(messageBody)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH).build()
+            notificationManager.notify(0, notificationBuilder)
         }
-        notificationManager.notify(0, notificationBuilder)
     }
 
     companion object {
