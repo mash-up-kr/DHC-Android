@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,11 +22,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dhc.intro.R
+import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun IntroScreen(
+    eventHandler: EventHandler<IntroContract.Event>,
     modifier: Modifier = Modifier,
-    navigateToNextScreen: () -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -66,7 +66,7 @@ fun IntroScreen(
         Spacer(modifier = Modifier.padding(top = 54.dp))
         NextButton(
             text = stringResource(R.string.button_start),
-            onClick = navigateToNextScreen,
+            onClick = { eventHandler(IntroContract.Event.ClickNextButton) },
         )
     }
 }
@@ -95,5 +95,5 @@ private fun NextButton(
 @Preview(showBackground = true)
 @Composable
 private fun TutorialScreenPreview() {
-    IntroScreen {}
+    IntroScreen(eventHandler = {})
 }
