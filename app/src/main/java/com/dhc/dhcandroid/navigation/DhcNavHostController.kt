@@ -1,6 +1,8 @@
 package com.dhc.dhcandroid.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -11,13 +13,13 @@ class DhcNavHostController(
     val controller: NavHostController,
     startDestination: DhcRoute,
 ) {
-    var currentRoot = startDestination
-        private set
+    private val _currentRoot = mutableStateOf(startDestination)
+    val currentRoot: State<DhcRoute> = _currentRoot
 
     fun navigateTo(route: DhcRoute, builder: NavOptionsBuilder.() -> Unit = {}) {
-        if (currentRoot == route) return
+        if (currentRoot.value == route) return
         controller.navigate(route.route, builder)
-        currentRoot = route
+        _currentRoot.value = route
     }
 
     fun navigateToBottomNavigation(route: DhcRoute) {

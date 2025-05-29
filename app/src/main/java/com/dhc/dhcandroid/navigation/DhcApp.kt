@@ -15,10 +15,10 @@ fun DhcApp() {
 
     Scaffold(
         topBar = {
-            DhcTopBar(navController.currentRoot.screenConfig.topBarState)
+            DhcTopBar(navController.currentRoot.value.screenConfig.topBarState)
         },
         bottomBar = {
-            DhcBottomBar(navController.currentRoot.screenConfig.bottomBarState)
+            DhcBottomBar(navController.currentRoot.value.screenConfig.bottomBarState)
         },
     ) { paddingValues ->
         DhcNavHost(
@@ -37,6 +37,7 @@ fun DhcTopBar(state: DhcTopBarState) {
             // Todo :: Top bar Component
             Text(state.title)
         }
+
         is DhcTopBarState.None -> {
             // No top bar
         }
@@ -66,6 +67,7 @@ fun DhcBottomBar(
                 }
             }
         }
+
         is DhcBottomBarState.None -> {
             // No bottom bar
         }
