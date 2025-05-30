@@ -24,7 +24,7 @@ class SplashViewModel @Inject constructor(
 
     override suspend fun handleEvent(event: Event) {
         when (event) {
-            Event.SplashFinished -> {
+            Event.SplashFinish -> {
                 reduce { copy(isSplashFinished = true) }
             }
         }
@@ -33,7 +33,7 @@ class SplashViewModel @Inject constructor(
     private fun waitSplashTimeAndFinished() {
         viewModelScope.launch {
             delay(SPLASH_TIME)
-            handleEvent(Event.SplashFinished)
+            handleEvent(Event.SplashFinish)
         }
     }
 

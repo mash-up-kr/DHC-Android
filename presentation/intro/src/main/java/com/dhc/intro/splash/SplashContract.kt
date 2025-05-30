@@ -18,7 +18,7 @@ class SplashContract {
      * 액션 정의
      */
     sealed interface Event : UiEvent {
-        data object SplashFinished : Event
+        data object SplashFinish : Event
     }
 
     /**
