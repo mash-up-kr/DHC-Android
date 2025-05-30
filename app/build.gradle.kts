@@ -10,6 +10,7 @@ android {
 
 dependencies {
     detektPlugins(libs.detekt.formatting)
+    lintChecks(libs.compose.lint)
 
     implementation(libs.bundles.flipper)
 

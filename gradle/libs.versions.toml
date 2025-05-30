@@ -16,6 +16,7 @@ retrofit = "3.0.0"
 okhttp = "4.12.0"
 
 detekt = "1.22.0"
+compose-lint = "1.4.2"
 
 navigation = "2.9.0"
 
@@ -54,8 +55,9 @@ androidx-navigation = { group = "androidx.navigation", name = "navigation-compos
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
-# detekt
+# lint
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+compose-lint = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "compose-lint" }
 
 # hilt
 hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "dagger-hilt-navigation-compose"}
