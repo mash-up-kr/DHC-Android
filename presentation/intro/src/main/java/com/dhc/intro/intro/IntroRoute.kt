@@ -1,7 +1,6 @@
 package com.dhc.intro.intro
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -21,10 +20,8 @@ fun IntroRoute(
         }
     }
 
-    Scaffold { innerPadding ->
-        IntroScreen(
-            modifier = Modifier.padding(innerPadding),
-            eventHandler = viewModel::sendEvent
-        )
-    }
+    IntroScreen(
+        modifier = Modifier.fillMaxSize(),
+        eventHandler = viewModel::sendEvent
+    )
 }
