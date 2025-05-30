@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.dhc.designsystem.DHCAndroidTheme
 import com.dhc.intro.R
 import com.dhc.presentation.mvi.EventHandler
 
@@ -95,5 +96,7 @@ private fun NextButton(
 @Preview(showBackground = true)
 @Composable
 private fun TutorialScreenPreview() {
-    IntroScreen(eventHandler = {})
+    DHCAndroidTheme {
+        IntroScreen(eventHandler = {})
+    }
 }
