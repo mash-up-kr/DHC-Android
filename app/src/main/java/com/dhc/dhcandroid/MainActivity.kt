@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.dhc.dhcandroid.navigation.DhcApp
-import com.dhc.dhcandroid.ui.theme.DHCAndroidTheme
+import com.dhc.designsystem.DHCAndroidTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
