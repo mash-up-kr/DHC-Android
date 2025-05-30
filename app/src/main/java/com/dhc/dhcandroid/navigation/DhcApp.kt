@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -18,14 +19,14 @@ import androidx.navigation.compose.rememberNavController
 fun DhcApp() {
     val startDestination = DhcRoute.INTRO
     val navController = rememberNavController()
-    val currentScreenConfig = currentScreenConfigAsState(navController)
+    val currentScreenConfig by currentScreenConfigAsState(navController)
 
     Scaffold(
         topBar = {
-            DhcTopBar(currentScreenConfig.value.topBarState)
+            DhcTopBar(currentScreenConfig.topBarState)
         },
         bottomBar = {
-            DhcBottomBar(currentScreenConfig.value.bottomBarState)
+            DhcBottomBar(currentScreenConfig.bottomBarState)
         },
     ) { paddingValues ->
         DhcNavHost(
@@ -38,12 +39,12 @@ fun DhcApp() {
 
 @Composable
 private fun currentScreenConfigAsState(navController: NavHostController): State<ScreenConfig> {
-    val navBackStackEntry = navController.currentBackStackEntryAsState()
-    val route = navBackStackEntry.value?.destination?.route
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val route = navBackStackEntry?.destination?.route ?: DhcRoute.NONE.route
 
     return remember(route) {
         derivedStateOf {
-            route?.let { DhcRoute.fromRoute(it).screenConfig } ?: DhcRoute.NONE.screenConfig
+            DhcRoute.fromRoute(route).screenConfig
         }
     }
 }
