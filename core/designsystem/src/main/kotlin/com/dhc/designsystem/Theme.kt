@@ -1,4 +1,4 @@
-package com.dhc.dhcandroid.ui.theme
+package com.dhc.designsystem
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
