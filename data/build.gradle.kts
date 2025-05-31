@@ -17,7 +17,7 @@ dependencies {
 
     implementation(libs.bundles.proto.datastore)
 
-    debugImplementation(libs.bundles.flipper)
+    implementation(libs.bundles.flipper)
 
     testImplementation(libs.junit)
 }

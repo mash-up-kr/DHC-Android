@@ -2,6 +2,7 @@ plugins {
     id("dhc.application")
     id("dhc.hilt")
     alias(libs.plugins.detekt)
+    alias(libs.plugins.baselineprofile)
 }
 
 android {
@@ -9,6 +10,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.profileinstaller)
+    "baselineProfile"(project(":baselineprofile"))
+
     detektPlugins(libs.detekt.formatting)
 
     implementation(libs.bundles.flipper)

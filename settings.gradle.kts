@@ -29,5 +29,6 @@ include(":core:designsystem")
 include(":core:common")
 include(":core:navigation")
 include(":core:presentation")
+include(":baselineprofile")
 
 include(":presentation:intro")
