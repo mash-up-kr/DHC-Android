@@ -1,7 +1,6 @@
-plugins {
-    id("dhc.module")
-    alias(libs.plugins.android.test)
-    alias(libs.plugins.kotlin.android)
+ plugins {
+    id("dhc.test")
+    alias(libs.plugins.baselineprofile)
 }
 
 android {

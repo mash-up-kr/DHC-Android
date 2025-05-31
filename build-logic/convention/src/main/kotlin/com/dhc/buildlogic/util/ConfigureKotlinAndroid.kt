@@ -8,6 +8,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 internal fun Project.configureKotlinAndroid(
     commonExtension: CommonExtension<*, *, *, *, * , *>,
+    needBuildType: Boolean = true,
 ) {
     with(commonExtension) {
         with(pluginManager) {
@@ -21,18 +22,20 @@ internal fun Project.configureKotlinAndroid(
             testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
 
-        buildTypes {
-            named("debug") {
-                resValue("string", "build_type", "debug")
-            }
+        if (needBuildType) {
+            buildTypes {
+                named("debug") {
+                    resValue("string", "build_type", "debug")
+                }
 
-            named("release") {
-                isMinifyEnabled = false
-                proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
-                )
-                resValue("string", "build_type", "release")
+                named("release") {
+                    isMinifyEnabled = false
+                    proguardFiles(
+                        getDefaultProguardFile("proguard-android-optimize.txt"),
+                        "proguard-rules.pro"
+                    )
+                    resValue("string", "build_type", "release")
+                }
             }
         }
 

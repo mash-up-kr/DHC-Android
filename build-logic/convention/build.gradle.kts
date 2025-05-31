@@ -40,5 +40,10 @@ gradlePlugin {
             id = "dhc.module"
             implementationClass = "ModuleConventionPlugin"
         }
+
+        register("test") {
+            id = "dhc.test"
+            implementationClass = "TestModuleConventionPlugin"
+        }
     }
 }
