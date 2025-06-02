@@ -1,8 +1,12 @@
 package com.dhc.dhcandroid
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dhc.dhcandroid.repository.UserDataStoreRepository
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,5 +29,19 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             userDataStoreRepository.setFcmToken(token)
         }
+    }
+
+    fun getFcmToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(
+            OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.e(TAG, "Fetching FCM registration token failed", task.exception)
+                    return@OnCompleteListener
+                }
+                val token = task.result
+                Log.d(TAG, token)
+                setFcmToken(token)
+            },
+        )
     }
 }

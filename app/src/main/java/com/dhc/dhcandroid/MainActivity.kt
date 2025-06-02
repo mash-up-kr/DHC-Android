@@ -1,5 +1,6 @@
 package com.dhc.dhcandroid
 
+import android.Manifest.permission.POST_NOTIFICATIONS
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Build
@@ -26,8 +27,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         getUUID()
-        askNotificationPermission()
-        getFcmToken()
+        requestNotificationPermission()
+        mainViewModel.getFcmToken()
 
         setContent {
             DHCAndroidTheme {
@@ -50,27 +51,13 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun askNotificationPermission() {
+    private fun requestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
+            if (shouldShowRequestPermissionRationale(POST_NOTIFICATIONS)) {
                 // 이전에 거부한 경우 권한 필요성 설명 및 권한 요청
             } else {
-                requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                requestPermissionLauncher.launch(POST_NOTIFICATIONS)
             }
         }
-    }
-
-    private fun getFcmToken() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(
-            OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.e(TAG, "Fetching FCM registration token failed", task.exception)
-                    return@OnCompleteListener
-                }
-                val token = task.result
-                Log.d(TAG, token)
-                mainViewModel.setFcmToken(token)
-            },
-        )
     }
 }
