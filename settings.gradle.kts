@@ -30,3 +30,4 @@ include(":core:common")
 include(":core:presentation")
 
 include(":presentation:intro")
+include(":presentation:home")
