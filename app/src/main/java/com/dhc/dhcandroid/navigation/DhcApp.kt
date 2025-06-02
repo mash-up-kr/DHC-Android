@@ -6,19 +6,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun DhcApp() {
     val startDestination = DhcRoute.INTRO
-    val navController = rememberDhcNavController(startDestination)
+    val navController = rememberNavController()
+    val currentScreenConfig by currentScreenConfigAsState(navController)
 
     Scaffold(
         topBar = {
-            DhcTopBar(navController.currentRoot.value.screenConfig.topBarState)
+            DhcTopBar(currentScreenConfig.topBarState)
         },
         bottomBar = {
-            DhcBottomBar(navController.currentRoot.value.screenConfig.bottomBarState)
+            DhcBottomBar(currentScreenConfig.bottomBarState)
         },
     ) { paddingValues ->
         DhcNavHost(
@@ -26,6 +34,18 @@ fun DhcApp() {
             startDestination = startDestination,
             modifier = Modifier.padding(paddingValues),
         )
+    }
+}
+
+@Composable
+private fun currentScreenConfigAsState(navController: NavHostController): State<ScreenConfig> {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val route = navBackStackEntry?.destination?.route ?: DhcRoute.NONE.route
+
+    return remember(route) {
+        derivedStateOf {
+            DhcRoute.fromRoute(route).screenConfig
+        }
     }
 }
 
@@ -60,7 +80,7 @@ fun DhcBottomBar(
                 state.items.forEach { item ->
                     Text(
                         modifier = modifier.clickable {
-                            navigateToRoute(DhcRoute.from(item.route))
+                            navigateToRoute(DhcRoute.fromName(item.name))
                         },
                         text = item.name,
                     )
