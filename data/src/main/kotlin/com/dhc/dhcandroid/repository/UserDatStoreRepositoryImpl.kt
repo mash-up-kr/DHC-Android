@@ -11,8 +11,8 @@ class UserDatStoreRepositoryImpl @Inject constructor(
         return userLocalDataSource.getUUID()
     }
 
-    override suspend fun setUUID(uuid: String) {
-        userLocalDataSource.setUUID(uuid = uuid)
+    override suspend fun setUUID() {
+        userLocalDataSource.setUUID()
     }
 
     override suspend fun getFcmToken(): Flow<String?> {

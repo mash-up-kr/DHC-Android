@@ -16,12 +16,17 @@ class MainViewModel @Inject constructor(
     private val userDataStoreRepository: UserDataStoreRepository,
 ) : ViewModel() {
 
+    init {
+        getFcmToken()
+        checkUserId()
+    }
+
     /**
      * 기존에 서버에서 발급한 UserToken이 있는지 여부에 따라 저장
      */
-    fun checkUserId(uuid: String) {
+    fun checkUserId() {
         viewModelScope.launch {
-            userDataStoreRepository.setUUID(uuid)
+            userDataStoreRepository.setUUID()
         }
     }
 

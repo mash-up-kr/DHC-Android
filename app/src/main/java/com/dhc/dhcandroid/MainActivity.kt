@@ -26,21 +26,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        getUUID()
         requestNotificationPermission()
-        mainViewModel.getFcmToken()
 
         setContent {
             DHCAndroidTheme {
                 HomeRoute()
             }
         }
-    }
-
-    @SuppressLint("HardwareIds")
-    private fun getUUID() {
-        val userId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
-        Log.d(TAG, userId)
     }
 
     private val requestPermissionLauncher = registerForActivityResult(

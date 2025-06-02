@@ -3,7 +3,7 @@ package com.dhc.dhcandroid.datasource
 import kotlinx.coroutines.flow.Flow
 
 interface UserLocalDataSource {
-    suspend fun setUUID(uuid: String)
+    suspend fun setUUID()
     suspend fun getUUID(): Flow<String?>
 
     suspend fun setFcmToken(token: String)
