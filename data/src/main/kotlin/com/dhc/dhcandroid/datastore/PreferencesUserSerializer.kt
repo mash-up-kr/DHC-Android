@@ -2,7 +2,6 @@ package com.dhc.dhcandroid.datastore
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
-import com.dhc.data.SamplePreferences
 import com.dhc.data.UserPreferences
 import com.google.protobuf.InvalidProtocolBufferException
 import java.io.InputStream

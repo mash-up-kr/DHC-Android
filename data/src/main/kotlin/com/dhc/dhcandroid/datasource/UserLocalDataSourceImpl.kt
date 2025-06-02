@@ -4,12 +4,13 @@ import androidx.datastore.core.DataStore
 import com.dhc.data.UserPreferences
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class UserLocalDataSourceImpl @Inject constructor(
     private val userProtoDataStore: DataStore<UserPreferences>
 ): UserLocalDataSource {
-    val userPreferencesFlow: Flow<UserPreferences> = userProtoDataStore.data
+    val userPreferences: Flow<UserPreferences> = userProtoDataStore.data
 
     override suspend fun setUUID(uuid: String) {
         userProtoDataStore.updateData { pref ->
@@ -17,8 +18,8 @@ class UserLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUUID(): String? {
-        return userPreferencesFlow.firstOrNull()?.uuid
+    override suspend fun getUUID(): Flow<String?> {
+        return  return userPreferences.map { it.uuid }
     }
 
     override suspend fun setFcmToken(token: String) {
@@ -27,7 +28,7 @@ class UserLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getFcmToken(): String? {
-        return userPreferencesFlow.firstOrNull()?.fcmToken
+    override suspend fun getFcmToken(): Flow<String?> {
+        return userPreferences.map { it.fcmToken }
     }
 }

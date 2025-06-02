@@ -4,10 +4,8 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
-import com.dhc.data.SamplePreferences
 import com.dhc.data.UserPreferences
 import com.dhc.dhcandroid.datastore.PreferencesName
-import com.dhc.dhcandroid.datastore.PreferencesSerializer
 import com.dhc.dhcandroid.datastore.PreferencesUserSerializer
 import dagger.Module
 import dagger.Provides
@@ -19,11 +17,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object DatastoreModule {
-    @Provides
-    @Singleton
-    fun providePreferencesSerializer(): PreferencesSerializer {
-        return PreferencesSerializer()
-    }
 
     @Provides
     @Singleton
@@ -31,16 +24,6 @@ internal object DatastoreModule {
         return PreferencesUserSerializer()
     }
 
-    @Provides
-    @Singleton
-    fun provideSampleDatastore(
-        @ApplicationContext context: Context,
-        serializer: PreferencesSerializer,
-    ): DataStore<SamplePreferences> =
-        DataStoreFactory.create(
-            serializer = serializer,
-            produceFile = { context.dataStoreFile("${PreferencesName.SAMPLE}.pb") },
-        )
 
     @Provides
     @Singleton
