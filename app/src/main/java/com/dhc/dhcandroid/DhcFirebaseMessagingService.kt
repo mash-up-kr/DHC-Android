@@ -20,7 +20,7 @@ class DhcFirebaseMessagingService : FirebaseMessagingService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Channel title", //TODO - 추후 정의 필요
+                "Channel title", // TODO - 추후 정의 필요
                 NotificationManager.IMPORTANCE_HIGH,
             )
             notificationManager.createNotificationChannel(channel)
@@ -48,7 +48,7 @@ class DhcFirebaseMessagingService : FirebaseMessagingService() {
     private fun sendNotification(title: String, messageBody: String) {
         val intent = Intent(
             this,
-            MainActivity::class.java
+            MainActivity::class.java,
         ).apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) }
         NotificationUtil.sendNotification(
             context = this,

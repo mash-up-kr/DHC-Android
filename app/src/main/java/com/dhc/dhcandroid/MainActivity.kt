@@ -1,27 +1,18 @@
 package com.dhc.dhcandroid
 
 import android.Manifest.permission.POST_NOTIFICATIONS
-import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import com.dhc.dhcandroid.ui.theme.DHCAndroidTheme
 import com.dhc.sample.home.HomeRoute
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.getValue
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
