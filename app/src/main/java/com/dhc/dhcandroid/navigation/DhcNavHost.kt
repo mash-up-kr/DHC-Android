@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.dhc.home.HomeRoute
 
 @Composable
 fun DhcNavHost(
@@ -39,24 +40,7 @@ fun DhcNavHost(
         }
 
         composable(DhcRoute.MAIN_HOME.route) {
-            // 아래 내용은 예시
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text("Home")
-                Button(
-                    onClick = { navController.navigateToCalendar() },
-                ) {
-                    Text("Go to Calendar")
-                }
-                Button(
-                    onClick = { navController.navigateToMy() },
-                ) {
-                    Text("Go to My")
-                }
-            }
+            HomeRoute()
         }
 
         composable(DhcRoute.MAIN_CALENDAR.route) {
