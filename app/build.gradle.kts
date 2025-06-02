@@ -15,6 +15,8 @@ dependencies {
     implementation(libs.bundles.flipper)
     implementation(project(":core:presentation"))
 
+    implementation(libs.androidx.navigation)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

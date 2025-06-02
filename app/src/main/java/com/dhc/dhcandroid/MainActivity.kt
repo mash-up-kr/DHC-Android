@@ -7,21 +7,21 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import com.dhc.dhcandroid.navigation.DhcApp
 import com.dhc.dhcandroid.ui.theme.DHCAndroidTheme
-import com.dhc.sample.home.HomeRoute
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        requestNotificationPermission()
+        super.onCreate(savedInstanceState)
 
+        requestNotificationPermission()
         setContent {
             DHCAndroidTheme {
-                HomeRoute()
+                DhcApp()
             }
         }
     }

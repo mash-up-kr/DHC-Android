@@ -27,7 +27,6 @@ include(":presentation:sample")
 include(":data")
 include(":core:designsystem")
 include(":core:common")
-include(":core:navigation")
 include(":core:presentation")
 
 include(":presentation:intro")
