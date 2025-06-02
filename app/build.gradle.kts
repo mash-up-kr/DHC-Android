@@ -13,6 +13,7 @@ dependencies {
     detektPlugins(libs.detekt.formatting)
 
     implementation(libs.bundles.flipper)
+    implementation(project(":core:presentation"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -1,16 +1,11 @@
 package com.dhc.dhcandroid
 
-import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
-import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
+import com.dhc.presentation.notification.NotificationUtil
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -51,34 +46,18 @@ class DhcFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun sendNotification(title: String, messageBody: String) {
-        val intent = Intent(this, MainActivity::class.java).apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) }
-
-        val requestCode = 0
-        val pendingIntent = PendingIntent.getActivity(
+        val intent = Intent(
             this,
-            requestCode,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+            MainActivity::class.java
+        ).apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) }
+        NotificationUtil.sendNotification(
+            context = this,
+            notificationManager = notificationManager,
+            title = title,
+            message = messageBody,
+            intent = intent,
+            iconResId = R.mipmap.ic_launcher,
         )
-
-        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.POST_NOTIFICATIONS,
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            Log.i(TAG, "sendNotification: message Fail, no permission")
-            return
-        } else {
-            val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(title)
-                .setContentText(messageBody)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent)
-                .setPriority(NotificationCompat.PRIORITY_HIGH).build()
-            notificationManager.notify(0, notificationBuilder)
-        }
     }
 
     companion object {
