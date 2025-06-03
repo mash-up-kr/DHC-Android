@@ -1,7 +1,7 @@
 package com.dhc.dhcandroid.navigation
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.dhc.designsystem.DhcGnb
 
 @Composable
 fun DhcApp() {
@@ -25,15 +26,20 @@ fun DhcApp() {
         topBar = {
             DhcTopBar(currentScreenConfig.topBarState)
         },
-        bottomBar = {
-            DhcBottomBar(currentScreenConfig.bottomBarState)
-        },
     ) { paddingValues ->
-        DhcNavHost(
-            navController = navController,
-            startDestination = startDestination,
-            modifier = Modifier.padding(paddingValues),
-        )
+        Column(modifier = Modifier.padding(paddingValues)) {
+            DhcNavHost(
+                navController = navController,
+                startDestination = startDestination,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+            )
+            DhcBottomBar(
+                state = currentScreenConfig.bottomBarState,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     }
 }
 
@@ -74,18 +80,12 @@ fun DhcBottomBar(
     when (state) {
         is DhcBottomBarState.BottomNavigation -> {
             // Todo :: Bottom navigation bar Component
-            Row(
+            DhcGnb(
+                gnbItemList = state.items,
+                selectedIndex = 0,
+                onClickItem = { routeName -> navigateToRoute(DhcRoute.fromName(routeName)) },
                 modifier = modifier,
-            ) {
-                state.items.forEach { item ->
-                    Text(
-                        modifier = modifier.clickable {
-                            navigateToRoute(DhcRoute.fromName(item.name))
-                        },
-                        text = item.name,
-                    )
-                }
-            }
+            )
         }
 
         is DhcBottomBarState.None -> {

@@ -58,9 +58,14 @@ fun DhcNavHost(
             ) {
                 Text("Home")
                 Button(
-                    onClick = { navController.navigateToCalendar() },
+                    onClick = { navController.navigateToMission() },
                 ) {
-                    Text("Go to Calendar")
+                    Text("Go to Mission")
+                }
+                Button(
+                    onClick = { navController.navigateToAward() },
+                ) {
+                    Text("Go to Award")
                 }
                 Button(
                     onClick = { navController.navigateToMy() },
@@ -70,23 +75,34 @@ fun DhcNavHost(
             }
         }
 
-        composable(DhcRoute.MAIN_CALENDAR.route) {
+        composable(DhcRoute.MAIN_MISSION.route) {
             // 아래 내용은 예시
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Text("Calendar")
+                Text("Mission")
                 Button(
                     onClick = { navController.navigateToHome() },
                 ) {
                     Text("Go to Home")
                 }
+            }
+        }
+
+        composable(DhcRoute.MAIN_AWARD.route) {
+            // 아래 내용은 예시
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text("Award")
                 Button(
-                    onClick = { navController.navigateToMy() },
+                    onClick = { navController.navigateToHome() },
                 ) {
-                    Text("Go to My")
+                    Text("Go to Home")
                 }
             }
         }
@@ -103,11 +119,6 @@ fun DhcNavHost(
                     onClick = { navController.navigateToHome() },
                 ) {
                     Text("Go to Home")
-                }
-                Button(
-                    onClick = { navController.navigateToCalendar() },
-                ) {
-                    Text("Go to Calendar")
                 }
             }
         }

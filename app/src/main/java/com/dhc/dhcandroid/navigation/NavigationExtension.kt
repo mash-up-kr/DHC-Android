@@ -38,8 +38,12 @@ fun NavHostController.navigateToHome() {
     navigateToBottomNavigation(DhcRoute.MAIN_HOME)
 }
 
-fun NavHostController.navigateToCalendar() {
-    navigateToBottomNavigation(DhcRoute.MAIN_CALENDAR)
+fun NavHostController.navigateToMission() {
+    navigateToBottomNavigation(DhcRoute.MAIN_MISSION)
+}
+
+fun NavHostController.navigateToAward() {
+    navigateToBottomNavigation(DhcRoute.MAIN_AWARD)
 }
 
 fun NavHostController.navigateToMy() {
