@@ -15,7 +15,7 @@ soloader = "0.10.5"
 retrofit = "3.0.0"
 okhttp = "4.12.0"
 
-detekt = "1.22.0"
+detekt = "1.23.8"
 
 navigation = "2.9.0"
 
@@ -24,13 +24,17 @@ protobuf = "0.9.5"
 proto-datastore = "1.1.6"
 protobuf-javalite = "3.25.5"
 
+#firebase
+firebase-gms = "4.4.2"
+firebase-bom = "33.14.0"
+firebase = "24.1.1"
 
 # 프로젝트 설정
 targetSdk = "35"
 versionCode = "1"
 versionName = "1.0"
 compileSdk = "35"
-minSdk = "24"
+minSdk = "26"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -77,6 +81,11 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 protobuf = { group = "androidx.datastore", name = "datastore", version.ref = "proto-datastore" }
 protobuf-javalite = { group = "com.google.protobuf", name = "protobuf-javalite", version.ref = "protobuf-javalite" }
 
+
+#firebase
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom"}
+firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx", version.ref = "firebase" }
+
 [bundles]
 hilt = [
     "hilt-navigation",
@@ -115,6 +124,7 @@ proto-datastore = [
 ]
 
 
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -125,3 +135,4 @@ kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
+google-gms = { id = "com.google.gms.google-services", version.ref = "firebase-gms"}
