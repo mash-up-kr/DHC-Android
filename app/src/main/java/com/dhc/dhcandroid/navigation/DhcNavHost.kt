@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.dhc.intro.splash.SplashRoute
 import androidx.navigation.compose.rememberNavController
+import com.dhc.intro.splash.SplashRoute
 
 @Composable
 fun DhcNavHost(
