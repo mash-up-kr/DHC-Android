@@ -37,7 +37,7 @@ fun DhcApp() {
             )
             DhcBottomBar(
                 state = currentScreenConfig.bottomBarState,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }
