@@ -4,6 +4,13 @@ enum class DhcRoute(
     val route: String,
     val screenConfig: ScreenConfig,
 ) {
+    SPLASH(
+        route = "splash",
+        screenConfig = ScreenConfig(
+            topBarState = DhcTopBarState.None,
+            bottomBarState = DhcBottomBarState.None,
+        ),
+    ),
     INTRO(
         route = "intro",
         screenConfig = ScreenConfig(
