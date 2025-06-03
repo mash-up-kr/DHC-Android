@@ -8,18 +8,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun DhcNavHost(
     startDestination: DhcRoute,
     modifier: Modifier = Modifier,
-    navController: DhcNavHostController = rememberDhcNavController(startDestination),
+    navController: NavHostController = rememberNavController(),
 ) {
     NavHost(
         modifier = modifier,
-        navController = navController.controller,
+        navController = navController,
         startDestination = startDestination.route,
     ) {
         composable(DhcRoute.INTRO.route) {
