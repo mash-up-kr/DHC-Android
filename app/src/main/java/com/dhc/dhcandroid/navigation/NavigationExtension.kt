@@ -1,6 +1,14 @@
 package com.dhc.dhcandroid.navigation
 
-fun DhcNavHostController.navigateToHomeFromIntro() {
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
+import androidx.navigation.NavOptionsBuilder
+
+private fun NavHostController.navigateTo(route: DhcRoute, builder: NavOptionsBuilder.() -> Unit = {}) {
+    navigate(route.route, builder)
+}
+
+fun NavHostController.navigateToHomeFromIntro() {
     navigateTo(DhcRoute.MAIN_HOME) {
         popUpTo(DhcRoute.INTRO.route) {
             inclusive = true
@@ -8,14 +16,24 @@ fun DhcNavHostController.navigateToHomeFromIntro() {
     }
 }
 
-fun DhcNavHostController.navigateToHome() {
+private fun NavHostController.navigateToBottomNavigation(route: DhcRoute) {
+    navigateTo(route) {
+        popUpTo(graph.findStartDestination().id) {
+            saveState = true
+        }
+        launchSingleTop = true
+        restoreState = true
+    }
+}
+
+fun NavHostController.navigateToHome() {
     navigateToBottomNavigation(DhcRoute.MAIN_HOME)
 }
 
-fun DhcNavHostController.navigateToCalendar() {
+fun NavHostController.navigateToCalendar() {
     navigateToBottomNavigation(DhcRoute.MAIN_CALENDAR)
 }
 
-fun DhcNavHostController.navigateToMy() {
+fun NavHostController.navigateToMy() {
     navigateToBottomNavigation(DhcRoute.MAIN_MY)
 }
