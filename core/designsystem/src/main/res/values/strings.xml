@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="d_year">%d년</string>
+    <string name="d_month">%d월</string>
+    <string name="d_day">%d일</string>
+</resources>
