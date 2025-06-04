@@ -30,6 +30,7 @@ fun DhcApp() {
         bottomBar = {
             DhcBottomBar(
                 state = currentScreenConfig.bottomBarState,
+                navigateToRoute = { navController.navigateToBottomNavigation(it) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .navigationBarsPadding(),
@@ -79,8 +80,8 @@ fun DhcTopBar(state: DhcTopBarState) {
 @Composable
 fun DhcBottomBar(
     state: DhcBottomBarState,
+    navigateToRoute: (DhcRoute) -> Unit,
     modifier: Modifier = Modifier,
-    navigateToRoute: (DhcRoute) -> Unit = {},
 ) {
     when (state) {
         is DhcBottomBarState.BottomNavigation -> {

@@ -24,7 +24,7 @@ fun NavHostController.navigateToHomeFromIntro() {
     }
 }
 
-private fun NavHostController.navigateToBottomNavigation(route: DhcRoute) {
+fun NavHostController.navigateToBottomNavigation(route: DhcRoute) {
     navigateTo(route) {
         popUpTo(graph.findStartDestination().id) {
             saveState = true
