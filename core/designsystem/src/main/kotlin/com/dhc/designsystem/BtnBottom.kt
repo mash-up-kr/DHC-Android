@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun DhcBtnBottom(
     gnbItem: GnbItem,
-    isSelected: Boolean,
+    isSelected: Boolean, // Todo : 디자인시스템 적용 후 함께 적용예정
     onClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
