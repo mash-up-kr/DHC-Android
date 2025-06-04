@@ -4,6 +4,14 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
 
+fun NavHostController.navigateToIntroFromSplash() {
+    navigateTo(DhcRoute.INTRO) {
+        popUpTo(DhcRoute.SPLASH.route) {
+            inclusive = true
+        }
+    }
+}
+
 private fun NavHostController.navigateTo(route: DhcRoute, builder: NavOptionsBuilder.() -> Unit = {}) {
     navigate(route.route, builder)
 }
