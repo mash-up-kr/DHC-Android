@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.dhc.intro.intro.IntroRoute
 import com.dhc.intro.splash.SplashRoute
 
 @Composable
@@ -34,19 +35,11 @@ fun DhcNavHost(
         }
 
         composable(DhcRoute.INTRO.route) {
-            // 아래 내용은 예시
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text("Intro")
-                Button(
-                    onClick = { navController.navigateToHomeFromIntro() },
-                ) {
-                    Text("Go to Home")
-                }
-            }
+            IntroRoute(
+                navigateToNextScreen = {
+                    navController.navigateToHome()
+                },
+            )
         }
 
         composable(DhcRoute.MAIN_HOME.route) {

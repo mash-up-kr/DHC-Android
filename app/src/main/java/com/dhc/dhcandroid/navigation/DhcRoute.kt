@@ -14,10 +14,7 @@ enum class DhcRoute(
     INTRO(
         route = "intro",
         screenConfig = ScreenConfig(
-            topBarState = DhcTopBarState.CenterTitle(
-                title = "Intro",
-                showBackButton = false,
-            ),
+            topBarState = DhcTopBarState.None,
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
