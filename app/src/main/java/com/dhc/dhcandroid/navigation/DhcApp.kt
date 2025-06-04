@@ -34,7 +34,7 @@ fun DhcApp() {
                     .fillMaxWidth()
                     .navigationBarsPadding(),
             )
-        }
+        },
     ) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             DhcNavHost(

@@ -1,7 +1,7 @@
 package com.dhc.dhcandroid.navigation
 
-import com.dhc.designsystem.gnb.GnbItem
 import com.dhc.designsystem.R
+import com.dhc.designsystem.gnb.GnbItem
 
 data class ScreenConfig(
     val topBarState: DhcTopBarState = DhcTopBarState.None,
