@@ -17,7 +17,7 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun DhcApp() {
-    val startDestination = DhcRoute.INTRO
+    val startDestination = DhcRoute.SPLASH
     val navController = rememberNavController()
     val currentScreenConfig by currentScreenConfigAsState(navController)
 
