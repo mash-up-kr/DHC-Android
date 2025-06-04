@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.dhc.designsystem.DhcGnb
+import com.dhc.designsystem.gnb.DhcGnb
 
 @Composable
 fun DhcApp() {

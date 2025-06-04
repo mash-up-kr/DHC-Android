@@ -1,6 +1,6 @@
 package com.dhc.dhcandroid.navigation
 
-import com.dhc.designsystem.GnbItem
+import com.dhc.designsystem.gnb.GnbItem
 import com.dhc.designsystem.R
 
 data class ScreenConfig(
