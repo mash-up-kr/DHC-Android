@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DHCAndroidTheme
 import com.dhc.designsystem.R
@@ -47,34 +49,37 @@ data class GnbItem(
     val routeName: String,
 )
 
-@Preview
-@Composable
-private fun DhcBtnBottomSelectedPreview() {
-    DHCAndroidTheme {
-        DhcBtnBottom(
-            gnbItem = GnbItem(
-                iconResource = R.drawable.home_04,
-                iconText = R.string.btn_bottom_home,
-                routeName = "MAIN_HOME",
-            ),
+
+class GnbItemPreviewProvider : PreviewParameterProvider<GnbItemPreviewProvider.DhcBottomParameter> {
+    private val homeGnbItem = GnbItem(
+        iconResource = R.drawable.home_04,
+        iconText = R.string.btn_bottom_home,
+        routeName = "MAIN_HOME",
+    )
+    override val values = sequenceOf(
+        DhcBottomParameter(
+            gnbItem = homeGnbItem,
             isSelected = true,
-            onClick = {},
-            modifier = Modifier,
-        )
-    }
+        ),
+        DhcBottomParameter(
+            gnbItem = homeGnbItem,
+            isSelected = true,
+        ),
+    )
+
+    data class DhcBottomParameter(
+        val gnbItem: GnbItem,
+        val isSelected: Boolean,
+    )
 }
 
 @Preview
 @Composable
-private fun DhcBtnBottomNotSelectedPreview() {
+fun BtnBottomPreview(@PreviewParameter(GnbItemPreviewProvider::class) parameter: GnbItemPreviewProvider.DhcBottomParameter) {
     DHCAndroidTheme {
         DhcBtnBottom(
-            gnbItem = GnbItem(
-                iconResource = R.drawable.home_04,
-                iconText = R.string.btn_bottom_home,
-                routeName = "MAIN_HOME",
-            ),
-            isSelected = false,
+            gnbItem = parameter.gnbItem,
+            isSelected = parameter.isSelected,
             onClick = {},
             modifier = Modifier,
         )
