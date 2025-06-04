@@ -2,21 +2,21 @@ package com.dhc.dhcandroid.datastore
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
-import com.dhc.data.SamplePreferences
+import com.dhc.data.UserPreferences
 import com.google.protobuf.InvalidProtocolBufferException
 import java.io.InputStream
 import java.io.OutputStream
 
-class PreferencesSerializer : Serializer<SamplePreferences> {
-    override val defaultValue: SamplePreferences = SamplePreferences.getDefaultInstance()
+class PreferencesUserSerializer : Serializer<UserPreferences> {
+    override val defaultValue: UserPreferences = UserPreferences.getDefaultInstance()
 
-    override suspend fun readFrom(input: InputStream): SamplePreferences {
+    override suspend fun readFrom(input: InputStream): UserPreferences {
         return try {
-            SamplePreferences.parseFrom(input)
+            UserPreferences.parseFrom(input)
         } catch (exception: InvalidProtocolBufferException) {
             throw CorruptionException("Cannot read proto", exception)
         }
     }
 
-    override suspend fun writeTo(t: SamplePreferences, output: OutputStream) = t.writeTo(output)
+    override suspend fun writeTo(t: UserPreferences, output: OutputStream) = t.writeTo(output)
 }
