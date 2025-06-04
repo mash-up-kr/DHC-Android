@@ -2,6 +2,7 @@ package com.dhc.dhcandroid.navigation
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -26,6 +27,14 @@ fun DhcApp() {
         topBar = {
             DhcTopBar(currentScreenConfig.topBarState)
         },
+        bottomBar = {
+            DhcBottomBar(
+                state = currentScreenConfig.bottomBarState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .navigationBarsPadding(),
+            )
+        }
     ) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
             DhcNavHost(
@@ -34,10 +43,6 @@ fun DhcApp() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
-            )
-            DhcBottomBar(
-                state = currentScreenConfig.bottomBarState,
-                modifier = Modifier.fillMaxWidth(),
             )
         }
     }
