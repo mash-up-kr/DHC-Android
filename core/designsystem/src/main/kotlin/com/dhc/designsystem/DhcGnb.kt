@@ -47,11 +47,6 @@ private fun DhcGnbPreview() {
                     routeName = "MAIN_MISSION",
                 ),
                 GnbItem(
-                    iconResource = R.drawable.award_02,
-                    iconText = R.string.btn_bottom_reward,
-                    routeName = "MAIN_AWARD",
-                ),
-                GnbItem(
                     iconResource = R.drawable.user_02,
                     iconText = R.string.btn_bottom_my_page,
                     routeName = "MAIN_MY",

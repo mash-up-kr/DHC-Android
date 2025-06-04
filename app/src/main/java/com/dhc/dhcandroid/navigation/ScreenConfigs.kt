@@ -33,11 +33,6 @@ sealed interface DhcBottomBarState {
                 routeName = DhcRoute.MAIN_MISSION.name,
             ),
             GnbItem(
-                iconResource = R.drawable.award_02,
-                iconText = R.string.btn_bottom_reward,
-                routeName = DhcRoute.MAIN_AWARD.name,
-            ),
-            GnbItem(
                 iconResource = R.drawable.user_02,
                 iconText = R.string.btn_bottom_my_page,
                 routeName = DhcRoute.MAIN_MY.name,
