@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dhc.designsystem.DHCAndroidTheme
 import com.dhc.designsystem.calendar.CalendarUtils.getDaysOfMonth
 import java.time.LocalDate
 
@@ -71,8 +72,10 @@ fun DhcCalendarDay(
 @Preview
 @Composable
 private fun DhcCalendarDatePreview() {
-    DhcCalendarDate(
-        date = LocalDate.now(),
-        modifier = Modifier.fillMaxWidth()
-    )
+    DHCAndroidTheme {
+        DhcCalendarDate(
+            date = LocalDate.now(),
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
 }
