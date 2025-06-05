@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DHCAndroidTheme
 import com.dhc.designsystem.R
+import com.dhc.designsystem.gnb.model.GnbItem
 
 @Composable
 fun DhcGnb(
