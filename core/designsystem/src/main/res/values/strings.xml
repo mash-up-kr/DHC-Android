@@ -3,4 +3,6 @@
     <string name="d_year">%d년</string>
     <string name="d_month">%d월</string>
     <string name="d_day">%d일</string>
+    <string name="d_hour">%d시</string>
+    <string name="d_minute">%02d분</string>
 </resources>
