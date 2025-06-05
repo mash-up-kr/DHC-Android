@@ -1,4 +1,4 @@
-package com.dhc.designsystem.spinner
+package com.dhc.designsystem.spinner.common
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -107,7 +107,7 @@ fun <T : Any> DhcSpinner(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun DhcSpinnerPreview() {
     DhcTheme {
