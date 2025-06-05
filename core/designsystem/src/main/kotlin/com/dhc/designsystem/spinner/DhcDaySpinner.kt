@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.dhc.common.getActualMaximumDayOfMonth
 import com.dhc.common.getCurrentYear
-import com.dhc.designsystem.DHCAndroidTheme
+import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.R
 import java.util.Calendar
 
@@ -138,7 +138,7 @@ fun DhcDaySpinner(
 @Preview
 @Composable
 private fun DhcDaySpinnerPreview() {
-    DHCAndroidTheme {
+    DhcTheme {
         DhcDaySpinner(
             onValueChanged = { _, _, _ -> },
             visibleItemsCount = 5,

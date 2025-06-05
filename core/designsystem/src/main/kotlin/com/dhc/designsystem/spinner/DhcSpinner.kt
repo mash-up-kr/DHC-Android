@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.dhc.designsystem.DHCAndroidTheme
+import com.dhc.designsystem.DhcTheme
 import kotlinx.coroutines.launch
 
 @Composable
@@ -110,7 +110,7 @@ fun <T : Any> DhcSpinner(
 @Preview
 @Composable
 private fun DhcSpinnerPreview() {
-    DHCAndroidTheme {
+    DhcTheme {
         DhcSpinner(
             itemList = (1..12).toList(),
             visibleItemsCount = 3,

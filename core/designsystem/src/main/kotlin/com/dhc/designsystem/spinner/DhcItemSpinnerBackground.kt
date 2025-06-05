@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import com.dhc.designsystem.DHCAndroidTheme
+import com.dhc.designsystem.DhcTheme
 
 @Composable
 fun DhcItemSpinnerBackground(
@@ -37,7 +37,7 @@ class DhcItemSpinnerBackgroundPreviewProvider : PreviewParameterProvider<Boolean
 @Preview
 @Composable
 fun DhcItemSpinnerBackgroundPreview(@PreviewParameter(DhcItemSpinnerBackgroundPreviewProvider::class) isFocused: Boolean) {
-    DHCAndroidTheme {
+    DhcTheme {
         DhcItemSpinnerBackground(
             isFocused = isFocused,
             modifier = Modifier,
