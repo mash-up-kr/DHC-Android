@@ -1,8 +1,8 @@
 package com.dhc.designsystem.spinner
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,18 +21,24 @@ import androidx.compose.ui.unit.dp
 import com.dhc.common.getActualMaximumDayOfMonth
 import com.dhc.common.getCurrentYear
 import com.dhc.designsystem.DhcTheme
+import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.R
+import com.dhc.designsystem.spinner.common.DhcItemSpinnerBackground
+import com.dhc.designsystem.spinner.common.DhcItemSpinnerContent
+import com.dhc.designsystem.spinner.common.DhcSpinner
 import java.util.Calendar
 
 @Composable
 fun DhcDaySpinner(
     onValueChanged: (year: Int, month: Int, day: Int) -> Unit,
+    modifier: Modifier = Modifier,
     visibleItemsCount: Int = 5,
     itemHeightDp: Dp = 44.dp,
     initialYear: Int = 2000,
     initialMonth: Int = 3,
     initialDay: Int = 3,
 ) {
+    val colors = LocalDhcColors.current
     var currentYear by remember { mutableIntStateOf(initialYear) }
     var currentMonth by remember { mutableIntStateOf(initialMonth) }
     var currentDay by remember { mutableIntStateOf(initialDay) }
@@ -52,8 +58,8 @@ fun DhcDaySpinner(
     }
 
     Row(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = modifier
+            .background(color = colors.background.backgroundMain)
             .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(23.dp),
     ) {
@@ -63,7 +69,7 @@ fun DhcDaySpinner(
             itemHeightDp = itemHeightDp,
             onValueChanged = { currentYear = it },
             modifier = Modifier.weight(2f),
-            initialIndex = yearList.indexOf(initialYear),
+            initialIndex = yearList.indexOf(initialYear).coerceAtLeast(0),
             itemBackground = { isFocused ->
                 DhcItemSpinnerBackground(
                     isFocused = isFocused,
@@ -88,7 +94,7 @@ fun DhcDaySpinner(
             itemHeightDp = itemHeightDp,
             onValueChanged = { currentMonth = it },
             modifier = Modifier.weight(1f),
-            initialIndex = monthList.indexOf(initialMonth),
+            initialIndex = monthList.indexOf(initialMonth).coerceAtLeast(0),
             itemBackground = { isFocused ->
                 DhcItemSpinnerBackground(
                     isFocused = isFocused,
@@ -113,7 +119,7 @@ fun DhcDaySpinner(
             itemHeightDp = itemHeightDp,
             onValueChanged = { currentDay = it },
             modifier = Modifier.weight(1f),
-            initialIndex = dayList.indexOf(initialDay),
+            initialIndex = dayList.indexOf(initialDay).coerceAtLeast(0),
             itemBackground = { isFocused ->
                 DhcItemSpinnerBackground(
                     isFocused = isFocused,
