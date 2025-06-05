@@ -63,7 +63,7 @@ class GnbItemPreviewProvider : PreviewParameterProvider<GnbItemPreviewProvider.D
         ),
         DhcBottomParameter(
             gnbItem = homeGnbItem,
-            isSelected = true,
+            isSelected = false,
         ),
     )
 
