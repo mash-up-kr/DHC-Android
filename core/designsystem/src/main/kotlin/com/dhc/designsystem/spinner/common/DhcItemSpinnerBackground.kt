@@ -30,7 +30,7 @@ internal fun DhcItemSpinnerBackground(
     }
 }
 
-class DhcItemSpinnerBackgroundPreviewProvider : PreviewParameterProvider<Boolean> {
+private class DhcItemSpinnerBackgroundPreviewProvider : PreviewParameterProvider<Boolean> {
     override val values = sequenceOf(true, false)
 }
 

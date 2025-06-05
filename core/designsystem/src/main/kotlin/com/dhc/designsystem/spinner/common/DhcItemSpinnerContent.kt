@@ -32,7 +32,7 @@ internal fun DhcItemSpinnerContent(
     }
 }
 
-class DhcItemSpinnerContentPreviewProvider : PreviewParameterProvider<Boolean> {
+private class DhcItemSpinnerContentPreviewProvider : PreviewParameterProvider<Boolean> {
     override val values = sequenceOf(true, false)
 }
 
