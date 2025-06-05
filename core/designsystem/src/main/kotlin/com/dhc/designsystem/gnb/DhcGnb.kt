@@ -71,17 +71,17 @@ private fun DhcGnbPreview() {
         DhcGnb(
             gnbItemList = listOf(
                 GnbItem(
-                    iconResource = R.drawable.home_04,
+                    iconResource = R.drawable.home,
                     iconText = R.string.btn_bottom_home,
                     routeName = "MAIN_HOME",
                 ),
                 GnbItem(
-                    iconResource = R.drawable.bar_chart_10,
+                    iconResource = R.drawable.status,
                     iconText = R.string.btn_bottom_mission,
                     routeName = "MAIN_MISSION",
                 ),
                 GnbItem(
-                    iconResource = R.drawable.user_02,
+                    iconResource = R.drawable.mypage,
                     iconText = R.string.btn_bottom_my_page,
                     routeName = "MAIN_MY",
                 ),
