@@ -10,7 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -86,10 +89,14 @@ fun DhcBottomBar(
     when (state) {
         is DhcBottomBarState.BottomNavigation -> {
             // Todo :: Bottom navigation bar Component
+            var selectedIndex by remember { mutableIntStateOf(0) }
             DhcGnb(
                 gnbItemList = state.items,
-                selectedIndex = 0,
-                onClickItem = { routeName -> navigateToRoute(DhcRoute.fromName(routeName)) },
+                selectedIndex = selectedIndex,
+                onClickItem = { gnbItem, index ->
+                    navigateToRoute(DhcRoute.fromName(gnbItem.routeName))
+                    selectedIndex = index
+                },
                 modifier = modifier,
             )
         }

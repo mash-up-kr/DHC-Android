@@ -1,10 +1,20 @@
 package com.dhc.designsystem.gnb
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DHCAndroidTheme
@@ -15,19 +25,29 @@ import com.dhc.designsystem.gnb.model.GnbItem
 fun DhcGnb(
     gnbItemList: List<GnbItem>,
     selectedIndex: Int,
-    onClickItem: (String) -> Unit,
+    onClickItem: (gnbItem: GnbItem, index: Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Row(
+    NavigationBar(
         modifier = modifier,
-        horizontalArrangement = Arrangement.SpaceAround
     ) {
-        gnbItemList.forEachIndexed { index, item ->
-            DhcBtnBottom(
-                gnbItem = item,
-                isSelected = index == selectedIndex,
-                onClick = onClickItem,
-                modifier = Modifier.size(width = 52.dp, height = 43.dp),
+        gnbItemList.forEachIndexed { index, gnbItem ->
+            NavigationBarItem(
+                selected = index == selectedIndex,
+                onClick = { onClickItem(gnbItem, index) },
+                icon = {
+                    Image(
+                        modifier = Modifier.size(24.dp),
+                        painter = painterResource(gnbItem.iconResource),
+                        contentDescription = null,
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(gnbItem.iconText),
+                    )
+                },
+                alwaysShowLabel = true,
             )
         }
     }
@@ -56,7 +76,7 @@ private fun DhcGnbPreview() {
                 ),
             ),
             selectedIndex = 0,
-            onClickItem = {},
+            onClickItem = { _, _ -> },
         )
     }
 }
