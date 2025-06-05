@@ -32,7 +32,7 @@ fun DhcApp() {
         bottomBar = {
             DhcBottomBar(
                 state = currentScreenConfig.bottomBarState,
-                navigateToRoute = { navController.navigateToBottomNavigation(it) },
+                navController = navController,
                 modifier = Modifier
                     .fillMaxWidth()
                     .navigationBarsPadding(),
@@ -82,7 +82,7 @@ fun DhcTopBar(state: DhcTopBarState) {
 @Composable
 fun DhcBottomBar(
     state: DhcBottomBarState,
-    navigateToRoute: (DhcRoute) -> Unit,
+    navController: NavHostController,
     modifier: Modifier = Modifier,
 ) {
     when (state) {
@@ -93,7 +93,7 @@ fun DhcBottomBar(
                 gnbItemList = state.items,
                 selectedIndex = selectedIndex,
                 onClickItem = { gnbItem, index ->
-                    navigateToRoute(DhcRoute.fromName(gnbItem.routeName))
+                    navController.navigateToBottomNavigation(DhcRoute.fromName(gnbItem.routeName))
                     selectedIndex = index
                 },
                 modifier = modifier,
