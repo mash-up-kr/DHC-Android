@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_main_title">매일매일 금전운에 맞춘\n미션을 받아보세요</string>
+    <string name="intro_sub_title">부적을 통해 내 운을 어떻게\n더 좋게 만드는지 방법을 알 수 있어요.</string>
+    <string name="button_start">시작하기</string>
+</resources>
