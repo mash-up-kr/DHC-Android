@@ -23,6 +23,7 @@ object FontSizeTokens {
     val Body4 = 15.sp
     val Body5 = 14.sp
     val Body6 = 13.sp
+    val Body7 = 12.sp
 }
 
 /**
@@ -142,4 +143,9 @@ object DhcTypoTokens {
         fontSize = FontSizeTokens.Body6,
     )
 
+    val Body7 = TextStyle(
+        fontFamily = typoFontFamily,
+        fontWeight = FontWeight.W400,
+        fontSize = FontSizeTokens.Body7,
+    )
 }
