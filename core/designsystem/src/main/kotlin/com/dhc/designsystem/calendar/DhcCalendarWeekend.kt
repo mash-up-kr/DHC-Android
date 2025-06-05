@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.dhc.designsystem.DHCAndroidTheme
 import com.dhc.designsystem.calendar.CalendarUtils.getDayOfWeekInKorean
+import com.dhc.designsystem.DhcTheme
 import java.time.DayOfWeek
 
 @Composable
@@ -31,7 +31,7 @@ fun DhcCalendarWeekend(
 @Preview(showBackground = true)
 @Composable
 private fun DhcCalendarWeekendPreview() {
-    DHCAndroidTheme {
+    DhcTheme {
         DhcCalendarWeekend(modifier = Modifier.fillMaxWidth())
     }
 }

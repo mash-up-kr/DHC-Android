@@ -1,7 +1,6 @@
 package com.dhc.designsystem.calendar
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
@@ -9,6 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,9 +23,29 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dhc.designsystem.DHCAndroidTheme
+import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.calendar.CalendarUtils.getDaysOfMonth
 import java.time.LocalDate
+
+@Composable
+fun DhcCalendarDateSwiper(
+    date: LocalDate,
+    modifier: Modifier = Modifier,
+    pagerState: PagerState = rememberPagerState(
+        initialPage = Int.MAX_VALUE / 2,
+        pageCount = { Int.MAX_VALUE },
+    ),
+) {
+    HorizontalPager(
+        modifier = modifier,
+        state = pagerState,
+    ) {
+        DhcCalendarDate(
+            date = date,
+            modifier = Modifier.fillMaxWidth(),
+        )
+    }
+}
 
 @Composable
 fun DhcCalendarDate(
@@ -58,8 +80,7 @@ fun DhcCalendarDay(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
-            .background(color = color)
-            .clickable { },
+            .background(color = color),
         contentAlignment = Alignment.Center,
     ) {
         Text(
@@ -71,9 +92,9 @@ fun DhcCalendarDay(
 
 @Preview
 @Composable
-private fun DhcCalendarDatePreview() {
-    DHCAndroidTheme {
-        DhcCalendarDate(
+private fun DhcCalendarDateSwiperPreview() {
+    DhcTheme {
+        DhcCalendarDateSwiper(
             date = LocalDate.now(),
             modifier = Modifier.fillMaxWidth()
         )

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dhc.designsystem.DHCAndroidTheme
+import com.dhc.designsystem.DhcTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -49,7 +49,7 @@ fun DhcCalendarHeader(
 @Preview(showBackground = true)
 @Composable
 private fun DhcCalendarHeaderPreview() {
-    DHCAndroidTheme {
+    DhcTheme {
         DhcCalendarHeader(
             currentDate = LocalDate.now(),
             modifier = Modifier.fillMaxWidth(),
