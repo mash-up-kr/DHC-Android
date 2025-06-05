@@ -68,7 +68,10 @@ class GnbItemPreviewProvider : PreviewParameterProvider<GnbItemPreviewProvider.D
 
 @Preview
 @Composable
-fun BtnBottomPreview(@PreviewParameter(GnbItemPreviewProvider::class) parameter: GnbItemPreviewProvider.DhcBottomParameter) {
+fun BtnBottomPreview(
+    @PreviewParameter(GnbItemPreviewProvider::class)
+    parameter: GnbItemPreviewProvider.DhcBottomParameter,
+) {
     DHCAndroidTheme {
         DhcBtnBottom(
             gnbItem = parameter.gnbItem,
