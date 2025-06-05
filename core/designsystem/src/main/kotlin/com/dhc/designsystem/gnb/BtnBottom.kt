@@ -1,7 +1,5 @@
 package com.dhc.designsystem.gnb
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +16,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DHCAndroidTheme
 import com.dhc.designsystem.R
+import com.dhc.designsystem.gnb.model.GnbItem
 
 @Composable
 fun DhcBtnBottom(
@@ -42,12 +41,6 @@ fun DhcBtnBottom(
         )
     }
 }
-
-data class GnbItem(
-    @DrawableRes val iconResource: Int,
-    @StringRes val iconText: Int,
-    val routeName: String,
-)
 
 
 class GnbItemPreviewProvider : PreviewParameterProvider<GnbItemPreviewProvider.DhcBottomParameter> {
