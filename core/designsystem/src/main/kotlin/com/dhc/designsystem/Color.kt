@@ -2,7 +2,7 @@ package com.dhc.designsystem
 
 import androidx.compose.ui.graphics.Color
 
-val colors = DhcColors(
+internal val colors = DhcColors(
     surface = SurfaceColor,
     accent = AccentColor,
     text = TextColors(
