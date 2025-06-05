@@ -1,5 +1,3 @@
-@file:JvmName("ThemeKt")
-
 package com.dhc.designsystem
 
 import androidx.compose.foundation.isSystemInDarkTheme
