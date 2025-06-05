@@ -2,6 +2,20 @@ package com.dhc.designsystem
 
 import androidx.compose.ui.graphics.Color
 
+val colors = DhcColors(
+    surface = SurfaceColor(),
+    accent = AccentColor(),
+    text = TextColors(
+        textMain = SurfaceColor().neutral30,
+        textBodyPrimary = SurfaceColor().neutral100,
+        textHighLightsSecondary = AccentColor().violet200,
+        textHighLightsPrimary = AccentColor().violet400
+    ),
+    background = BackgroundColors(
+        backgroundMain = SurfaceColor().neutral900
+    )
+)
+
 data class SurfaceColor(
     val neutral30: Color = Color(0xFFF4F4F5),
     val neutral50: Color = Color(0xFFE6EDF8),

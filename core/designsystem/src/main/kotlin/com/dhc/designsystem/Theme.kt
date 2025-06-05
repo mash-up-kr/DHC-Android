@@ -18,20 +18,6 @@ fun DhcTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colors = DhcColors(
-        surface = SurfaceColor(),
-        accent = AccentColor(),
-        text = TextColors(
-            textMain = SurfaceColor().neutral30,
-            textBodyPrimary = SurfaceColor().neutral100,
-            textHighLightsSecondary = AccentColor().violet200,
-            textHighLightsPrimary = AccentColor().violet400
-        ),
-        background = BackgroundColors(
-            backgroundMain = SurfaceColor().neutral900
-        )
-    )
-
     CompositionLocalProvider(
         LocalDhcColors provides colors
     ) {
