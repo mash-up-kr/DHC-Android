@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.dhc.designsystem.topbar.DhcTopBar
 
 @Composable
 fun DhcApp() {
@@ -23,7 +24,10 @@ fun DhcApp() {
 
     Scaffold(
         topBar = {
-            DhcTopBar(currentScreenConfig.topBarState)
+            DhcTopBar(
+                state = currentScreenConfig.topBarState,
+                navController = navController,
+            )
         },
         bottomBar = {
             DhcBottomBar(currentScreenConfig.bottomBarState)
@@ -49,18 +53,22 @@ private fun currentScreenConfigAsState(navController: NavHostController): State<
     }
 }
 
-// Todo :: 추후 디자인 시스템 모듈로 이동하여 사용하자
 @Composable
-fun DhcTopBar(state: DhcTopBarState) {
+fun DhcTopBar(
+    state: DhcTopBarState,
+    navController: NavHostController,
+) {
     when (state) {
-        is DhcTopBarState.CenterTitle -> {
-            // Todo :: Top bar Component
-            Text(state.title)
+        is DhcTopBarState.Basic -> {
+            DhcTopBar(
+                title = state.title,
+                isShowBackButton = state.isShowBackButton,
+                topBarPageState = state.topBarPageState,
+                onClickBackButton = { navController.navigateUp() },
+            )
         }
 
-        is DhcTopBarState.None -> {
-            // No top bar
-        }
+        is DhcTopBarState.None -> Unit
     }
 }
 
