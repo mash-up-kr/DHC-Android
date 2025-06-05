@@ -50,7 +50,6 @@ fun DhcCheck(
     }
 }
 
-
 private class CheckPreviewProvider : PreviewParameterProvider<CheckPreviewProvider.Parameter> {
     override val values = sequenceOf(
         Parameter(
