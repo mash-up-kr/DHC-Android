@@ -56,11 +56,6 @@ fun DhcNavHost(
                     Text("Go to Mission")
                 }
                 Button(
-                    onClick = { navController.navigateToAward() },
-                ) {
-                    Text("Go to Award")
-                }
-                Button(
                     onClick = { navController.navigateToMy() },
                 ) {
                     Text("Go to My")
@@ -76,22 +71,6 @@ fun DhcNavHost(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text("Mission")
-                Button(
-                    onClick = { navController.navigateToHome() },
-                ) {
-                    Text("Go to Home")
-                }
-            }
-        }
-
-        composable(DhcRoute.MAIN_AWARD.route) {
-            // 아래 내용은 예시
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text("Award")
                 Button(
                     onClick = { navController.navigateToHome() },
                 ) {

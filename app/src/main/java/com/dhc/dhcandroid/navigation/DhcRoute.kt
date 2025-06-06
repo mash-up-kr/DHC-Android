@@ -30,12 +30,6 @@ enum class DhcRoute(
             bottomBarState = DhcBottomBarState.BottomNavigation,
         ),
     ),
-    MAIN_AWARD(
-        route = "main/award",
-        screenConfig = ScreenConfig(
-            bottomBarState = DhcBottomBarState.BottomNavigation,
-        ),
-    ),
     MAIN_MY(
         route = "main/my",
         screenConfig = ScreenConfig(

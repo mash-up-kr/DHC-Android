@@ -42,10 +42,6 @@ fun NavHostController.navigateToMission() {
     navigateToBottomNavigation(DhcRoute.MAIN_MISSION)
 }
 
-fun NavHostController.navigateToAward() {
-    navigateToBottomNavigation(DhcRoute.MAIN_AWARD)
-}
-
 fun NavHostController.navigateToMy() {
     navigateToBottomNavigation(DhcRoute.MAIN_MY)
 }
