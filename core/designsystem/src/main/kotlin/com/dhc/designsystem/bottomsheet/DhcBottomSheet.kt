@@ -68,7 +68,7 @@ fun DhcModalBottomSheet(
                         onClick = { scope.launch { sheetState.hide() } }
                     ) {
                         Image(
-                            painter = painterResource(R.drawable.ic_close),
+                            painter = painterResource(R.drawable.x),
                             contentDescription = "closeButton"
                         )
                     }
