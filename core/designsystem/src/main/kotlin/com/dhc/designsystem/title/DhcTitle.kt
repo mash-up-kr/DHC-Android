@@ -25,7 +25,7 @@ fun DhcTitle(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.padding(top = 48.dp, start = 20.dp, end = 20.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
