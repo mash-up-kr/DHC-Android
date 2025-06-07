@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btn_bottom_home">홈</string>
+    <string name="btn_bottom_mission">미션 현황</string>
+    <string name="btn_bottom_my_page">마이페이지</string>
+</resources>
