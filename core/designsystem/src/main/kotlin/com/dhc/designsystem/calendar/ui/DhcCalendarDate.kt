@@ -3,7 +3,7 @@ package com.dhc.designsystem.calendar.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.pager.HorizontalPager
@@ -55,7 +55,7 @@ fun DhcCalendarDate(
             // Todo :: 날짜별 다른 디자인 적용
             DhcCalendarDay(
                 day = days[index].dayOfMonth,
-                modifier = Modifier.aspectRatio(1f),
+                modifier = Modifier.height(36.dp),
             )
         }
     }

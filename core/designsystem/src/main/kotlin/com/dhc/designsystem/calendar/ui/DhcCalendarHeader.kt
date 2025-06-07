@@ -32,20 +32,18 @@ fun DhcCalendarHeader(
 
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             modifier = Modifier
                 .padding(4.dp)
-                .weight(1f)
                 .clickable { onClickLeftButton() },
             painter = painterResource(R.drawable.ico_arrow_left),
             tint = colors.text.textMain,
             contentDescription = null,
         )
         Text(
-            modifier = Modifier.weight(5f),
             text = currentDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월")),
             textAlign = TextAlign.Center,
             color = colors.text.textMain,
@@ -54,7 +52,6 @@ fun DhcCalendarHeader(
         Icon(
             modifier = Modifier
                 .padding(4.dp)
-                .weight(1f)
                 .clickable { onClickRightButton() },
             painter = painterResource(R.drawable.ico_arrow_right),
             tint = colors.text.textMain,
