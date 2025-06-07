@@ -1,0 +1,4 @@
+<resources>
+    <string name="alarm_setting_title">알림 설정을\n허용해주세요</string>
+    <string name="alarm_setting_cont">서비스를 원활히 진행하기 위해서\n알림설정이 꼭 필요해요</string>
+</resources>
