@@ -43,7 +43,7 @@ fun DhcCheck(
     ) {
         Icon(
             painter = painterResource(R.drawable.check),
-            contentDescription = null,
+            contentDescription = "check",
             tint = iconTint,
             modifier = Modifier.size(dhcCheckStyle.iconSize),
         )
