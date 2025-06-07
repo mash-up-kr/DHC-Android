@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.dhc.designsystem.topbar.DhcTopBar
+import com.dhc.designsystem.topbar.DhcBasicTopBar
 
 @Composable
 fun DhcApp() {
@@ -60,7 +60,7 @@ fun DhcTopBar(
 ) {
     when (state) {
         is DhcTopBarState.Basic -> {
-            DhcTopBar(
+            DhcBasicTopBar(
                 title = state.title,
                 isShowBackButton = state.isShowBackButton,
                 topBarPageState = state.topBarPageState,

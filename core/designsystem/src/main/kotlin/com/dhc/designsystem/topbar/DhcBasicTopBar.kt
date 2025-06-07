@@ -27,7 +27,7 @@ import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.topbar.model.TopBarPageState
 
 @Composable
-fun DhcTopBar(
+fun DhcBasicTopBar(
     title: String,
     isShowBackButton: Boolean,
     topBarPageState: TopBarPageState? = null,
@@ -86,7 +86,7 @@ fun DhcTopBar(
     }
 }
 
-private class DhcTopBarPreviewProvider : PreviewParameterProvider<DhcTopBarPreviewProvider.Parameter> {
+private class DhcBasicTopBarPreviewProvider : PreviewParameterProvider<DhcBasicTopBarPreviewProvider.Parameter> {
     override val values = sequenceOf(
         Parameter(
             title = "화면 제목",
@@ -133,12 +133,12 @@ private class DhcTopBarPreviewProvider : PreviewParameterProvider<DhcTopBarPrevi
 
 @Preview
 @Composable
-private fun DhcTopBarPreview(
-    @PreviewParameter(DhcTopBarPreviewProvider::class)
-    parameter: DhcTopBarPreviewProvider.Parameter,
+private fun DhcBasicTopBarPreview(
+    @PreviewParameter(DhcBasicTopBarPreviewProvider::class)
+    parameter: DhcBasicTopBarPreviewProvider.Parameter,
 ) {
     DhcTheme {
-        DhcTopBar(
+        DhcBasicTopBar(
             topBarPageState = parameter.topBarPageState,
             isShowBackButton = parameter.isShowBackButton,
             title = parameter.title,
