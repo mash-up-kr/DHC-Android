@@ -85,7 +85,7 @@ fun DhcModalBottomSheet(
 fun PreviewDhcModalBottomSheet() {
     val colors = LocalDhcColors.current
     DhcModalBottomSheet(
-        isCloseButtonEnabled = true,
+        isCloseButtonEnabled = false,
         containerColor = colors.background.backgroundMain,
         onDismissRequest = {},
         content = {}

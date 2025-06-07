@@ -21,41 +21,42 @@ import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
 
 @Composable
-fun AlarmSettingBottomSheet(
+fun MissionCompleteCheckBottomSheet(
+    missionCount: Int,
     onDismissRequest: () -> Unit,
-    onClickConfirmButton: () -> Unit,
 ) {
     val colors = LocalDhcColors.current
     DhcModalBottomSheet(
-        isCloseButtonEnabled = true,
+        isCloseButtonEnabled = false,
         containerColor = SurfaceColor.neutral700,
         onDismissRequest = onDismissRequest,
         content = {
-            AlarmSettingContent(
-                colors = colors,
-                onClickConfirmButton = onClickConfirmButton
+            MissionCompleteCheckContent(
+                missionCount = missionCount,
+                colors = colors
             )
         }
     )
 }
 
 @Composable
-fun AlarmSettingContent(
+fun MissionCompleteCheckContent(
+    missionCount: Int,
     colors: DhcColors,
-    onClickConfirmButton: () -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         //TODO - 추후 버튼과 타이틀은 DHC Component로 변경 필요
+        Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = stringResource(R.string.alarm_setting_title),
+            text = stringResource(R.string.mission_complete_title),
             style = DhcTypoTokens.TitleH2,
             color = colors.text.textMain,
             textAlign = TextAlign.Center,
         )
         Text(
-            text = stringResource(R.string.alarm_setting_cont),
+            text = stringResource(R.string.mission_complete_desc, missionCount),
             style = DhcTypoTokens.Body3,
             color = colors.text.textBodyPrimary,
             textAlign = TextAlign.Center,
@@ -63,7 +64,7 @@ fun AlarmSettingContent(
         Spacer(modifier = Modifier.height(32.dp))
         Button(
             modifier = Modifier.padding(bottom = 20.dp).fillMaxWidth(),
-            onClick = onClickConfirmButton
+            onClick = {}
         ) {
             Text(
                 text = "임시버튼",
@@ -72,15 +73,27 @@ fun AlarmSettingContent(
                 textAlign = TextAlign.Center,
             )
         }
+        Button(
+            modifier = Modifier.padding(bottom = 20.dp).fillMaxWidth(),
+            onClick = {}
+        ) {
+            Text(
+                text = "임시버튼",
+                style = DhcTypoTokens.TitleH2,
+                color = colors.text.textMain,
+                textAlign = TextAlign.Center,
+            )
+        }
+        Spacer(modifier = Modifier.height(20.dp))
 
     }
 }
 
 @Preview
 @Composable
-fun PreviewAlarmSettingBottomSheet() {
-    AlarmSettingBottomSheet(
+fun PreviewMissionCompleteCheckBottomSheet() {
+    MissionCompleteCheckBottomSheet(
         onDismissRequest = {},
-        onClickConfirmButton = {}
+        missionCount = 0
     )
 }
