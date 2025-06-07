@@ -1,5 +1,6 @@
-package com.dhc.designsystem.calendar
+package com.dhc.designsystem.calendar.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +25,8 @@ import java.time.format.DateTimeFormatter
 fun DhcCalendarHeader(
     currentDate: LocalDate,
     modifier: Modifier = Modifier,
+    onClickLeftButton: () -> Unit = {},
+    onClickRightButton: () -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
 
@@ -35,7 +38,8 @@ fun DhcCalendarHeader(
         Icon(
             modifier = Modifier
                 .padding(4.dp)
-                .weight(1f),
+                .weight(1f)
+                .clickable { onClickLeftButton() },
             painter = painterResource(R.drawable.ico_arrow_left),
             tint = colors.text.textMain,
             contentDescription = null,
@@ -50,7 +54,8 @@ fun DhcCalendarHeader(
         Icon(
             modifier = Modifier
                 .padding(4.dp)
-                .weight(1f),
+                .weight(1f)
+                .clickable { onClickRightButton() },
             painter = painterResource(R.drawable.ico_arrow_right),
             tint = colors.text.textMain,
             contentDescription = null,

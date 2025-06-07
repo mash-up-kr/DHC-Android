@@ -1,4 +1,4 @@
-package com.dhc.designsystem.calendar
+package com.dhc.designsystem.calendar.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,9 +12,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,40 +22,35 @@ import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens.Body3
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.calendar.CalendarUtils.getDaysOfMonth
+import com.dhc.designsystem.calendar.DhcCalendarController
 import java.time.LocalDate
 
 @Composable
 fun DhcCalendarDateSwiper(
-    date: LocalDate,
+    pagerState: PagerState,
+    controller: DhcCalendarController,
     modifier: Modifier = Modifier,
-    pagerState: PagerState = rememberPagerState(
-        initialPage = Int.MAX_VALUE / 2,
-        pageCount = { Int.MAX_VALUE },
-    ),
 ) {
     HorizontalPager(
         modifier = modifier,
         state = pagerState,
-    ) {
-        DhcCalendarDate(
-            date = date,
-        )
+    ) { page ->
+        DhcCalendarDate(day = controller.getDate(page))
     }
 }
 
 @Composable
 fun DhcCalendarDate(
-    date: LocalDate,
+    day: LocalDate,
     modifier: Modifier = Modifier
 ) {
-    val days by remember(date) { mutableStateOf(getDaysOfMonth(date)) }
-
     LazyVerticalGrid(
         modifier = modifier,
         columns = GridCells.Fixed(7),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
+        val days = getDaysOfMonth(day)
         items(days.size) { index ->
             // Todo :: 날짜별 다른 디자인 적용
             DhcCalendarDay(
@@ -96,7 +88,12 @@ fun DhcCalendarDay(
 private fun DhcCalendarDateSwiperPreview() {
     DhcTheme {
         DhcCalendarDateSwiper(
-            date = LocalDate.now(),
+            pagerState = rememberPagerState(
+                initialPage = 1,
+                initialPageOffsetFraction = 0f,
+                pageCount = { 1 },
+            ),
+            controller = DhcCalendarController()
         )
     }
 }

@@ -1,4 +1,4 @@
-package com.dhc.designsystem.calendar
+package com.dhc.designsystem.calendar.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
