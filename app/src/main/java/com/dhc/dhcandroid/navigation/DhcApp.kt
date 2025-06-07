@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.gnb.DhcGnb
 
 @Composable
@@ -33,7 +34,7 @@ fun DhcApp() {
         bottomBar = {
             DhcBottomBar(
                 state = currentScreenConfig.bottomBarState,
-                navigateToRoute = { navController.navigateToBottomNavigation(it) },
+                navigateToRoute = { navController.navigateToBottomNavigation(DhcRoute.fromName(it)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .navigationBarsPadding()
@@ -74,34 +75,6 @@ fun DhcTopBar(state: DhcTopBarState) {
 
         is DhcTopBarState.None -> {
             // No top bar
-        }
-    }
-}
-
-// Todo :: 추후 디자인 시스템 모듈로 이동하여 사용하자
-@Composable
-fun DhcBottomBar(
-    state: DhcBottomBarState,
-    navigateToRoute: (DhcRoute) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    when (state) {
-        is DhcBottomBarState.BottomNavigation -> {
-            // Todo :: Bottom navigation bar Component
-            var selectedIndex by remember { mutableIntStateOf(0) }
-            DhcGnb(
-                gnbItemList = state.items,
-                selectedIndex = selectedIndex,
-                onClickItem = { gnbItem, index ->
-                    navigateToRoute(DhcRoute.fromName(gnbItem.routeName))
-                    selectedIndex = index
-                },
-                modifier = modifier,
-            )
-        }
-
-        is DhcBottomBarState.None -> {
-            // No bottom bar
         }
     }
 }

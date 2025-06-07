@@ -1,7 +1,6 @@
 package com.dhc.dhcandroid.navigation
 
-import com.dhc.designsystem.R
-import com.dhc.designsystem.gnb.model.GnbItem
+import com.dhc.designsystem.gnb.model.DhcBottomBarState
 
 data class ScreenConfig(
     val topBarState: DhcTopBarState = DhcTopBarState.None,
@@ -14,29 +13,4 @@ sealed interface DhcTopBarState {
         val title: String,
         val showBackButton: Boolean,
     ) : DhcTopBarState
-}
-
-sealed interface DhcBottomBarState {
-
-    data object None : DhcBottomBarState
-
-    data object BottomNavigation : DhcBottomBarState {
-        val items = listOf(
-            GnbItem(
-                iconResource = R.drawable.home,
-                iconText = R.string.btn_bottom_home,
-                routeName = DhcRoute.MAIN_HOME.name,
-            ),
-            GnbItem(
-                iconResource = R.drawable.status,
-                iconText = R.string.btn_bottom_mission,
-                routeName = DhcRoute.MAIN_MISSION.name,
-            ),
-            GnbItem(
-                iconResource = R.drawable.mypage,
-                iconText = R.string.btn_bottom_my_page,
-                routeName = DhcRoute.MAIN_MY.name,
-            ),
-        )
-    }
 }
