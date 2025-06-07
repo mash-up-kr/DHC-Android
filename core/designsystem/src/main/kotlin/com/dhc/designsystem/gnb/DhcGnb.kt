@@ -33,7 +33,7 @@ fun DhcGnb(
                     Image(
                         modifier = Modifier.size(24.dp),
                         painter = painterResource(gnbItem.iconResource),
-                        contentDescription = null,
+                        contentDescription = stringResource(gnbItem.iconText),
                     )
                 },
                 label = {
