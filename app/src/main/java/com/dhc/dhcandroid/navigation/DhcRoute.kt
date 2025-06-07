@@ -26,8 +26,8 @@ enum class DhcRoute(
             bottomBarState = DhcBottomBarState.BottomNavigation,
         ),
     ),
-    MAIN_CALENDAR(
-        route = "main/calendar",
+    MAIN_MISSION(
+        route = "main/mission",
         screenConfig = ScreenConfig(
             bottomBarState = DhcBottomBarState.BottomNavigation,
         ),
