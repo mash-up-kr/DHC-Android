@@ -1,20 +1,11 @@
 package com.dhc.dhcandroid.navigation
 
-import com.dhc.designsystem.topbar.model.TopBarPageState
+import com.dhc.designsystem.topbar.model.DhcTopBarState
 
 data class ScreenConfig(
     val topBarState: DhcTopBarState = DhcTopBarState.None,
     val bottomBarState: DhcBottomBarState = DhcBottomBarState.None,
 )
-
-sealed interface DhcTopBarState {
-    data object None : DhcTopBarState
-    data class Basic(
-        val title: String,
-        val isShowBackButton: Boolean,
-        val topBarPageState: TopBarPageState? = null,
-    ) : DhcTopBarState
-}
 
 sealed interface DhcBottomBarState {
     val items: List<BottomNavigationItem>

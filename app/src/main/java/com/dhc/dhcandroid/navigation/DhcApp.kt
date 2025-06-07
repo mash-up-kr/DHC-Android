@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.dhc.designsystem.topbar.DhcBasicTopBar
+import com.dhc.designsystem.topbar.DhcTopBar
 
 @Composable
 fun DhcApp() {
@@ -26,7 +26,7 @@ fun DhcApp() {
         topBar = {
             DhcTopBar(
                 state = currentScreenConfig.topBarState,
-                navController = navController,
+                navigateUp = { navController.navigateUp() },
             )
         },
         bottomBar = {
@@ -50,25 +50,6 @@ private fun currentScreenConfigAsState(navController: NavHostController): State<
         derivedStateOf {
             DhcRoute.fromRoute(route).screenConfig
         }
-    }
-}
-
-@Composable
-fun DhcTopBar(
-    state: DhcTopBarState,
-    navController: NavHostController,
-) {
-    when (state) {
-        is DhcTopBarState.Basic -> {
-            DhcBasicTopBar(
-                title = state.title,
-                isShowBackButton = state.isShowBackButton,
-                topBarPageState = state.topBarPageState,
-                onClickBackButton = { navController.navigateUp() },
-            )
-        }
-
-        is DhcTopBarState.None -> Unit
     }
 }
 

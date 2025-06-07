@@ -1,5 +1,7 @@
 package com.dhc.dhcandroid.navigation
 
+import com.dhc.designsystem.topbar.model.DhcTopBarState
+
 enum class DhcRoute(
     val route: String,
     val screenConfig: ScreenConfig,
