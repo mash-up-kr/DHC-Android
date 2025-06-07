@@ -4,8 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.pager.HorizontalPager
@@ -24,6 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
+import com.dhc.designsystem.DhcTypoTokens.Body3
+import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.calendar.CalendarUtils.getDaysOfMonth
 import java.time.LocalDate
 
@@ -42,7 +42,6 @@ fun DhcCalendarDateSwiper(
     ) {
         DhcCalendarDate(
             date = date,
-            modifier = Modifier.fillMaxWidth(),
         )
     }
 }
@@ -55,17 +54,16 @@ fun DhcCalendarDate(
     val days by remember(date) { mutableStateOf(getDaysOfMonth(date)) }
 
     LazyVerticalGrid(
-        columns = GridCells.Fixed(7),
         modifier = modifier,
+        columns = GridCells.Fixed(7),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(days.size) { index ->
+            // Todo :: 날짜별 다른 디자인 적용
             DhcCalendarDay(
                 day = days[index].dayOfMonth,
-                modifier = Modifier
-                    .aspectRatio(1f)
-                    .size(36.dp)
+                modifier = Modifier.aspectRatio(1f),
             )
         }
     }
@@ -77,6 +75,8 @@ fun DhcCalendarDay(
     modifier: Modifier = Modifier,
     color: Color = Color.Gray,
 ) {
+    val colors = LocalDhcColors.current
+
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
@@ -85,7 +85,8 @@ fun DhcCalendarDay(
     ) {
         Text(
             text = day.toString(),
-            color = Color.White,
+            color = colors.text.textMain,
+            style = Body3,
         )
     }
 }
@@ -96,7 +97,6 @@ private fun DhcCalendarDateSwiperPreview() {
     DhcTheme {
         DhcCalendarDateSwiper(
             date = LocalDate.now(),
-            modifier = Modifier.fillMaxWidth()
         )
     }
 }
