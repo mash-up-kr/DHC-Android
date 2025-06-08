@@ -24,6 +24,7 @@ import com.dhc.designsystem.R
 import com.dhc.designsystem.spinner.common.DhcItemSpinnerBackground
 import com.dhc.designsystem.spinner.common.DhcItemSpinnerContent
 import com.dhc.designsystem.spinner.common.DhcSpinner
+import com.dhc.designsystem.spinner.common.DhcSpinnerItem
 import com.dhc.designsystem.spinner.model.TimeType
 
 @Composable
@@ -55,80 +56,32 @@ fun DhcTimeSpinner(
             .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(23.dp),
     ) {
-        DhcSpinner(
+        DhcSpinnerItem(
             itemList = timeTypeList,
             visibleItemsCount = visibleItemsCount,
             itemHeightDp = itemHeightDp,
+            initialItem = initialTimeType,
             onValueChanged = { currentTimeType = it },
+            itemTextCreator = { it.text },
             modifier = Modifier.weight(2f),
-            initialIndex = timeTypeList.indexOf(initialTimeType),
-            itemBackground = { isFocused ->
-                DhcItemSpinnerBackground(
-                    isFocused = isFocused,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(itemHeightDp),
-                )
-            },
-            itemContent = { item, isFocused ->
-                DhcItemSpinnerContent(
-                    text = item.text,
-                    isFocused = isFocused,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(itemHeightDp),
-                )
-            }
         )
-        DhcSpinner(
+        DhcSpinnerItem(
             itemList = timeList,
             visibleItemsCount = visibleItemsCount,
             itemHeightDp = itemHeightDp,
+            initialItem = initialTime,
             onValueChanged = { currentTime = it },
+            itemTextCreator = { stringResource(R.string.d_hour, it) },
             modifier = Modifier.weight(1f),
-            initialIndex = timeList.indexOf(initialTime).coerceAtLeast(0),
-            itemBackground = { isFocused ->
-                DhcItemSpinnerBackground(
-                    isFocused = isFocused,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(itemHeightDp),
-                )
-            },
-            itemContent = { item, isFocused ->
-                DhcItemSpinnerContent(
-                    text = stringResource(R.string.d_hour, item),
-                    isFocused = isFocused,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(itemHeightDp),
-                )
-            }
         )
-        DhcSpinner(
+        DhcSpinnerItem(
             itemList = minuteList,
             visibleItemsCount = visibleItemsCount,
             itemHeightDp = itemHeightDp,
+            initialItem = initialMinute,
             onValueChanged = { currentMinute = it },
+            itemTextCreator = { stringResource(R.string.d_minute, it) },
             modifier = Modifier.weight(1f),
-            initialIndex = minuteList.indexOf(initialMinute).coerceAtLeast(0),
-            itemBackground = { isFocused ->
-                DhcItemSpinnerBackground(
-                    isFocused = isFocused,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(itemHeightDp),
-                )
-            },
-            itemContent = { item, isFocused ->
-                DhcItemSpinnerContent(
-                    text = stringResource(R.string.d_minute, item),
-                    isFocused = isFocused,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(itemHeightDp),
-                )
-            }
         )
     }
 }
