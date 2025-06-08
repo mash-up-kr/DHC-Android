@@ -1,7 +1,8 @@
 package com.dhc.dhcandroid.navigation
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -9,11 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.dhc.designsystem.gnb.DhcGnb
 
 @Composable
 fun DhcApp() {
@@ -26,14 +30,24 @@ fun DhcApp() {
             DhcTopBar(currentScreenConfig.topBarState)
         },
         bottomBar = {
-            DhcBottomBar(currentScreenConfig.bottomBarState)
+            DhcBottomBar(
+                state = currentScreenConfig.bottomBarState,
+                navController = navController,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .navigationBarsPadding(),
+            )
         },
     ) { paddingValues ->
-        DhcNavHost(
-            navController = navController,
-            startDestination = startDestination,
-            modifier = Modifier.padding(paddingValues),
-        )
+        Column(modifier = Modifier.padding(paddingValues)) {
+            DhcNavHost(
+                navController = navController,
+                startDestination = startDestination,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+            )
+        }
     }
 }
 
@@ -68,24 +82,22 @@ fun DhcTopBar(state: DhcTopBarState) {
 @Composable
 fun DhcBottomBar(
     state: DhcBottomBarState,
+    navController: NavHostController,
     modifier: Modifier = Modifier,
-    navigateToRoute: (DhcRoute) -> Unit = {},
 ) {
     when (state) {
         is DhcBottomBarState.BottomNavigation -> {
             // Todo :: Bottom navigation bar Component
-            Row(
+            var selectedIndex by remember { mutableIntStateOf(0) }
+            DhcGnb(
+                gnbItemList = state.items,
+                selectedIndex = selectedIndex,
+                onClickItem = { gnbItem, index ->
+                    navController.navigateToBottomNavigation(DhcRoute.fromName(gnbItem.routeName))
+                    selectedIndex = index
+                },
                 modifier = modifier,
-            ) {
-                state.items.forEach { item ->
-                    Text(
-                        modifier = modifier.clickable {
-                            navigateToRoute(DhcRoute.fromName(item.name))
-                        },
-                        text = item.name,
-                    )
-                }
-            }
+            )
         }
 
         is DhcBottomBarState.None -> {

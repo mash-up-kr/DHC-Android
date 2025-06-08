@@ -1,5 +1,8 @@
 package com.dhc.dhcandroid.navigation
 
+import com.dhc.designsystem.R
+import com.dhc.designsystem.gnb.model.GnbItem
+
 data class ScreenConfig(
     val topBarState: DhcTopBarState = DhcTopBarState.None,
     val bottomBarState: DhcBottomBarState = DhcBottomBarState.None,
@@ -14,35 +17,26 @@ sealed interface DhcTopBarState {
 }
 
 sealed interface DhcBottomBarState {
-    val items: List<BottomNavigationItem>
 
-    data object None : DhcBottomBarState {
-        override val items: List<BottomNavigationItem> = emptyList()
-    }
+    data object None : DhcBottomBarState
 
     data object BottomNavigation : DhcBottomBarState {
-        override val items = listOf(
-            BottomNavigationItem(
-                name = "Home",
-                icon = "ic_home",
-                route = DhcRoute.MAIN_HOME.name,
+        val items = listOf(
+            GnbItem(
+                iconResource = R.drawable.home_04,
+                iconText = R.string.btn_bottom_home,
+                routeName = DhcRoute.MAIN_HOME.name,
             ),
-            BottomNavigationItem(
-                name = "Calendar",
-                icon = "ic_calendar",
-                route = DhcRoute.MAIN_CALENDAR.name,
+            GnbItem(
+                iconResource = R.drawable.bar_chart_10,
+                iconText = R.string.btn_bottom_mission,
+                routeName = DhcRoute.MAIN_MISSION.name,
             ),
-            BottomNavigationItem(
-                name = "My",
-                icon = "ic_my",
-                route = DhcRoute.MAIN_MY.name,
+            GnbItem(
+                iconResource = R.drawable.user_02,
+                iconText = R.string.btn_bottom_my_page,
+                routeName = DhcRoute.MAIN_MY.name,
             ),
         )
     }
 }
-
-data class BottomNavigationItem(
-    val name: String,
-    val icon: String,
-    val route: String,
-)

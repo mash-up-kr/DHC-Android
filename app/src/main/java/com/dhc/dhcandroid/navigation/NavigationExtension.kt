@@ -24,7 +24,7 @@ fun NavHostController.navigateToHomeFromIntro() {
     }
 }
 
-private fun NavHostController.navigateToBottomNavigation(route: DhcRoute) {
+fun NavHostController.navigateToBottomNavigation(route: DhcRoute) {
     navigateTo(route) {
         popUpTo(graph.findStartDestination().id) {
             saveState = true
@@ -38,8 +38,8 @@ fun NavHostController.navigateToHome() {
     navigateToBottomNavigation(DhcRoute.MAIN_HOME)
 }
 
-fun NavHostController.navigateToCalendar() {
-    navigateToBottomNavigation(DhcRoute.MAIN_CALENDAR)
+fun NavHostController.navigateToMission() {
+    navigateToBottomNavigation(DhcRoute.MAIN_MISSION)
 }
 
 fun NavHostController.navigateToMy() {
