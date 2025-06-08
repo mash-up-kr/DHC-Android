@@ -1,8 +1,12 @@
 package com.dhc.common
 
-import java.util.Calendar
+import java.time.LocalDate
+import java.time.Year
 
-fun Calendar.getCurrentYear() = get(Calendar.YEAR)
+object CalendarUtil {
 
-fun Calendar.getActualMaximumDayOfMonth(currentYear: Int, currentMonth: Int): Int =
-    this.apply { set(currentYear, currentMonth-1, 1) }.getActualMaximum(Calendar.DAY_OF_MONTH)
+    fun getCurrentYear(): Int = Year.now().value
+
+    fun getActualMaximumDayOfMonth(year: Int, month: Int): Int =
+        LocalDate.of(year, month, 1).lengthOfMonth()
+}

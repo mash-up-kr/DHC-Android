@@ -18,15 +18,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.dhc.common.getActualMaximumDayOfMonth
-import com.dhc.common.getCurrentYear
+import com.dhc.common.CalendarUtil
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.R
 import com.dhc.designsystem.spinner.common.DhcItemSpinnerBackground
 import com.dhc.designsystem.spinner.common.DhcItemSpinnerContent
 import com.dhc.designsystem.spinner.common.DhcSpinner
-import java.util.Calendar
 
 @Composable
 fun DhcDaySpinner(
@@ -43,11 +41,11 @@ fun DhcDaySpinner(
     var currentMonth by remember { mutableIntStateOf(initialMonth) }
     var currentDay by remember { mutableIntStateOf(initialDay) }
 
-    val yearList = remember { (1900..Calendar.getInstance().getCurrentYear()).toList() }
+    val yearList = remember { (1900..CalendarUtil.getCurrentYear()).toList() }
     val monthList = remember { (1..12).toList() }
     val dayList by remember(currentYear, currentMonth) {
         derivedStateOf {
-            (1..Calendar.getInstance().getActualMaximumDayOfMonth(currentYear, currentMonth)).toList()
+            (1..CalendarUtil.getActualMaximumDayOfMonth(currentYear, currentMonth)).toList()
         }
     }
 
