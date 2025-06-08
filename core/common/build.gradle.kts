@@ -1,5 +1,6 @@
 plugins {
     id("dhc.module")
+    id("dhc.compose")
 }
 
 android {
