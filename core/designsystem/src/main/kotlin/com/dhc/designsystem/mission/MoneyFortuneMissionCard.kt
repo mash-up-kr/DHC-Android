@@ -8,11 +8,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
+import com.dhc.designsystem.check.CheckPreviewProvider
+import com.dhc.designsystem.check.model.DhcCheckStyle
 
 /**
  * Todo - Home모듈로 이동
@@ -51,10 +55,28 @@ fun MoneyFortuneMissionCard(
 
 @Composable
 @Preview
-private fun PreviewSpendingHabitMissionCard() {
+private fun PreviewSpendingHabitMissionCard(
+    @PreviewParameter(MissionCardPreviewProvider::class)
+    parameter: MissionCardPreviewProvider.Parameter,
+) {
     DhcTheme {
         MoneyFortuneMissionCard(
-            isMissionEnabled = true
+            isMissionEnabled = parameter.isMissionEnabled
         )
     }
+}
+
+private class MissionCardPreviewProvider : PreviewParameterProvider<MissionCardPreviewProvider.Parameter> {
+    override val values = sequenceOf(
+        Parameter(
+            isMissionEnabled = true
+        ),
+        Parameter(
+            isMissionEnabled = false
+        ),
+    )
+
+    data class Parameter(
+        val isMissionEnabled: Boolean,
+    )
 }
