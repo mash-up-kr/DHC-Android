@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcColors
+import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.R
@@ -69,9 +70,7 @@ fun SpendingHabitMissionCard(
 @Composable
 @Preview
 private fun PreviewSpendingHabitMissionCard() {
-    CompositionLocalProvider(
-        LocalDhcColors provides colors
-    ) {
+    DhcTheme {
         SpendingHabitMissionCard(
             isMissionEnabled = true
         )
