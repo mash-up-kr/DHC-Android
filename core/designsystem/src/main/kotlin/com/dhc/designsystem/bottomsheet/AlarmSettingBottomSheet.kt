@@ -47,17 +47,17 @@ fun AlarmSettingContent(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //TODO - 추후 버튼과 타이틀은 DHC Component로 변경 필요
         Text(
             text = stringResource(R.string.alarm_setting_title),
             style = DhcTypoTokens.TitleH2,
             color = colors.text.textMain,
             textAlign = TextAlign.Center,
         )
+        Spacer(modifier = Modifier.height(12.dp))
         Text(
             text = stringResource(R.string.alarm_setting_cont),
             style = DhcTypoTokens.Body3,
-            color = colors.text.textBodyPrimary,
+            color = SurfaceColor.neutral200,
             textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(32.dp))

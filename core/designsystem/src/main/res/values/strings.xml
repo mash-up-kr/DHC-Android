@@ -1,8 +1,11 @@
 <resources>
     <string name="alarm_setting_title">알림 설정을\n허용해주세요</string>
     <string name="alarm_setting_cont">서비스를 원활히 진행하기 위해서\n알림설정이 꼭 필요해요</string>
+    <string name="alarm_setting_button">알림 허용하기</string>
     <string name="mission_complete_title">오늘의 미션을\n정말 마무리할까요?</string>
     <string name="mission_complete_desc">아직 %s 개의 미션이 남아있어요!</string>
+    <string name="mission_complete_button">네 완료했어요!</string>
+    <string name="mission_complete_cancel_button">돌아가기</string>
 
     <string name="btn_bottom_home">홈</string>
     <string name="btn_bottom_mission">미션 현황</string>
