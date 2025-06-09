@@ -24,6 +24,9 @@ import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.colors
 
+/**
+ * Todo - Home모듈로 이동
+ */
 @Composable
 fun SpendingHabitMissionCard(
     isMissionEnabled: Boolean

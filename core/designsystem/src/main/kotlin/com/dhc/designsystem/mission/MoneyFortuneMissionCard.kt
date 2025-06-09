@@ -14,6 +14,9 @@ import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 
+/**
+ * Todo - Home모듈로 이동
+ */
 @Composable
 fun MoneyFortuneMissionCard(
     isMissionEnabled: Boolean
