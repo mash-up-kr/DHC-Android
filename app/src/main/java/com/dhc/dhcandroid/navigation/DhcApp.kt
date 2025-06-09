@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
@@ -18,6 +17,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.dhc.designsystem.gnb.DhcBottomBar
+import com.dhc.designsystem.topbar.DhcTopBar
 
 @Composable
 fun DhcApp() {
@@ -27,7 +27,10 @@ fun DhcApp() {
 
     Scaffold(
         topBar = {
-            DhcTopBar(currentScreenConfig.topBarState)
+            DhcTopBar(
+                state = currentScreenConfig.topBarState,
+                navigateUp = { navController.navigateUp() },
+            )
         },
         bottomBar = {
             DhcBottomBar(
@@ -58,21 +61,6 @@ private fun currentScreenConfigAsState(navController: NavHostController): State<
     return remember(route) {
         derivedStateOf {
             DhcRoute.fromRoute(route).screenConfig
-        }
-    }
-}
-
-// Todo :: 추후 디자인 시스템 모듈로 이동하여 사용하자
-@Composable
-fun DhcTopBar(state: DhcTopBarState) {
-    when (state) {
-        is DhcTopBarState.CenterTitle -> {
-            // Todo :: Top bar Component
-            Text(state.title)
-        }
-
-        is DhcTopBarState.None -> {
-            // No top bar
         }
     }
 }
