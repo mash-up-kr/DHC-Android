@@ -23,6 +23,8 @@ import com.dhc.designsystem.DhcTypoTokens.Body3
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.calendar.CalendarUtils.getDaysOfMonth
 import com.dhc.designsystem.calendar.DhcCalendarController
+import com.dhc.designsystem.calendar.model.DhcCalendarInitialData
+import java.time.DayOfWeek
 import java.time.LocalDate
 
 @Composable
@@ -35,7 +37,7 @@ fun DhcCalendarDateSwiper(
         modifier = modifier,
         state = pagerState,
     ) { page ->
-        DhcCalendarDate(day = controller.getDate(page))
+        DhcCalendarDate(day = controller.getDateByPage(page))
     }
 }
 
@@ -46,7 +48,7 @@ fun DhcCalendarDate(
 ) {
     LazyVerticalGrid(
         modifier = modifier,
-        columns = GridCells.Fixed(7),
+        columns = GridCells.Fixed(DayOfWeek.entries.size),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -93,7 +95,7 @@ private fun DhcCalendarDateSwiperPreview() {
                 initialPageOffsetFraction = 0f,
                 pageCount = { 1 },
             ),
-            controller = DhcCalendarController()
+            controller = DhcCalendarController(DhcCalendarInitialData())
         )
     }
 }

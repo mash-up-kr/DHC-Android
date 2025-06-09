@@ -18,7 +18,7 @@ import com.dhc.designsystem.calendar.CalendarUtils.getDayOfWeekInKorean
 import java.time.DayOfWeek
 
 @Composable
-fun DhcCalendarWeekend(
+fun DhcCalendarDayOfWeek(
     modifier: Modifier = Modifier,
 ) {
     val colors = LocalDhcColors.current
@@ -49,6 +49,6 @@ fun DhcCalendarWeekend(
 @Composable
 private fun DhcCalendarWeekendPreview() {
     DhcTheme {
-        DhcCalendarWeekend(Modifier.fillMaxWidth())
+        DhcCalendarDayOfWeek(Modifier.fillMaxWidth())
     }
 }

@@ -37,11 +37,11 @@ fun DhcCalendarHeader(
     ) {
         Icon(
             modifier = Modifier
-                .padding(4.dp)
-                .clickable { onClickLeftButton() },
+                .clickable { onClickLeftButton() }
+                .padding(4.dp),
             painter = painterResource(R.drawable.ico_arrow_left),
             tint = colors.text.textMain,
-            contentDescription = null,
+            contentDescription = "calendar left button",
         )
         Text(
             text = currentDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월")),
@@ -55,7 +55,7 @@ fun DhcCalendarHeader(
                 .clickable { onClickRightButton() },
             painter = painterResource(R.drawable.ico_arrow_right),
             tint = colors.text.textMain,
-            contentDescription = null,
+            contentDescription = "calendar right button",
         )
     }
 }

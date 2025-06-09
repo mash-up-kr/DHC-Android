@@ -50,7 +50,7 @@ fun DhcCalendar(
     ) {
         DhcCalendarHeader(
             modifier = Modifier.fillMaxWidth(),
-            currentDate = controller.currentDate.value,
+            currentDate = controller.currentDate,
             onClickLeftButton = {
                 scope.launch {
                     pagerState.scrollToPage(pagerState.currentPage - 1)
@@ -58,11 +58,11 @@ fun DhcCalendar(
             },
             onClickRightButton = {
                 scope.launch {
-                    pagerState.scrollToPage(pagerState.currentPage - 1)
+                    pagerState.scrollToPage(pagerState.currentPage + 1)
                 }
             },
         )
-        DhcCalendarWeekend(
+        DhcCalendarDayOfWeek(
             modifier = Modifier.fillMaxWidth(),
         )
         DhcCalendarDateSwiper(
