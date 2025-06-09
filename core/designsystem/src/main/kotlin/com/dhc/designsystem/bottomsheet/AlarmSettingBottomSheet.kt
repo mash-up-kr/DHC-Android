@@ -78,7 +78,7 @@ fun AlarmSettingContent(
 
 @Preview
 @Composable
-fun PreviewAlarmSettingBottomSheet() {
+private fun PreviewAlarmSettingBottomSheet() {
     AlarmSettingBottomSheet(
         onDismissRequest = {},
         onClickConfirmButton = {}

@@ -29,8 +29,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 fun DhcModalBottomSheet(
     isCloseButtonEnabled: Boolean,
-    modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
     containerColor: Color = SurfaceColor.neutral700,
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -46,7 +46,6 @@ fun DhcModalBottomSheet(
         modifier = modifier,
         dragHandle = {},
         containerColor = Color.Transparent,
-        shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
         onDismissRequest = {
             if (!isCloseButtonEnabled) {
                 onDismissRequest()
@@ -82,7 +81,7 @@ fun DhcModalBottomSheet(
 
 @Preview
 @Composable
-fun PreviewDhcModalBottomSheet() {
+private fun PreviewDhcModalBottomSheet() {
     val colors = LocalDhcColors.current
     DhcModalBottomSheet(
         isCloseButtonEnabled = false,

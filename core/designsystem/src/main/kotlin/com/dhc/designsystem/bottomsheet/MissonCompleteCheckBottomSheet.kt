@@ -91,7 +91,7 @@ fun MissionCompleteCheckContent(
 
 @Preview
 @Composable
-fun PreviewMissionCompleteCheckBottomSheet() {
+private fun PreviewMissionCompleteCheckBottomSheet() {
     MissionCompleteCheckBottomSheet(
         onDismissRequest = {},
         missionCount = 0
