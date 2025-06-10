@@ -19,8 +19,8 @@ fun DhcTipCardLazyGrid(
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
+        modifier = modifier,
         columns = GridCells.Fixed(cellCount),
-        modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(8.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)

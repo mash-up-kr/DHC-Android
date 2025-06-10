@@ -72,7 +72,6 @@ fun TipCardTitle(
             text = title,
             style = DhcTypoTokens.Body5,
             color = SurfaceColor.neutral400,
-            textAlign = TextAlign.Center,
         )
     }
 }
@@ -93,7 +92,7 @@ fun TipCardContent(
             Canvas(modifier = Modifier.size(8.dp)) {
                 drawCircle(
                     color = hexToColor(color),
-                    radius = size.minDimension / 4,
+                    radius = size.minDimension / 2,
                 )
             }
             Spacer(modifier = Modifier.width(8.dp))
