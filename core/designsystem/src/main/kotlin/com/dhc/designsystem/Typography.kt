@@ -35,7 +35,7 @@ object LineHeightToken {
     val H4 = 24.sp
     val H5 = 22.sp
     val H6 = 20.sp
-    val H7 = 23.sp
+    val H7 = 20.sp
     val H8 = 18.sp
     val Body0 = 40.sp
     val Body1 = 28.sp
