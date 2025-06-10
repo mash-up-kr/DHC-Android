@@ -20,6 +20,8 @@ import com.dhc.designsystem.colors
 
 @Composable
 fun MissionItemBackGround(
+    isChecked: Boolean,
+    isEnabled: Boolean,
     content: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -34,8 +36,8 @@ fun MissionItemBackGround(
     ) {
         content()
         DhcCheck(
-            isChecked = true,
-            isEnabled = true,
+            isChecked = isChecked,
+            isEnabled = isEnabled,
             dhcCheckStyle = DhcCheckStyle.Default
         )
     }
@@ -48,6 +50,8 @@ private fun PreviewMissionItem() {
         LocalDhcColors provides colors
     ) {
         MissionItemBackGround(
+            isChecked = true,
+            isEnabled = true,
             content = {}
         )
     }

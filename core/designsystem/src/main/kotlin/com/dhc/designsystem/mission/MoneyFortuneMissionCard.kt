@@ -21,6 +21,7 @@ import com.dhc.designsystem.SurfaceColor
  */
 @Composable
 fun MoneyFortuneMissionCard(
+    isChecked: Boolean,
     isMissionEnabled: Boolean
 ) {
     val colors = LocalDhcColors.current
@@ -30,6 +31,8 @@ fun MoneyFortuneMissionCard(
         else SurfaceColor.neutral400
 
     MissionItemBackGround(
+        isChecked = isChecked,
+        isEnabled = isMissionEnabled,
         content = {
             Row(
                 modifier = Modifier.fillMaxWidth().weight(1f)
@@ -59,7 +62,8 @@ private fun PreviewSpendingHabitMissionCard(
 ) {
     DhcTheme {
         MoneyFortuneMissionCard(
-            isMissionEnabled = parameter.isMissionEnabled
+            isMissionEnabled = parameter.isMissionEnabled,
+            isChecked = parameter.isChecked
         )
     }
 }
@@ -67,14 +71,17 @@ private fun PreviewSpendingHabitMissionCard(
 private class MissionCardPreviewProvider : PreviewParameterProvider<MissionCardPreviewProvider.Parameter> {
     override val values = sequenceOf(
         Parameter(
-            isMissionEnabled = true
+            isMissionEnabled = true,
+            isChecked = true
         ),
         Parameter(
-            isMissionEnabled = false
+            isMissionEnabled = false,
+            isChecked = false
         ),
     )
 
     data class Parameter(
         val isMissionEnabled: Boolean,
+        val isChecked: Boolean = false
     )
 }

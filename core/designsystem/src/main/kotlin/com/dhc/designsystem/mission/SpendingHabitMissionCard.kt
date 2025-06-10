@@ -29,6 +29,7 @@ import com.dhc.designsystem.colors
  */
 @Composable
 fun SpendingHabitMissionCard(
+    isChecked: Boolean,
     isMissionEnabled: Boolean
 ) {
     val colors = LocalDhcColors.current
@@ -43,6 +44,8 @@ fun SpendingHabitMissionCard(
             .padding(top = 12.dp)
     ) {
         MissionItemBackGround(
+            isChecked = isChecked,
+            isEnabled = isMissionEnabled,
             content = {
                 Column(
                     modifier = Modifier.fillMaxWidth().weight(1f)
@@ -75,6 +78,7 @@ fun SpendingHabitMissionCard(
 private fun PreviewSpendingHabitMissionCard() {
     DhcTheme {
         SpendingHabitMissionCard(
+            isChecked = true,
             isMissionEnabled = true
         )
     }
