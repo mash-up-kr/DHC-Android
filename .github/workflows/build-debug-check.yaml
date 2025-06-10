@@ -18,9 +18,9 @@ jobs:
 
       - name: Putting Google Json
         env:
-          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run: |
-          mkdir /home/runner/work/DHC-Android/DHC-Android/app
+          mkdir -p /home/runner/work/DHC-Android/DHC-Android/app
           echo "$GOOGLE_SERVICES_JSON" > /home/runner/work/DHC-Android/DHC-Android/app/google-services.json
 
       - name: Grant execute permission for gradlew
