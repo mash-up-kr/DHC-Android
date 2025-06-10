@@ -10,19 +10,18 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import com.dhc.designsystem.DhcColors
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
-import com.dhc.designsystem.colors
 
 /**
  * Todo - Home모듈로 이동
@@ -77,13 +76,35 @@ fun SpendingHabitMissionCard(
 
 @Composable
 @Preview
-private fun PreviewSpendingHabitMissionCard() {
+private fun PreviewSpendingHabitMissionCard(
+    @PreviewParameter(SpendingHabitMissionCardPreviewProvider::class)
+    parameter: SpendingHabitMissionCardPreviewProvider.Parameter,
+) {
     DhcTheme {
         SpendingHabitMissionCard(
             missionDday = "D-3",
             missionTitle = "텀블러 들고 다니기",
-            isChecked = true,
-            isMissionEnabled = true
+            isChecked = parameter.isChecked,
+            isMissionEnabled = parameter.isMissionEnabled
         )
     }
+}
+
+private class SpendingHabitMissionCardPreviewProvider :
+    PreviewParameterProvider<SpendingHabitMissionCardPreviewProvider.Parameter> {
+    override val values = sequenceOf(
+        Parameter(
+            isMissionEnabled = true,
+            isChecked = true
+        ),
+        Parameter(
+            isMissionEnabled = false,
+            isChecked = false
+        ),
+    )
+
+    data class Parameter(
+        val isMissionEnabled: Boolean,
+        val isChecked: Boolean = false
+    )
 }
