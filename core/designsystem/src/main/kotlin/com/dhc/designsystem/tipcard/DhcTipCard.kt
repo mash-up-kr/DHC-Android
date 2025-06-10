@@ -66,7 +66,6 @@ fun TipCardTitle(
             model = icon,
             contentDescription = "tipCardIcon",
             modifier = Modifier.size(20.dp),
-            placeholder = painterResource(R.drawable.home)
         )
         Spacer(modifier = Modifier.width(4.dp))
         Text(

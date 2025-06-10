@@ -15,10 +15,11 @@ import com.dhc.designsystem.DhcTheme
 @Composable
 fun DhcTipCardLazyGrid(
     tipCards: List<TipCardModel>,
+    cellCount: Int = 2,
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Fixed(cellCount),
         modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(8.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
