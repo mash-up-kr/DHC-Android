@@ -29,6 +29,8 @@ import com.dhc.designsystem.colors
  */
 @Composable
 fun SpendingHabitMissionCard(
+    missionDday: String,
+    missionTitle: String,
     isChecked: Boolean,
     isMissionEnabled: Boolean
 ) {
@@ -52,13 +54,13 @@ fun SpendingHabitMissionCard(
                 ) {
                     //TODO - Badge Component 변경
                     Text(
-                        text = "D-12",
+                        text = missionDday,
                         style = DhcTypoTokens.TitleH5,
                         color = missionColor
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "텀블러 들고 다니기",
+                        text = missionTitle,
                         style = DhcTypoTokens.TitleH5,
                         color = missionColor
                     )
@@ -78,6 +80,8 @@ fun SpendingHabitMissionCard(
 private fun PreviewSpendingHabitMissionCard() {
     DhcTheme {
         SpendingHabitMissionCard(
+            missionDday = "D-3",
+            missionTitle = "텀블러 들고 다니기",
             isChecked = true,
             isMissionEnabled = true
         )

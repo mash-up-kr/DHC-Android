@@ -21,6 +21,8 @@ import com.dhc.designsystem.SurfaceColor
  */
 @Composable
 fun MoneyFortuneMissionCard(
+    missionMode: String,
+    missionTitle: String,
     isChecked: Boolean,
     isMissionEnabled: Boolean
 ) {
@@ -38,14 +40,14 @@ fun MoneyFortuneMissionCard(
                 modifier = Modifier.fillMaxWidth().weight(1f)
             ) {
                 Text(
-                    text = "텀블러 들고 다니기",
+                    text = missionTitle,
                     style = DhcTypoTokens.TitleH5,
                     color = missionColor
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 //TODO - Badge Component 변경
                 Text(
-                    text = "D-12",
+                    text = missionMode,
                     style = DhcTypoTokens.TitleH5,
                     color = missionColor
                 )
@@ -62,6 +64,8 @@ private fun PreviewSpendingHabitMissionCard(
 ) {
     DhcTheme {
         MoneyFortuneMissionCard(
+            missionTitle = "텀블러 들고 다니기",
+            missionMode = "Easy",
             isMissionEnabled = parameter.isMissionEnabled,
             isChecked = parameter.isChecked
         )
