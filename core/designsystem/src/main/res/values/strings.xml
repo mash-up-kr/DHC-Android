@@ -7,6 +7,13 @@
     <string name="mission_complete_button">네 완료했어요!</string>
     <string name="mission_complete_cancel_button">돌아가기</string>
 
+
+    <string name="d_year">%d년</string>
+    <string name="d_month">%d월</string>
+    <string name="d_day">%d일</string>
+    <string name="d_hour">%d시</string>
+    <string name="d_minute">%02d분</string>
+  
     <string name="btn_bottom_home">홈</string>
     <string name="btn_bottom_mission">미션 현황</string>
     <string name="btn_bottom_my_page">마이페이지</string>
