@@ -15,8 +15,6 @@ import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
-import com.dhc.designsystem.check.CheckPreviewProvider
-import com.dhc.designsystem.check.model.DhcCheckStyle
 
 /**
  * Todo - Home모듈로 이동
