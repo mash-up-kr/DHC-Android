@@ -1,5 +1,6 @@
 package com.dhc.designsystem
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 internal val colors = DhcColors(
@@ -41,6 +42,36 @@ data object AccentColor {
     val violet500: Color = Color(0xFF5660C1)
     val violet600: Color = Color(0xFF414BAE)
     val violet700: Color = Color(0xFF343FA6)
+}
+
+data object GradientColor {
+    val textGradient01 = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0.16f to AccentColor.violet200,
+            0.83f to SurfaceColor.neutral30,
+        ),
+    )
+    val textGradient02 = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0.16f to AccentColor.violet200,
+            1.0f to SurfaceColor.neutral30,
+        ),
+    )
+    val backgroundGradient01 = Brush.radialGradient(
+        colorStops = arrayOf(
+            0.23f to AccentColor.violet400,
+            0.51f to AccentColor.violet400.copy(alpha = 0.3f),
+            0.75f to AccentColor.violet400.copy(alpha = 0.1f),
+            0.88f to AccentColor.violet400.copy(alpha = 0.05f),
+            1.0f to AccentColor.violet400.copy(alpha = 0f),
+        ),
+    )
+    val tooltipGradient01 = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0.43f to SurfaceColor.neutral30,
+            1.0f to AccentColor.violet200,
+        ),
+    )
 }
 
 data object TransparentColor {
