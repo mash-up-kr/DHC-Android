@@ -9,11 +9,10 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
 ): BaseViewModel<State, Event, SideEffect>() {
     override fun createInitialState(): State {
-        TODO("Not yet implemented")
+        return State() //TODO - 변경 필요
     }
 
     override suspend fun handleEvent(event: Event) {
-        TODO("Not yet implemented")
     }
 
 }
