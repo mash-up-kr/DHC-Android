@@ -19,11 +19,12 @@ import com.dhc.designsystem.SurfaceColor
 @Composable
 fun DhcMessageCard(
     title: String,
-    content: String
+    content: String,
+    modifier: Modifier = Modifier
 ) {
     val dhcColor = LocalDhcColors.current
     Column(
-        modifier = Modifier
+        modifier = modifier
             .background(
                 color = SurfaceColor.neutral700,
                 shape = RoundedCornerShape(12.dp)
