@@ -1,5 +1,8 @@
 package com.dhc.dhcandroid.navigation
 
+import com.dhc.designsystem.gnb.model.DhcBottomBarState
+import com.dhc.designsystem.topbar.model.DhcTopBarState
+
 enum class DhcRoute(
     val route: String,
     val screenConfig: ScreenConfig,
@@ -24,8 +27,8 @@ enum class DhcRoute(
             bottomBarState = DhcBottomBarState.BottomNavigation,
         ),
     ),
-    MAIN_CALENDAR(
-        route = "main/calendar",
+    MAIN_MISSION(
+        route = "main/mission",
         screenConfig = ScreenConfig(
             bottomBarState = DhcBottomBarState.BottomNavigation,
         ),

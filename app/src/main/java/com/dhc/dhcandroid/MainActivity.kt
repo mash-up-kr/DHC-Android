@@ -7,7 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
-import com.dhc.designsystem.DHCAndroidTheme
+import com.dhc.designsystem.DhcTheme
 import com.dhc.dhcandroid.navigation.DhcApp
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
 
         requestNotificationPermission()
         setContent {
-            DHCAndroidTheme {
+            DhcTheme {
                 DhcApp()
             }
         }

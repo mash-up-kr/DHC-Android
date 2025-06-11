@@ -20,10 +20,6 @@ fun HomeScreen(
             .verticalScroll(scrollState),
     ) {
         MonetaryLuckInfo()
-        TodayLuckyCard()
-        SpendingHabitMission()
-        MonetaryLuckyDailyMission()
-
     }
 }
 
