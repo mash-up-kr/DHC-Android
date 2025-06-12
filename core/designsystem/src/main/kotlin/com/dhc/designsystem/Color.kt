@@ -1,5 +1,6 @@
 package com.dhc.designsystem
 
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 internal val colors = DhcColors(
@@ -12,7 +13,9 @@ internal val colors = DhcColors(
         textHighLightsPrimary = AccentColor.violet400
     ),
     background = BackgroundColors(
-        backgroundMain = SurfaceColor.neutral900
+        backgroundMain = SurfaceColor.neutral900,
+        backgroundGlassEffect = TransparentColor.glassEffect,
+        backgroundBadgePrimary = TransparentColor.badgePrimary,
     )
 )
 
@@ -41,20 +44,57 @@ data object AccentColor {
     val violet700: Color = Color(0xFF343FA6)
 }
 
+data object GradientColor {
+    val textGradient01 = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0.16f to AccentColor.violet200,
+            0.83f to SurfaceColor.neutral30,
+        ),
+    )
+    val textGradient02 = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0.16f to AccentColor.violet200,
+            1.0f to SurfaceColor.neutral30,
+        ),
+    )
+    val backgroundGradient01 = Brush.radialGradient(
+        colorStops = arrayOf(
+            0.23f to AccentColor.violet400,
+            0.51f to AccentColor.violet400.copy(alpha = 0.3f),
+            0.75f to AccentColor.violet400.copy(alpha = 0.1f),
+            0.88f to AccentColor.violet400.copy(alpha = 0.05f),
+            1.0f to AccentColor.violet400.copy(alpha = 0f),
+        ),
+    )
+    val tooltipGradient01 = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0.43f to SurfaceColor.neutral30,
+            1.0f to AccentColor.violet200,
+        ),
+    )
+}
+
+data object TransparentColor {
+    val glassEffect: Color = Color(0x267B8696)
+    val badgePrimary: Color = Color(0x33CDD1F2)
+}
+
 data class TextColors(
     val textMain: Color,
     val textBodyPrimary: Color,
     val textHighLightsSecondary: Color,
-    val textHighLightsPrimary: Color
-)
-data class BackgroundColors(
-    val backgroundMain: Color
+    val textHighLightsPrimary: Color,
 )
 
+data class BackgroundColors(
+    val backgroundMain: Color,
+    val backgroundGlassEffect: Color,
+    val backgroundBadgePrimary: Color,
+)
 
 data class DhcColors(
     val surface: SurfaceColor,
     val accent: AccentColor,
     val text: TextColors,
-    val background: BackgroundColors
+    val background: BackgroundColors,
 )
