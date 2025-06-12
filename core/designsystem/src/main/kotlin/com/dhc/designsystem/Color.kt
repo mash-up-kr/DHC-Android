@@ -76,7 +76,7 @@ data object GradientColor {
 
 data object TransparentColor {
     val glassEffect: Color = Color(0x267B8696)
-    val badgePrimary: Color = Color(0x33CDD1F2)
+    val badgePrimary: Color = Color(0x335E69D4)
 }
 
 data class TextColors(
