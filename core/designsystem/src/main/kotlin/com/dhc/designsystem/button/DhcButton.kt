@@ -1,7 +1,6 @@
 package com.dhc.designsystem.button
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,7 +35,7 @@ fun DhcButton(
         if (isEnabled.not()) SurfaceColor.neutral300
         else when (buttonStyle) {
             DhcButtonStyle.PRIMARY -> colors.text.textHighLightsPrimary
-            DhcButtonStyle.SECONDARY -> colors.background.backgroundMain // Todo : Glassffect
+            DhcButtonStyle.SECONDARY -> colors.background.backgroundGlassEffect
             DhcButtonStyle.TERITARY -> Color.Transparent
         }
     val textColor =

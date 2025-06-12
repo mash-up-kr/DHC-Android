@@ -27,7 +27,7 @@ fun DhcFloatingButton(
     val colors = LocalDhcColors.current
     Text(
         text = text,
-        style = DhcTypoTokens.Body3, // Todo : 알맞은 Style 로 적용하기
+        style = DhcTypoTokens.TitleH5_1,
         color = if (isEnabled) colors.text.textMain else SurfaceColor.neutral400,
         modifier = modifier
             .shadow(
@@ -39,7 +39,7 @@ fun DhcFloatingButton(
                 shape = RoundedCornerShape(999999.dp),
             )
             .clickableIf(predicate = { isEnabled }) { onClick() }
-            .padding(vertical = 6.dp, horizontal = 20.dp),
+            .padding(vertical = 13.dp, horizontal = 20.dp),
     )
 }
 
