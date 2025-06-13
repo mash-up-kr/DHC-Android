@@ -65,6 +65,7 @@ fun DhcFortuneCard(
             style = DhcTypoTokens.Body7,
             textAlign = TextAlign.Center,
         )
+        // Todo : 카드 비율이 어떻게 될지 아직 몰라서 임시로 Spacer 가 들어가있습니다. 추후 정책 확정되면 제거 될 예정입니다.
         Spacer(modifier = Modifier.height(119.dp))
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
