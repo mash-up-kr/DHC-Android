@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -37,20 +38,24 @@ fun MoneyFortuneMissionCard(
         isEnabled = isMissionEnabled,
         content = {
             Row(
-                modifier = Modifier.fillMaxWidth().weight(1f)
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = missionTitle,
                     style = DhcTypoTokens.TitleH5,
-                    color = missionColor
+                    color = missionColor,
+                    modifier = Modifier.weight(1f),
+
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 //TODO - Badge Component 변경
                 Text(
                     text = missionMode,
                     style = DhcTypoTokens.TitleH5,
-                    color = missionColor
+                    color = missionColor,
                 )
+                Spacer(modifier = Modifier.width(16.dp))
             }
         }
     )
@@ -64,10 +69,10 @@ private fun PreviewSpendingHabitMissionCard(
 ) {
     DhcTheme {
         MoneyFortuneMissionCard(
-            missionTitle = "텀블러 들고 다니기",
             missionMode = "Easy",
             isMissionEnabled = parameter.isMissionEnabled,
-            isChecked = parameter.isChecked
+            isChecked = parameter.isChecked,
+            missionTitle = parameter.missionTitle
         )
     }
 }
@@ -75,16 +80,19 @@ private fun PreviewSpendingHabitMissionCard(
 private class MissionCardPreviewProvider : PreviewParameterProvider<MissionCardPreviewProvider.Parameter> {
     override val values = sequenceOf(
         Parameter(
+            missionTitle = "텀블러 들고 다니기",
             isMissionEnabled = true,
             isChecked = true
         ),
         Parameter(
+            missionTitle = "텀블러 들고 다니기텀블러 들고 다니기\"텀블러 들고 다니기\"텀블러 들고 다니기\"텀블러 들고 다니기",
             isMissionEnabled = false,
             isChecked = false
         ),
     )
 
     data class Parameter(
+        val missionTitle: String,
         val isMissionEnabled: Boolean,
         val isChecked: Boolean = false
     )
