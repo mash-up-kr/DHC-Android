@@ -22,7 +22,7 @@ import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 
 @Composable
-fun DhcWordBalloon(
+fun WordBalloon(
     modifier: Modifier = Modifier,
     cornerWidth: Dp = 12.dp,
     cornerHeight: Dp = 6.dp,
@@ -92,10 +92,10 @@ fun DhcWordBalloon(
 
 @Preview
 @Composable
-private fun DhcWordBalloonPreview() {
+private fun WordBalloonPreview() {
     DhcTheme {
         val colors = LocalDhcColors.current
-        DhcWordBalloon {
+        WordBalloon {
             Text(
                 text = "Click!",
                 style = DhcTypoTokens.TitleH7,
