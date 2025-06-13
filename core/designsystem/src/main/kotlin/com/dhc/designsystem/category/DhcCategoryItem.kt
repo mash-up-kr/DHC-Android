@@ -40,7 +40,11 @@ fun DhcCategoryItem(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
             .background(
-                color = if (isChecked) colors.background.backgroundBadgePrimary else SurfaceColor.neutral700,
+                color = if (isChecked) {
+                    colors.background.backgroundBadgePrimary
+                } else {
+                    SurfaceColor.neutral700
+                },
                 shape = RoundedCornerShape(12.dp)
             )
             .padding(16.dp),
@@ -53,7 +57,11 @@ fun DhcCategoryItem(
             Text(
                 text = name,
                 style = DhcTypoTokens.TitleH5,
-                color = if (isChecked) colors.text.textHighLightsSecondary else colors.text.textBodyPrimary,
+                color = if (isChecked) {
+                    colors.text.textHighLightsSecondary
+                } else {
+                    colors.text.textBodyPrimary
+                },
                 modifier = Modifier.weight(1f),
             )
             if (isChecked) {
