@@ -22,8 +22,8 @@ import com.dhc.designsystem.check.model.DhcCheckStyle
 
 @Composable
 fun DhcSnackBar(
-    snackBarMessage: String,
     snackBarHostState: SnackbarHostState,
+    snackBarContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     SnackbarHost(
@@ -32,9 +32,7 @@ fun DhcSnackBar(
             .clip(shape = RoundedCornerShape(12.dp)),
         hostState = snackBarHostState,
     ) {
-        SnackBarContent(
-            snackBarMessage = snackBarMessage
-        )
+        snackBarContent()
     }
 }
 
@@ -42,6 +40,13 @@ fun DhcSnackBar(
 fun SnackBarContent(
     snackBarMessage: String,
     modifier: Modifier = Modifier,
+    snackBarActionIcon: @Composable () -> Unit = {
+        DhcCheck(
+            isChecked = true,
+            isEnabled = true,
+            dhcCheckStyle = DhcCheckStyle.SnackBar,
+        )
+    },
 ) {
     Row(
         modifier = modifier
@@ -50,11 +55,7 @@ fun SnackBarContent(
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        DhcCheck(
-            isChecked = true,
-            isEnabled = true,
-            dhcCheckStyle = DhcCheckStyle.SnackBar,
-        )
+        snackBarActionIcon()
         Spacer(modifier = Modifier.width(8.dp))
 
         Text(
