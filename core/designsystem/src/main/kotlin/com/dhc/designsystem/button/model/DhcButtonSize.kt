@@ -7,7 +7,7 @@ import com.dhc.designsystem.DhcTypoTokens
 
 enum class DhcButtonSize(val textStyle: TextStyle, val verticalPadding: Dp) {
     LARGE(
-        textStyle = DhcTypoTokens.TitleH5, // Todo : H5-1 로 변경
+        textStyle = DhcTypoTokens.TitleH5_1,
         verticalPadding = 15.dp,
     ),
     MIDDLE(
