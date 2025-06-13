@@ -48,7 +48,7 @@ object LineHeightToken {
 }
 
 object DhcTypoTokens {
-    private val typoFontFamily = FontFamily(
+    val typoFontFamily = FontFamily(
         Font(R.font.wantedsans_bold, FontWeight.W700),
         Font(R.font.wantedsans_semibold, FontWeight.W600),
         Font(R.font.wantedsans_medium, FontWeight.W500),
