@@ -31,7 +31,7 @@ fun DhcFloatingButton(
         color = if (isEnabled) colors.text.textMain else SurfaceColor.neutral400,
         modifier = modifier
             .shadow(
-                elevation = 5.dp,
+                elevation = 4.dp,
                 shape = RoundedCornerShape(999999.dp),
             )
             .background(
