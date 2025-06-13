@@ -26,38 +26,21 @@ fun DhcButton(
     text: String,
     buttonSize: DhcButtonSize,
     buttonStyle: DhcButtonStyle,
-    isEnabled: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val colors = LocalDhcColors.current
-    val backgroundColor =
-        if (isEnabled.not()) SurfaceColor.neutral300
-        else when (buttonStyle) {
-            DhcButtonStyle.PRIMARY -> colors.text.textHighLightsPrimary
-            DhcButtonStyle.SECONDARY -> colors.background.backgroundGlassEffect
-            DhcButtonStyle.TERITARY -> Color.Transparent
-        }
-    val textColor =
-        if (isEnabled.not()) SurfaceColor.neutral200
-        else when (buttonStyle) {
-            DhcButtonStyle.PRIMARY -> colors.text.textMain
-            DhcButtonStyle.SECONDARY -> colors.text.textMain
-            DhcButtonStyle.TERITARY -> SurfaceColor.neutral300
-        }
-
     Text(
         text = text,
-        color = textColor,
+        color = buttonStyle.textColor,
         style = buttonSize.textStyle,
         textAlign = TextAlign.Center,
         modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(buttonSize.cornerRadius))
             .background(
-                color = backgroundColor,
-                shape = RoundedCornerShape(8.dp)
+                color = buttonStyle.backgroundColor,
+                shape = RoundedCornerShape(buttonSize.cornerRadius)
             )
-            .clickableIf(predicate = { isEnabled }) { onClick() }
+            .clickableIf(predicate = { buttonStyle.isEnabled }) { onClick() }
             .padding(vertical = buttonSize.verticalPadding),
     )
 }
@@ -66,51 +49,106 @@ private class DhcButtonPreviewProvider : PreviewParameterProvider<DhcButtonPrevi
     override val values = sequenceOf(
         Parameter(
             text = "금전운 확인하고 시작하기",
+            buttonSize = DhcButtonSize.XLARGE,
+            buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
+        ),
+        Parameter(
+            text = "금전운 확인하고 시작하기",
+            buttonSize = DhcButtonSize.XLARGE,
+            buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
+        ),
+        Parameter(
+            text = "금전운 확인하고 시작하기",
+            buttonSize = DhcButtonSize.XLARGE,
+            buttonStyle = DhcButtonStyle.Teritary,
+        ),
+        Parameter(
+            text = "금전운 확인하고 시작하기",
+            buttonSize = DhcButtonSize.XLARGE,
+            buttonStyle = DhcButtonStyle.Primary(isEnabled = false),
+        ),
+        Parameter(
+            text = "금전운 확인하고 시작하기",
+            buttonSize = DhcButtonSize.XLARGE,
+            buttonStyle = DhcButtonStyle.Secondary(isEnabled = false),
+        ),
+
+        Parameter(
+            text = "금전운 확인하고 시작하기",
             buttonSize = DhcButtonSize.LARGE,
-            buttonStyle = DhcButtonStyle.PRIMARY,
-            isEnabled = true,
+            buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
         ),
         Parameter(
             text = "금전운 확인하고 시작하기",
             buttonSize = DhcButtonSize.LARGE,
-            buttonStyle = DhcButtonStyle.SECONDARY,
-            isEnabled = true,
+            buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
         ),
         Parameter(
             text = "금전운 확인하고 시작하기",
             buttonSize = DhcButtonSize.LARGE,
-            buttonStyle = DhcButtonStyle.TERITARY,
-            isEnabled = true,
+            buttonStyle = DhcButtonStyle.Teritary,
         ),
         Parameter(
             text = "금전운 확인하고 시작하기",
             buttonSize = DhcButtonSize.LARGE,
-            buttonStyle = DhcButtonStyle.PRIMARY,
-            isEnabled = false,
+            buttonStyle = DhcButtonStyle.Primary(isEnabled = false),
+        ),
+        Parameter(
+            text = "금전운 확인하고 시작하기",
+            buttonSize = DhcButtonSize.LARGE,
+            buttonStyle = DhcButtonStyle.Secondary(isEnabled = false),
+        ),
+
+        Parameter(
+            text = "금전운 확인하고 시작하기",
+            buttonSize = DhcButtonSize.MIDDLE,
+            buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
         ),
         Parameter(
             text = "금전운 확인하고 시작하기",
             buttonSize = DhcButtonSize.MIDDLE,
-            buttonStyle = DhcButtonStyle.PRIMARY,
-            isEnabled = true,
+            buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
         ),
         Parameter(
             text = "금전운 확인하고 시작하기",
             buttonSize = DhcButtonSize.MIDDLE,
-            buttonStyle = DhcButtonStyle.SECONDARY,
-            isEnabled = true,
+            buttonStyle = DhcButtonStyle.Teritary,
         ),
         Parameter(
             text = "금전운 확인하고 시작하기",
             buttonSize = DhcButtonSize.MIDDLE,
-            buttonStyle = DhcButtonStyle.TERITARY,
-            isEnabled = true,
+            buttonStyle = DhcButtonStyle.Primary(isEnabled = false),
         ),
         Parameter(
             text = "금전운 확인하고 시작하기",
             buttonSize = DhcButtonSize.MIDDLE,
-            buttonStyle = DhcButtonStyle.PRIMARY,
-            isEnabled = false,
+            buttonStyle = DhcButtonStyle.Secondary(isEnabled = false),
+        ),
+
+        Parameter(
+            text = "금전운 확인하고 시작하기",
+            buttonSize = DhcButtonSize.SMALL,
+            buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
+        ),
+        Parameter(
+            text = "금전운 확인하고 시작하기",
+            buttonSize = DhcButtonSize.SMALL,
+            buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
+        ),
+        Parameter(
+            text = "금전운 확인하고 시작하기",
+            buttonSize = DhcButtonSize.SMALL,
+            buttonStyle = DhcButtonStyle.Teritary,
+        ),
+        Parameter(
+            text = "금전운 확인하고 시작하기",
+            buttonSize = DhcButtonSize.SMALL,
+            buttonStyle = DhcButtonStyle.Primary(isEnabled = false),
+        ),
+        Parameter(
+            text = "금전운 확인하고 시작하기",
+            buttonSize = DhcButtonSize.SMALL,
+            buttonStyle = DhcButtonStyle.Secondary(isEnabled = false),
         ),
     )
 
@@ -118,7 +156,6 @@ private class DhcButtonPreviewProvider : PreviewParameterProvider<DhcButtonPrevi
         val text: String,
         val buttonSize: DhcButtonSize,
         val buttonStyle: DhcButtonStyle,
-        val isEnabled: Boolean,
     )
 }
 
@@ -133,7 +170,6 @@ private fun DhcButtonPreview(
             text = parameter.text,
             buttonSize = parameter.buttonSize,
             buttonStyle = parameter.buttonStyle,
-            isEnabled = parameter.isEnabled,
             onClick = {},
             modifier = Modifier.fillMaxWidth(),
         )
