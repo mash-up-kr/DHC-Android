@@ -13,7 +13,7 @@ sealed interface BadgeType {
     val cornerRadius: Dp
     val backgroundColor: Color @Composable get
     val textColor: Color @Composable get
-    val textStyle: TextStyle @Composable get
+    val textStyle: TextStyle
 
     data class Level(val isEnabled: Boolean) : BadgeType {
         override val cornerRadius: Dp = 12.dp
@@ -29,8 +29,7 @@ sealed interface BadgeType {
             } else {
                 SurfaceColor.neutral500
             }
-        override val textStyle: TextStyle
-            @Composable get() = DhcTypoTokens.Body7
+        override val textStyle: TextStyle = DhcTypoTokens.Body7
     }
 
     data object Date : BadgeType {
@@ -39,8 +38,7 @@ sealed interface BadgeType {
             @Composable get() = LocalDhcColors.current.background.backgroundGlassEffect
         override val textColor: Color
             @Composable get() = LocalDhcColors.current.text.textBodyPrimary
-        override val textStyle: TextStyle
-            @Composable get() = DhcTypoTokens.Body6
+        override val textStyle: TextStyle = DhcTypoTokens.Body6
     }
 
     data object SpendType : BadgeType {
@@ -49,7 +47,6 @@ sealed interface BadgeType {
             @Composable get() = LocalDhcColors.current.background.backgroundGlassEffect
         override val textColor: Color
             @Composable get() = LocalDhcColors.current.text.textHighLightsSecondary
-        override val textStyle: TextStyle
-            @Composable get() = DhcTypoTokens.TitleH8
+        override val textStyle: TextStyle = DhcTypoTokens.TitleH8
     }
 }
