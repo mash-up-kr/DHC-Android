@@ -1,4 +1,4 @@
-package com.dhc.designsystem.wordballoon
+package com.dhc.presentation.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
