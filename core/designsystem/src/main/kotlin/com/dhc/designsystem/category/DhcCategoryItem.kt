@@ -75,6 +75,7 @@ fun DhcCategoryItem(
                 )
             }
         }
+        // Todo : 추후 Coil 로 변경하기
         Icon(
             painter = painterResource(iconResource),
             contentDescription = null,
