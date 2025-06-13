@@ -22,6 +22,7 @@ fun DhcBadge(
     Text(
         text = text,
         color = type.textColor,
+        style = type.textStyle,
         modifier = modifier
             .background(
                 color = type.backgroundColor,
@@ -46,7 +47,7 @@ private class BadgePreviewProvider : PreviewParameterProvider<BadgePreviewProvid
             type = BadgeType.SpendType,
         ),
         Parameter(
-            text = "커피값 절약",
+            text = "2025년 5월 20일",
             type = BadgeType.Date,
         ),
     )

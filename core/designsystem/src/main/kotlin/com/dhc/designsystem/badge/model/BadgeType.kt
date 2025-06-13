@@ -2,8 +2,10 @@ package com.dhc.designsystem.badge.model
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 
@@ -11,6 +13,7 @@ sealed interface BadgeType {
     val cornerRadius: Dp
     val backgroundColor: Color @Composable get
     val textColor: Color @Composable get
+    val textStyle: TextStyle @Composable get
 
     data class Level(val isEnabled: Boolean) : BadgeType {
         override val cornerRadius: Dp = 12.dp
@@ -26,6 +29,8 @@ sealed interface BadgeType {
             } else {
                 SurfaceColor.neutral500
             }
+        override val textStyle: TextStyle
+            @Composable get() = DhcTypoTokens.Body7
     }
 
     data object Date : BadgeType {
@@ -34,6 +39,8 @@ sealed interface BadgeType {
             @Composable get() = LocalDhcColors.current.background.backgroundGlassEffect
         override val textColor: Color
             @Composable get() = LocalDhcColors.current.text.textBodyPrimary
+        override val textStyle: TextStyle
+            @Composable get() = DhcTypoTokens.Body6
     }
 
     data object SpendType : BadgeType {
@@ -42,5 +49,7 @@ sealed interface BadgeType {
             @Composable get() = LocalDhcColors.current.background.backgroundGlassEffect
         override val textColor: Color
             @Composable get() = LocalDhcColors.current.text.textHighLightsSecondary
+        override val textStyle: TextStyle
+            @Composable get() = DhcTypoTokens.TitleH8
     }
 }
