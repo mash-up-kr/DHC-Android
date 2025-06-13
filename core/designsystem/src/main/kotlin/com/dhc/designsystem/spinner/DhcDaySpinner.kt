@@ -3,8 +3,6 @@ package com.dhc.designsystem.spinner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,9 +20,7 @@ import com.dhc.common.CalendarUtil
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.R
-import com.dhc.designsystem.spinner.common.DhcItemSpinnerBackground
-import com.dhc.designsystem.spinner.common.DhcItemSpinnerContent
-import com.dhc.designsystem.spinner.common.DhcSpinner
+import com.dhc.designsystem.spinner.common.DhcSpinnerItem
 
 @Composable
 fun DhcDaySpinner(
@@ -61,80 +57,32 @@ fun DhcDaySpinner(
             .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(23.dp),
     ) {
-        DhcSpinner(
+        DhcSpinnerItem(
             itemList = yearList,
             visibleItemsCount = visibleItemsCount,
             itemHeightDp = itemHeightDp,
+            initialItem = initialYear,
             onValueChanged = { currentYear = it },
+            itemTextCreator = { stringResource(R.string.d_year, it) },
             modifier = Modifier.weight(2f),
-            initialIndex = yearList.indexOf(initialYear).coerceAtLeast(0),
-            itemBackground = { isFocused ->
-                DhcItemSpinnerBackground(
-                    isFocused = isFocused,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(itemHeightDp),
-                )
-            },
-            itemContent = { item, isFocused ->
-                DhcItemSpinnerContent(
-                    text = stringResource(R.string.d_year, item),
-                    isFocused = isFocused,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(itemHeightDp),
-                )
-            }
         )
-        DhcSpinner(
+        DhcSpinnerItem(
             itemList = monthList,
             visibleItemsCount = visibleItemsCount,
             itemHeightDp = itemHeightDp,
+            initialItem = initialMonth,
             onValueChanged = { currentMonth = it },
+            itemTextCreator = { stringResource(R.string.d_month, it) },
             modifier = Modifier.weight(1f),
-            initialIndex = monthList.indexOf(initialMonth).coerceAtLeast(0),
-            itemBackground = { isFocused ->
-                DhcItemSpinnerBackground(
-                    isFocused = isFocused,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(itemHeightDp),
-                )
-            },
-            itemContent = { item, isFocused ->
-                DhcItemSpinnerContent(
-                    text = stringResource(R.string.d_month, item),
-                    isFocused = isFocused,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(itemHeightDp),
-                )
-            }
         )
-        DhcSpinner(
+        DhcSpinnerItem(
             itemList = dayList,
             visibleItemsCount = visibleItemsCount,
             itemHeightDp = itemHeightDp,
+            initialItem = initialDay,
             onValueChanged = { currentDay = it },
+            itemTextCreator = { stringResource(R.string.d_day, it) },
             modifier = Modifier.weight(1f),
-            initialIndex = dayList.indexOf(initialDay).coerceAtLeast(0),
-            itemBackground = { isFocused ->
-                DhcItemSpinnerBackground(
-                    isFocused = isFocused,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(itemHeightDp),
-                )
-            },
-            itemContent = { item, isFocused ->
-                DhcItemSpinnerContent(
-                    text = stringResource(R.string.d_day, item),
-                    isFocused = isFocused,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(itemHeightDp),
-                )
-            }
         )
     }
 }
