@@ -3,8 +3,6 @@ package com.dhc.designsystem.spinner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,9 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.R
-import com.dhc.designsystem.spinner.common.DhcItemSpinnerBackground
-import com.dhc.designsystem.spinner.common.DhcItemSpinnerContent
-import com.dhc.designsystem.spinner.common.DhcSpinner
 import com.dhc.designsystem.spinner.common.DhcSpinnerItem
 import com.dhc.designsystem.spinner.model.TimeType
 
