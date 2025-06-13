@@ -17,11 +17,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+/**
+ * TODO - 홈 모듈로 이동
+ */
 @Composable
 fun FortuneCore(
     fortuneScore: Int,
 ) {
-    val color = LocalDhcColors.current
     Column(
         modifier = Modifier
             .size(80.dp)
