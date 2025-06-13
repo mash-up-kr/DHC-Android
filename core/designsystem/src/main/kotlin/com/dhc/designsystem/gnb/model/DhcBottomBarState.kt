@@ -9,7 +9,7 @@ sealed interface DhcBottomBarState {
     data object BottomNavigation : DhcBottomBarState {
         val items = listOf(
             GnbItem(
-                iconResource = R.drawable.home,
+                iconResource = R.drawable.ico_home,
                 iconText = R.string.btn_bottom_home,
                 routeName = "main/home",
             ),
@@ -19,7 +19,7 @@ sealed interface DhcBottomBarState {
                 routeName = "main/mission",
             ),
             GnbItem(
-                iconResource = R.drawable.mypage,
+                iconResource = R.drawable.ico_mypage,
                 iconText = R.string.btn_bottom_my_page,
                 routeName = "main/my",
             ),
