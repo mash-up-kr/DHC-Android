@@ -2,7 +2,6 @@ package com.dhc.designsystem.floatingButton
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,6 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.dhc.common.FullRoundedCornerShape
 import com.dhc.common.clickableIf
 import com.dhc.designsystem.AccentColor
 import com.dhc.designsystem.DhcTypoTokens
@@ -32,11 +32,11 @@ fun DhcFloatingButton(
         modifier = modifier
             .shadow(
                 elevation = 4.dp,
-                shape = RoundedCornerShape(999999.dp),
+                shape = FullRoundedCornerShape,
             )
             .background(
                 color = if (isEnabled) AccentColor.violet400 else SurfaceColor.neutral500,
-                shape = RoundedCornerShape(999999.dp),
+                shape = FullRoundedCornerShape,
             )
             .clickableIf(predicate = { isEnabled }) { onClick() }
             .padding(vertical = 13.dp, horizontal = 20.dp),
