@@ -14,7 +14,7 @@ sealed interface DhcBottomBarState {
                 routeName = "main/home",
             ),
             GnbItem(
-                iconResource = R.drawable.status,
+                iconResource = R.drawable.ico_chart,
                 iconText = R.string.btn_bottom_mission,
                 routeName = "main/mission",
             ),

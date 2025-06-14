@@ -76,7 +76,7 @@ private fun DhcGnbPreview() {
                     routeName = "MAIN_HOME",
                 ),
                 GnbItem(
-                    iconResource = R.drawable.status,
+                    iconResource = R.drawable.ico_chart,
                     iconText = R.string.btn_bottom_mission,
                     routeName = "MAIN_MISSION",
                 ),
