@@ -13,7 +13,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import com.dhc.intro.intro.IntroRoute
 import com.dhc.intro.splash.SplashRoute
 
 @Composable
@@ -59,7 +58,6 @@ fun DhcNavHost(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-
                     Text("Intro Description")
                     Button(
                         onClick = { navController.navigateTo(DhcRoute.INTRO_FORTUNE_CARD) },
@@ -74,7 +72,6 @@ fun DhcNavHost(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-
                     Text("Intro Fortune Card")
                     Button(
                         onClick = { navController.navigateTo(DhcRoute.INTRO_FORTUNE_DETAIL) },
@@ -89,7 +86,6 @@ fun DhcNavHost(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-
                     Text("Intro Fortune Detail")
                     Button(
                         onClick = { navController.navigateTo(DhcRoute.INTRO_MISSION) },
@@ -104,7 +100,6 @@ fun DhcNavHost(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-
                     Text("Intro Mission")
                     Button(
                         onClick = { navController.navigateTo(DhcRoute.INTRO_GENDER) },
@@ -119,7 +114,6 @@ fun DhcNavHost(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-
                     Text("Intro Gender")
                     Button(
                         onClick = { navController.navigateTo(DhcRoute.INTRO_BIRTH_DAY) },
@@ -134,7 +128,6 @@ fun DhcNavHost(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-
                     Text("Intro Birth Day")
                     Button(
                         onClick = { navController.navigateTo(DhcRoute.INTRO_BIRTH_TIME) },
@@ -149,7 +142,6 @@ fun DhcNavHost(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-
                     Text("Intro Birth Time")
                     Button(
                         onClick = { navController.navigateTo(DhcRoute.INTRO_CATEGORY) },
@@ -164,7 +156,6 @@ fun DhcNavHost(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-
                     Text("Intro Category")
                     Button(
                         onClick = { navController.navigateToHome() },
