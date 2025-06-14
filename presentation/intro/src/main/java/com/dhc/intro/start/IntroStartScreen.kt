@@ -1,4 +1,4 @@
-package com.dhc.intro.intro
+package com.dhc.intro.start
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

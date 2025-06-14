@@ -1,4 +1,4 @@
-package com.dhc.intro.intro
+package com.dhc.intro.start
 
 import com.dhc.presentation.mvi.UiEvent
 import com.dhc.presentation.mvi.UiSideEffect

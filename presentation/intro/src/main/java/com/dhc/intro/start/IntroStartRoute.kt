@@ -1,4 +1,4 @@
-package com.dhc.intro.intro
+package com.dhc.intro.start
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable

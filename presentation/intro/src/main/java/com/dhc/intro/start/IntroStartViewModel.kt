@@ -1,11 +1,11 @@
-package com.dhc.intro.intro
+package com.dhc.intro.start
 
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import com.dhc.intro.intro.IntroContract.State
-import com.dhc.intro.intro.IntroContract.Event
-import com.dhc.intro.intro.IntroContract.SideEffect
+import com.dhc.intro.start.IntroContract.State
+import com.dhc.intro.start.IntroContract.Event
+import com.dhc.intro.start.IntroContract.SideEffect
 
 @HiltViewModel
 class IntroViewModel @Inject constructor(
