@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.dhc.intro.splash.SplashRoute
+import com.dhc.intro.start.IntroRoute
 
 @Composable
 fun DhcNavHost(
@@ -39,18 +40,9 @@ fun DhcNavHost(
             startDestination = DhcRoute.INTRO_START.route,
         ) {
             composable(DhcRoute.INTRO_START.route) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text("Intro Start")
-                    Button(
-                        onClick = { navController.navigateTo(DhcRoute.INTRO_DESCRIPTION) },
-                    ) {
-                        Text("Go to Next")
-                    }
-                }
+                IntroRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_DESCRIPTION) },
+                )
             }
             composable(DhcRoute.INTRO_DESCRIPTION.route) {
                 Column(
