@@ -3,4 +3,9 @@
     <string name="intro_start_title">매일매일 금전운 미션을 통해\n소비습관을 개선해보세요</string>
     <string name="intro_start_sub_title">매일매일 금전운 미션을 통해\n소비습관을 개선해보세요</string>
     <string name="start_with_finance_luck">금전운 확인하고 시작하기</string>
+
+    <string name="intro_description_title">서비스명 (우리서비스)는\n이런식으로 작동해요</string>
+    <string name="intro_description_text1">오늘의 금전운 받기</string>
+    <string name="intro_description_text2">금전운에 따른 미션 수행</string>
+    <string name="intro_description_text3">수행한 미션을 토대로 소비습관 분석</string>
 </resources>
