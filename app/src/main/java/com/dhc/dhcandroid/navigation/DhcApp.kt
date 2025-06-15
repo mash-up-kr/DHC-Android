@@ -1,5 +1,6 @@
 package com.dhc.dhcandroid.navigation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -17,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
 
@@ -33,7 +35,8 @@ fun DhcApp() {
                 navigateUp = { navController.navigateUp() },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .statusBarsPadding(),
+                    .statusBarsPadding()
+                    .background(SurfaceColor.neutral900) // Todo : Theme 적용 완료되면 background 제거하기
             )
         },
         bottomBar = {
