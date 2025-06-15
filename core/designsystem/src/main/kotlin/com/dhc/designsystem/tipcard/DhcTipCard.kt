@@ -56,10 +56,11 @@ fun DhcTipCard(
 @Composable
 fun TipCardTitle(
     title: String,
-    icon: String
+    icon: String,
+    modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     ) {
         AsyncImage(
             model = icon,
@@ -79,12 +80,12 @@ fun TipCardTitle(
 @Composable
 fun TipCardContent(
     color: String?,
-    content: String
+    content: String,
+    modifier: Modifier = Modifier,
 ) {
     val dhcColor = LocalDhcColors.current
     Row(
-        modifier = Modifier.wrapContentSize(),
-        horizontalArrangement = Arrangement.Center,
+        modifier = modifier.wrapContentSize(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         color?.let {
