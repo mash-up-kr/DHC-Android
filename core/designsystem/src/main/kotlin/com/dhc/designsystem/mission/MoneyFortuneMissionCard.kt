@@ -3,6 +3,7 @@ package com.dhc.designsystem.mission
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,20 +42,19 @@ fun MoneyFortuneMissionCard(
         content = {
             Row(
                 modifier = Modifier.fillMaxWidth().weight(1f),
-                verticalAlignment = Alignment.CenterVertically
             ) {
+                DhcBadge(
+                    modifier = Modifier.height(24.dp),
+                    text = missionMode,
+                    type = BadgeType.Level(isEnabled = isMissionEnabled)
+                )
+                Spacer(modifier = Modifier.width(12.dp))
                 Text(
                     text = missionTitle,
                     style = DhcTypoTokens.TitleH5,
                     color = missionColor,
 
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                DhcBadge(
-                    text = missionMode,
-                    type = BadgeType.Level(isEnabled = isMissionEnabled)
-                )
-                Spacer(modifier = Modifier.width(16.dp))
+                    )
             }
         }
     )
