@@ -44,7 +44,7 @@ fun SnackBarContent(
         DhcCheck(
             isChecked = true,
             isEnabled = true,
-            dhcCheckStyle = DhcCheckStyle.SnackBar,
+            dhcCheckStyle = DhcCheckStyle.Size20Icon12,
         )
     },
 ) {

@@ -12,7 +12,7 @@ data class DhcCheckStyle(
             containerSize = 28.dp,
             iconSize = 16.dp,
         )
-        val SnackBar = DhcCheckStyle(
+        val Size20Icon12 = DhcCheckStyle(
             containerSize = 20.dp,
             iconSize = 12.dp,
         )
