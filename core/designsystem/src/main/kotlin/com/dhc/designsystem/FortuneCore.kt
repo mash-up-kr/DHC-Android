@@ -23,10 +23,10 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun FortuneCore(
     fortuneScore: Int,
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = Modifier
-            .size(80.dp)
+        modifier = modifier
             .background(shape = CircleShape, color = Color.Transparent)
             .border(
                 width = 1.dp,
@@ -45,7 +45,7 @@ fun FortuneCore(
         )
 
         Text(
-            text = "${fortuneScore}점",
+            text = stringResource(R.string.d_score, fortuneScore),
             style = DhcTypoTokens.TitleH3.copy(
                 brush = GradientColor.textGradient01
             ),
@@ -60,7 +60,8 @@ fun FortuneCore(
 fun PreviewFortuneCore() {
     DhcTheme {
         FortuneCore(
-            fortuneScore = 35
+            fortuneScore = 35,
+            modifier = Modifier.size(80.dp)
         )
     }
 }

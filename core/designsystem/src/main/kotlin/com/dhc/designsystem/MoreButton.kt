@@ -18,15 +18,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dhc.common.FullRoundedCornerShape
 
 /**
  * TODO - 홈 모듈로 이동
  */
 @Composable
-fun MoreButton() {
+fun MoreButton(
+    modifier: Modifier = Modifier,
+) {
     Row(
-        modifier = Modifier.wrapContentSize()
-            .background(SurfaceColor.neutral700, RoundedCornerShape(99.dp))
+        modifier = modifier.wrapContentSize()
+            .background(SurfaceColor.neutral700, FullRoundedCornerShape)
             .padding(start = 12.dp, end = 8.dp, top = 4.dp, bottom = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
@@ -40,7 +43,7 @@ fun MoreButton() {
         Icon(
             modifier = Modifier.size(20.dp),
             painter = painterResource(R.drawable.ico_arrow_right),
-            contentDescription = "more_button",
+            contentDescription = "MoreButton",
             tint = SurfaceColor.neutral300,
         )
     }
