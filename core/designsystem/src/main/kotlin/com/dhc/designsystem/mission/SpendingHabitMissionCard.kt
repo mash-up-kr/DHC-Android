@@ -22,6 +22,8 @@ import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
+import com.dhc.designsystem.badge.DhcBadge
+import com.dhc.designsystem.badge.model.BadgeType
 
 /**
  * Todo - Home모듈로 이동
@@ -51,11 +53,9 @@ fun SpendingHabitMissionCard(
                 Column(
                     modifier = Modifier.fillMaxWidth().weight(1f)
                 ) {
-                    //TODO - Badge Component 변경
-                    Text(
+                    DhcBadge(
                         text = missionDday,
-                        style = DhcTypoTokens.TitleH5,
-                        color = missionColor
+                        type = BadgeType.Level(isEnabled = isMissionEnabled)
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(

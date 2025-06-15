@@ -16,6 +16,8 @@ import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
+import com.dhc.designsystem.badge.DhcBadge
+import com.dhc.designsystem.badge.model.BadgeType
 
 /**
  * Todo - Home모듈로 이동
@@ -45,15 +47,12 @@ fun MoneyFortuneMissionCard(
                     text = missionTitle,
                     style = DhcTypoTokens.TitleH5,
                     color = missionColor,
-                    modifier = Modifier.weight(1f),
 
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                //TODO - Badge Component 변경
-                Text(
+                DhcBadge(
                     text = missionMode,
-                    style = DhcTypoTokens.TitleH5,
-                    color = missionColor,
+                    type = BadgeType.Level(isEnabled = isMissionEnabled)
                 )
                 Spacer(modifier = Modifier.width(16.dp))
             }
