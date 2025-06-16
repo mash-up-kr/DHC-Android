@@ -12,7 +12,7 @@ fun NavHostController.navigateToIntroFromSplash() {
     }
 }
 
-private fun NavHostController.navigateTo(route: DhcRoute, builder: NavOptionsBuilder.() -> Unit = {}) {
+fun NavHostController.navigateTo(route: DhcRoute, builder: NavOptionsBuilder.() -> Unit = {}) {
     navigate(route.route, builder)
 }
 
