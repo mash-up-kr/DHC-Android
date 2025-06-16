@@ -12,7 +12,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.dhc.home.HomeRoute
 import com.dhc.intro.intro.IntroRoute
 import com.dhc.intro.splash.SplashRoute
 
@@ -41,10 +40,6 @@ fun DhcNavHost(
                     navController.navigateToHome()
                 },
             )
-        }
-
-        composable(DhcRoute.MAIN_HOME.route) {
-            HomeRoute()
         }
 
         composable(DhcRoute.MAIN_MISSION.route) {
