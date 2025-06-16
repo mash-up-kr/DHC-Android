@@ -9,8 +9,12 @@ data class DhcCheckStyle(
 ) {
     companion object {
         val Default = DhcCheckStyle(
-            containerSize = 28.dp,
+            containerSize = 24.dp,
             iconSize = 16.dp,
+        )
+        val Size20Icon12 = DhcCheckStyle(
+            containerSize = 20.dp,
+            iconSize = 12.dp,
         )
     }
 }

@@ -2,6 +2,7 @@ package com.dhc.designsystem.title
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,8 +22,8 @@ import com.dhc.designsystem.SurfaceColor
 fun DhcTitle(
     title: String,
     textAlign: TextAlign,
-    subTitle: String? = null,
     modifier: Modifier = Modifier,
+    subTitle: String? = null,
 ) {
     Column(
         modifier = modifier,
@@ -34,6 +35,7 @@ fun DhcTitle(
             style = DhcTypoTokens.TitleH2,
             color = Color.White,
             textAlign = textAlign,
+            modifier = Modifier.fillMaxWidth(),
         )
         subTitle?.let { text ->
             Text(
@@ -41,6 +43,7 @@ fun DhcTitle(
                 style = DhcTypoTokens.Body3,
                 color = SurfaceColor.neutral200,
                 textAlign = textAlign,
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }

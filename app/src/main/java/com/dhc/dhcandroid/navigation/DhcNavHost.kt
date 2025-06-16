@@ -165,26 +165,6 @@ fun DhcNavHost(
                 }
             }
         }
-        composable(DhcRoute.MAIN_HOME.route) {
-            // 아래 내용은 예시
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text("Home")
-                Button(
-                    onClick = { navController.navigateToMission() },
-                ) {
-                    Text("Go to Mission")
-                }
-                Button(
-                    onClick = { navController.navigateToMy() },
-                ) {
-                    Text("Go to My")
-                }
-            }
-        }
 
         composable(DhcRoute.MAIN_MISSION.route) {
             // 아래 내용은 예시

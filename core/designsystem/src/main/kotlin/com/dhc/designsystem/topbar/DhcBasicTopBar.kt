@@ -30,12 +30,13 @@ import com.dhc.designsystem.topbar.model.TopBarPageState
 fun DhcBasicTopBar(
     title: String,
     isShowBackButton: Boolean,
+    modifier: Modifier = Modifier,
     topBarPageState: TopBarPageState? = null,
     onClickBackButton: () -> Unit,
 ) {
     val colors = LocalDhcColors.current
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(start = 12.dp, end = 12.dp, top = 8.dp),
         verticalAlignment = Alignment.CenterVertically
