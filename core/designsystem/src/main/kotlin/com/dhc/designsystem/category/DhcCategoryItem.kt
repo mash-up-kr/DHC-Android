@@ -89,12 +89,12 @@ private class DhcCategoryPreviewProvider : PreviewParameterProvider<DhcCategoryP
         Parameter(
             name = "식음료",
             isChecked = false,
-            iconResource = R.drawable.check,
+            iconResource = R.drawable.ico_check,
         ),
         Parameter(
             name = "식음료",
             isChecked = true,
-            iconResource = R.drawable.check,
+            iconResource = R.drawable.ico_check,
         ),
     )
 
