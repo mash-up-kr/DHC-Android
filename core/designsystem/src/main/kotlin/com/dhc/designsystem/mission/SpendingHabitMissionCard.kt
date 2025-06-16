@@ -71,7 +71,7 @@ fun SpendingHabitMissionCard(
         )
         Image(
             modifier = Modifier.align(Alignment.TopStart).offset(x = 8.dp, y = (-12).dp),
-            painter = painterResource(R.drawable.pin),
+            painter = painterResource(R.drawable.ico_pin),
             contentDescription = "mission_card_pin"
         )
     }

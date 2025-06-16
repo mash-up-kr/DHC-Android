@@ -43,7 +43,7 @@ fun DhcBasicTopBar(
     ) {
         if (isShowBackButton) {
             Icon(
-                painter = painterResource(R.drawable.chevron_left),
+                painter = painterResource(R.drawable.ico_arrow_left),
                 contentDescription = "Back",
                 tint = SurfaceColor.neutral50,
                 modifier = Modifier
