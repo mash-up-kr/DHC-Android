@@ -13,7 +13,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import com.dhc.intro.intro.IntroRoute
 import com.dhc.intro.splash.SplashRoute
 
 @Composable
