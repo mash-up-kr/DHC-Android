@@ -101,32 +101,6 @@ private class DhcButtonPreviewProvider : PreviewParameterProvider<DhcButtonPrevi
 
         Parameter(
             text = "금전운 확인하고 시작하기",
-            buttonSize = DhcButtonSize.MIDDLE,
-            buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
-        ),
-        Parameter(
-            text = "금전운 확인하고 시작하기",
-            buttonSize = DhcButtonSize.MIDDLE,
-            buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
-        ),
-        Parameter(
-            text = "금전운 확인하고 시작하기",
-            buttonSize = DhcButtonSize.MIDDLE,
-            buttonStyle = DhcButtonStyle.Teritary,
-        ),
-        Parameter(
-            text = "금전운 확인하고 시작하기",
-            buttonSize = DhcButtonSize.MIDDLE,
-            buttonStyle = DhcButtonStyle.Primary(isEnabled = false),
-        ),
-        Parameter(
-            text = "금전운 확인하고 시작하기",
-            buttonSize = DhcButtonSize.MIDDLE,
-            buttonStyle = DhcButtonStyle.Secondary(isEnabled = false),
-        ),
-
-        Parameter(
-            text = "금전운 확인하고 시작하기",
             buttonSize = DhcButtonSize.SMALL,
             buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
         ),
