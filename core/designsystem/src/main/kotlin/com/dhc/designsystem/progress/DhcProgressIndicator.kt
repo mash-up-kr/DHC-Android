@@ -23,7 +23,7 @@ import com.dhc.designsystem.DhcTheme
 @Composable
 fun DhcProgressIndicator(
     strokeWidth: Dp,
-    colors: List<Color>,
+    colors: List<Color> = listOf(Color(0xFF2D2D2D), Color.White),
     modifier: Modifier = Modifier,
     progressAnimationSpec: InfiniteRepeatableSpec<Float> = infiniteRepeatable(
         animation = tween(durationMillis = 1000, easing = LinearEasing),
