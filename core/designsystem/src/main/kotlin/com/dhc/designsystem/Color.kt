@@ -24,6 +24,7 @@ data object SurfaceColor {
     val neutral300: Color = Color(0xFF7B8696)
     val neutral400: Color = Color(0xFFA5B2C5)
     val neutral500: Color = Color(0xFF7B8696)
+    val neutral600: Color = Color(0xFF2A2F38)
     val neutral700: Color = Color(0xFF1F2127)
     val neutral800: Color = Color(0xFF17191F)
     val neutral900: Color = Color(0xFF0F1114)
