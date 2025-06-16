@@ -13,9 +13,13 @@
     <string name="d_day">%d일</string>
     <string name="d_hour">%d시</string>
     <string name="d_minute">%02d분</string>
-  
+    <string name="d_score">%d점</string>
+
     <string name="btn_bottom_home">홈</string>
     <string name="btn_bottom_mission">미션 현황</string>
     <string name="btn_bottom_my_page">마이페이지</string>
+
+    <string name="money_fortune">금전운</string>
+    <string name="more">더보기</string>
 </resources>
 

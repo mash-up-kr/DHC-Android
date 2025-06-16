@@ -23,7 +23,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "DHCAndroid"
 include(":app")
-include(":presentation:sample")
+include(":presentation:home")
 include(":data")
 include(":core:designsystem")
 include(":core:common")
