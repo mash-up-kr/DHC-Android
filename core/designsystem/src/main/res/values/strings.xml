@@ -21,5 +21,11 @@
 
     <string name="money_fortune">금전운</string>
     <string name="more">더보기</string>
+
+    <string name="dialog_app_initialization_title">정말 앱을 초기화 하시겠어요?</string>
+    <string name="dialog_app_initialization_description">앱을 초기화하면 다시 복구할 수 없어요</string>
+    <string name="dialog_app_initialization_button_cancel">이전으로 돌아가기</string>
+    <string name="dialog_app_initialization_button_init">초기화</string>
+
 </resources>
 

@@ -3,6 +3,9 @@ package com.dhc.designsystem.dialog
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,6 +25,9 @@ import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
+import com.dhc.designsystem.button.DhcButton
+import com.dhc.designsystem.button.model.DhcButtonSize
+import com.dhc.designsystem.button.model.DhcButtonStyle
 
 @Composable
 fun DhcDialog(
@@ -60,12 +66,41 @@ fun DhcDialogPreview() {
     DhcTheme {
         DhcDialog(
             dialogContent = {
-                Text(
-                    text = stringResource(R.string.mission_complete_title),
-                    style = DhcTypoTokens.TitleH2,
-                    color = SurfaceColor.neutral100,
-                    textAlign = TextAlign.Center,
-                )
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = stringResource(R.string.dialog_app_initialization_title),
+                        style = DhcTypoTokens.TitleH6,
+                        color = SurfaceColor.neutral400,
+                        textAlign = TextAlign.Center,
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = stringResource(R.string.dialog_app_initialization_description),
+                        style = DhcTypoTokens.TitleH6,
+                        color = SurfaceColor.neutral400,
+                        textAlign = TextAlign.Center,
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    DhcButton(
+                        text = stringResource(R.string.dialog_app_initialization_button_cancel),
+                        buttonSize = DhcButtonSize.LARGE,
+                        buttonStyle = DhcButtonStyle.PRIMARY,
+                        isEnabled = true,
+                        onClick = {},
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                    )
+                    DhcButton(
+                        text = stringResource(R.string.dialog_app_initialization_button_init),
+                        buttonSize = DhcButtonSize.LARGE,
+                        buttonStyle = DhcButtonStyle.TERITARY,
+                        isEnabled = true,
+                        onClick = {},
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                    )
+                }
             }
         )
     }
