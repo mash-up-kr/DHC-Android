@@ -31,7 +31,7 @@ fun MissionItemBackGround(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(color = colors.background.backgroundMain, shape = RoundedCornerShape(12.dp))
+            .background(color = colors.background.backgroundGlassEffect, shape = RoundedCornerShape(12.dp))
             .padding(horizontal = 16.dp, vertical = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
