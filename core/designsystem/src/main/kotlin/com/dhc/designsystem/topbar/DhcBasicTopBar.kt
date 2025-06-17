@@ -30,19 +30,20 @@ import com.dhc.designsystem.topbar.model.TopBarPageState
 fun DhcBasicTopBar(
     title: String,
     isShowBackButton: Boolean,
+    modifier: Modifier = Modifier,
     topBarPageState: TopBarPageState? = null,
     onClickBackButton: () -> Unit,
 ) {
     val colors = LocalDhcColors.current
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(start = 12.dp, end = 12.dp, top = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (isShowBackButton) {
             Icon(
-                painter = painterResource(R.drawable.chevron_left),
+                painter = painterResource(R.drawable.ico_arrow_left),
                 contentDescription = "Back",
                 tint = SurfaceColor.neutral50,
                 modifier = Modifier
