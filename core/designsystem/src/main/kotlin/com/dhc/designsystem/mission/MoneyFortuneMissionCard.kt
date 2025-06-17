@@ -61,7 +61,7 @@ fun MoneyFortuneMissionCard(
 
 @Composable
 @Preview
-private fun PreviewSpendingHabitMissionCard(
+private fun PreviewMoneyFortuneMissionCard(
     @PreviewParameter(MissionCardPreviewProvider::class)
     parameter: MissionCardPreviewProvider.Parameter,
 ) {
