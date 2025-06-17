@@ -56,6 +56,7 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
 androidx-compose-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "compose-constraintlayout" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 
 # gradle plugin
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -104,6 +105,7 @@ androidx-compose = [
     "androidx-ui-tooling-preview",
     "androidx-material3",
     "androidx-compose-constraintlayout",
+    "androidx-compose-foundation",
 ]
 
 androidx-ktx = [

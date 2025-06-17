@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.dhc.common.drawBalloonTail
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.SurfaceColor
@@ -41,7 +43,7 @@ fun DhcGraph(
     val columnLabelStyle = DhcTypoTokens.TitleH7
 
     ConstraintLayout(modifier = modifier) {
-        val (graphRowLabels, graphRowLines, graphBars, graphColumnLabels, graphTooltip) = createRefs()
+        val (graphRowLabels, graphRowLines, graphBars, graphColumnLabels) = createRefs()
 
         DhcGraphRowLabels(
             modifier = Modifier
@@ -83,12 +85,13 @@ fun DhcGraph(
                     bottom.linkTo(graphRowLines.bottom)
                     start.linkTo(graphRowLines.start)
                     end.linkTo(graphRowLines.end)
+                    top.linkTo(graphRowLines.top)
                     width = Dimension.fillToConstraints
+                    height = Dimension.fillToConstraints
                 }
         )
 
         DhcGraphColumnLabel(
-            labels = graphData.map { it.label },
             modifier = Modifier
                 .padding(start = 16.dp)
                 .fillMaxWidth()
@@ -98,6 +101,8 @@ fun DhcGraph(
                     end.linkTo(graphRowLines.end)
                     width = Dimension.fillToConstraints
                 },
+            labels = graphData.map { it.label },
+            textStyle = columnLabelStyle,
             color = SurfaceColor.neutral200,
         )
     }
@@ -172,20 +177,40 @@ internal fun DhcGraphBars(
     data: List<DhcGraphData>,
     maxValue: Int,
     modifier: Modifier = Modifier,
-    color: Color = SurfaceColor.neutral300,
+    graphColor: Color = SurfaceColor.neutral300,
+    tooltipColor: Color = SurfaceColor.neutral600,
 ) {
+    val graphWidht = 48.dp
+
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.Bottom,
     ) {
         repeat(data.size) { index ->
-            DhcGraphBar(
-                modifier = Modifier
-                    .width(48.dp)
-                    .fillMaxHeight(data[index].value / maxValue.toFloat()),
-                color = color,
-            )
+            Box {
+                DhcGraphBar(
+                    modifier = Modifier
+                        .width(graphWidht)
+                        .fillMaxHeight(data[index].value / maxValue.toFloat()),
+                    color = graphColor,
+                )
+                DhcTooltip(
+                    modifier = Modifier
+                        .layout { measurable, constraints ->
+                            val placeable = measurable.measure(constraints)
+                            layout(0, placeable.height) {
+                                placeable.place(
+                                    -((placeable.width - graphWidht.toPx()) / 2).toInt(),
+                                    -placeable.height
+                                )
+                            }
+                        }
+                        .padding(bottom = 12.dp),
+                    text = data[index].tooltipMessage,
+                    tooltipColor = tooltipColor,
+                )
+            }
         }
     }
 }
@@ -193,6 +218,7 @@ internal fun DhcGraphBars(
 @Composable
 fun DhcGraphColumnLabel(
     labels: List<String>,
+    textStyle: TextStyle,
     modifier: Modifier = Modifier,
     color: Color = SurfaceColor.neutral300,
 ) {
@@ -205,7 +231,7 @@ fun DhcGraphColumnLabel(
                 text = label,
                 color = color,
                 modifier = Modifier.weight(1f),
-                style = DhcTypoTokens.TitleH7,
+                style = textStyle,
                 textAlign = TextAlign.Center,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -214,6 +240,30 @@ fun DhcGraphColumnLabel(
     }
 }
 
+@Composable
+fun DhcTooltip(
+    text: String,
+    modifier: Modifier = Modifier,
+    tooltipColor: Color = SurfaceColor.neutral600,
+    textColor: Color = SurfaceColor.neutral200,
+) {
+    val cornerWidth = 12.dp
+    val cornerHeight = 8.dp
+
+    Text(
+        modifier = modifier
+            .drawBalloonTail(
+                color = tooltipColor,
+                cornerWidth = cornerWidth,
+                cornerHeight = cornerHeight,
+            )
+            .background(color = tooltipColor, shape = RoundedCornerShape(4.dp))
+            .padding(vertical = 8.dp, horizontal = 16.dp),
+        text = text,
+        style = DhcTypoTokens.Body5,
+        color = textColor,
+    )
+}
 
 @Preview
 @Composable
@@ -221,12 +271,8 @@ private fun DhcGraphPreview() {
     DhcTheme {
         DhcGraph(
             graphData = listOf(
-                DhcGraphData(value = 100000, label = "10만원"),
-                DhcGraphData(value = 70000, label = "7만원"),
-                DhcGraphData(value = 50000, label = "100000원"),
-                DhcGraphData(value = 50000, label = "100000원"),
-                DhcGraphData(value = 50000, label = "100000원"),
-                DhcGraphData(value = 50000, label = "100000원"),
+                DhcGraphData(value = 100000, label = "10만원", tooltipMessage = "안녕"),
+                DhcGraphData(value = 75000, label = "7만원", tooltipMessage = "안녕하세요 ~~"),
             ),
             dhcGraphConfig = DhcGraphConfig(
                 lineLabels = listOf("10 만원", "7 만원", "5 만원", "2 만원", "0 원"),
@@ -248,6 +294,16 @@ private fun DhcGraphColorPreview() {
                 .height(200.dp)
                 .width(80.dp),
             color = SurfaceColor.neutral400,
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun DhcTooltipPreview() {
+    DhcTheme {
+        DhcTooltip(
+            text = "텍스트",
         )
     }
 }
