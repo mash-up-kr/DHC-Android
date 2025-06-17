@@ -16,10 +16,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dhc.designsystem.DhcTheme
+import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.button.DhcButton
 import com.dhc.designsystem.button.model.DhcButtonSize
 import com.dhc.designsystem.button.model.DhcButtonStyle
 import com.dhc.designsystem.title.DhcTitle
+import com.dhc.designsystem.title.DhcTitleState
 import com.dhc.intro.R
 import com.dhc.presentation.mvi.EventHandler
 
@@ -32,9 +34,15 @@ fun IntroStartScreen(
         Column(modifier = modifier) {
             Spacer(modifier = Modifier.height(24.dp))
             DhcTitle(
-                title = stringResource(R.string.intro_start_title),
+                titleState = DhcTitleState(
+                    title = stringResource(R.string.intro_start_title),
+                    titleStyle = DhcTypoTokens.TitleH2_1,
+                ),
                 textAlign = TextAlign.Center,
-                subTitle = stringResource(R.string.intro_start_sub_title),
+                subTitleState = DhcTitleState(
+                    title = stringResource(R.string.intro_start_sub_title),
+                    titleStyle = DhcTypoTokens.Body3,
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 24.dp, start = 20.dp, end = 20.dp),
