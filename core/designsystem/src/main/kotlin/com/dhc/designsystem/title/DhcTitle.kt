@@ -20,10 +20,10 @@ import com.dhc.designsystem.SurfaceColor
 
 @Composable
 fun DhcTitle(
-    title: String,
+    titleState: DhcTitleState,
     textAlign: TextAlign,
     modifier: Modifier = Modifier,
-    subTitle: String? = null,
+    subTitleState: DhcTitleState? = null,
 ) {
     Column(
         modifier = modifier,
@@ -31,16 +31,16 @@ fun DhcTitle(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = title,
-            style = DhcTypoTokens.TitleH2,
+            text = titleState.title,
+            style = titleState.titleStyle,
             color = Color.White,
             textAlign = textAlign,
             modifier = Modifier.fillMaxWidth(),
         )
-        subTitle?.let { text ->
+        subTitleState?.let { titleState ->
             Text(
-                text = text,
-                style = DhcTypoTokens.Body3,
+                text = titleState.title,
+                style = titleState.titleStyle,
                 color = SurfaceColor.neutral200,
                 textAlign = textAlign,
                 modifier = Modifier.fillMaxWidth(),
@@ -83,9 +83,17 @@ private fun DhcTitlePreview(
 ) {
     DhcTheme {
         DhcTitle(
-            title = parameter.title,
+            titleState = DhcTitleState(
+                title = parameter.title,
+                titleStyle = DhcTypoTokens.TitleH2,
+            ),
             textAlign = parameter.textAlign,
-            subTitle = parameter.subTitle,
+            subTitleState = parameter.subTitle?.let {
+                DhcTitleState(
+                    title = it,
+                    titleStyle = DhcTypoTokens.Body3,
+                )
+            },
         )
     }
 }
