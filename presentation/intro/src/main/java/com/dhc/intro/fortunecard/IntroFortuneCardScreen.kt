@@ -37,6 +37,7 @@ import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.designsystem.score.DhcScoreText
 import com.dhc.designsystem.title.DhcTitle
+import com.dhc.designsystem.title.DhcTitleState
 import com.dhc.intro.R
 import com.dhc.presentation.component.WordBalloon
 import com.dhc.presentation.mvi.EventHandler
@@ -58,9 +59,12 @@ fun IntroFortuneCardScreen(
         ) {
             Spacer(modifier = Modifier.height(24.dp))
             DhcTitle(
-                title = stringResource(R.string.intro_fortune_card_title),
+                titleState = DhcTitleState(
+                    title = stringResource(R.string.intro_fortune_card_title),
+                    titleStyle = DhcTypoTokens.TitleH2,
+                ),
                 textAlign = TextAlign.Center,
-                subTitle = null,
+                subTitleState = null,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 24.dp, start = 20.dp, end = 20.dp),
