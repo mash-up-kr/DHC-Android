@@ -32,9 +32,9 @@ import com.dhc.designsystem.button.model.DhcButtonStyle
 @Composable
 fun DhcDialog(
     modifier: Modifier = Modifier,
-    dialogContent: @Composable () -> Unit,
     dialogProperties: DialogProperties = DialogProperties(),
     onDisMissRequest: () -> Unit = {},
+    dialogContent: @Composable () -> Unit,
 ) {
     Dialog(
         properties = dialogProperties,
@@ -42,7 +42,6 @@ fun DhcDialog(
     ) {
         Column(
             modifier = modifier
-                .wrapContentSize()
                 .background(color = SurfaceColor.neutral700, shape = RoundedCornerShape(12.dp))
                 .padding(bottom = 16.dp),
         ) {
@@ -85,7 +84,7 @@ fun DhcDialogPreview() {
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     DhcButton(
-                        text = stringResource(R.string.dialog_app_initialization_button_cancel),
+                        text = stringResource(R.string.go_back),
                         buttonSize = DhcButtonSize.LARGE,
                         buttonStyle = DhcButtonStyle.PRIMARY,
                         isEnabled = true,
@@ -93,7 +92,7 @@ fun DhcDialogPreview() {
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                     )
                     DhcButton(
-                        text = stringResource(R.string.dialog_app_initialization_button_init),
+                        text = stringResource(R.string.initialize),
                         buttonSize = DhcButtonSize.LARGE,
                         buttonStyle = DhcButtonStyle.TERITARY,
                         isEnabled = true,
