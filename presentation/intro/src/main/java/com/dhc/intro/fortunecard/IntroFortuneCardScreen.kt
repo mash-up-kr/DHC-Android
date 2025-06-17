@@ -12,8 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,6 +48,7 @@ fun IntroFortuneCardScreen(
     eventHandler: EventHandler<IntroFortuneCardContract.Event>,
     modifier: Modifier = Modifier,
 ) {
+    var cardFlipped: Boolean by remember { mutableStateOf(state.isCardFlipped) }
     Box(modifier = modifier) {
         Column(
             modifier = Modifier
@@ -78,7 +84,11 @@ fun IntroFortuneCardScreen(
             ) {
                 Spacer(modifier = Modifier.height(20.dp))
                 FlippableBox(
-                    onFlipEnd = { eventHandler(IntroFortuneCardContract.Event.FlippedFortuneCard) },
+                    isFlipped = cardFlipped,
+                    onFlipEnd = {
+                        cardFlipped = true
+                        eventHandler(IntroFortuneCardContract.Event.FlippedFortuneCard)
+                    },
                     frontScreen = {
                         // Todo : 디자인 확정되면 수정하기
                         DhcFortuneCard(

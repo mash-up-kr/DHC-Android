@@ -19,6 +19,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 
 @Composable
 fun FlippableBox(
+    isFlipped: Boolean,
     onFlipEnd: () -> Unit,
     frontScreen: @Composable () -> Unit,
     backScreen: @Composable () -> Unit,
@@ -28,13 +29,18 @@ fun FlippableBox(
     flipThreshold: Float = 90f,
     initialRotationZ: Float = 0f,
 ) {
+    val initialIsFlipped by remember { mutableStateOf(isFlipped) }
     var canRotate by remember { mutableStateOf(true) }
     var rotationAngleState by remember { mutableFloatStateOf(0f) }
     val animatedRotationAngleState by animateFloatAsState(targetValue = rotationAngleState, label = "")
     val isFront by remember(animatedRotationAngleState) {
         derivedStateOf {
-            val angle = animatedRotationAngleState % 360
-            angle <= 90f || angle >= 270f
+            if (initialIsFlipped) {
+                false
+            } else {
+                val angle = animatedRotationAngleState % 360
+                angle <= 90f || angle >= 270f
+            }
         }
     }
     LaunchedEffect(canRotate) {
@@ -47,7 +53,7 @@ fun FlippableBox(
                 indication = null,
                 interactionSource = remember { MutableInteractionSource() },
                 onClick = {
-                    if (canRotate) {
+                    if (isFlipped.not()) {
                         rotationAngleState = (rotationAngleState + maxRotationAngle)
                             .coerceIn(minRotationAngle, maxRotationAngle)
                             .also { canRotate = false }
@@ -61,7 +67,7 @@ fun FlippableBox(
                             .also { if (it == 180f) canRotate = false }
                     },
                     onHorizontalDrag = { _, dragAmount ->
-                        if (canRotate) {
+                        if (isFlipped.not()) {
                             rotationAngleState = (rotationAngleState + dragAmount)
                                 .coerceIn(minRotationAngle, maxRotationAngle)
                         }
@@ -69,8 +75,13 @@ fun FlippableBox(
                 )
             }
             .graphicsLayer {
-                rotationY = animatedRotationAngleState + if (isFront) 0f else 180f
-                rotationZ = initialRotationZ - (initialRotationZ * (animatedRotationAngleState / maxRotationAngle))
+                if (initialIsFlipped) {
+                    rotationY = 0f
+                    rotationZ = 0f
+                } else {
+                    rotationY = animatedRotationAngleState + if (isFront) 0f else 180f
+                    rotationZ = initialRotationZ - (initialRotationZ * (animatedRotationAngleState / maxRotationAngle))
+                }
                 cameraDistance = 15f
             }
     ) {
