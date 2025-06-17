@@ -50,7 +50,7 @@ fun DhcDialog(
                 onClick = { onDisMissRequest() }
             ) {
                 Image(
-                    painter = painterResource(R.drawable.x),
+                    painter = painterResource(R.drawable.ico_x),
                     contentDescription = "closeButton"
                 )
             }
@@ -83,22 +83,6 @@ fun DhcDialogPreview() {
                         textAlign = TextAlign.Center,
                     )
                     Spacer(modifier = Modifier.height(12.dp))
-                    DhcButton(
-                        text = stringResource(R.string.go_back),
-                        buttonSize = DhcButtonSize.LARGE,
-                        buttonStyle = DhcButtonStyle.PRIMARY,
-                        isEnabled = true,
-                        onClick = {},
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
-                    )
-                    DhcButton(
-                        text = stringResource(R.string.initialize),
-                        buttonSize = DhcButtonSize.LARGE,
-                        buttonStyle = DhcButtonStyle.TERITARY,
-                        isEnabled = true,
-                        onClick = {},
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
-                    )
                 }
             }
         )
