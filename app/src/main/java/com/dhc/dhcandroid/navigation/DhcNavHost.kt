@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.dhc.intro.birthday.IntroBirthDayRoute
 import com.dhc.intro.description.IntroDescriptionRoute
 import com.dhc.intro.fortunecard.IntroFortuneCardRoute
 import com.dhc.intro.mission.IntroMissionRoute
@@ -91,18 +92,10 @@ fun DhcNavHost(
                 }
             }
             composable(DhcRoute.INTRO_BIRTH_DAY.route) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text("Intro Birth Day")
-                    Button(
-                        onClick = { navController.navigateTo(DhcRoute.INTRO_BIRTH_TIME) },
-                    ) {
-                        Text("Go to Next")
-                    }
-                }
+                IntroBirthDayRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_BIRTH_TIME) },
+                    navigateToBackScreen = { navController.navigateUp() },
+                )
             }
             composable(DhcRoute.INTRO_BIRTH_TIME.route) {
                 Column(
