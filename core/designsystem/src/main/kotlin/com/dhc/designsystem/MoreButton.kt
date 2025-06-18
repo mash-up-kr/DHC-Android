@@ -1,6 +1,7 @@
 package com.dhc.designsystem
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,10 +26,12 @@ import com.dhc.common.FullRoundedCornerShape
  */
 @Composable
 fun MoreButton(
+    onClickMoreButton: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.wrapContentSize()
+            .clickable { onClickMoreButton() }
             .background(SurfaceColor.neutral700, FullRoundedCornerShape)
             .padding(start = 12.dp, end = 8.dp, top = 4.dp, bottom = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -53,6 +56,8 @@ fun MoreButton(
 @Preview
 fun PreviewMoreButton() {
     DhcTheme {
-        MoreButton()
+        MoreButton(
+            onClickMoreButton = {}
+        )
     }
 }
