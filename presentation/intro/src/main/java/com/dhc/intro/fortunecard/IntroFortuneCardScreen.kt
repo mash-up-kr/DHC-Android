@@ -70,7 +70,7 @@ fun IntroFortuneCardScreen(
             )
             Spacer(
                 modifier = Modifier
-                    .height(height = if (state.isCardFlipped.not()) 506.dp else 85.dp),
+                    .height(height = if (state.isCardFlipped.not()) 106.dp else 85.dp),
             )
             if (state.isCardFlipped.not()) {
                 NotFlippedDescription()
