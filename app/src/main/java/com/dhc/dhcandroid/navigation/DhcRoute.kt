@@ -2,6 +2,7 @@ package com.dhc.dhcandroid.navigation
 
 import com.dhc.designsystem.gnb.model.DhcBottomBarState
 import com.dhc.designsystem.topbar.model.DhcTopBarState
+import com.dhc.designsystem.topbar.model.TopBarPageState
 
 enum class DhcRoute(
     val route: String,
@@ -73,7 +74,14 @@ enum class DhcRoute(
     INTRO_BIRTH_TIME(
         route = "intro/birthTime",
         screenConfig = ScreenConfig(
-            topBarState = DhcTopBarState.None,
+            topBarState = DhcTopBarState.Basic(
+                title = "",
+                isShowBackButton = true,
+                topBarPageState = TopBarPageState(
+                    currentPage = 3,
+                    totalPage = 4,
+                ),
+            ),
             bottomBarState = DhcBottomBarState.None,
         ),
     ),

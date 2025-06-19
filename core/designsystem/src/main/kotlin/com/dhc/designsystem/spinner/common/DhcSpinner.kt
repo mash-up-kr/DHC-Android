@@ -35,6 +35,7 @@ fun <T : Any> DhcSpinner(
     onValueChanged: (T) -> Unit,
     modifier: Modifier = Modifier,
     initialIndex: Int = 0,
+    isEnabled: Boolean = true,
     itemBackground: @Composable ColumnScope.(isFocused: Boolean) -> Unit = {},
     itemContent: @Composable BoxScope.(item: T, isFocused: Boolean) -> Unit,
 ) {
@@ -83,6 +84,7 @@ fun <T : Any> DhcSpinner(
 
         LazyColumn(
             state = listState,
+            userScrollEnabled = isEnabled,
             modifier = Modifier.fillMaxSize(),
         ) {
             items(
