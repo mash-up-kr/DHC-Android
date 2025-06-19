@@ -27,8 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.dhc.common.drawBalloonTail
+import com.dhc.designsystem.AccentColor
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
+import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.graph.model.DhcGraphConfig
 import com.dhc.designsystem.graph.model.DhcGraphData
@@ -101,15 +103,13 @@ fun DhcGraph(
                     end.linkTo(graphRowLines.end)
                     width = Dimension.fillToConstraints
                 },
-            labels = graphData.map { it.label },
-            textStyle = columnLabelStyle,
-            color = SurfaceColor.neutral200,
+            datas = graphData,
         )
     }
 }
 
 @Composable
-internal fun DhcGraphRowLines(
+private fun DhcGraphRowLines(
     lines: Int,
     textHeight: Dp,
     modifier: Modifier = Modifier,
@@ -156,7 +156,7 @@ internal fun DhcGraphRowLabels(
 }
 
 @Composable
-internal fun DhcGraphBar(
+private fun DhcGraphBar(
     color: Color,
     modifier: Modifier = Modifier,
 ) {
@@ -173,14 +173,13 @@ internal fun DhcGraphBar(
 }
 
 @Composable
-internal fun DhcGraphBars(
+private fun DhcGraphBars(
     data: List<DhcGraphData>,
     maxValue: Int,
     modifier: Modifier = Modifier,
-    graphColor: Color = SurfaceColor.neutral300,
-    tooltipColor: Color = SurfaceColor.neutral600,
 ) {
-    val graphWidht = 48.dp
+    val colors = LocalDhcColors.current
+    val graphWidth = 48.dp
 
     Row(
         modifier = modifier,
@@ -191,24 +190,26 @@ internal fun DhcGraphBars(
             Box {
                 DhcGraphBar(
                     modifier = Modifier
-                        .width(graphWidht)
+                        .width(graphWidth)
                         .fillMaxHeight(data[index].value / maxValue.toFloat()),
-                    color = graphColor,
+                    color = if (data[index].isHighlight) colors.text.textHighLightsPrimary else SurfaceColor.neutral400,
                 )
-                DhcTooltip(
+                DhcGraphTooltip(
                     modifier = Modifier
                         .layout { measurable, constraints ->
                             val placeable = measurable.measure(constraints)
                             layout(0, placeable.height) {
                                 placeable.place(
-                                    -((placeable.width - graphWidht.toPx()) / 2).toInt(),
+                                    -((placeable.width - graphWidth.toPx()) / 2).toInt(),
                                     -placeable.height
                                 )
                             }
                         }
                         .padding(bottom = 12.dp),
+                    style = if (data[index].isHighlight) DhcTypoTokens.TitleH7 else DhcTypoTokens.Body5,
                     text = data[index].tooltipMessage,
-                    tooltipColor = tooltipColor,
+                    tooltipColor = SurfaceColor.neutral600,
+                    textColor = if (data[index].isHighlight) AccentColor.violet300 else SurfaceColor.neutral200,
                 )
             }
         }
@@ -216,22 +217,22 @@ internal fun DhcGraphBars(
 }
 
 @Composable
-fun DhcGraphColumnLabel(
-    labels: List<String>,
-    textStyle: TextStyle,
+private fun DhcGraphColumnLabel(
+    datas: List<DhcGraphData>,
     modifier: Modifier = Modifier,
-    color: Color = SurfaceColor.neutral300,
 ) {
+    val colors = LocalDhcColors.current
+
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.SpaceAround,
     ) {
-        labels.forEach { label ->
+        datas.forEach { data ->
             Text(
-                text = label,
-                color = color,
+                text = data.label,
+                color = if (data.isHighlight) colors.text.textHighLightsSecondary else SurfaceColor.neutral300,
                 modifier = Modifier.weight(1f),
-                style = textStyle,
+                style = if (data.isHighlight) DhcTypoTokens.TitleH7 else DhcTypoTokens.Body5,
                 textAlign = TextAlign.Center,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -241,9 +242,10 @@ fun DhcGraphColumnLabel(
 }
 
 @Composable
-fun DhcTooltip(
+private fun DhcGraphTooltip(
     text: String,
     modifier: Modifier = Modifier,
+    style: TextStyle = DhcTypoTokens.Body5,
     tooltipColor: Color = SurfaceColor.neutral600,
     textColor: Color = SurfaceColor.neutral200,
 ) {
@@ -260,7 +262,7 @@ fun DhcTooltip(
             .background(color = tooltipColor, shape = RoundedCornerShape(4.dp))
             .padding(vertical = 8.dp, horizontal = 16.dp),
         text = text,
-        style = DhcTypoTokens.Body5,
+        style = style,
         color = textColor,
     )
 }
@@ -271,39 +273,16 @@ private fun DhcGraphPreview() {
     DhcTheme {
         DhcGraph(
             graphData = listOf(
-                DhcGraphData(value = 100000, label = "10만원", tooltipMessage = "안녕"),
+                DhcGraphData(isHighlight = true, value = 100000, label = "10만원", tooltipMessage = "안녕"),
                 DhcGraphData(value = 75000, label = "7만원", tooltipMessage = "안녕하세요 ~~"),
             ),
             dhcGraphConfig = DhcGraphConfig(
-                lineLabels = listOf("10 만원", "7 만원", "5 만원", "2 만원", "0 원"),
+                lineLabels = listOf("10 만원", "7.5 만원", "5 만원", "2.5 만원", "0 원"),
                 maxValue = 100000,
             ),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(300.dp),
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun DhcGraphColorPreview() {
-    DhcTheme {
-        DhcGraphBar(
-            modifier = Modifier
-                .height(200.dp)
-                .width(80.dp),
-            color = SurfaceColor.neutral400,
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun DhcTooltipPreview() {
-    DhcTheme {
-        DhcTooltip(
-            text = "텍스트",
         )
     }
 }
