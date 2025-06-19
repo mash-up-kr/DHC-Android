@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.dhc.intro.category.IntroCategoryRoute
 import com.dhc.intro.description.IntroDescriptionRoute
 import com.dhc.intro.fortunecard.IntroFortuneCardRoute
 import com.dhc.intro.mission.IntroMissionRoute
@@ -119,18 +120,9 @@ fun DhcNavHost(
                 }
             }
             composable(DhcRoute.INTRO_CATEGORY.route) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text("Intro Category")
-                    Button(
-                        onClick = { navController.navigateToHome() },
-                    ) {
-                        Text("Go to Next")
-                    }
-                }
+                IntroCategoryRoute(
+                    navigateToNextScreen = { navController.navigateToHome() },
+                )
             }
         }
 

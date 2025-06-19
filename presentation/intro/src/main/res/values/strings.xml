@@ -18,4 +18,8 @@
     <string name="intro_mission_title">금전운에 기반해서\n부여된 미션이에요</string>
     <string name="intro_mission_sub_title">미션을 수행하면서\n소비습관을 개선해보세요</string>
     <string name="spending_habit_mission">소비습관 미션</string>
+
+    <string name="intro_category_title">개선하고 싶은 소비습관\n카테고리를 선택해 주세요.</string>
+    <string name="intro_category_sub_title">최소 3개이상 선택해야 해요.</string>
+    <string name="next">다음</string>
 </resources>
