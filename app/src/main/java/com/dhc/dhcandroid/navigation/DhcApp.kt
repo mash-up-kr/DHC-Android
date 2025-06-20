@@ -35,8 +35,7 @@ fun DhcApp() {
                 navigateUp = { navController.navigateUp() },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .statusBarsPadding()
-                    .background(SurfaceColor.neutral900), // Todo : Theme 적용 완료되면 background 제거하기
+                    .statusBarsPadding(),
             )
         },
         bottomBar = {

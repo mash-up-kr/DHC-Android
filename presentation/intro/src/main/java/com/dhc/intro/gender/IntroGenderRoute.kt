@@ -27,9 +27,7 @@ fun IntroGenderRoute(
 
     IntroGenderScreen(
         state = state,
-        modifier = Modifier
-            .fillMaxSize()
-            .background(SurfaceColor.neutral900), // Todo : Theme 적용 완료되면 background 제거하기
+        modifier = Modifier.fillMaxSize(),
         eventHandler = viewModel::sendEvent
     )
 }
