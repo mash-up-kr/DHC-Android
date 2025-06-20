@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,13 +46,13 @@ fun DhcGraph(
     val columnLabelStyle = DhcTypoTokens.TitleH7
 
     ConstraintLayout(modifier = modifier) {
-        val (graphRowLabels, graphRowLines, graphBars, graphColumnLabels) = createRefs()
+        val (graphYAxisLabels, graphHorizontalLines, graphBars, graphXAxisLabels) = createRefs()
 
-        DhcGraphRowLabels(
+        DhcGraphYAxisLabels(
             modifier = Modifier
                 .padding(bottom = columnLabelStyle.fontSize.value.dp)
                 .fillMaxHeight()
-                .constrainAs(graphRowLabels) {
+                .constrainAs(graphYAxisLabels) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                 },
@@ -59,14 +60,14 @@ fun DhcGraph(
             labelStyle = rowLabelStyle,
         )
 
-        DhcGraphRowLines(
+        DhcGraphHorizontalLines(
             modifier = Modifier
                 .padding(start = 16.dp, bottom = columnLabelStyle.fontSize.value.dp)
                 .fillMaxHeight()
-                .constrainAs(graphRowLines) {
-                    top.linkTo(graphRowLabels.top)
-                    bottom.linkTo(graphRowLabels.bottom)
-                    start.linkTo(graphRowLabels.end)
+                .constrainAs(graphHorizontalLines) {
+                    top.linkTo(graphYAxisLabels.top)
+                    bottom.linkTo(graphYAxisLabels.bottom)
+                    start.linkTo(graphYAxisLabels.end)
                     end.linkTo(parent.end)
                     width = Dimension.fillToConstraints
                 },
@@ -84,23 +85,23 @@ fun DhcGraph(
                     bottom = rowLabelStyle.fontSize.value.dp / 2 + columnLabelStyle.fontSize.value.dp,
                 )
                 .constrainAs(graphBars) {
-                    bottom.linkTo(graphRowLines.bottom)
-                    start.linkTo(graphRowLines.start)
-                    end.linkTo(graphRowLines.end)
-                    top.linkTo(graphRowLines.top)
+                    bottom.linkTo(graphHorizontalLines.bottom)
+                    start.linkTo(graphHorizontalLines.start)
+                    end.linkTo(graphHorizontalLines.end)
+                    top.linkTo(graphHorizontalLines.top)
                     width = Dimension.fillToConstraints
                     height = Dimension.fillToConstraints
                 }
         )
 
-        DhcGraphColumnLabel(
+        DhcGraphXAxisLabel(
             modifier = Modifier
                 .padding(start = 16.dp)
                 .fillMaxWidth()
-                .constrainAs(graphColumnLabels) {
+                .constrainAs(graphXAxisLabels) {
                     bottom.linkTo(parent.bottom)
-                    start.linkTo(graphRowLines.start)
-                    end.linkTo(graphRowLines.end)
+                    start.linkTo(graphHorizontalLines.start)
+                    end.linkTo(graphHorizontalLines.end)
                     width = Dimension.fillToConstraints
                 },
             datas = graphData,
@@ -109,33 +110,7 @@ fun DhcGraph(
 }
 
 @Composable
-private fun DhcGraphRowLines(
-    lines: Int,
-    textHeight: Dp,
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.SpaceBetween,
-    ) {
-        repeat(lines) {
-            Box(
-                modifier = Modifier.height(textHeight),
-                contentAlignment = Alignment.Center,
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(1.dp)
-                        .background(SurfaceColor.neutral600)
-                )
-            }
-        }
-    }
-}
-
-@Composable
-internal fun DhcGraphRowLabels(
+internal fun DhcGraphYAxisLabels(
     labels: List<String>,
     labelStyle: TextStyle,
     modifier: Modifier = Modifier
@@ -151,6 +126,74 @@ internal fun DhcGraphRowLabels(
                 color = SurfaceColor.neutral200,
                 style = labelStyle,
             )
+        }
+    }
+}
+
+@Composable
+private fun DhcGraphHorizontalLines(
+    lines: Int,
+    textHeight: Dp,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.SpaceBetween,
+    ) {
+        repeat(lines) {
+            Box(
+                modifier = Modifier.height(textHeight),
+                contentAlignment = Alignment.Center,
+            ) {
+                HorizontalDivider(
+                    thickness = 1.dp,
+                    color = SurfaceColor.neutral600,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DhcGraphBars(
+    data: List<DhcGraphData>,
+    maxValue: Int,
+    modifier: Modifier = Modifier,
+    graphWidth: Dp = 48.dp,
+) {
+    val colors = LocalDhcColors.current
+
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.Bottom,
+    ) {
+        data.forEach { dhcGraphData ->
+            Box {
+                DhcGraphBar(
+                    modifier = Modifier
+                        .width(graphWidth)
+                        .fillMaxHeight(dhcGraphData.value / maxValue.toFloat()),
+                    color = if (dhcGraphData.isHighlight) colors.text.textHighLightsPrimary else SurfaceColor.neutral400,
+                )
+                DhcGraphTooltip(
+                    modifier = Modifier
+                        .layout { measurable, constraints ->
+                            val placeable = measurable.measure(constraints)
+                            layout(0, placeable.height) {
+                                placeable.place(
+                                    -((placeable.width - graphWidth.toPx()) / 2).toInt(),
+                                    -placeable.height
+                                )
+                            }
+                        }
+                        .padding(bottom = 12.dp),
+                    style = if (dhcGraphData.isHighlight) DhcTypoTokens.TitleH7 else DhcTypoTokens.Body5,
+                    text = dhcGraphData.tooltipMessage,
+                    tooltipColor = SurfaceColor.neutral600,
+                    textColor = if (dhcGraphData.isHighlight) AccentColor.violet300 else SurfaceColor.neutral200,
+                )
+            }
         }
     }
 }
@@ -173,60 +216,13 @@ private fun DhcGraphBar(
 }
 
 @Composable
-private fun DhcGraphBars(
-    data: List<DhcGraphData>,
-    maxValue: Int,
-    modifier: Modifier = Modifier,
-) {
-    val colors = LocalDhcColors.current
-    val graphWidth = 48.dp
-
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.SpaceAround,
-        verticalAlignment = Alignment.Bottom,
-    ) {
-        repeat(data.size) { index ->
-            Box {
-                DhcGraphBar(
-                    modifier = Modifier
-                        .width(graphWidth)
-                        .fillMaxHeight(data[index].value / maxValue.toFloat()),
-                    color = if (data[index].isHighlight) colors.text.textHighLightsPrimary else SurfaceColor.neutral400,
-                )
-                DhcGraphTooltip(
-                    modifier = Modifier
-                        .layout { measurable, constraints ->
-                            val placeable = measurable.measure(constraints)
-                            layout(0, placeable.height) {
-                                placeable.place(
-                                    -((placeable.width - graphWidth.toPx()) / 2).toInt(),
-                                    -placeable.height
-                                )
-                            }
-                        }
-                        .padding(bottom = 12.dp),
-                    style = if (data[index].isHighlight) DhcTypoTokens.TitleH7 else DhcTypoTokens.Body5,
-                    text = data[index].tooltipMessage,
-                    tooltipColor = SurfaceColor.neutral600,
-                    textColor = if (data[index].isHighlight) AccentColor.violet300 else SurfaceColor.neutral200,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun DhcGraphColumnLabel(
+private fun DhcGraphXAxisLabel(
     datas: List<DhcGraphData>,
     modifier: Modifier = Modifier,
 ) {
     val colors = LocalDhcColors.current
 
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.SpaceAround,
-    ) {
+    Row(modifier = modifier) {
         datas.forEach { data ->
             Text(
                 text = data.label,
@@ -248,10 +244,9 @@ private fun DhcGraphTooltip(
     style: TextStyle = DhcTypoTokens.Body5,
     tooltipColor: Color = SurfaceColor.neutral600,
     textColor: Color = SurfaceColor.neutral200,
+    cornerWidth: Dp = 12.dp,
+    cornerHeight: Dp = 8.dp
 ) {
-    val cornerWidth = 12.dp
-    val cornerHeight = 8.dp
-
     Text(
         modifier = modifier
             .drawBalloonTail(
@@ -273,7 +268,12 @@ private fun DhcGraphPreview() {
     DhcTheme {
         DhcGraph(
             graphData = listOf(
-                DhcGraphData(isHighlight = true, value = 100000, label = "10만원", tooltipMessage = "안녕"),
+                DhcGraphData(
+                    isHighlight = true,
+                    value = 100000,
+                    label = "10만원",
+                    tooltipMessage = "안녕"
+                ),
                 DhcGraphData(value = 75000, label = "7만원", tooltipMessage = "안녕하세요 ~~"),
             ),
             dhcGraphConfig = DhcGraphConfig(
