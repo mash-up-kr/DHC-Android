@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
+import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 
 @Composable
@@ -25,6 +26,7 @@ fun DhcTitle(
     modifier: Modifier = Modifier,
     subTitleState: DhcTitleState? = null,
 ) {
+    val colors = LocalDhcColors.current
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -33,7 +35,7 @@ fun DhcTitle(
         Text(
             text = titleState.title,
             style = titleState.titleStyle,
-            color = Color.White,
+            color = colors.text.textMain,
             textAlign = textAlign,
             modifier = Modifier.fillMaxWidth(),
         )
@@ -41,7 +43,7 @@ fun DhcTitle(
             Text(
                 text = titleState.title,
                 style = titleState.titleStyle,
-                color = SurfaceColor.neutral200,
+                color = SurfaceColor.neutral300,
                 textAlign = textAlign,
                 modifier = Modifier.fillMaxWidth(),
             )
