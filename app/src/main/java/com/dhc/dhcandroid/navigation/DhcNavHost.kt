@@ -15,8 +15,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.dhc.intro.description.IntroDescriptionRoute
 import com.dhc.intro.fortunecard.IntroFortuneCardRoute
-import com.dhc.intro.mission.IntroMissionRoute
 import com.dhc.intro.gender.IntroGenderRoute
+import com.dhc.intro.mission.IntroMissionRoute
 import com.dhc.intro.splash.SplashRoute
 import com.dhc.intro.start.IntroRoute
 
