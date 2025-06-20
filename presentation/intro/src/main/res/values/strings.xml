@@ -8,4 +8,14 @@
     <string name="intro_description_text1">오늘의 금전운 받기</string>
     <string name="intro_description_text2">금전운에 따른 미션 수행</string>
     <string name="intro_description_text3">수행한 미션을 토대로 소비습관 분석</string>
+
+    <string name="intro_fortune_card_title">먼저 금전운을 하나\n받아볼까요?</string>
+    <string name="intro_fortune_card_description">오늘의 운세 카드를\n뒤집어보세요!</string>
+
+    <string name="m_month_d_day_finance_luck">%d월 %d일 금전운</string>
+    <string name="balloon_message_click">Click!</string>
+
+    <string name="intro_mission_title">금전운에 기반해서\n부여된 미션이에요</string>
+    <string name="intro_mission_sub_title">미션을 수행하면서\n소비습관을 개선해보세요</string>
+    <string name="spending_habit_mission">소비습관 미션</string>
 </resources>

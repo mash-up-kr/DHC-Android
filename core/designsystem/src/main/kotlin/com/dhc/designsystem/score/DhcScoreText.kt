@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
+import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.badge.DhcBadge
@@ -25,6 +26,7 @@ fun DhcScoreText(
     description: String,
     modifier: Modifier = Modifier,
 ) {
+    val colors = LocalDhcColors.current
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -41,7 +43,7 @@ fun DhcScoreText(
         Text(
             text = description,
             style = DhcTypoTokens.Body3,
-            color = SurfaceColor.neutral300,
+            color = colors.text.textBodyPrimary,
             textAlign = TextAlign.Center,
         )
     }
