@@ -13,6 +13,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.dhc.intro.description.IntroDescriptionRoute
+import com.dhc.intro.fortunecard.IntroFortuneCardRoute
+import com.dhc.intro.mission.IntroMissionRoute
 import com.dhc.intro.splash.SplashRoute
 import com.dhc.intro.start.IntroRoute
 
@@ -45,32 +48,14 @@ fun DhcNavHost(
                 )
             }
             composable(DhcRoute.INTRO_DESCRIPTION.route) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text("Intro Description")
-                    Button(
-                        onClick = { navController.navigateTo(DhcRoute.INTRO_FORTUNE_CARD) },
-                    ) {
-                        Text("Go to Next")
-                    }
-                }
+                IntroDescriptionRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_FORTUNE_CARD) },
+                )
             }
             composable(DhcRoute.INTRO_FORTUNE_CARD.route) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text("Intro Fortune Card")
-                    Button(
-                        onClick = { navController.navigateTo(DhcRoute.INTRO_FORTUNE_DETAIL) },
-                    ) {
-                        Text("Go to Next")
-                    }
-                }
+                IntroFortuneCardRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_FORTUNE_DETAIL) },
+                )
             }
             composable(DhcRoute.INTRO_FORTUNE_DETAIL.route) {
                 Column(
@@ -87,18 +72,9 @@ fun DhcNavHost(
                 }
             }
             composable(DhcRoute.INTRO_MISSION.route) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text("Intro Mission")
-                    Button(
-                        onClick = { navController.navigateTo(DhcRoute.INTRO_GENDER) },
-                    ) {
-                        Text("Go to Next")
-                    }
-                }
+                IntroMissionRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_GENDER) },
+                )
             }
             composable(DhcRoute.INTRO_GENDER.route) {
                 Column(
