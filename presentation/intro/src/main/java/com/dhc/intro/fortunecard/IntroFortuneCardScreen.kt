@@ -51,7 +51,6 @@ fun IntroFortuneCardScreen(
     Box(modifier = modifier) {
         Column(
             modifier = Modifier
-                .animateContentSize()
                 .fillMaxWidth()
                 .wrapContentHeight(),
             horizontalAlignment = Alignment.CenterHorizontally,
