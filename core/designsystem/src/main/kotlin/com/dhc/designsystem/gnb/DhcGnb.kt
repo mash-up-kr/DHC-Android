@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.foundation.Image
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,17 +71,17 @@ private fun DhcGnbPreview() {
         DhcGnb(
             gnbItemList = listOf(
                 GnbItem(
-                    iconResource = R.drawable.home,
+                    iconResource = R.drawable.ico_home,
                     iconText = R.string.btn_bottom_home,
                     routeName = "MAIN_HOME",
                 ),
                 GnbItem(
-                    iconResource = R.drawable.status,
+                    iconResource = R.drawable.ico_chart,
                     iconText = R.string.btn_bottom_mission,
                     routeName = "MAIN_MISSION",
                 ),
                 GnbItem(
-                    iconResource = R.drawable.mypage,
+                    iconResource = R.drawable.ico_mypage,
                     iconText = R.string.btn_bottom_my_page,
                     routeName = "MAIN_MY",
                 ),

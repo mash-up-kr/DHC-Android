@@ -42,7 +42,7 @@ fun DhcCheck(
         contentAlignment = Alignment.Center,
     ) {
         Icon(
-            painter = painterResource(R.drawable.check),
+            painter = painterResource(R.drawable.ico_check),
             contentDescription = "check",
             tint = iconTint,
             modifier = Modifier.size(dhcCheckStyle.iconSize),

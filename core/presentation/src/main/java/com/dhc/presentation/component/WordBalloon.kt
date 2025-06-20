@@ -1,6 +1,5 @@
 package com.dhc.presentation.component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,7 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,6 +21,25 @@ import com.dhc.designsystem.LocalDhcColors
 @Composable
 fun WordBalloon(
     modifier: Modifier = Modifier,
+    backgroundColor: Color,
+    cornerWidth: Dp = 12.dp,
+    cornerHeight: Dp = 6.dp,
+    cornerRadius: Dp = 1.dp, // 꼭짓점 라운드 크기
+    content: @Composable () -> Unit,
+) {
+    WordBalloonInternal(
+        modifier = modifier,
+        colorType = WordBalloonColorType.SingleColor(color = backgroundColor),
+        cornerWidth = cornerWidth,
+        cornerHeight = cornerHeight,
+        cornerRadius = cornerRadius,
+        content = content,
+    )
+}
+
+@Composable
+fun WordBalloon(
+    modifier: Modifier = Modifier,
     gradientStartColor: Color,
     gradientEndColor: Color,
     cornerWidth: Dp = 12.dp,
@@ -30,17 +47,37 @@ fun WordBalloon(
     cornerRadius: Dp = 1.dp, // 꼭짓점 라운드 크기
     content: @Composable () -> Unit,
 ) {
+    WordBalloonInternal(
+        modifier = modifier,
+        colorType = WordBalloonColorType.ColorStops(
+            backgroundColorStops = arrayOf(
+                0.43f to gradientStartColor,
+                1.0f to gradientEndColor,
+            ),
+            pointColorStops = arrayOf(
+                0f to gradientEndColor,
+                0.57f to gradientStartColor,
+            ),
+        ),
+        cornerWidth = cornerWidth,
+        cornerHeight = cornerHeight,
+        cornerRadius = cornerRadius,
+        content = content,
+    )
+}
+
+@Composable
+private fun WordBalloonInternal(
+    modifier: Modifier = Modifier,
+    colorType: WordBalloonColorType,
+    cornerWidth: Dp = 12.dp,
+    cornerHeight: Dp = 6.dp,
+    cornerRadius: Dp = 1.dp, // 꼭짓점 라운드 크기
+    content: @Composable () -> Unit,
+) {
     Box(
         modifier = modifier
-            .background(
-                brush = Brush.verticalGradient(
-                    colorStops = arrayOf(
-                        0.43f to gradientStartColor,
-                        1.0f to gradientEndColor,
-                    ),
-                ),
-                shape = RoundedCornerShape(8.dp),
-            )
+            .then(colorType.bodyBackground(shape = RoundedCornerShape(8.dp)))
             .drawWithContent {
                 drawContent()
                 val leftTop = Offset(
@@ -61,17 +98,18 @@ fun WordBalloon(
                     bottomPoint = bottomPoint,
                     roundRadius = cornerRadius.toPx(),
                 )
-                drawPath(
-                    path = trianglePath,
-                    brush = Brush.verticalGradient(
-                        colorStops = arrayOf(
-                            0f to gradientEndColor,
-                            0.57f to gradientStartColor,
-                        ),
+                when (colorType) {
+                    is WordBalloonColorType.ColorStops -> colorType.drawPointPath(
+                        scope = this,
+                        path = trianglePath,
                         startY = leftTop.y,
-                        endY = bottomPoint.y
-                    ),
-                )
+                        endY = bottomPoint.y,
+                    )
+                    is WordBalloonColorType.SingleColor -> colorType.drawPointPath(
+                        scope = this,
+                        path = trianglePath,
+                    )
+                }
             }
             .padding(10.dp),
         contentAlignment = Alignment.Center,

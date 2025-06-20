@@ -35,3 +35,5 @@ app/google-services.json
 node_modules/
 
 .kotlin/*
+
+./DS_Store

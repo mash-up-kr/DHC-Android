@@ -12,8 +12,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.dhc.intro.intro.IntroRoute
+import androidx.navigation.navigation
+import com.dhc.intro.description.IntroDescriptionRoute
+import com.dhc.intro.fortunecard.IntroFortuneCardRoute
+import com.dhc.intro.mission.IntroMissionRoute
 import com.dhc.intro.splash.SplashRoute
+import com.dhc.intro.start.IntroRoute
 
 @Composable
 fun DhcNavHost(
@@ -34,31 +38,98 @@ fun DhcNavHost(
             )
         }
 
-        composable(DhcRoute.INTRO.route) {
-            IntroRoute(
-                navigateToNextScreen = {
-                    navController.navigateToHome()
-                },
-            )
-        }
-
-        composable(DhcRoute.MAIN_HOME.route) {
-            // 아래 내용은 예시
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text("Home")
-                Button(
-                    onClick = { navController.navigateToMission() },
+        navigation(
+            route = DhcRoute.INTRO.route,
+            startDestination = DhcRoute.INTRO_START.route,
+        ) {
+            composable(DhcRoute.INTRO_START.route) {
+                IntroRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_DESCRIPTION) },
+                )
+            }
+            composable(DhcRoute.INTRO_DESCRIPTION.route) {
+                IntroDescriptionRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_FORTUNE_CARD) },
+                )
+            }
+            composable(DhcRoute.INTRO_FORTUNE_CARD.route) {
+                IntroFortuneCardRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_FORTUNE_DETAIL) },
+                )
+            }
+            composable(DhcRoute.INTRO_FORTUNE_DETAIL.route) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
                 ) {
-                    Text("Go to Mission")
+                    Text("Intro Fortune Detail")
+                    Button(
+                        onClick = { navController.navigateTo(DhcRoute.INTRO_MISSION) },
+                    ) {
+                        Text("Go to Next")
+                    }
                 }
-                Button(
-                    onClick = { navController.navigateToMy() },
+            }
+            composable(DhcRoute.INTRO_MISSION.route) {
+                IntroMissionRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_GENDER) },
+                )
+            }
+            composable(DhcRoute.INTRO_GENDER.route) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
                 ) {
-                    Text("Go to My")
+                    Text("Intro Gender")
+                    Button(
+                        onClick = { navController.navigateTo(DhcRoute.INTRO_BIRTH_DAY) },
+                    ) {
+                        Text("Go to Next")
+                    }
+                }
+            }
+            composable(DhcRoute.INTRO_BIRTH_DAY.route) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    Text("Intro Birth Day")
+                    Button(
+                        onClick = { navController.navigateTo(DhcRoute.INTRO_BIRTH_TIME) },
+                    ) {
+                        Text("Go to Next")
+                    }
+                }
+            }
+            composable(DhcRoute.INTRO_BIRTH_TIME.route) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    Text("Intro Birth Time")
+                    Button(
+                        onClick = { navController.navigateTo(DhcRoute.INTRO_CATEGORY) },
+                    ) {
+                        Text("Go to Next")
+                    }
+                }
+            }
+            composable(DhcRoute.INTRO_CATEGORY.route) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    Text("Intro Category")
+                    Button(
+                        onClick = { navController.navigateToHome() },
+                    ) {
+                        Text("Go to Next")
+                    }
                 }
             }
         }
