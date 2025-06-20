@@ -93,6 +93,7 @@ firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx"
 
 #coil
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 
 [bundles]
 hilt = [
@@ -131,6 +132,10 @@ proto-datastore = [
     "protobuf-javalite",
 ]
 
+coil = [
+    "coil-compose",
+    "coil-okhttp",
+]
 
 
 [plugins]
