@@ -28,7 +28,7 @@ fun DhcBadge(
                 color = type.backgroundColor,
                 shape = RoundedCornerShape(type.cornerRadius),
             )
-            .padding(horizontal = 12.dp, vertical = 4.dp),
+            .padding(horizontal = 12.dp, vertical = type.verticalPadding),
     )
 }
 

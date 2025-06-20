@@ -48,4 +48,15 @@ sealed interface DhcButtonStyle {
             @Composable get() = SurfaceColor.neutral300
         override val isEnabled: Boolean = true
     }
+
+    data class Small(override val isEnabled: Boolean) : DhcButtonStyle {
+        override val backgroundColor: Color
+            @Composable get() = if (isEnabled) {
+                LocalDhcColors.current.text.textHighLightsPrimary
+            } else {
+                LocalDhcColors.current.background.backgroundGlassEffect
+            }
+        override val textColor: Color
+            @Composable get() = LocalDhcColors.current.text.textBodyPrimary
+    }
 }
