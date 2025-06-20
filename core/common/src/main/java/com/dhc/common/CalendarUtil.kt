@@ -5,6 +5,8 @@ import java.time.Year
 
 object CalendarUtil {
 
+    fun getCurrentDate() = LocalDate.now()
+
     fun getCurrentYear(): Int = Year.now().value
 
     fun getActualMaximumDayOfMonth(year: Int, month: Int): Int =
