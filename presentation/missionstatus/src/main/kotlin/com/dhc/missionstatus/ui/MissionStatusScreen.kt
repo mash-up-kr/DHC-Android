@@ -47,7 +47,7 @@ fun MissionStatusScreen(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .background(color = SurfaceColor.neutral600) // Todo :: 배경색 변경 필요
+            .background(color = SurfaceColor.neutral800) // Todo :: 배경색 변경 필요
             .padding(20.dp)
     ) {
         Text(
