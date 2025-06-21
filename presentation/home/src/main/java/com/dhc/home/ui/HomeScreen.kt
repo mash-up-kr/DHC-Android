@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -28,6 +29,7 @@ import com.dhc.designsystem.floatingButton.DhcFloatingButton
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.home.R
+import com.dhc.presentation.component.TopGradientBackground
 
 @Composable
 fun HomeScreen(
@@ -37,6 +39,12 @@ fun HomeScreen(
     Box(
         modifier = modifier.fillMaxSize()
     ) {
+        TopGradientBackground(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(466.dp)
+                .offset(y = -(54.dp))
+        )
         Column(
             modifier = modifier
                 .fillMaxSize()
