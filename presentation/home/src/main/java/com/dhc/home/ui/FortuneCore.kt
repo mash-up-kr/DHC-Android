@@ -1,4 +1,4 @@
-package com.dhc.designsystem
+package com.dhc.home.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,6 +16,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dhc.designsystem.AccentColor
+import com.dhc.designsystem.DhcTheme
+import com.dhc.designsystem.DhcTypoTokens
+import com.dhc.designsystem.GradientColor
+import com.dhc.designsystem.R
+import com.dhc.designsystem.SurfaceColor
 
 /**
  * TODO - 홈 모듈로 이동

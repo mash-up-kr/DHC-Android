@@ -9,9 +9,5 @@ import com.dhc.home.ui.HomeScreen
 fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val scrollState = rememberScrollState()
-
-    HomeScreen(
-        scrollState = scrollState,
-    )
+    HomeScreen()
 }

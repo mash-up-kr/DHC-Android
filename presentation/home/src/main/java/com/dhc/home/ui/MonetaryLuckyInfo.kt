@@ -15,9 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
-import com.dhc.designsystem.FortuneCore
 import com.dhc.designsystem.LocalDhcColors
-import com.dhc.designsystem.MoreButton
 
 @Composable
 fun MonetaryLuckInfo(
