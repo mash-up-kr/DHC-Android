@@ -1,11 +1,10 @@
 package com.dhc.missionstatus
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dhc.missionstatus.ui.MissionStatusScreen
 
@@ -14,6 +13,7 @@ fun MissionStatusRoute(
     viewModel: MissionStatusViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    val scrollState = rememberScrollState()
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
@@ -23,6 +23,6 @@ fun MissionStatusRoute(
 
     MissionStatusScreen(
         state = state,
-        modifier = Modifier.fillMaxSize()
+        scrollState = scrollState,
     )
 }
