@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monetary_luck_detail">금전운 상세보기</string>
+    <string name="monetary_confirm_and_start">금전운 확인하고 시작하기</string>
+    <string name="today_tip">오늘의 꿀팁</string>
+</resources>
