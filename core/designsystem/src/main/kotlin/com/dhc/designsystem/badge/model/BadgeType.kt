@@ -53,4 +53,16 @@ sealed interface BadgeType {
             @Composable get() = LocalDhcColors.current.text.textHighLightsSecondary
         override val textStyle: TextStyle = DhcTypoTokens.TitleH8
     }
+
+    data class MissionCard(
+        val categoryTextColor: Color,
+    ) : BadgeType {
+        override val cornerRadius: Dp = 999999.dp
+        override val verticalPadding: Dp = 4.dp
+        override val backgroundColor: Color
+            @Composable get() = SurfaceColor.neutral600
+        override val textColor: Color
+            @Composable get() = categoryTextColor
+        override val textStyle: TextStyle = DhcTypoTokens.Body5
+    }
 }
