@@ -21,10 +21,13 @@ import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.badge.DhcBadge
 import com.dhc.designsystem.badge.model.BadgeType
+import com.dhc.tooltip.DhcTooltip
 
 @Composable
 fun MissionTitle(
     title: String,
+    tooltipMessage: String? = null,
+    isEnableTooltip: Boolean = false,
     isInfoIconVisible: Boolean = false,
     spendTypeText: String? = null,
 ) {
@@ -40,11 +43,19 @@ fun MissionTitle(
         )
         if (isInfoIconVisible) {
             Spacer(modifier = Modifier.width(8.dp))
-            Image(
-                painter = painterResource(com.dhc.designsystem.R.drawable.ico_info_circle),
-                contentDescription = "information",
-                colorFilter = ColorFilter.tint(SurfaceColor.neutral400)
-            )
+            if(isEnableTooltip) {
+                tooltipMessage?.let {
+                    DhcTooltip(
+                        tooltipText = tooltipMessage,
+                    )
+                }
+            } else {
+                Image(
+                    painter = painterResource(com.dhc.designsystem.R.drawable.ico_info_circle),
+                    contentDescription = "information",
+                    colorFilter = ColorFilter.tint(SurfaceColor.neutral400)
+                )
+            }
         }
         if (spendTypeText != null) {
             Spacer(modifier = Modifier.width(12.dp))
