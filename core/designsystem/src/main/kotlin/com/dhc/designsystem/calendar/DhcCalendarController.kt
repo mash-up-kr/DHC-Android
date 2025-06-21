@@ -24,7 +24,7 @@ class DhcCalendarController(
 
     companion object {
         val Saver: Saver<DhcCalendarController, String> = Saver(
-            save = { it.initialData.toString() },
+            save = { it.initialData.initialDate.toString() },
             restore = {
                 DhcCalendarController(
                     DhcCalendarInitialData(LocalDate.parse(it))

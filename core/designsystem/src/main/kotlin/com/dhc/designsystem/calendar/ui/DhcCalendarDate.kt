@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens.Body3
@@ -38,7 +37,7 @@ fun DhcCalendarDateSwiper(
     modifier: Modifier = Modifier,
 ) {
     HorizontalPager(
-        modifier = modifier,
+        modifier = modifier.height(212.dp),
         state = pagerState,
         pageSpacing = 8.dp,
     ) { page ->
@@ -50,22 +49,20 @@ fun DhcCalendarDateSwiper(
 fun DhcCalendarDate(
     day: LocalDate,
     modifier: Modifier = Modifier,
-    dayHeight: Dp = 36.dp,
-    lineSpacing: Dp = 8.dp,
 ) {
     val days by remember(day) { mutableStateOf(getDaysOfMonth(day)) }
 
     LazyVerticalGrid(
-        modifier = modifier.height((lineSpacing + dayHeight) * (days.size / DayOfWeek.entries.size) - lineSpacing),
+        modifier = modifier,
         columns = GridCells.Fixed(DayOfWeek.entries.size),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(lineSpacing),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(days.size) { index ->
             // Todo :: 날짜별 다른 디자인 적용
             DhcCalendarDay(
                 day = days[index].dayOfMonth,
-                modifier = Modifier.height(dayHeight),
+                modifier = Modifier.height(36.dp),
             )
         }
     }
