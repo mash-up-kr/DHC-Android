@@ -22,7 +22,7 @@ import com.dhc.designsystem.topbar.DhcTopBar
 
 @Composable
 fun DhcApp() {
-    val startDestination = DhcRoute.MAIN_HOME
+    val startDestination = DhcRoute.SPLASH
     val navController = rememberNavController()
     val currentScreenConfig by currentScreenConfigAsState(navController)
 
