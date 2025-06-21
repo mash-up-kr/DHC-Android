@@ -13,7 +13,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import com.dhc.home.HomeRoute
+import com.dhc.home.detail.MonetaryLuckDetailRoute
+import com.dhc.home.main.HomeRoute
 import com.dhc.intro.description.IntroDescriptionRoute
 import com.dhc.intro.fortunecard.IntroFortuneCardRoute
 import com.dhc.intro.mission.IntroMissionRoute
@@ -167,7 +168,13 @@ fun DhcNavHost(
             }
         }
         composable(DhcRoute.MAIN_HOME.route) {
-            HomeRoute()
+            HomeRoute(
+                navigateToMonetaryLuckDetail = { navController.navigateTo(DhcRoute.HOME_MONETARY_DETAIL) },
+            )
+        }
+
+        composable(DhcRoute.HOME_MONETARY_DETAIL.route) {
+            MonetaryLuckDetailRoute()
         }
     }
 }

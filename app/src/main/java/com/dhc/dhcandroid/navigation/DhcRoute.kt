@@ -102,6 +102,16 @@ enum class DhcRoute(
             bottomBarState = DhcBottomBarState.BottomNavigation,
         ),
     ),
+    HOME_MONETARY_DETAIL(
+        route = "home/monetaryDetail",
+        screenConfig = ScreenConfig(
+            topBarState = DhcTopBarState.Basic(
+                title = "오늘의 금전운",
+                isShowBackButton = true,
+            ),
+            bottomBarState = DhcBottomBarState.None,
+        ),
+    ),
     NONE(
         route = "none",
         screenConfig = ScreenConfig(),
