@@ -95,8 +95,6 @@ firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx"
 
 #coil
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [bundles]
 hilt = [
