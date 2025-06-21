@@ -23,7 +23,7 @@ enum class DhcButtonSize(
     SMALL(
         textStyle = DhcTypoTokens.TitleH7,
         verticalPadding = 8.dp,
-        cornerRadius = 8.dp,
+        cornerRadius = 4.dp,
     ),
     ;
 }
