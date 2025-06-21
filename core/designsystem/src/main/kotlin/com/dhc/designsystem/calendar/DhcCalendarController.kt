@@ -16,7 +16,7 @@ class DhcCalendarController(
         private set
 
     fun getDateByPage(page: Int): LocalDate =
-        initialData.initialDate.plusDays(page.toLong() - initialData.initialPage)
+        initialData.initialDate.plusMonths(page.toLong() - initialData.initialPage)
 
     fun onChangePage(page: Int) {
         currentDate = getDateByPage(page)
