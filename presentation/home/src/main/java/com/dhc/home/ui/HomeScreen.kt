@@ -29,7 +29,6 @@ import com.dhc.designsystem.floatingButton.DhcFloatingButton
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.home.R
-import com.dhc.presentation.component.TopGradientBackground
 
 @Composable
 fun HomeScreen(
@@ -39,11 +38,12 @@ fun HomeScreen(
     Box(
         modifier = modifier.fillMaxSize()
     ) {
-        TopGradientBackground(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(466.dp)
                 .offset(y = -(54.dp))
+                .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
         )
         Column(
             modifier = modifier
