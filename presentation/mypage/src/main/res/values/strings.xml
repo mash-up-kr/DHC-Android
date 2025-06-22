@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mypage_screen_title">마이페이지</string>
+    <string name="my_saju">내 사주는</string>
+    <string name="selected_consumption_category">선택한 소비 카테고리</string>
+    <string name="setting">설정</string>
+    <string name="initial_app">앱 초기화</string>
+    <string name="setting_notification">알림 설정</string>
+</resources>
