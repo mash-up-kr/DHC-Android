@@ -76,7 +76,7 @@ fun IntroBirthTimeScreen(
             )
         }
         DhcButton(
-            text = stringResource(R.string.start_with_finance_luck),
+            text = stringResource(R.string.next),
             buttonSize = DhcButtonSize.XLARGE,
             buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
             onClick = { eventHandler(IntroBirthTimeContract.Event.ClickNextButton) },
