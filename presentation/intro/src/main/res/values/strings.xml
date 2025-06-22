@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="next">다음</string>
     <string name="intro_start_title">매일매일 금전운 미션을 통해\n소비습관을 개선해보세요</string>
     <string name="intro_start_sub_title">매일매일 금전운 미션을 통해\n소비습관을 개선해보세요</string>
     <string name="start_with_finance_luck">금전운 확인하고 시작하기</string>
