@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,8 +39,9 @@ fun IntroCategoryScreen(
     eventHandler: EventHandler<IntroCategoryContract.Event>,
     modifier: Modifier = Modifier,
 ) {
+    val scrollState = rememberScrollState()
     Box(modifier = modifier) {
-        Column(modifier = modifier) {
+        Column(modifier = modifier.verticalScroll(scrollState)) {
             Spacer(modifier = Modifier.height(24.dp))
             DhcTitle(
                 titleState = DhcTitleState(
