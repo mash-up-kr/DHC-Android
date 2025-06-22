@@ -6,6 +6,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -35,17 +37,19 @@ fun DhcSwitch(
     isOn: Boolean,
     onToggle: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    switchSize: DhcSwitchSize = DhcSwitchSize.Medium,
-    isEnabled: Boolean = true,
+    switchSize: DhcSwitchSize = DhcSwitchSize.Large,
     animationDurationMs: Int = 250,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+
     val backgroundColor by animateColorAsState(
-        targetValue = DhcSwitchColor.getColor(isOn, isEnabled).backgroundColor,
+        targetValue = DhcSwitchColor.getColor(isOn, isPressed).backgroundColor,
         animationSpec = tween(durationMillis = animationDurationMs),
     )
 
     val switchColor by animateColorAsState(
-        targetValue = DhcSwitchColor.getColor(isOn, isEnabled).switchColor,
+        targetValue = DhcSwitchColor.getColor(isOn, isPressed).switchColor,
         animationSpec = tween(durationMillis = animationDurationMs),
     )
 
@@ -61,14 +65,15 @@ fun DhcSwitch(
             .clip(RoundedCornerShape(switchSize.radius))
             .background(backgroundColor)
             .border(
-                width = if (isEnabled) 1.dp else 0.dp,
-                color = DhcSwitchColor.getColor(isOn, isEnabled).borderColor ?: Color.Transparent,
+                width = if (isPressed.not()) 1.dp else 0.dp,
+                color = DhcSwitchColor.getColor(isOn, isPressed).borderColor ?: Color.Transparent,
                 shape = RoundedCornerShape(switchSize.radius),
             )
-            .clickable {
-                if (isEnabled) {
-                    onToggle(!isOn)
-                }
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+            ) {
+                onToggle(!isOn)
             }
             .padding(vertical = 2.dp),
     ) {
@@ -98,42 +103,42 @@ private class DhcSwitchPreviewProvider : androidx.compose.ui.tooling.preview.Pre
         Parameter(
             isOn = true,
             isEnabled = true,
-            switchSize = DhcSwitchSize.Medium,
+            switchSize = DhcSwitchSize.Large,
         ),
         Parameter(
             isOn = false,
             isEnabled = true,
-            switchSize = DhcSwitchSize.Medium,
+            switchSize = DhcSwitchSize.Large,
         ),
         Parameter(
             isOn = true,
             isEnabled = false,
-            switchSize = DhcSwitchSize.Medium,
+            switchSize = DhcSwitchSize.Large,
         ),
         Parameter(
             isOn = false,
             isEnabled = false,
-            switchSize = DhcSwitchSize.Medium,
+            switchSize = DhcSwitchSize.Large,
         ),
         Parameter(
             isOn = true,
             isEnabled = true,
-            switchSize = DhcSwitchSize.Small,
+            switchSize = DhcSwitchSize.Normal,
         ),
         Parameter(
             isOn = false,
             isEnabled = true,
-            switchSize = DhcSwitchSize.Small,
+            switchSize = DhcSwitchSize.Normal,
         ),
         Parameter(
             isOn = true,
             isEnabled = false,
-            switchSize = DhcSwitchSize.Small,
+            switchSize = DhcSwitchSize.Normal,
         ),
         Parameter(
             isOn = false,
             isEnabled = false,
-            switchSize = DhcSwitchSize.Small,
+            switchSize = DhcSwitchSize.Normal,
         )
     )
 
@@ -153,7 +158,6 @@ private fun DhcSwitchPreview(
     DhcTheme {
         DhcSwitch(
             isOn = parameter.isOn,
-            isEnabled = parameter.isEnabled,
             switchSize = parameter.switchSize,
             onToggle = {}
         )

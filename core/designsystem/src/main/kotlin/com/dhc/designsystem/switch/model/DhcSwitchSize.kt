@@ -9,14 +9,14 @@ sealed interface DhcSwitchSize {
     val radius: Dp
     val switchSize: Dp
 
-    data object Medium : DhcSwitchSize {
+    data object Large : DhcSwitchSize {
         override val width = 40.dp
         override val height = 22.dp
         override val radius = 12.dp
         override val switchSize = 18.dp
     }
 
-    data object Small : DhcSwitchSize {
+    data object Normal : DhcSwitchSize {
         override val width = 30.dp
         override val height = 14.dp
         override val radius = 9.dp

@@ -11,37 +11,37 @@ sealed interface DhcSwitchColor {
     val switchColor: Color
     val borderColor: Color?
 
-    data object EnableOn : DhcSwitchColor {
+    data object EnabledOn : DhcSwitchColor {
         override val backgroundColor @Composable get() = AccentColor.violet600
         override val switchColor = SurfaceColor.neutral30
         override val borderColor = null
     }
 
-    data object DisableOn : DhcSwitchColor {
+    data object PressedOn : DhcSwitchColor {
         override val backgroundColor @Composable get() = LocalDhcColors.current.text.textHighLightsPrimary
         override val switchColor = SurfaceColor.neutral30.copy(alpha = 0.5f)
         override val borderColor = null
     }
 
-    data object EnableOff : DhcSwitchColor {
+    data object EnabledOff : DhcSwitchColor {
         override val backgroundColor @Composable get() = LocalDhcColors.current.background.backgroundMain
         override val switchColor = SurfaceColor.neutral600
         override val borderColor = SurfaceColor.neutral500
     }
 
-    data object DisableOff : DhcSwitchColor {
+    data object PressedOff : DhcSwitchColor {
         override val backgroundColor @Composable get() = SurfaceColor.neutral700
         override val switchColor = SurfaceColor.neutral400
         override val borderColor = null
     }
 
     companion object {
-        fun getColor(isOn: Boolean, isEnabled: Boolean): DhcSwitchColor {
+        fun getColor(isOn: Boolean, isPressed: Boolean): DhcSwitchColor {
             return when {
-                isOn && isEnabled -> EnableOn
-                isOn && !isEnabled -> DisableOn
-                !isOn && isEnabled -> EnableOff
-                else -> DisableOff
+                isOn && !isPressed -> EnabledOn
+                isOn && isPressed -> PressedOn
+                !isOn && !isPressed -> EnabledOff
+                else -> PressedOff
             }
         }
     }
