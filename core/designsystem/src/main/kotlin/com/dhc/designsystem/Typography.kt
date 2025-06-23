@@ -182,7 +182,6 @@ object DhcTypoTokens {
         lineHeight = LineHeightToken.Body3,
         letterSpacing = (-0.1).sp
     )
-
     val Body4 = TextStyle(
         fontFamily = typoFontFamily,
         fontWeight = FontWeight.W500,
