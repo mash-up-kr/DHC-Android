@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -20,9 +21,7 @@ import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.badge.DhcBadge
 import com.dhc.designsystem.badge.model.BadgeType
 
-/**
- * Todo - Home모듈로 이동
- */
+
 @Composable
 fun MoneyFortuneMissionCard(
     missionMode: String,
@@ -41,7 +40,9 @@ fun MoneyFortuneMissionCard(
         isEnabled = isMissionEnabled,
         content = {
             Row(
-                modifier = Modifier.fillMaxWidth().weight(1f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
             ) {
                 DhcBadge(
                     modifier = Modifier.height(24.dp),
@@ -50,6 +51,7 @@ fun MoneyFortuneMissionCard(
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
+                    modifier = Modifier.align(Alignment.CenterVertically),
                     text = missionTitle,
                     style = DhcTypoTokens.Body3,
                     color = missionColor,

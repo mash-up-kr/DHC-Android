@@ -1,7 +1,10 @@
 package com.dhc.designsystem
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalWindowInfo
 
 internal val colors = DhcColors(
     surface = SurfaceColor,
@@ -66,11 +69,42 @@ data object GradientColor {
             1.0f to AccentColor.violet400.copy(alpha = 0f),
         ),
     )
+    val backgroundGradient02
+        @Composable get() = Brush.radialGradient(
+            colorStops = arrayOf(
+                0f to AccentColor.violet400.copy(alpha = 0.5f),
+                0.15f to AccentColor.violet400.copy(alpha = 0.34f),
+                0.4f to AccentColor.violet400.copy(alpha = 0.08f),
+                0.67f to AccentColor.violet400.copy(alpha = 0f),
+            ),
+            center = Offset(x = (LocalWindowInfo.current.containerSize.width * 72 / 100f), y = 0f),
+            radius = 1200f,
+        )
     val tooltipGradient01 = Brush.verticalGradient(
         colorStops = arrayOf(
             0.43f to SurfaceColor.neutral30,
             1.0f to AccentColor.violet200,
         ),
+    )
+
+    @Composable
+    fun backgroundGradient02Alpha(alpha: Float): Brush = Brush.radialGradient(
+        colorStops = arrayOf(
+            0f to AccentColor.violet400.copy(alpha = 0.5f * alpha),
+            0.15f to AccentColor.violet400.copy(alpha = 0.34f * alpha),
+            0.4f to AccentColor.violet400.copy(alpha = 0.08f * alpha),
+            0.67f to AccentColor.violet400.copy(alpha = 0f * alpha),
+        ),
+        center = Offset(x = (LocalWindowInfo.current.containerSize.width * 72 / 100f), y = 0f),
+        radius = 1200f,
+    )
+
+
+    val borderGradient01 = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0f to AccentColor.violet400.copy(alpha = 0.28f),
+            1.0f to SurfaceColor.neutral200.copy(alpha = 0.28f),
+        )
     )
 }
 
