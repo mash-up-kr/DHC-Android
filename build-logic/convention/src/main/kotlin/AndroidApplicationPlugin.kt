@@ -36,6 +36,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
             dependencies {
                 implementation(project(":presentation:intro"))
                 implementation(project(":presentation:home"))
+                implementation(project(":presentation:mypage"))
                 implementation(project(":data"))
                 implementation(project(":core:designsystem"))
                 implementation(project(":core:presentation"))
