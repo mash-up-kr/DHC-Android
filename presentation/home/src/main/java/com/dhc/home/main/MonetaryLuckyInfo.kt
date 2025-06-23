@@ -1,4 +1,4 @@
-package com.dhc.home.ui
+package com.dhc.home.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,6 +19,7 @@ import com.dhc.designsystem.LocalDhcColors
 
 @Composable
 fun MonetaryLuckInfo(
+    onClickMoreButton: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val colors = LocalDhcColors.current
@@ -36,7 +37,7 @@ fun MonetaryLuckInfo(
             )
             Spacer(modifier = Modifier.height(12.dp))
             MoreButton(
-                onClickMoreButton = {}
+                onClickMoreButton = { onClickMoreButton() }
             )
         }
         FortuneCore(
@@ -50,6 +51,8 @@ fun MonetaryLuckInfo(
 @Preview
 fun PreviewMonetaryLuckInfo() {
     DhcTheme {
-        MonetaryLuckInfo()
+        MonetaryLuckInfo(
+            onClickMoreButton = {}
+        )
     }
 }

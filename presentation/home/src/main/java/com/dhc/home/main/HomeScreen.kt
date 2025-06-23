@@ -1,7 +1,8 @@
-package com.dhc.home.ui
+package com.dhc.home.main
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,9 +30,11 @@ import com.dhc.designsystem.floatingButton.DhcFloatingButton
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.home.R
+import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun HomeScreen(
+    eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
 ) {
@@ -58,7 +61,9 @@ fun HomeScreen(
                 color = SurfaceColor.neutral300,
             )
             Spacer(modifier = Modifier.height(16.dp))
-            MonetaryLuckInfo()
+            MonetaryLuckInfo(
+                onClickMoreButton = { eventHandler(HomeContract.Event.ClickMoreButton) }
+            )
             Spacer(modifier = Modifier.height(12.dp))
             Box(
                 modifier = Modifier
@@ -88,6 +93,7 @@ fun HomeScreen(
                             description = "한템포 쉬어가기",
                             modifier = Modifier
                                 .width(143.dp)
+                                .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) }
                                 .padding(top = 20.dp, bottom = 53.5.dp)
                                 .align(Alignment.Center),
                         )
@@ -118,6 +124,8 @@ fun HomeScreen(
 @Preview
 fun HomeScreenPreview() {
     DhcTheme {
-        HomeScreen()
+        HomeScreen(
+            eventHandler = {}
+        )
     }
 }

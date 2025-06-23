@@ -1,4 +1,4 @@
-package com.dhc.home.ui
+package com.dhc.home.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

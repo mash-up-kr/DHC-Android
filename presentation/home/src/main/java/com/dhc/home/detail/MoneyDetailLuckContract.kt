@@ -1,14 +1,14 @@
-package com.dhc.home
+package com.dhc.home.detail
 
 import com.dhc.presentation.mvi.UiEvent
 import com.dhc.presentation.mvi.UiSideEffect
 import com.dhc.presentation.mvi.UiState
+import com.dhc.presentation.ui.monetaryDetail.MonetaryLuckInfo
 
-class HomeContract {
+class MoneyDetailLuckContract {
 
     data class State(
-        val isLoading: Boolean = false,
-        val number: Int = 0,
+        val monetaryLuckInfo: MonetaryLuckInfo = MonetaryLuckInfo()
     ): UiState
 
 
