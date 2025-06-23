@@ -90,11 +90,7 @@ fun IntroCategoryScreen(
             }
         }
         DhcButton(
-            text = if (state.nextButtonEnabled) {
-                stringResource(R.string.start_with_finance_luck)
-            } else {
-                stringResource(R.string.next)
-            },
+            text = stringResource(R.string.personal_info_complete),
             buttonSize = DhcButtonSize.XLARGE,
             buttonStyle = DhcButtonStyle.Secondary(isEnabled = state.nextButtonEnabled),
             onClick = {
