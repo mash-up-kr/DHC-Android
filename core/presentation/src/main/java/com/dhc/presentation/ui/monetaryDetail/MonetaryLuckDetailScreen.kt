@@ -36,7 +36,7 @@ import com.dhc.designsystem.title.DhcTitleState
 import com.dhc.presentation.R
 
 @Composable
-fun MonetaryLuckDetail(
+fun MonetaryLuckDetailScreen(
     monetaryLuckInfo: MonetaryLuckInfo,
     modifier: Modifier = Modifier,
     isShowButton: Boolean = false,
@@ -110,6 +110,7 @@ fun MonetaryLuckDetailCard(
     )
     Spacer(modifier = Modifier.height(12.dp))
     DhcMessageCard(
+        modifier = Modifier.fillMaxWidth(),
         title = "금전운",
         content = message
     )
@@ -133,13 +134,13 @@ fun TodayTip(
 @Composable
 private fun PreviewMonetaryLuckDetail() {
     DhcTheme {
-        MonetaryLuckDetail(
+        MonetaryLuckDetailScreen(
             isShowButton = true,
             monetaryLuckInfo = MonetaryLuckInfo(
                 scoreInfo = ScoreInfo(
                     date = "2025년 5월 20일",
                     score = 35,
-                    description = "마음이 들뜨는 날이에요,\\n한템포 쉬어가요.\""
+                    description = "마음이 들뜨는 날이에요,\n한템포 쉬어가요."
                 ),
                 fortuneCard = FortuneCard(
                     message = "한템포 쉬어가기,"

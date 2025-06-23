@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dhc.presentation.ui.monetaryDetail.MonetaryLuckDetail
+import com.dhc.presentation.ui.monetaryDetail.MonetaryLuckDetailScreen
 
 @Composable
 fun MonetaryLuckDetailRoute(
@@ -12,7 +12,7 @@ fun MonetaryLuckDetailRoute(
 ) {
     val state by viewModel.state.collectAsState()
 
-    MonetaryLuckDetail(
+    MonetaryLuckDetailScreen(
         monetaryLuckInfo = state.monetaryLuckInfo
     )
 }
