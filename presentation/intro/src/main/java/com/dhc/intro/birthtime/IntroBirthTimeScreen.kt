@@ -45,7 +45,7 @@ fun IntroBirthTimeScreen(
             DhcTitle(
                 titleState = DhcTitleState(
                     title = stringResource(R.string.intro_birth_time_title),
-                    titleStyle = DhcTypoTokens.TitleH1,
+                    titleStyle = DhcTypoTokens.TitleH2,
                 ),
                 textAlign = TextAlign.Start,
                 subTitleState = DhcTitleState(
