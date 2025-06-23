@@ -1,5 +1,6 @@
 package com.dhc.dhcandroid.navigation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -11,17 +12,19 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.dhc.designsystem.LocalDhcColors
+import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
 
 @Composable
-fun DhcApp() {
+fun DhcApp(modifier: Modifier = Modifier) {
+    val colors = LocalDhcColors.current
     val startDestination = DhcRoute.SPLASH
     val navController = rememberNavController()
     val currentScreenConfig by currentScreenConfigAsState(navController)
@@ -33,7 +36,8 @@ fun DhcApp() {
                 navigateUp = { navController.navigateUp() },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .statusBarsPadding(),
+                    .statusBarsPadding()
+                    .background(SurfaceColor.neutral900), // Todo : Theme 적용 완료되면 background 제거하기
             )
         },
         bottomBar = {
@@ -46,6 +50,8 @@ fun DhcApp() {
                     .height(60.dp),
             )
         },
+        containerColor = colors.background.backgroundMain,
+        modifier = modifier,
     ) { paddingValues ->
         DhcNavHost(
             navController = navController,

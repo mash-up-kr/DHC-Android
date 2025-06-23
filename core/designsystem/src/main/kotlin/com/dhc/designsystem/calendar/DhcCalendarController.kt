@@ -16,16 +16,20 @@ class DhcCalendarController(
         private set
 
     fun getDateByPage(page: Int): LocalDate =
-        initialData.initialDate.plusDays(page.toLong() - initialData.initialPage)
+        initialData.initialDate.plusMonths(page.toLong() - initialData.initialPage)
 
     fun onChangePage(page: Int) {
         currentDate = getDateByPage(page)
     }
 
     companion object {
-        val Saver: Saver<DhcCalendarController, DhcCalendarInitialData> = Saver(
-            save = { it.initialData },
-            restore = { DhcCalendarController(it) },
+        val Saver: Saver<DhcCalendarController, String> = Saver(
+            save = { it.initialData.initialDate.toString() },
+            restore = {
+                DhcCalendarController(
+                    DhcCalendarInitialData(LocalDate.parse(it))
+                )
+            },
         )
     }
 }
