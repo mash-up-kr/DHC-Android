@@ -29,13 +29,13 @@ fun FlippableBox(
     flipThreshold: Float = 90f,
     initialRotationZ: Float = 0f,
 ) {
-    val initialIsFlipped by remember { mutableStateOf(isFlipped) }
+    val initialIsBack by remember { mutableStateOf(isFlipped) }
     var canRotate by remember { mutableStateOf(true) }
     var rotationAngleState by remember { mutableFloatStateOf(0f) }
     val animatedRotationAngleState by animateFloatAsState(targetValue = rotationAngleState, label = "")
     val isFront by remember(animatedRotationAngleState) {
         derivedStateOf {
-            if (initialIsFlipped) {
+            if (initialIsBack) {
                 false
             } else {
                 val angle = animatedRotationAngleState % 360
@@ -75,7 +75,7 @@ fun FlippableBox(
                 )
             }
             .graphicsLayer {
-                if (initialIsFlipped) {
+                if (initialIsBack) {
                     rotationY = 0f
                     rotationZ = 0f
                 } else {

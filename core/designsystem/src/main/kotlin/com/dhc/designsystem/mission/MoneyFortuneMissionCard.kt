@@ -51,10 +51,9 @@ fun MoneyFortuneMissionCard(
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
                     text = missionTitle,
-                    style = DhcTypoTokens.TitleH5,
+                    style = DhcTypoTokens.Body3,
                     color = missionColor,
-
-                    )
+                )
             }
         }
     )
@@ -62,7 +61,7 @@ fun MoneyFortuneMissionCard(
 
 @Composable
 @Preview
-private fun PreviewSpendingHabitMissionCard(
+private fun PreviewMoneyFortuneMissionCard(
     @PreviewParameter(MissionCardPreviewProvider::class)
     parameter: MissionCardPreviewProvider.Parameter,
 ) {

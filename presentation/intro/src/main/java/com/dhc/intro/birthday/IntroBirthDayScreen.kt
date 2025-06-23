@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -77,7 +76,7 @@ fun IntroBirthDayScreen(
             )
         }
         DhcButton(
-            text = stringResource(R.string.start_with_finance_luck),
+            text = stringResource(R.string.next),
             buttonSize = DhcButtonSize.XLARGE,
             buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
             onClick = { eventHandler(IntroBirthDayContract.Event.ClickNextButton) },
@@ -97,9 +96,10 @@ fun CalendarTypeSelector(
 ) {
     val colors = LocalDhcColors.current
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(
             text = stringResource(R.string.birth_day),
@@ -111,11 +111,8 @@ fun CalendarTypeSelector(
             ),
             color = colors.text.textBodyPrimary,
         )
-        Spacer(modifier = Modifier.height(8.dp))
-        Row(
-            modifier = modifier,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
+
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             CalendarType.entries.forEach { calendarType ->
                 DhcButton(
                     text = stringResource(calendarType.textResourceId),

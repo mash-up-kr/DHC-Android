@@ -16,13 +16,11 @@ class IntroBirthDayContract {
 
     sealed interface Event : UiEvent {
         data object ClickNextButton : Event
-        data object ClickBackButton : Event
         data class SelectCalendarType(val selectedValue: CalendarType) : Event
         data class SelectBirthDay(val year: Int, val month: Int, val day: Int) : Event
     }
 
     sealed interface SideEffect : UiSideEffect {
         data object NavigateToNextScreen : SideEffect
-        data object NavigateBackScreen: SideEffect
     }
 }

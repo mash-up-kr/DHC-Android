@@ -18,7 +18,6 @@ class IntroBirthDayViewModel @Inject constructor(
     override suspend fun handleEvent(event: Event) {
         when (event) {
             is Event.ClickNextButton -> postSideEffect(SideEffect.NavigateToNextScreen)
-            is Event.ClickBackButton -> postSideEffect(SideEffect.NavigateBackScreen)
             is Event.SelectBirthDay -> reduce { copy(year = event.year, month = event.month, day = event.day) }
             is Event.SelectCalendarType -> reduce { copy(calendarType = event.selectedValue) }
         }

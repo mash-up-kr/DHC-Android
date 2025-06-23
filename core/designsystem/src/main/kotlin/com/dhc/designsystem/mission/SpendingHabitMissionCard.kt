@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -62,7 +63,7 @@ fun SpendingHabitMissionCard(
                     Spacer(modifier = Modifier.width(12.dp))
                     Text(
                         text = missionTitle,
-                        style = DhcTypoTokens.TitleH5,
+                        style = DhcTypoTokens.Body3,
                         color = missionColor
                     )
                     Spacer(modifier = Modifier.width(16.dp))
@@ -72,7 +73,8 @@ fun SpendingHabitMissionCard(
         Image(
             modifier = Modifier.align(Alignment.TopStart).offset(x = 8.dp, y = (-12).dp),
             painter = painterResource(R.drawable.ico_pin),
-            contentDescription = "mission_card_pin"
+            contentDescription = "mission_card_pin",
+            colorFilter = ColorFilter.tint(color = SurfaceColor.neutral300),
         )
     }
 }

@@ -94,7 +94,6 @@ fun DhcNavHost(
             composable(DhcRoute.INTRO_BIRTH_DAY.route) {
                 IntroBirthDayRoute(
                     navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_BIRTH_TIME) },
-                    navigateToBackScreen = { navController.navigateUp() },
                 )
             }
             composable(DhcRoute.INTRO_BIRTH_TIME.route) {

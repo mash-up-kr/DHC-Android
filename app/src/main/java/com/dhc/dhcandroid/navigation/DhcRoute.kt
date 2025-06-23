@@ -73,7 +73,7 @@ enum class DhcRoute(
                 topBarPageState = TopBarPageState(
                     currentPage = 2,
                     totalPage = 4,
-                )
+                ),
             ),
             bottomBarState = DhcBottomBarState.None,
         ),
