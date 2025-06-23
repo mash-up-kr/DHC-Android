@@ -14,6 +14,7 @@ flipper = "0.273.0"
 soloader = "0.10.5"
 retrofit = "3.0.0"
 okhttp = "4.12.0"
+compose-constraintlayout = "1.0.1"
 
 detekt = "1.23.8"
 compose-lint = "1.4.2"
@@ -57,6 +58,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
+androidx-compose-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "compose-constraintlayout" }
 
 # gradle plugin
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -93,6 +95,7 @@ firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx"
 
 #coil
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 
 [bundles]
 hilt = [
@@ -107,6 +110,7 @@ androidx-compose = [
     "androidx-ui-graphics",
     "androidx-ui-tooling-preview",
     "androidx-material3",
+    "androidx-compose-constraintlayout",
 ]
 
 androidx-ktx = [
@@ -131,6 +135,10 @@ proto-datastore = [
     "protobuf-javalite",
 ]
 
+coil = [
+    "coil-compose",
+    "coil-okhttp",
+]
 
 
 [plugins]

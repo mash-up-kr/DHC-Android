@@ -72,6 +72,12 @@ data object GradientColor {
             1.0f to AccentColor.violet200,
         ),
     )
+    val borderGradient01 = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0f to AccentColor.violet400.copy(alpha = 0.28f),
+            1.0f to SurfaceColor.neutral200.copy(alpha = 0.28f),
+        )
+    )
 }
 
 data object TransparentColor {
