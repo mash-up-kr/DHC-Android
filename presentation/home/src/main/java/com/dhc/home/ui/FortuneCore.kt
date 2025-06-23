@@ -23,9 +23,6 @@ import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
 
-/**
- * TODO - 홈 모듈로 이동
- */
 @Composable
 fun FortuneCore(
     fortuneScore: Int,
