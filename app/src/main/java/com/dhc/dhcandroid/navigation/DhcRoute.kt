@@ -102,7 +102,14 @@ enum class DhcRoute(
     INTRO_CATEGORY(
         route = "intro/category",
         screenConfig = ScreenConfig(
-            topBarState = DhcTopBarState.None,
+            topBarState = DhcTopBarState.Basic(
+                title = "",
+                isShowBackButton = true,
+                topBarPageState = TopBarPageState(
+                    currentPage = 4,
+                    totalPage = 4,
+                ),
+            ),
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
