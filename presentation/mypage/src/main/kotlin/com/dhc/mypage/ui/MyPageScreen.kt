@@ -112,7 +112,7 @@ private fun SelectedCategory(modifier: Modifier = Modifier) {
                     modifier = Modifier.width(120.dp),
                     name = "식음료",
                     isChecked = false,
-                    iconResource = com.dhc.designsystem.R.drawable.ico_check,
+                    iconResource = DR.drawable.ico_check,
                 )
             }
         }
@@ -145,6 +145,7 @@ private fun Setting(modifier: Modifier = Modifier) {
                     text = stringResource(R.string.setting_notification),
                     iconRes = DR.drawable.ico_sign_out,
                     isOn = true,
+                    onCheckedChange = {},
                 ),
             )
         )
