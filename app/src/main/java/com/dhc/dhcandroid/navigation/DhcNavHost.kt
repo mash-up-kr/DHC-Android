@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.dhc.home.HomeRoute
 import com.dhc.intro.birthday.IntroBirthDayRoute
 import com.dhc.intro.description.IntroDescriptionRoute
 import com.dhc.intro.fortunecard.IntroFortuneCardRoute
@@ -134,6 +135,9 @@ fun DhcNavHost(
 
         composable(DhcRoute.MAIN_MY.route) {
             MyPageRoute()
+        }
+        composable(DhcRoute.MAIN_HOME.route) {
+            HomeRoute()
         }
     }
 }
