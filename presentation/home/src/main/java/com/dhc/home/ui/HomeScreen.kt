@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -28,10 +27,13 @@ import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.floatingButton.DhcFloatingButton
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
+import com.dhc.home.HomeContract
 import com.dhc.home.R
+import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun HomeScreen(
+    eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
 ) {
@@ -109,7 +111,7 @@ fun HomeScreen(
                 .padding(bottom = 24.dp, end = 20.dp),
             text = stringResource(R.string.finish_today_mission),
             isEnabled = true,
-            onClick = {},
+            onClick = { eventHandler(HomeContract.Event.ClickMissionComplete) },
         )
     }
 }
@@ -118,6 +120,8 @@ fun HomeScreen(
 @Preview
 fun HomeScreenPreview() {
     DhcTheme {
-        HomeScreen()
+        HomeScreen(
+            eventHandler = {}
+        )
     }
 }

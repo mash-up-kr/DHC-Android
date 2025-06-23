@@ -8,13 +8,15 @@ class HomeContract {
 
     data class State(
         val isLoading: Boolean = false,
-        val number: Int = 0,
+        val isShowBottomSheet: Boolean = false,
     ): UiState
 
 
     sealed interface Event: UiEvent {
-        data object ClickAddButton : Event
-        data object ClickMinusButton : Event
+        data object ClickMissionComplete: Event
+        data object ClickFinishMissionButton: Event
+        data object DismissMissionComplete: Event
+
     }
 
     sealed interface SideEffect : UiSideEffect {

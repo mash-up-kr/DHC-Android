@@ -8,11 +8,23 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
 ): BaseViewModel<State, Event, SideEffect>() {
-    override fun createInitialState(): State {
-        return State() //TODO - 변경 필요
-    }
+    override fun createInitialState(): State = State()
 
     override suspend fun handleEvent(event: Event) {
+        when(event) {
+            is Event.ClickMissionComplete -> {
+                updateMissionCompleteBottomSheetState(isShow = true)
+            }
+            is Event.ClickFinishMissionButton -> {
+                updateMissionCompleteBottomSheetState(isShow = false)
+            }
+            is Event.DismissMissionComplete -> {
+                updateMissionCompleteBottomSheetState(isShow = false)
+            }
+        }
     }
 
+    private fun updateMissionCompleteBottomSheetState(isShow: Boolean) {
+        reduce { copy(isShowBottomSheet = isShow) }
+    }
 }
