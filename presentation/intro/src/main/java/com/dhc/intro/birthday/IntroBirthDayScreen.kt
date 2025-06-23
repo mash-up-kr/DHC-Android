@@ -27,7 +27,6 @@ import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.button.DhcButton
 import com.dhc.designsystem.button.model.DhcButtonSize
 import com.dhc.designsystem.button.model.DhcButtonStyle
-import com.dhc.designsystem.info.DhcInfo
 import com.dhc.designsystem.spinner.DhcDaySpinner
 import com.dhc.designsystem.title.DhcTitle
 import com.dhc.designsystem.title.DhcTitleState
