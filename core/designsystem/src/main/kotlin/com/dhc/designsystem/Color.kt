@@ -5,7 +5,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalWindowInfo
-import androidx.compose.ui.text.style.TextForegroundStyle.Unspecified.alpha
 
 internal val colors = DhcColors(
     surface = SurfaceColor,
@@ -98,6 +97,14 @@ data object GradientColor {
         ),
         center = Offset(x = (LocalWindowInfo.current.containerSize.width * 72 / 100f), y = 0f),
         radius = 1200f,
+    )
+
+
+    val borderGradient01 = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0f to AccentColor.violet400.copy(alpha = 0.28f),
+            1.0f to SurfaceColor.neutral200.copy(alpha = 0.28f),
+        )
     )
 }
 

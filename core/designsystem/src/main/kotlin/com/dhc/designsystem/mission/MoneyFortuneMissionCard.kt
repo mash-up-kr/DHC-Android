@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -41,7 +42,6 @@ fun MoneyFortuneMissionCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.CenterVertically)
                     .weight(1f),
             ) {
                 DhcBadge(
@@ -51,6 +51,7 @@ fun MoneyFortuneMissionCard(
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
+                    modifier = Modifier.align(Alignment.CenterVertically),
                     text = missionTitle,
                     style = DhcTypoTokens.Body3,
                     color = missionColor,
