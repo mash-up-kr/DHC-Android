@@ -42,6 +42,7 @@ fun MoneyFortuneMissionCard(
         content = {
             Row(
                 modifier = Modifier.fillMaxWidth().weight(1f),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 DhcBadge(
                     modifier = Modifier.height(24.dp),
