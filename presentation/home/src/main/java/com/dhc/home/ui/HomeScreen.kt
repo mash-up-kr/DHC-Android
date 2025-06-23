@@ -38,6 +38,13 @@ fun HomeScreen(
     Box(
         modifier = modifier.fillMaxSize()
     ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(466.dp)
+                .offset(y = -(54.dp))
+                .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize()
