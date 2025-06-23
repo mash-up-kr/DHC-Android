@@ -37,7 +37,7 @@ fun DhcCalendarDateSwiper(
     modifier: Modifier = Modifier,
 ) {
     HorizontalPager(
-        modifier = modifier.height(212.dp),
+        modifier = modifier.height(256.dp),
         state = pagerState,
         pageSpacing = 8.dp,
     ) { page ->

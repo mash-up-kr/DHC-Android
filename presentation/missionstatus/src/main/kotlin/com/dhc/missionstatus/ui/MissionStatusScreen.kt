@@ -31,7 +31,7 @@ import com.dhc.designsystem.graph.DhcGraph
 import com.dhc.designsystem.graph.model.DhcGraphConfig
 import com.dhc.designsystem.graph.model.DhcGraphData
 import com.dhc.designsystem.info.DhcMissionInfoCard
-import com.dhc.designsystem.info.DhcMoneyInfoCard
+import com.dhc.designsystem.info.DhcMissionStatusCard
 import com.dhc.missionstatus.MissionStatusContract.State
 import com.dhc.missionstatus.R
 
@@ -68,7 +68,7 @@ fun MissionStatusScreen(
             color = SurfaceColor.neutral30,
         )
 
-        DhcMoneyInfoCard(
+        DhcMissionStatusCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 12.dp),
@@ -89,7 +89,7 @@ fun MissionStatusScreen(
             color = SurfaceColor.neutral30,
         )
 
-        DhcMoneyInfoCard(
+        DhcMissionStatusCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 12.dp),
