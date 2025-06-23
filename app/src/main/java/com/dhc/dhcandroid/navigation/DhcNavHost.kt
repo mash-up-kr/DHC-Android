@@ -13,11 +13,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.dhc.home.HomeRoute
+import com.dhc.intro.birthday.IntroBirthDayRoute
 import com.dhc.intro.description.IntroDescriptionRoute
 import com.dhc.intro.fortunecard.IntroFortuneCardRoute
+import com.dhc.intro.gender.IntroGenderRoute
 import com.dhc.intro.mission.IntroMissionRoute
 import com.dhc.intro.splash.SplashRoute
 import com.dhc.intro.start.IntroRoute
+import com.dhc.missionstatus.MissionStatusRoute
+import com.dhc.mypage.MyPageRoute
 
 @Composable
 fun DhcNavHost(
@@ -77,32 +82,14 @@ fun DhcNavHost(
                 )
             }
             composable(DhcRoute.INTRO_GENDER.route) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text("Intro Gender")
-                    Button(
-                        onClick = { navController.navigateTo(DhcRoute.INTRO_BIRTH_DAY) },
-                    ) {
-                        Text("Go to Next")
-                    }
-                }
+                IntroGenderRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_BIRTH_DAY) },
+                )
             }
             composable(DhcRoute.INTRO_BIRTH_DAY.route) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text("Intro Birth Day")
-                    Button(
-                        onClick = { navController.navigateTo(DhcRoute.INTRO_BIRTH_TIME) },
-                    ) {
-                        Text("Go to Next")
-                    }
-                }
+                IntroBirthDayRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_BIRTH_TIME) },
+                )
             }
             composable(DhcRoute.INTRO_BIRTH_TIME.route) {
                 Column(
@@ -135,35 +122,14 @@ fun DhcNavHost(
         }
 
         composable(DhcRoute.MAIN_MISSION.route) {
-            // 아래 내용은 예시
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text("Mission")
-                Button(
-                    onClick = { navController.navigateToHome() },
-                ) {
-                    Text("Go to Home")
-                }
-            }
+            MissionStatusRoute()
         }
 
         composable(DhcRoute.MAIN_MY.route) {
-            // 아래 내용은 예시
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text("My")
-                Button(
-                    onClick = { navController.navigateToHome() },
-                ) {
-                    Text("Go to Home")
-                }
-            }
+            MyPageRoute()
+        }
+        composable(DhcRoute.MAIN_HOME.route) {
+            HomeRoute()
         }
     }
 }

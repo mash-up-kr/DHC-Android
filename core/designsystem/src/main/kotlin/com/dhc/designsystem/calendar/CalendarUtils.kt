@@ -21,10 +21,6 @@ object CalendarUtils {
     fun getDaysOfMonth(date: LocalDate): List<LocalDate> {
         val startOfMonth =
             date.withDayOfMonth(1).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
-        return (0..34L).map { startOfMonth.plusDays(it) }.apply {
-            if (last() < date.withDayOfMonth(date.lengthOfMonth())) {
-                this + (0..6L).map { startOfMonth.plusDays(35 + it) }
-            }
-        }
+        return (0..41L).map { startOfMonth.plusDays(it) }
     }
 }
