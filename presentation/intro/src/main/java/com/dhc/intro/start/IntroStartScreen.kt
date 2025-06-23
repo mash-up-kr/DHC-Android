@@ -3,6 +3,7 @@ package com.dhc.intro.start
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,7 +32,7 @@ fun IntroStartScreen(
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
-        Column(modifier = modifier) {
+        Column(modifier = Modifier.fillMaxSize()) {
             Spacer(modifier = Modifier.height(24.dp))
             DhcTitle(
                 titleState = DhcTitleState(

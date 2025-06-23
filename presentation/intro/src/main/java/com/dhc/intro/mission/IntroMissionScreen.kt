@@ -1,43 +1,34 @@
 package com.dhc.intro.mission
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
-import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
-import com.dhc.designsystem.badge.DhcBadge
-import com.dhc.designsystem.badge.model.BadgeType
 import com.dhc.designsystem.button.DhcButton
 import com.dhc.designsystem.button.model.DhcButtonSize
 import com.dhc.designsystem.button.model.DhcButtonStyle
-import com.dhc.designsystem.mission.MissionItemBackGround
 import com.dhc.designsystem.mission.MoneyFortuneMissionCard
 import com.dhc.designsystem.mission.SpendingHabitMissionCard
 import com.dhc.designsystem.title.DhcTitle
 import com.dhc.designsystem.title.DhcTitleState
 import com.dhc.intro.R
+import com.dhc.presentation.component.MissionTitle
 import com.dhc.presentation.mvi.EventHandler
 
 @Composable
@@ -110,41 +101,6 @@ fun IntroMissionScreen(
                 modifier = Modifier
                     .padding(20.dp)
                     .fillMaxWidth()
-            )
-        }
-    }
-}
-
-@Composable
-private fun MissionTitle(
-    title: String,
-    isInfoIconVisible: Boolean = false,
-    spendTypeText: String? = null,
-
-    ) {
-    val colors = LocalDhcColors.current
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(
-            text = title,
-            color = colors.text.textBodyPrimary,
-            style = DhcTypoTokens.TitleH4_1,
-        )
-        if (isInfoIconVisible) {
-            Spacer(modifier = Modifier.width(8.dp))
-            Image(
-                painter = painterResource(com.dhc.designsystem.R.drawable.ico_info_circle),
-                contentDescription = "information",
-                colorFilter = ColorFilter.tint(SurfaceColor.neutral400)
-            )
-        }
-        if (spendTypeText != null) {
-            Spacer(modifier = Modifier.width(12.dp))
-            DhcBadge(
-                text = spendTypeText,
-                type = BadgeType.SpendType,
             )
         }
     }

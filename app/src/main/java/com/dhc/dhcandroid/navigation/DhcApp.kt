@@ -12,7 +12,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -36,7 +35,7 @@ fun DhcApp() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .statusBarsPadding()
-                    .background(SurfaceColor.neutral900) // Todo : Theme 적용 완료되면 background 제거하기
+                    .background(SurfaceColor.neutral900), // Todo : Theme 적용 완료되면 background 제거하기
             )
         },
         bottomBar = {

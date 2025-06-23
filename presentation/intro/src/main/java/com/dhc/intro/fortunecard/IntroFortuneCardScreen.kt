@@ -48,11 +48,9 @@ fun IntroFortuneCardScreen(
     eventHandler: EventHandler<IntroFortuneCardContract.Event>,
     modifier: Modifier = Modifier,
 ) {
-    var cardFlipped: Boolean by remember { mutableStateOf(state.isCardFlipped) }
     Box(modifier = modifier) {
         Column(
             modifier = Modifier
-                .animateContentSize()
                 .fillMaxWidth()
                 .wrapContentHeight(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -71,8 +69,7 @@ fun IntroFortuneCardScreen(
             )
             Spacer(
                 modifier = Modifier
-                    .height(height = if (state.isCardFlipped.not()) 106.dp else 85.dp)
-                    .animateContentSize(),
+                    .height(height = if (state.isCardFlipped.not()) 106.dp else 85.dp),
             )
             if (state.isCardFlipped.not()) {
                 NotFlippedDescription()
@@ -87,9 +84,8 @@ fun IntroFortuneCardScreen(
             ) {
                 Spacer(modifier = Modifier.height(20.dp))
                 FlippableBox(
-                    isFlipped = cardFlipped,
+                    isFlipped = state.isCardFlipped,
                     onFlipEnd = {
-                        cardFlipped = true
                         eventHandler(IntroFortuneCardContract.Event.FlippedFortuneCard)
                     },
                     frontScreen = {

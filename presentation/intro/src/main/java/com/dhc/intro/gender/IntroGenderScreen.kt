@@ -43,7 +43,6 @@ fun IntroGenderScreen(
     Box(modifier = modifier) {
         Column(
             modifier = Modifier
-                .animateContentSize()
                 .fillMaxWidth()
                 .wrapContentHeight(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -71,11 +70,7 @@ fun IntroGenderScreen(
             )
         }
         DhcButton(
-            text = if (state.gender != null) {
-                stringResource(R.string.start_with_finance_luck)
-            } else {
-                stringResource(R.string.next)
-            },
+            text = stringResource(R.string.next),
             buttonSize = DhcButtonSize.XLARGE,
             buttonStyle = DhcButtonStyle.Secondary(isEnabled = state.gender != null),
             onClick = { eventHandler(IntroGenderContract.Event.ClickNextButton) },
