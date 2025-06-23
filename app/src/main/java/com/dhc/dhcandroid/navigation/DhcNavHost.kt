@@ -14,9 +14,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.dhc.home.HomeRoute
-import com.dhc.intro.category.IntroCategoryRoute
 import com.dhc.intro.birthday.IntroBirthDayRoute
 import com.dhc.intro.birthtime.IntroBirthTimeRoute
+import com.dhc.intro.category.IntroCategoryRoute
 import com.dhc.intro.description.IntroDescriptionRoute
 import com.dhc.intro.fortunecard.IntroFortuneCardRoute
 import com.dhc.intro.gender.IntroGenderRoute
