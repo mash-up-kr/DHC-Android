@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.WindowCompat
 import com.dhc.designsystem.DhcTheme
 import com.dhc.dhcandroid.navigation.DhcApp
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +19,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
+        WindowCompat.getInsetsController(window, window.decorView)
+            .isAppearanceLightStatusBars = false
         requestNotificationPermission()
         setContent {
             DhcTheme {
