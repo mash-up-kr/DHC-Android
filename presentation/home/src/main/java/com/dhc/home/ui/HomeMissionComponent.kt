@@ -1,5 +1,6 @@
 package com.dhc.home.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,17 +25,11 @@ fun SpendingHabitMission(
     Column(
         modifier = modifier
     ) {
-        Row(
-            modifier = modifier.fillMaxWidth()
-        ) {
-            Spacer(modifier = Modifier.height(46.dp))
-
-            MissionTitle(
-                title = stringResource(R.string.spending_habit_mission),
-                isInfoIconVisible = true,
-                spendTypeText = "커피값 절약",
-            )
-        }
+        MissionTitle(
+            title = stringResource(R.string.spending_habit_mission),
+            isInfoIconVisible = true,
+            spendTypeText = "커피값 절약",
+        )
         Spacer(modifier = Modifier.height(5.dp))
         SpendingHabitMissionCard(
             missionDday = "D-3",
@@ -58,17 +53,17 @@ fun MonetaryLuckyDailyMission(
             title = stringResource(R.string.monetary_daily_mission),
         )
         Spacer(modifier = Modifier.height(16.dp))
-        // TODO - 추후 itemList로 변경
-        repeat(3) {
-            MoneyFortuneMissionCard(
-                missionMode = "Easy",
-                isMissionEnabled = true,
-                isChecked = true,
-                missionTitle = "hihihi"
-            )
-            Spacer(modifier = Modifier.height(8.dp))
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            // TODO - 추후 itemList로 변경
+            repeat(3) {
+                MoneyFortuneMissionCard(
+                    missionMode = "Easy",
+                    isMissionEnabled = true,
+                    isChecked = true,
+                    missionTitle = "hihihi"
+                )
+            }
         }
-        Spacer(modifier = Modifier.height(136.dp))
     }
 }
 

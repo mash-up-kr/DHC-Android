@@ -20,9 +20,7 @@ import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.badge.DhcBadge
 import com.dhc.designsystem.badge.model.BadgeType
 
-/**
- * Todo - Home모듈로 이동
- */
+
 @Composable
 fun MoneyFortuneMissionCard(
     missionMode: String,

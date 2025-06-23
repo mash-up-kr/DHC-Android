@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -38,7 +39,7 @@ fun HomeScreen(
         modifier = modifier.fillMaxSize()
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 20.dp)
                 .verticalScroll(scrollState),
@@ -54,12 +55,13 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(12.dp))
             Box(
                 modifier = Modifier
+                    .padding(20.dp)
                     .align(Alignment.CenterHorizontally)
-                    .size(width = 319.dp, height = 280.dp)
+                    .fillMaxWidth()
+                    .height(280.dp)
                     .background(brush = GradientColor.backgroundGradient01)
                     .offset(y = -(10.dp)),
             ) {
-                Spacer(modifier = Modifier.height(20.dp))
                 FlippableBox(
                     isFlipped = false,
                     onFlipEnd = {},
@@ -87,10 +89,11 @@ fun HomeScreen(
                     initialRotationZ = -4f,
                 )
             }
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(13.5.dp))
             SpendingHabitMission()
             Spacer(modifier = Modifier.height(24.dp))
             MonetaryLuckyDailyMission()
+            Spacer(modifier = Modifier.height(136.dp))
         }
 
         DhcFloatingButton(
