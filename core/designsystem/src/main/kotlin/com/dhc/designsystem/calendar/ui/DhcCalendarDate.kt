@@ -12,6 +12,9 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,8 +37,9 @@ fun DhcCalendarDateSwiper(
     modifier: Modifier = Modifier,
 ) {
     HorizontalPager(
-        modifier = modifier,
+        modifier = modifier.height(256.dp),
         state = pagerState,
+        pageSpacing = 8.dp,
     ) { page ->
         DhcCalendarDate(day = controller.getDateByPage(page))
     }
@@ -44,15 +48,16 @@ fun DhcCalendarDateSwiper(
 @Composable
 fun DhcCalendarDate(
     day: LocalDate,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
+    val days by remember(day) { mutableStateOf(getDaysOfMonth(day)) }
+
     LazyVerticalGrid(
         modifier = modifier,
         columns = GridCells.Fixed(DayOfWeek.entries.size),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        val days = getDaysOfMonth(day)
         items(days.size) { index ->
             // Todo :: 날짜별 다른 디자인 적용
             DhcCalendarDay(

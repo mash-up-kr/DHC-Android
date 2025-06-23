@@ -10,6 +10,6 @@ android {
 dependencies {
     implementation(project(":core:common"))
     implementation(libs.androidx.core.ktx)
-    implementation(libs.coil.compose)
+    implementation(libs.bundles.coil)
     testImplementation(libs.junit)
 }
