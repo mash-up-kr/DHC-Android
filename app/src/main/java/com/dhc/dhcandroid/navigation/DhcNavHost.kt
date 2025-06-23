@@ -17,6 +17,7 @@ import com.dhc.home.HomeRoute
 import com.dhc.intro.birthday.IntroBirthDayRoute
 import com.dhc.intro.description.IntroDescriptionRoute
 import com.dhc.intro.fortunecard.IntroFortuneCardRoute
+import com.dhc.intro.gender.IntroGenderRoute
 import com.dhc.intro.mission.IntroMissionRoute
 import com.dhc.intro.splash.SplashRoute
 import com.dhc.intro.start.IntroRoute
@@ -81,18 +82,9 @@ fun DhcNavHost(
                 )
             }
             composable(DhcRoute.INTRO_GENDER.route) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text("Intro Gender")
-                    Button(
-                        onClick = { navController.navigateTo(DhcRoute.INTRO_BIRTH_DAY) },
-                    ) {
-                        Text("Go to Next")
-                    }
-                }
+                IntroGenderRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_BIRTH_DAY) },
+                )
             }
             composable(DhcRoute.INTRO_BIRTH_DAY.route) {
                 IntroBirthDayRoute(
