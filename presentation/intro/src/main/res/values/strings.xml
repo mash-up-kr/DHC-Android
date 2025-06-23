@@ -25,6 +25,11 @@
     <string name="intro_mission_sub_title">미션을 수행하면서\n소비습관을 개선해보세요</string>
     <string name="spending_habit_mission">소비습관 미션</string>
 
+    <string name="intro_birth_time_title">태어난 시간을\n알려주세요</string>
+    <string name="intro_birth_time_sub_title">태어난 시간이 정확할수록\n더 적합한 정보를 제공해 드릴 수 있어요</string>
+    <string name="birth_time">태어난 시간</string>
+    <string name="idk">잘 모르겠어요</string>
+
     <string name="intro_birth_day_title">생년월일을\n알려주세요</string>
     <string name="intro_birth_day_sub_title">생년월일이 정확할수록\n더 적합한 정보를 제공해 드릴 수 있어요</string>
     <string name="birth_day">생년월일</string>

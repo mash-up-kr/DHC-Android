@@ -17,32 +17,52 @@ import com.dhc.designsystem.SurfaceColor
 @Composable
 internal fun DhcItemSpinnerBackground(
     isFocused: Boolean,
+    isEnabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
     if (isFocused) {
         Box(
             modifier = modifier
                 .clip(RoundedCornerShape(8.dp))
-                .background(SurfaceColor.neutral700, RoundedCornerShape(8.dp)),
+                .background(
+                    color = if (isEnabled) {
+                        SurfaceColor.neutral700
+                    } else {
+                        SurfaceColor.neutral700.copy(alpha = 0.4f)
+                    },
+                    shape = RoundedCornerShape(8.dp),
+                ),
         )
     } else {
         Spacer(modifier = modifier)
     }
 }
 
-private class DhcItemSpinnerBackgroundPreviewProvider : PreviewParameterProvider<Boolean> {
-    override val values = sequenceOf(true, false)
+private class DhcItemSpinnerBackgroundPreviewProvider : PreviewParameterProvider<DhcItemSpinnerBackgroundPreviewProvider.Parameters> {
+    override val values = sequenceOf(
+        Parameters(isFocused = true, isEnabled = true),
+        Parameters(isFocused = true, isEnabled = false),
+        Parameters(isFocused = false, isEnabled = true),
+        Parameters(isFocused = false, isEnabled = false),
+    )
+
+    data class Parameters(
+        val isFocused: Boolean,
+        val isEnabled: Boolean,
+    )
 }
+
 
 @Preview(showBackground = true)
 @Composable
 private fun DhcItemSpinnerBackgroundPreview(
     @PreviewParameter(DhcItemSpinnerBackgroundPreviewProvider::class)
-    isFocused: Boolean,
+    parameter: DhcItemSpinnerBackgroundPreviewProvider.Parameters,
 ) {
     DhcTheme {
         DhcItemSpinnerBackground(
-            isFocused = isFocused,
+            isFocused = parameter.isFocused,
+            isEnabled = parameter.isEnabled,
             modifier = Modifier,
         )
     }

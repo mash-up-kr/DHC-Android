@@ -88,7 +88,14 @@ enum class DhcRoute(
     INTRO_BIRTH_TIME(
         route = "intro/birthTime",
         screenConfig = ScreenConfig(
-            topBarState = DhcTopBarState.None,
+            topBarState = DhcTopBarState.Basic(
+                title = "",
+                isShowBackButton = true,
+                topBarPageState = TopBarPageState(
+                    currentPage = 3,
+                    totalPage = 4,
+                ),
+            ),
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
