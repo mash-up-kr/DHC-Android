@@ -18,6 +18,7 @@ import com.dhc.intro.fortunecard.IntroFortuneCardRoute
 import com.dhc.intro.mission.IntroMissionRoute
 import com.dhc.intro.splash.SplashRoute
 import com.dhc.intro.start.IntroRoute
+import com.dhc.missionstatus.MissionStatusRoute
 import com.dhc.mypage.MyPageRoute
 
 @Composable
@@ -136,19 +137,7 @@ fun DhcNavHost(
         }
 
         composable(DhcRoute.MAIN_MISSION.route) {
-            // 아래 내용은 예시
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text("Mission")
-                Button(
-                    onClick = { navController.navigateToHome() },
-                ) {
-                    Text("Go to Home")
-                }
-            }
+            MissionStatusRoute()
         }
 
         composable(DhcRoute.MAIN_MY.route) {

@@ -26,7 +26,7 @@ import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
 
 @Composable
-fun DhcMoneyInfoCard(
+fun DhcMissionStatusCard(
     title: String,
     subTitle: String,
     modifier: Modifier = Modifier,
@@ -59,7 +59,7 @@ private fun DhcInfoCardIcon(
         Image(
             modifier = Modifier.align(Alignment.Center),
             painter = painterResource(iconRes),
-            contentDescription = null,
+            contentDescription = "icon something",
         )
     }
 }
@@ -90,7 +90,7 @@ private fun DhcInfoCardText(
 @Composable
 private fun DhcMoneyInfoCardPreview() {
     DhcTheme {
-        DhcMoneyInfoCard(
+        DhcMissionStatusCard(
             modifier = Modifier.fillMaxWidth(),
             title = "텍스트",
             subTitle = "텍스트",
