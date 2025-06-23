@@ -31,3 +31,4 @@ include(":core:presentation")
 
 include(":presentation:intro")
 include(":presentation:missionstatus")
+include(":presentation:mypage")
