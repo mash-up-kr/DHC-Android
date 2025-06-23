@@ -18,6 +18,7 @@ fun <T : Any> DhcSpinnerItem(
     onValueChanged: (T) -> Unit,
     itemTextCreator: @Composable (T) -> String,
     modifier: Modifier = Modifier,
+    isEnabled: Boolean = true,
 ) {
     DhcSpinner(
         itemList = itemList,
@@ -26,9 +27,11 @@ fun <T : Any> DhcSpinnerItem(
         onValueChanged = onValueChanged,
         modifier = modifier,
         initialIndex = itemList.indexOf(initialItem).coerceAtLeast(0),
+        isEnabled = isEnabled,
         itemBackground = { isFocused ->
             DhcItemSpinnerBackground(
                 isFocused = isFocused,
+                isEnabled = isEnabled,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(itemHeightDp),
@@ -38,6 +41,7 @@ fun <T : Any> DhcSpinnerItem(
             DhcItemSpinnerContent(
                 text = itemTextCreator(item),
                 isFocused = isFocused,
+                isEnabled = isEnabled,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(itemHeightDp),

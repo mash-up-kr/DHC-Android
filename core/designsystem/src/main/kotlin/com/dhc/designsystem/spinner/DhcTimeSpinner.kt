@@ -31,6 +31,7 @@ fun DhcTimeSpinner(
     initialTimeType: TimeType = TimeType.AM,
     initialTime: Int = 3,
     initialMinute: Int = 10,
+    isEnabled: Boolean = true,
 ) {
     val colors = LocalDhcColors.current
     var currentTimeType by remember { mutableStateOf(initialTimeType) }
@@ -59,6 +60,7 @@ fun DhcTimeSpinner(
             onValueChanged = { currentTimeType = it },
             itemTextCreator = { it.text },
             modifier = Modifier.weight(2f),
+            isEnabled = isEnabled,
         )
         DhcSpinnerItem(
             itemList = timeList,
@@ -68,6 +70,7 @@ fun DhcTimeSpinner(
             onValueChanged = { currentTime = it },
             itemTextCreator = { stringResource(R.string.d_hour, it) },
             modifier = Modifier.weight(1f),
+            isEnabled = isEnabled,
         )
         DhcSpinnerItem(
             itemList = minuteList,
@@ -77,6 +80,7 @@ fun DhcTimeSpinner(
             onValueChanged = { currentMinute = it },
             itemTextCreator = { stringResource(R.string.d_minute, it) },
             modifier = Modifier.weight(1f),
+            isEnabled = isEnabled,
         )
     }
 }
