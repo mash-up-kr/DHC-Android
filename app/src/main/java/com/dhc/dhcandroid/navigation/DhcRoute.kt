@@ -60,14 +60,28 @@ enum class DhcRoute(
     INTRO_GENDER(
         route = "intro/gender",
         screenConfig = ScreenConfig(
-            topBarState = DhcTopBarState.None,
+            topBarState = DhcTopBarState.Basic(
+                title = "",
+                isShowBackButton = false,
+                topBarPageState = TopBarPageState(
+                    currentPage = 1,
+                    totalPage = 4,
+                ),
+            ),
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
     INTRO_BIRTH_DAY(
         route = "intro/birthDay",
         screenConfig = ScreenConfig(
-            topBarState = DhcTopBarState.None,
+            topBarState = DhcTopBarState.Basic(
+                title = "",
+                isShowBackButton = true,
+                topBarPageState = TopBarPageState(
+                    currentPage = 2,
+                    totalPage = 4,
+                ),
+            ),
             bottomBarState = DhcBottomBarState.None,
         ),
     ),

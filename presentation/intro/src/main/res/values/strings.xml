@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="next">다음</string>
+
+    <string name="gender">성별</string>
+    <string name="male">남성</string>
+    <string name="female">여성</string>
+
     <string name="intro_start_title">매일매일 금전운 미션을 통해\n소비습관을 개선해보세요</string>
     <string name="intro_start_sub_title">매일매일 금전운 미션을 통해\n소비습관을 개선해보세요</string>
     <string name="start_with_finance_luck">금전운 확인하고 시작하기</string>
@@ -24,4 +29,13 @@
     <string name="intro_birth_time_sub_title">태어난 시간이 정확할수록\n더 적합한 정보를 제공해 드릴 수 있어요</string>
     <string name="birth_time">태어난 시간</string>
     <string name="idk">잘 모르겠어요</string>
+
+    <string name="intro_birth_day_title">생년월일을\n알려주세요</string>
+    <string name="intro_birth_day_sub_title">생년월일이 정확할수록\n더 적합한 정보를 제공해 드릴 수 있어요</string>
+    <string name="birth_day">생년월일</string>
+    <string name="calendar_solar">양력</string>
+    <string name="calendar_lunar">음력</string>
+
+    <string name="intro_gender_title">성별은\n어떻게 되시나요?</string>
+    <string name="intro_gender_sub_title">성별에 따라 대운의\n흐름이 달라져요.</string>
 </resources>
