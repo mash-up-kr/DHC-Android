@@ -39,7 +39,10 @@ fun MoneyFortuneMissionCard(
         isEnabled = isMissionEnabled,
         content = {
             Row(
-                modifier = Modifier.fillMaxWidth().weight(1f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterVertically)
+                    .weight(1f),
             ) {
                 DhcBadge(
                     modifier = Modifier.height(24.dp),
