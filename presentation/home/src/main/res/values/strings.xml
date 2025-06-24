@@ -8,7 +8,9 @@
     <string name="go_back">이전으로 돌아가기</string>
     <string name="mission_success">미션 성공</string>
     <string name="great">대단해요!</string>
-    <string name="mission_success_description">오늘 총 %s원을\n절약했어요</string>
+    <string name="today_total">오늘 총</string>
+    <string name="amount">%s원</string>
+    <string name="save_description">을\n절약했어요</string>
     <string name="confirm_statics">통계 확인하기</string>
     <string name="already_confirm">확인했어요</string>
 </resources>

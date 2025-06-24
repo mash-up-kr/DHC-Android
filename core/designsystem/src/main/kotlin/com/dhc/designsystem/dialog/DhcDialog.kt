@@ -34,7 +34,7 @@ fun DhcDialog(
 ) {
     Dialog(
         properties = dialogProperties,
-        onDismissRequest = onDisMissRequest,
+        onDismissRequest = {},
     ) {
         Column(
             modifier = modifier

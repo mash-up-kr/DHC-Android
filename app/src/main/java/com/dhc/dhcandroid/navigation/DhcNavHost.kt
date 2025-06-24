@@ -129,7 +129,9 @@ fun DhcNavHost(
             MyPageRoute()
         }
         composable(DhcRoute.MAIN_HOME.route) {
-            HomeRoute()
+            HomeRoute(
+                navigateToMission = { navController.navigateToMission()}
+            )
         }
     }
 }

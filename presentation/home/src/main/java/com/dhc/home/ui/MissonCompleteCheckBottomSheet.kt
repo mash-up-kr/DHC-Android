@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcColors
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
-import com.dhc.designsystem.R as dR
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.bottomsheet.DhcModalBottomSheet
 import com.dhc.designsystem.button.DhcButton
@@ -25,7 +22,9 @@ import com.dhc.designsystem.button.model.DhcButtonSize
 import com.dhc.designsystem.button.model.DhcButtonStyle
 import com.dhc.home.HomeContract
 import com.dhc.home.R
+import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.presentation.mvi.EventHandler
+import com.dhc.designsystem.R as dR
 
 @Composable
 fun MissionCompleteCheckBottomSheet(
@@ -36,13 +35,13 @@ fun MissionCompleteCheckBottomSheet(
     DhcModalBottomSheet(
         isCloseButtonEnabled = false,
         containerColor = SurfaceColor.neutral700,
-        onDismissRequest = {},
+        onDismissRequest = { eventHandler(HomeContract.Event.ClickMissionCompleteConfirm(MissionCompleteButtonType.Back)) },
         content = {
             MissionCompleteCheckContent(
                 missionCount = missionCount,
                 colors = colors,
-                onClickFinish = { eventHandler(HomeContract.Event.ClickFinishMissionButton) },
-                onClickDismiss =  { eventHandler(HomeContract.Event.DismissMissionComplete) }
+                onClickFinish = { eventHandler(HomeContract.Event.ClickMissionCompleteConfirm(MissionCompleteButtonType.Complete)) },
+                onClickDismiss =  { eventHandler(HomeContract.Event.ClickMissionCompleteConfirm(MissionCompleteButtonType.Back))  }
             )
         }
     )
