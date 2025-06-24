@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserProfileRemoteModel(
+data class UserProfile(
     val id: String = "",
     val userToken: String = "",
     val gender: Gender = Gender.MALE,

@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MissionRemoteModel(
+data class Mission(
     val missionId: String = "",
     val category: MissionCategory = MissionCategory.TRANSPORTATION,
     val difficulty: Int = 0,
