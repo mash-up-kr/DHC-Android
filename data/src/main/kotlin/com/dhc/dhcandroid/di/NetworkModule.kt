@@ -1,5 +1,6 @@
 package com.dhc.dhcandroid.di
 
+import com.dhc.data.BuildConfig
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -22,6 +23,7 @@ object NetworkModule {
     fun provideDhcRetrofit(
         okHttpClient: OkHttpClient,
     ): Retrofit = Retrofit.Builder()
+        .baseUrl(BuildConfig.DHC_SERVER_BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
         .build()
