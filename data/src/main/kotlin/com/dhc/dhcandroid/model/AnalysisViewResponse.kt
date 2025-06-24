@@ -3,7 +3,7 @@ package com.dhc.dhcandroid.model
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MissionSummaryResponse(
+data class AnalysisViewResponse(
     val totalSavedMoney: String = "",
     val weeklySavedMoney: String = "",
     val averageSucceedProbability: Int = 0,

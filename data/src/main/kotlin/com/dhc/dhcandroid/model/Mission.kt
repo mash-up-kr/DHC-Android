@@ -10,7 +10,7 @@ data class Mission(
     val difficulty: Int = 0,
     val type: MissionType = MissionType.LONG_TERM,
     val finished: Boolean = false,
-    val cost: String = "", // 이거는 왜 string 으로 내려올까?
+    val cost: String = "",
     val endDate: String = "",
     val title: String = "",
     val switchCount: Int = 0,
