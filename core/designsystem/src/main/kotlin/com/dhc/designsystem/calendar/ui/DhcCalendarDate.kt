@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,7 +16,9 @@ import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.calendar.CalendarUtils.getDaysOfMonth
 import com.dhc.designsystem.calendar.DhcCalendarController
-import com.dhc.designsystem.calendar.model.DhcCalendarInitialData
+import com.dhc.designsystem.calendar.model.DhcCalendarDayData
+import com.dhc.designsystem.calendar.model.DhcCalendarDayUiModel
+import com.dhc.designsystem.calendar.model.DhcCalendarMonthData
 import java.time.DayOfWeek
 import java.time.LocalDate
 
@@ -32,7 +33,11 @@ fun DhcCalendarDateSwiper(
         state = pagerState,
         pageSpacing = 8.dp,
     ) { page ->
-        DhcCalendarDate(day = controller.getDateByPage(page))
+        DhcCalendarDate(
+            day = controller.getDateByPage(page),
+            monthData = controller.calendarMonthState[controller.getDateByPage(page)]
+                ?: DhcCalendarMonthData(yearMonth = controller.getDateByPage(page)),
+        )
     }
 }
 
@@ -40,6 +45,7 @@ fun DhcCalendarDateSwiper(
 fun DhcCalendarDate(
     day: LocalDate,
     modifier: Modifier = Modifier,
+    monthData: DhcCalendarMonthData = DhcCalendarMonthData(),
 ) {
     val days by remember(day) { mutableStateOf(getDaysOfMonth(day)) }
 
@@ -50,10 +56,13 @@ fun DhcCalendarDate(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(days.size) { index ->
-            // Todo :: 날짜별 다른 디자인 적용
             DhcCalendarDay(
                 day = days[index].dayOfMonth,
                 modifier = Modifier.height(36.dp),
+                uiModel = DhcCalendarDayUiModel.from(
+                    day = days[index],
+                    monthData = monthData,
+                )
             )
         }
     }
@@ -61,15 +70,19 @@ fun DhcCalendarDate(
 
 @Preview
 @Composable
-private fun DhcCalendarDateSwiperPreview() {
+private fun DhcCalendarDatePreview() {
     DhcTheme {
-        DhcCalendarDateSwiper(
-            pagerState = rememberPagerState(
-                initialPage = 1,
-                initialPageOffsetFraction = 0f,
-                pageCount = { 1 },
-            ),
-            controller = DhcCalendarController(DhcCalendarInitialData())
+        DhcCalendarDate(
+            day = LocalDate.now(),
+            monthData = DhcCalendarMonthData(
+                yearMonth = LocalDate.now(),
+                data = mapOf(
+                    1 to DhcCalendarDayData(0),
+                    2 to DhcCalendarDayData(1),
+                    3 to DhcCalendarDayData(2),
+                    4 to DhcCalendarDayData(3),
+                )
+            )
         )
     }
 }

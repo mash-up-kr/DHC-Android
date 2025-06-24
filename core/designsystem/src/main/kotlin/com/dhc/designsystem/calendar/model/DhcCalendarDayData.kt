@@ -8,6 +8,5 @@ data class DhcCalendarMonthData(
 )
 
 data class DhcCalendarDayData(
-    val date: LocalDate,
     val finishedMissionCount: Int,
 )

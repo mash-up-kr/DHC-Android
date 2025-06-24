@@ -36,7 +36,7 @@ fun DhcNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = startDestination.route,
+        startDestination = DhcRoute.MAIN_MISSION.route,
     ) {
         composable(DhcRoute.SPLASH.route) {
             SplashRoute(
