@@ -6,4 +6,9 @@
     <string name="mission_tooltip_message">좋은 금융 습관 형성을 위해\n2주간 매일 진행하는 미션이에요!</string>
     <string name="finish_mission">네! 완료했어요</string>
     <string name="go_back">이전으로 돌아가기</string>
+    <string name="mission_success">미션 성공</string>
+    <string name="great">대단해요!</string>
+    <string name="mission_success_description">오늘 총 %s원을\n절약했어요</string>
+    <string name="confirm_statics">통계 확인하기</string>
+    <string name="already_confirm">확인했어요</string>
 </resources>
