@@ -13,6 +13,7 @@ dagger-hilt-navigation-compose = "1.2.0"
 flipper = "0.273.0"
 soloader = "0.10.5"
 retrofit = "3.0.0"
+retrofit-serialization = "1.0.0"
 okhttp = "4.12.0"
 compose-constraintlayout = "1.0.1"
 
@@ -33,6 +34,9 @@ firebase = "24.1.1"
 
 #coil
 coil = "3.2.0"
+
+#kotlinx-serialization
+kotlinx-serialization = "1.8.1"
 
 # 프로젝트 설정
 targetSdk = "35"
@@ -57,7 +61,7 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
-androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
+androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 androidx-compose-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "compose-constraintlayout" }
 
 # gradle plugin
@@ -69,7 +73,7 @@ detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-form
 compose-lint = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "compose-lint" }
 
 # hilt
-hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "dagger-hilt-navigation-compose"}
+hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "dagger-hilt-navigation-compose" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger-hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", name = "hilt-compiler", version.ref = "dagger-hilt" }
 
@@ -83,19 +87,22 @@ flipper-network = { group = "com.facebook.flipper", name = "flipper-network-plug
 okhttp = { module = "com.squareup.okhttp3:okhttp" }
 okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-kotlinx-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-serialization" }
 
 # proto datastore
 protobuf = { group = "androidx.datastore", name = "datastore", version.ref = "proto-datastore" }
 protobuf-javalite = { group = "com.google.protobuf", name = "protobuf-javalite", version.ref = "protobuf-javalite" }
 
-
 #firebase
-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom"}
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx", version.ref = "firebase" }
 
 #coil
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
+
+#kotlinx-serialization
+kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 [bundles]
 hilt = [
@@ -122,6 +129,7 @@ network = [
     "okhttp",
     "okhttp-logging-interceptor",
     "retrofit",
+    "retrofit-kotlinx-serialization-converter",
 ]
 
 flipper = [
@@ -151,4 +159,5 @@ kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
-google-gms = { id = "com.google.gms.google-services", version.ref = "firebase-gms"}
+google-gms = { id = "com.google.gms.google-services", version.ref = "firebase-gms" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

@@ -4,6 +4,7 @@ plugins {
     id("dhc.module")
     id("dhc.hilt")
     alias(libs.plugins.protobuf)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -12,6 +13,8 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
+
+    implementation(libs.kotlinx.serialization)
 
     implementation(libs.bundles.network)
 
