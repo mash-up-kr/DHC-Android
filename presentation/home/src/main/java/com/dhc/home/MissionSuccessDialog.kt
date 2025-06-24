@@ -32,7 +32,7 @@ fun MissionSuccessDialog() {
     DhcDialog(
         dialogContent = {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(20.dp),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 DhcBadge(
@@ -47,13 +47,12 @@ fun MissionSuccessDialog() {
                 )
                 Text(
                     text = stringResource(R.string.mission_success_description),
-                    style = DhcTypoTokens.Body2,
+                    style = DhcTypoTokens.TitleH2_1,
                     color = SurfaceColor.neutral200,
                     textAlign = TextAlign.Center
                 )
                 Box(
                     modifier = Modifier
-                        .padding(20.dp)
                         .align(Alignment.CenterHorizontally)
                         .fillMaxWidth()
                         .height(216.dp)
