@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -39,9 +40,8 @@ fun IntroCategoryScreen(
     eventHandler: EventHandler<IntroCategoryContract.Event>,
     modifier: Modifier = Modifier,
 ) {
-    val scrollState = rememberScrollState()
     Box(modifier = modifier) {
-        Column(modifier = modifier.verticalScroll(scrollState)) {
+        Column(modifier = Modifier.fillMaxSize()) {
             Spacer(modifier = Modifier.height(24.dp))
             DhcTitle(
                 titleState = DhcTitleState(
@@ -57,17 +57,18 @@ fun IntroCategoryScreen(
                     .fillMaxWidth()
                     .padding(top = 24.dp, start = 20.dp, end = 20.dp),
             )
-            Spacer(modifier = Modifier.height(23.dp))
+            Spacer(modifier = Modifier.height(35.dp))
             LazyVerticalGrid(
                 columns = GridCells.Fixed(count = 2),
                 contentPadding = PaddingValues(
                     top = 36.dp,
-                    bottom = 38.dp,
+                    bottom = 100.dp,
                     start = 20.dp,
                     end = 20.dp,
                 ),
                 verticalArrangement = Arrangement.spacedBy(15.dp),
                 horizontalArrangement = Arrangement.spacedBy(14.dp),
+                modifier = Modifier.weight(1f),
             ) {
                 itemsIndexed(
                     items = state.categoryItems,
