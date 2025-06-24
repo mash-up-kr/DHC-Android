@@ -1,11 +1,10 @@
 package com.dhc.designsystem.tipcard
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -13,23 +12,27 @@ import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 
 @Composable
-fun DhcTipCardLazyGrid(
+fun DhcTipCardGrid(
     tipCards: List<TipCardModel>,
+    modifier: Modifier = Modifier,
     cellCount: Int = 2,
-    modifier: Modifier = Modifier
 ) {
-    LazyVerticalGrid(
-        modifier = modifier,
-        columns = GridCells.Fixed(cellCount),
-        contentPadding = PaddingValues(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalArrangement = Arrangement.spacedBy(10.dp)
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        items(tipCards) { tipCard ->
-            DhcTipCard(
-                tipCardItem = tipCard,
-                modifier = Modifier.fillMaxWidth()
-            )
+        repeat(cellCount) { columnIndex ->
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                for (rowIndex in 0 until tipCards.size / cellCount) {
+                    val itemIndex = rowIndex * cellCount + columnIndex
+                    DhcTipCard(tipCards[itemIndex], Modifier.fillMaxWidth())
+                }
+            }
         }
     }
 }
@@ -40,7 +43,7 @@ fun DhcTipCardLazyGrid(
 @Preview
 fun PreviewDhcTipCardLazyGrid() {
     DhcTheme {
-        DhcTipCardLazyGrid(
+        DhcTipCardGrid(
             tipCards = listOf(
                 TipCardModel(
                     title = "오늘의 추천 메뉴",

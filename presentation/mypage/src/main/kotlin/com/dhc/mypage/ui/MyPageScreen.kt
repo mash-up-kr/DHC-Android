@@ -112,7 +112,7 @@ private fun SelectedCategory(modifier: Modifier = Modifier) {
                     modifier = Modifier.width(120.dp),
                     name = "식음료",
                     isChecked = false,
-                    iconResource = DR.drawable.ico_check,
+                    imageUrl = "sampleImageUrl",
                 )
             }
         }

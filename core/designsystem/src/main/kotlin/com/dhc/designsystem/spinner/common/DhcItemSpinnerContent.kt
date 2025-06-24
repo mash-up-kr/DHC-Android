@@ -17,6 +17,7 @@ import com.dhc.designsystem.SurfaceColor
 internal fun DhcItemSpinnerContent(
     text: String,
     isFocused: Boolean,
+    isEnabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
     val colors = LocalDhcColors.current
@@ -26,26 +27,43 @@ internal fun DhcItemSpinnerContent(
     ) {
         Text(
             text = text,
-            color = if (isFocused) colors.text.textHighLightsSecondary else SurfaceColor.neutral300,
+            color = if (isFocused) {
+                colors.text.textHighLightsSecondary
+            } else {
+                SurfaceColor.neutral300
+            }.let {
+                if (isEnabled) it else it.copy(alpha = 0.4f)
+            },
             style = if (isFocused) DhcTypoTokens.TitleH5 else DhcTypoTokens.Body3,
         )
     }
 }
 
-private class DhcItemSpinnerContentPreviewProvider : PreviewParameterProvider<Boolean> {
-    override val values = sequenceOf(true, false)
+private class DhcItemSpinnerContentPreviewProvider : PreviewParameterProvider<DhcItemSpinnerContentPreviewProvider.Parameters> {
+    override val values = sequenceOf(
+        Parameters(isFocused = true, isEnabled = true),
+        Parameters(isFocused = true, isEnabled = false),
+        Parameters(isFocused = false, isEnabled = true),
+        Parameters(isFocused = false, isEnabled = false),
+    )
+
+    data class Parameters(
+        val isFocused: Boolean,
+        val isEnabled: Boolean,
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun DhcItemSpinnerContentPreview(
     @PreviewParameter(DhcItemSpinnerContentPreviewProvider::class)
-    isFocused: Boolean,
+    parameter: DhcItemSpinnerContentPreviewProvider.Parameters,
 ) {
     DhcTheme {
         DhcItemSpinnerContent(
             text = "Item",
-            isFocused = isFocused,
+            isFocused = parameter.isFocused,
+            isEnabled = parameter.isEnabled,
             modifier = Modifier,
         )
     }

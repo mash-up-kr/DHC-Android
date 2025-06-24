@@ -29,8 +29,8 @@ import com.dhc.designsystem.button.DhcButton
 import com.dhc.designsystem.button.model.DhcButtonSize
 import com.dhc.designsystem.button.model.DhcButtonStyle
 import com.dhc.designsystem.dialog.DhcDialog
-import com.dhc.home.HomeContract
 import com.dhc.home.R
+import com.dhc.home.main.HomeContract
 import com.dhc.home.model.MissionSuccessButtonType
 import com.dhc.presentation.mvi.EventHandler
 

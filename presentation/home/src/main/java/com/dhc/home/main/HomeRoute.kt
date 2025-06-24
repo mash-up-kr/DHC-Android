@@ -1,4 +1,4 @@
-package com.dhc.home
+package com.dhc.home.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
@@ -7,12 +7,12 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dhc.home.ui.MissionCompleteCheckBottomSheet
-import com.dhc.home.ui.HomeScreen
 import com.dhc.home.ui.MissionSuccessDialog
 
 @Composable
 fun HomeRoute(
     navigateToMission: () -> Unit,
+    navigateToMonetaryLuckDetail: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -20,6 +20,7 @@ fun HomeRoute(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
+                is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
                 is HomeContract.SideEffect.ShowToast -> {}
             }

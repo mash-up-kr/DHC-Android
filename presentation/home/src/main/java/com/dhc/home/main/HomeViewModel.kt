@@ -1,8 +1,8 @@
-package com.dhc.home
+package com.dhc.home.main
 
-import com.dhc.home.HomeContract.Event
-import com.dhc.home.HomeContract.State
-import com.dhc.home.HomeContract.SideEffect
+import com.dhc.home.main.HomeContract.Event
+import com.dhc.home.main.HomeContract.State
+import com.dhc.home.main.HomeContract.SideEffect
 import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.home.model.MissionSuccessButtonType
 import com.dhc.presentation.mvi.BaseViewModel
@@ -10,10 +10,13 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
 ): BaseViewModel<State, Event, SideEffect>() {
-    override fun createInitialState(): State = State()
+    override fun createInitialState(): State {
+        return State()
+    }
 
     override suspend fun handleEvent(event: Event) {
-        when(event) {
+        when (event) {
+            Event.ClickMoreButton, Event.ClickFortuneCard -> postSideEffect(SideEffect.NavigateToMonetaryDetailScreen)
             is Event.ClickMissionComplete -> {
                 updateMissionCompleteBottomSheetState(isShowBottomSheet = true)
             }

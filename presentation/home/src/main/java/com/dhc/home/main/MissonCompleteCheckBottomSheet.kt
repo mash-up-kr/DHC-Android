@@ -20,8 +20,8 @@ import com.dhc.designsystem.bottomsheet.DhcModalBottomSheet
 import com.dhc.designsystem.button.DhcButton
 import com.dhc.designsystem.button.model.DhcButtonSize
 import com.dhc.designsystem.button.model.DhcButtonStyle
-import com.dhc.home.HomeContract
 import com.dhc.home.R
+import com.dhc.home.main.HomeContract
 import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.presentation.mvi.EventHandler
 import com.dhc.designsystem.R as dR

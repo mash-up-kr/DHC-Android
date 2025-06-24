@@ -10,15 +10,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
@@ -31,7 +31,7 @@ import com.dhc.designsystem.check.model.DhcCheckStyle
 fun DhcCategoryItem(
     name: String,
     isChecked: Boolean,
-    @DrawableRes iconResource: Int,
+    imageUrl: String,
     modifier: Modifier = Modifier,
 ) {
     val colors = LocalDhcColors.current
@@ -39,6 +39,7 @@ fun DhcCategoryItem(
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
+            .clip(shape = RoundedCornerShape(12.dp))
             .background(
                 color = if (isChecked) {
                     colors.background.backgroundBadgePrimary
@@ -75,10 +76,9 @@ fun DhcCategoryItem(
                 )
             }
         }
-        // Todo : 추후 Coil 로 변경하기
-        Icon(
-            painter = painterResource(iconResource),
-            contentDescription = null,
+        AsyncImage(
+            model = imageUrl,
+            contentDescription = name,
             modifier = Modifier.size(36.dp),
         )
     }
@@ -115,7 +115,7 @@ private fun DhcCategoryPreview(
         DhcCategoryItem(
             name = parameter.name,
             isChecked = parameter.isChecked,
-            iconResource = parameter.iconResource,
+            imageUrl = "",
         )
     }
 }

@@ -88,14 +88,28 @@ enum class DhcRoute(
     INTRO_BIRTH_TIME(
         route = "intro/birthTime",
         screenConfig = ScreenConfig(
-            topBarState = DhcTopBarState.None,
+            topBarState = DhcTopBarState.Basic(
+                title = "",
+                isShowBackButton = true,
+                topBarPageState = TopBarPageState(
+                    currentPage = 3,
+                    totalPage = 4,
+                ),
+            ),
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
     INTRO_CATEGORY(
         route = "intro/category",
         screenConfig = ScreenConfig(
-            topBarState = DhcTopBarState.None,
+            topBarState = DhcTopBarState.Basic(
+                title = "",
+                isShowBackButton = true,
+                topBarPageState = TopBarPageState(
+                    currentPage = 4,
+                    totalPage = 4,
+                ),
+            ),
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
@@ -115,6 +129,16 @@ enum class DhcRoute(
         route = "main/my",
         screenConfig = ScreenConfig(
             bottomBarState = DhcBottomBarState.BottomNavigation,
+        ),
+    ),
+    HOME_MONETARY_DETAIL(
+        route = "home/monetaryDetail",
+        screenConfig = ScreenConfig(
+            topBarState = DhcTopBarState.Basic(
+                title = "오늘의 금전운",
+                isShowBackButton = true,
+            ),
+            bottomBarState = DhcBottomBarState.None,
         ),
     ),
     NONE(
