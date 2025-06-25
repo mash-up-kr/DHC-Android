@@ -1,6 +1,7 @@
 package com.dhc.dhcandroid.di
 
 import com.dhc.data.BuildConfig
+import com.dhc.dhcandroid.service.DhcService
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -12,6 +13,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -50,4 +52,10 @@ object NetworkModule {
     @Singleton
     fun providesNetworkFlipperPlugin(): NetworkFlipperPlugin =
         NetworkFlipperPlugin()
+
+    @Provides
+    @Singleton
+    fun provideDhcService(
+        retrofit: Retrofit,
+    ): DhcService = retrofit.create()
 }
