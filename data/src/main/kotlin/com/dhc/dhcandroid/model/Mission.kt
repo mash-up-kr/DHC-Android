@@ -18,9 +18,6 @@ data class Mission(
 
 @Serializable
 enum class MissionType {
-    @SerialName("LONG_TERM")
     LONG_TERM,
-
-    @SerialName("DAILY")
     DAILY,
 }

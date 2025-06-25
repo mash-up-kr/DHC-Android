@@ -17,6 +17,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+    private val json = Json {
+        coerceInputValues = true
+        ignoreUnknownKeys = true
+    }
 
     @Provides
     @Singleton
@@ -25,7 +29,7 @@ object NetworkModule {
     ): Retrofit = Retrofit.Builder()
         .baseUrl(BuildConfig.DHC_SERVER_BASE_URL)
         .client(okHttpClient)
-        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .build()
 
     @Provides

@@ -1,6 +1,5 @@
 package com.dhc.dhcandroid.model
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -15,10 +14,7 @@ data class UserProfile(
 
 @Serializable
 enum class Gender {
-    @SerialName("MALE")
     MALE,
-
-    @SerialName("FEMALE")
     FEMALE
 }
 
@@ -30,30 +26,16 @@ data class BirthDate(
 
 @Serializable
 enum class CalendarType {
-    @SerialName("SOLAR")
     SOLAR,
-
-    @SerialName("LUNAR")
     LUNAR,
 }
 
 @Serializable
 enum class MissionCategory {
-    @SerialName("TRANSPORTATION")
     TRANSPORTATION,
-
-    @SerialName("FOOD")
     FOOD,
-
-    @SerialName("DIGITAL")
     DIGITAL,
-
-    @SerialName("SHOPPING")
     SHOPPING,
-
-    @SerialName("TRAVEL")
     TRAVEL,
-
-    @SerialName("SOCIAL")
     SOCIAL,
 }
