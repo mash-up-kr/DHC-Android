@@ -2,6 +2,7 @@ package com.dhc.designsystem.calendar
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -16,8 +17,7 @@ class DhcCalendarController(
     var currentDate by mutableStateOf(initialData.initialDate)
         private set
 
-    var calendarMonthState by mutableStateOf(mapOf<LocalDate, DhcCalendarMonthData>())
-        private set
+    val calendarMonthState = mutableStateMapOf<LocalDate, DhcCalendarMonthData>()
 
     fun getDateByPage(page: Int): LocalDate =
         initialData.initialDate.plusMonths(page.toLong() - initialData.initialPage).withDayOfMonth(1)

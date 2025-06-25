@@ -33,10 +33,11 @@ fun DhcCalendarDateSwiper(
         state = pagerState,
         pageSpacing = 8.dp,
     ) { page ->
+        val date = controller.getDateByPage(page)
         DhcCalendarDate(
-            day = controller.getDateByPage(page),
-            monthData = controller.calendarMonthState[controller.getDateByPage(page)]
-                ?: DhcCalendarMonthData(yearMonth = controller.getDateByPage(page)),
+            day = date,
+            monthData = controller.calendarMonthState[date]
+                ?: DhcCalendarMonthData(yearMonth = date),
         )
     }
 }

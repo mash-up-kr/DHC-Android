@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -27,14 +28,14 @@ fun DhcCalendarDay(
         modifier = modifier
             .border(
                 width = if (uiModel.borderColor != null) 2.dp else 0.dp,
-                color = uiModel.borderColor ?: androidx.compose.ui.graphics.Color.Transparent,
+                color = uiModel.borderColor ?: Color.Transparent,
                 shape = RoundedCornerShape(8.dp)
             )
             .background(color = uiModel.backgroundColor, shape = RoundedCornerShape(8.dp)),
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            text = day.toString(),
+            text = "$day",
             color = uiModel.textColor,
             style = uiModel.textStyle,
         )

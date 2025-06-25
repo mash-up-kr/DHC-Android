@@ -59,13 +59,14 @@ sealed interface DhcCalendarDayUiModel {
 
     companion object {
         fun from(day: LocalDate, monthData: DhcCalendarMonthData): DhcCalendarDayUiModel {
+            val finishedMissionCount = monthData.data[day.dayOfMonth]?.finishedMissionCount
             return when {
                 day.month != monthData.yearMonth.month -> NoCurrentMonth
                 day == LocalDate.now() -> Today
-                monthData.data[day.dayOfMonth]?.finishedMissionCount == 0 -> DidNotMission
-                monthData.data[day.dayOfMonth]?.finishedMissionCount == 1 -> DidOneMission
-                monthData.data[day.dayOfMonth]?.finishedMissionCount == 2 -> DidTwoMission
-                monthData.data[day.dayOfMonth]?.finishedMissionCount == 3 -> DidMoreMission
+                finishedMissionCount == 0 -> DidNotMission
+                finishedMissionCount == 1 -> DidOneMission
+                finishedMissionCount == 2 -> DidTwoMission
+                finishedMissionCount == 3 -> DidMoreMission
                 else -> DidNotMission
             }
         }
