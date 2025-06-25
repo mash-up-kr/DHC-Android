@@ -33,7 +33,6 @@ sealed interface BadgeType {
                     BadgeLevelType.MEDIUM -> { AccentColor.violet300 }
                     BadgeLevelType.HARD -> { Color(0xFFE293A4) }
                 }
-                LocalDhcColors.current.text.textHighLightsPrimary
             } else {
                 SurfaceColor.neutral300
             }
