@@ -10,7 +10,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
-import com.dhc.designsystem.mission.MoneyFortuneMissionCard
 import com.dhc.designsystem.mission.SpendingHabitMissionCard
 import com.dhc.home.R
 import com.dhc.presentation.component.MissionTitle
@@ -42,7 +41,6 @@ fun SpendingHabitMission(
 fun MonetaryLuckyDailyMission(
     modifier: Modifier = Modifier
 ) {
-
     Column(
         modifier = modifier
     ) {
@@ -53,12 +51,7 @@ fun MonetaryLuckyDailyMission(
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             // TODO - 추후 itemList로 변경
             repeat(3) {
-                MoneyFortuneMissionCard(
-                    missionMode = "Easy",
-                    isMissionEnabled = true,
-                    isChecked = true,
-                    missionTitle = "hihihi"
-                )
+                MissionCardReRoll()
             }
         }
     }
