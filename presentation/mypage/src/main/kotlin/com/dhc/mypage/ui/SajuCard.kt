@@ -15,14 +15,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.dhc.designsystem.SurfaceColor
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor.borderGradient01
 import com.dhc.designsystem.GradientColor.textGradient02
+import com.dhc.dhcandroid.model.AnimalCard
 import com.dhc.mypage.R
 
 @Composable
-internal fun SajuCard(modifier: Modifier = Modifier) {
+internal fun SajuCard(
+    sajuCard: AnimalCard,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .background(
@@ -37,11 +42,10 @@ internal fun SajuCard(modifier: Modifier = Modifier) {
             .padding(vertical = 14.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // Todo :: 추후 이미지로 변경
-        Box(
-            modifier = Modifier
-                .size(36.dp)
-                .background(color = SurfaceColor.neutral30),
+        AsyncImage(
+            model = sajuCard.cardImageUrl,
+            contentDescription = "saju card image",
+            modifier = Modifier.size(36.dp)
         )
         Text(
             modifier = Modifier.padding(top = 4.dp),
@@ -50,7 +54,7 @@ internal fun SajuCard(modifier: Modifier = Modifier) {
             color = SurfaceColor.neutral200,
         )
         Text(
-            text = "가을의 흰말",
+            text = sajuCard.name,
             style = DhcTypoTokens.TitleH2.copy(brush = textGradient02),
         )
     }
@@ -61,6 +65,10 @@ internal fun SajuCard(modifier: Modifier = Modifier) {
 private fun SajuCardPreview() {
     DhcTheme {
         SajuCard(
+            sajuCard = AnimalCard(
+                name = "가을의 흰말",
+                cardImageUrl = ""
+            ),
             modifier = Modifier.size(width = 180.dp, height = 120.dp)
         )
     }

@@ -28,10 +28,12 @@ import com.dhc.designsystem.GradientColor.backgroundGradient01
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.category.DhcCategoryItem
+import com.dhc.dhcandroid.model.AnimalCard
 import com.dhc.mypage.MyPageContract.State
 import com.dhc.mypage.R
 import com.dhc.mypage.ui.settinglist.SettingItem
 import com.dhc.mypage.ui.settinglist.SettingList
+import java.time.LocalDateTime
 import com.dhc.designsystem.R as DR
 
 @Composable
@@ -58,7 +60,11 @@ fun MyPageScreen(
             color = colors.text.textBodyPrimary,
         )
 
-        MyInfo(modifier = Modifier.fillMaxWidth())
+        MyInfo(
+            sajuCard = state.sajuCard,
+            birthDateTime = state.birthDateTime,
+            modifier = Modifier.fillMaxWidth(),
+        )
 
         SelectedCategory(modifier = Modifier.fillMaxWidth())
 
@@ -73,6 +79,8 @@ fun MyPageScreen(
 
 @Composable
 private fun MyInfo(
+    sajuCard: AnimalCard,
+    birthDateTime: LocalDateTime?,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -84,8 +92,14 @@ private fun MyInfo(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            SajuCard(modifier = Modifier.size(width = 180.dp, height = 120.dp))
-            DateAndTimeOfBirthInfo(modifier = Modifier.padding(top = 16.dp))
+            SajuCard(
+                sajuCard = sajuCard,
+                modifier = Modifier.size(width = 180.dp, height = 120.dp)
+            )
+            DateAndTimeOfBirthInfo(
+                birthDateTime = birthDateTime,
+                modifier = Modifier.padding(top = 16.dp),
+            )
         }
     }
 }

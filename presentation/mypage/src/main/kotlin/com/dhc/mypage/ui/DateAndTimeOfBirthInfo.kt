@@ -16,9 +16,15 @@ import com.dhc.common.FullRoundedCornerShape
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
+import com.dhc.mypage.utils.SajuUtil.sajuCardDateFormat
+import com.dhc.mypage.utils.SajuUtil.sajuCardTimeFormat
+import java.time.LocalDateTime
 
 @Composable
-fun DateAndTimeOfBirthInfo(modifier: Modifier = Modifier) {
+fun DateAndTimeOfBirthInfo(
+    birthDateTime: LocalDateTime?,
+    modifier: Modifier = Modifier
+) {
     val colors = LocalDhcColors.current
 
     Row(
@@ -31,7 +37,7 @@ fun DateAndTimeOfBirthInfo(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text (
-            text = "2000년 1월 1일",
+            text = birthDateTime?.format(sajuCardDateFormat).orEmpty(),
             textAlign = TextAlign.End,
             style = DhcTypoTokens.Body6,
             color = colors.text.textBodyPrimary,
@@ -43,7 +49,7 @@ fun DateAndTimeOfBirthInfo(modifier: Modifier = Modifier) {
                 .background(colors.background.backgroundGlassEffect),
         )
         Text (
-            text = "오후 1시 30분",
+            text = birthDateTime?.format(sajuCardTimeFormat).orEmpty(),
             textAlign = TextAlign.Start,
             style = DhcTypoTokens.Body6,
             color = colors.text.textBodyPrimary,
@@ -55,6 +61,8 @@ fun DateAndTimeOfBirthInfo(modifier: Modifier = Modifier) {
 @Composable
 private fun DateAndTimeOfBirthInfoPreview() {
     DhcTheme {
-        DateAndTimeOfBirthInfo()
+        DateAndTimeOfBirthInfo(
+            birthDateTime = LocalDateTime.of(2023, 10, 1, 12, 30)
+        )
     }
 }
