@@ -20,7 +20,7 @@ jobs:
         env:
           DHC_SERVER_BASE_URL: ${{ secrets.DHC_SERVER_BASE_URL }}
         run:
-          echo DHC_SERVER_BASE_URL=\"DHC_SERVER_BASE_URL\" > local.properties
+          echo DHC_SERVER_BASE_URL=$DHC_SERVER_BASE_URL > local.properties
 
       - name: Putting Google Json
         env:
