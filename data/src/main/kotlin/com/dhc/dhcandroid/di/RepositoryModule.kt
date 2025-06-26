@@ -1,5 +1,7 @@
 package com.dhc.dhcandroid.di
 
+import com.dhc.dhcandroid.repository.DhcRemoteRepository
+import com.dhc.dhcandroid.repository.DhcRemoteRepositoryImpl
 import com.dhc.dhcandroid.repository.UserDatStoreRepositoryImpl
 import com.dhc.dhcandroid.repository.UserDataStoreRepository
 import dagger.Binds
@@ -18,4 +20,9 @@ abstract class RepositoryModule {
         userDatStoreRepositoryImpl: UserDatStoreRepositoryImpl
     ): UserDataStoreRepository
 
+    @Binds
+    @Singleton
+    abstract fun bindDhcRemoteRepository(
+        dhcRemoteRepositoryImpl: DhcRemoteRepositoryImpl
+    ): DhcRemoteRepository
 }
