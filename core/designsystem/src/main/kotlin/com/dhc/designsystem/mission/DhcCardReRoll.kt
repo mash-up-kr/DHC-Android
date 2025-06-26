@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -66,6 +68,9 @@ fun CardReRoll(
     ) {
         Box(
             modifier = Modifier
+                .clip(if(offsetX > 0)
+                    RoundedCornerShape(0.dp)
+                else RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp, bottomStart = 12.dp, bottomEnd = 12.dp))
                 .onSizeChanged {
                     contextMenuWidth = it.width.toFloat()
                 },
@@ -75,6 +80,7 @@ fun CardReRoll(
         Surface (
             modifier = Modifier
                 .fillMaxSize()
+                .clip(RoundedCornerShape(12.dp))
                 .offset { IntOffset(offsetX.roundToInt(), 0) }
                 .draggable(
                     state =  draggableState,
@@ -87,6 +93,10 @@ fun CardReRoll(
                             } else {
                                 offsetX = 0f
                             }
+                        } else {
+                            // 닫을 때는 무조건 원위치!
+                            isExpanded = false
+                            offsetX = 0f
                         }
                     }
                 ),
