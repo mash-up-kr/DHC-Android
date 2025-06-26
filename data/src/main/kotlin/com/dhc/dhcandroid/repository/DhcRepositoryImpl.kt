@@ -15,9 +15,9 @@ import com.dhc.dhcandroid.model.UserProfile
 import com.dhc.dhcandroid.util.runDhcCatching
 import javax.inject.Inject
 
-class DhcRemoteRepositoryImpl @Inject constructor(
+class DhcRepositoryImpl @Inject constructor(
     private val dhcRemoteDataSource: DhcRemoteDataSource,
-) : DhcRemoteRepository {
+) : DhcRepository {
     override suspend fun registerUser(userProfile: UserProfile): DhcResult<RegisterUserResponse> =
         runDhcCatching { dhcRemoteDataSource.registerUser(userProfile) }
 

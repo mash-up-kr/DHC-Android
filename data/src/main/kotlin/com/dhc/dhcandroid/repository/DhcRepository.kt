@@ -12,7 +12,7 @@ import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 
-interface DhcRemoteRepository {
+interface DhcRepository {
     suspend fun registerUser(
         userProfile: UserProfile,
     ): DhcResult<RegisterUserResponse>
