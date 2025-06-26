@@ -1,10 +1,9 @@
 package com.dhc.dhcandroid.di
 
-import com.dhc.dhcandroid.datasource.UserLocalDataSource
-import com.dhc.dhcandroid.datasource.UserLocalDataSourceImpl
+import com.dhc.dhcandroid.datasource.AuthLocalDataSource
+import com.dhc.dhcandroid.datasource.AuthLocalDataSourceImpl
 import dagger.Binds
 import dagger.Module
-import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
@@ -16,7 +15,7 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindsUserLocalDataSource(
-        userLocalDataSourceImpl: UserLocalDataSourceImpl
-    ): UserLocalDataSource
+    abstract fun bindsAuthLocalDataSource(
+        authLocalDataSourceImpl: AuthLocalDataSourceImpl
+    ): AuthLocalDataSource
 }

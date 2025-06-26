@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class UserLocalDataSourceImpl @Inject constructor(
+class AuthLocalDataSourceImpl @Inject constructor(
     private val userProtoDataStore: DataStore<UserPreferences>,
     @ApplicationContext private val context: Context,
-): UserLocalDataSource {
+): AuthLocalDataSource {
     val userPreferences: Flow<UserPreferences> = userProtoDataStore.data
 
     override suspend fun setUUID() {

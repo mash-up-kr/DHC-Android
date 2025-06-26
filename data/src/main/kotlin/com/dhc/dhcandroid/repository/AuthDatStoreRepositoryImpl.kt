@@ -4,7 +4,7 @@ import com.dhc.dhcandroid.datasource.UserLocalDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class UserDatStoreRepositoryImpl @Inject constructor(
+class AuthDatStoreRepositoryImpl @Inject constructor(
     private val userLocalDataSource: UserLocalDataSource
 ) : UserDataStoreRepository {
     override suspend fun getUUID(): Flow<String?> {
