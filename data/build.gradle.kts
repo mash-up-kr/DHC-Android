@@ -4,14 +4,33 @@ plugins {
     id("dhc.module")
     id("dhc.hilt")
     alias(libs.plugins.protobuf)
+    alias(libs.plugins.kotlinx.serialization)
 }
+
+val localProps = rootProject.file("local.properties")
+    .reader()
+    .useLines { lines ->
+        lines.find { it.startsWith("DHC_SERVER_BASE_URL=") }
+            ?.substringAfter("=")
+            ?.trim()
+    } ?: throw GradleException("BASE_URL not found")
 
 android {
     namespace = "com.dhc.data"
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    defaultConfig {
+        buildConfigField("String", "DHC_SERVER_BASE_URL", "\"$localProps\"")
+    }
 }
 
 dependencies {
     implementation(project(":core:common"))
+
+    implementation(libs.kotlinx.serialization)
 
     implementation(libs.bundles.network)
 
