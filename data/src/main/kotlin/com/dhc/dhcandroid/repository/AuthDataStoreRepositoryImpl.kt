@@ -4,22 +4,22 @@ import com.dhc.dhcandroid.datasource.AuthLocalDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class AuthDatStoreRepositoryImpl @Inject constructor(
-    private val AuthLocalDataSource: AuthLocalDataSource
+class AuthDataStoreRepositoryImpl @Inject constructor(
+    private val authLocalDataSource: AuthLocalDataSource
 ) : AuthDataStoreRepository {
     override suspend fun getUUID(): Flow<String?> {
-        return AuthLocalDataSource.getUUID()
+        return authLocalDataSource.getUUID()
     }
 
     override suspend fun setUUID() {
-        AuthLocalDataSource.setUUID()
+        authLocalDataSource.setUUID()
     }
 
     override suspend fun getFcmToken(): Flow<String?> {
-        return AuthLocalDataSource.getFcmToken()
+        return authLocalDataSource.getFcmToken()
     }
 
     override suspend fun setFcmToken(token: String) {
-        AuthLocalDataSource.setFcmToken(token = token)
+        authLocalDataSource.setFcmToken(token = token)
     }
 }
