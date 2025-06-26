@@ -1,25 +1,25 @@
 package com.dhc.dhcandroid.repository
 
-import com.dhc.dhcandroid.datasource.UserLocalDataSource
+import com.dhc.dhcandroid.datasource.AuthLocalDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class AuthDatStoreRepositoryImpl @Inject constructor(
-    private val userLocalDataSource: UserLocalDataSource
-) : UserDataStoreRepository {
+    private val AuthLocalDataSource: AuthLocalDataSource
+) : AuthDataStoreRepository {
     override suspend fun getUUID(): Flow<String?> {
-        return userLocalDataSource.getUUID()
+        return AuthLocalDataSource.getUUID()
     }
 
     override suspend fun setUUID() {
-        userLocalDataSource.setUUID()
+        AuthLocalDataSource.setUUID()
     }
 
     override suspend fun getFcmToken(): Flow<String?> {
-        return userLocalDataSource.getFcmToken()
+        return AuthLocalDataSource.getFcmToken()
     }
 
     override suspend fun setFcmToken(token: String) {
-        userLocalDataSource.setFcmToken(token = token)
+        AuthLocalDataSource.setFcmToken(token = token)
     }
 }
