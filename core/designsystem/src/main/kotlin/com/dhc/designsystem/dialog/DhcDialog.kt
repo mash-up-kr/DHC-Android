@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -25,9 +25,6 @@ import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
-import com.dhc.designsystem.button.DhcButton
-import com.dhc.designsystem.button.model.DhcButtonSize
-import com.dhc.designsystem.button.model.DhcButtonStyle
 
 @Composable
 fun DhcDialog(
@@ -46,7 +43,10 @@ fun DhcDialog(
                 .padding(bottom = 16.dp),
         ) {
             IconButton (
-                modifier = Modifier.align(Alignment.End).padding(top = 16.dp, end = 16.dp),
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(top = 16.dp, end = 12.dp)
+                    .size(28.dp),
                 onClick = { onDisMissRequest() }
             ) {
                 Image(
