@@ -116,6 +116,7 @@ fun DhcNavHost(
         }
         composable(DhcRoute.MAIN_HOME.route) {
             HomeRoute(
+                navigateToMission = { navController.navigateToMission() },
                 navigateToMonetaryLuckDetail = { navController.navigateTo(DhcRoute.HOME_MONETARY_DETAIL) },
             )
         }

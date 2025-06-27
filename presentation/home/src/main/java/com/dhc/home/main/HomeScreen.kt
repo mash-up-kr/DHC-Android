@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
@@ -120,7 +119,7 @@ fun HomeScreen(
                 .padding(bottom = 24.dp, end = 20.dp),
             text = stringResource(R.string.finish_today_mission),
             isEnabled = true,
-            onClick = {},
+            onClick = { eventHandler(HomeContract.Event.ClickMissionComplete) },
         )
     }
 }
