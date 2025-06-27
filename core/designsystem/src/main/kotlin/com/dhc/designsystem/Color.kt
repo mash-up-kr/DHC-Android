@@ -118,6 +118,14 @@ data object GradientColor {
             1.0f to SurfaceColor.neutral200.copy(alpha = 0.28f),
         )
     )
+
+    val cardBorderGradient01 = Brush.linearGradient(
+        colorStops = arrayOf(
+            0.0f to SurfaceColor.neutral100.copy(0.3f),
+            0.89f to AccentColor.violet600.copy(0.3f),
+            1.0f to SurfaceColor.neutral500,
+        )
+    )
 }
 
 data object TransparentColor {
