@@ -1,17 +1,23 @@
 package com.dhc.common
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 fun Modifier.clickableIf(predicate: () -> Boolean, onClick: () -> Unit) =
     if (predicate()) this.then(Modifier.clickable(onClick = onClick)) else this
+
+fun Modifier.borderIf(width: Dp, brush: Brush, shape: Shape, predicate: () -> Boolean) =
+    if (predicate()) this.then(Modifier.border(width, brush, shape)) else this
 
 fun Modifier.drawBalloonTail(
     color: Color,

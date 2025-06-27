@@ -1,22 +1,23 @@
 package com.dhc.designsystem.floatingButton
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.dhc.common.BrushUtil
 import com.dhc.common.FullRoundedCornerShape
+import com.dhc.common.borderIf
 import com.dhc.common.clickableIf
 import com.dhc.common.toPx
 import com.dhc.designsystem.AccentColor
+import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.LocalDhcColors
@@ -50,11 +51,12 @@ fun DhcFloatingButton(
                         radius = 130f,
                     )
                 } else {
-                    Brush.linearGradient(colors = listOf(SurfaceColor.neutral500))
+                    BrushUtil.solidColor(color = SurfaceColor.neutral500)
                 },
                 shape = FullRoundedCornerShape,
             )
-            .border(
+            .borderIf(
+                predicate = { isEnabled },
                 width = 1.dp,
                 brush = GradientColor.buttonBorderGradient01,
                 shape = FullRoundedCornerShape,
@@ -65,7 +67,8 @@ fun DhcFloatingButton(
 }
 
 
-private class DhcFloatingButtonPreviewProvider : PreviewParameterProvider<DhcFloatingButtonPreviewProvider.Parameter> {
+private class DhcFloatingButtonPreviewProvider :
+    PreviewParameterProvider<DhcFloatingButtonPreviewProvider.Parameter> {
     override val values = sequenceOf(
         Parameter(
             text = "오늘 미션 끝내기",
@@ -89,9 +92,11 @@ private fun DhcFloatingButtonPreview(
     @PreviewParameter(DhcFloatingButtonPreviewProvider::class)
     parameter: DhcFloatingButtonPreviewProvider.Parameter,
 ) {
-    DhcFloatingButton(
-        text = parameter.text,
-        isEnabled = parameter.isEnabled,
-        onClick = {},
-    )
+    DhcTheme {
+        DhcFloatingButton(
+            text = parameter.text,
+            isEnabled = parameter.isEnabled,
+            onClick = {},
+        )
+    }
 }
