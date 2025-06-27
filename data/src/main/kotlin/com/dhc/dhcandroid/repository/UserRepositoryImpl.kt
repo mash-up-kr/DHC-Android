@@ -1,6 +1,5 @@
 package com.dhc.dhcandroid.repository
 
-import android.util.Log
 import com.dhc.dhcandroid.datasource.UserMemoryDataSource
 import com.dhc.dhcandroid.model.BirthDate
 import com.dhc.dhcandroid.model.Gender
@@ -29,6 +28,5 @@ class UserRepositoryImpl @Inject constructor(
     override fun updateUserProfile() {
         val userProfile = userMemoryDataSource.userProfileState.value
         // Todo : userProfile 서버에 업로드하는 코드 작성
-        Log.e("test", "${userProfile}")
     }
 }
