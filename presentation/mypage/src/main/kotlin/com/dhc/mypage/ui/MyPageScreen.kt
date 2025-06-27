@@ -153,12 +153,6 @@ private fun Setting(modifier: Modifier = Modifier) {
                     iconRes = DR.drawable.ico_sign_out,
                     onClick = {},
                 ),
-                SettingItem.Toggle(
-                    text = stringResource(R.string.setting_notification),
-                    iconRes = DR.drawable.ico_sign_out,
-                    isOn = true,
-                    onCheckedChange = {},
-                ),
             )
         )
     }
