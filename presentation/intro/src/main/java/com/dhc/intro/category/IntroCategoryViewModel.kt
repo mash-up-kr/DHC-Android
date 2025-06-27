@@ -30,7 +30,10 @@ class IntroCategoryViewModel @Inject constructor(
     override suspend fun handleEvent(event: Event) {
         when (event) {
             is Event.ClickNextButton -> {
-                repository.updateCategory(event.currentState.categoryItems.map { it.toServerType() })
+                val selectedCategory = event.currentState.categoryItems.filterIndexed { index, _ ->
+                    event.currentState.selectedIndexSet.contains(index)
+                }
+                repository.updateCategory(selectedCategory.map { it.toServerType() })
                 repository.updateUserProfile()
                 postSideEffect(SideEffect.NavigateToNextScreen)
             }
