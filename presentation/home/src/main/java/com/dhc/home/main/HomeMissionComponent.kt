@@ -57,7 +57,7 @@ fun MonetaryLuckyDailyMission(
             val items = listOf<String>("돈 아끼기", "돔황챠돔황챠돔황챠돔황챠돔황챠돔황챠돔황챠돔황챠화이팅","돈 아끼기",)
             items.forEach {
                 MissionCardReRoll(
-                    missionTitle = "돈 아끼기",
+                    missionTitle = it,
                     onClickMissionChange = {}
                 )
             }

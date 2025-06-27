@@ -53,7 +53,6 @@ fun DhcCardReRoll(
 ) {
     var contextMenuWidth by remember { mutableFloatStateOf(0f) }
     var offsetX by remember { mutableFloatStateOf(if (isExpanded) contextMenuWidth else 0f) }
-    val colors = LocalDhcColors.current
 
     val draggableState = rememberDraggableState { delta ->
         if (!isExpanded) {
