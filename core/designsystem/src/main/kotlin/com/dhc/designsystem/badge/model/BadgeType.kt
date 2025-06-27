@@ -5,7 +5,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.dhc.designsystem.AccentColor
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
@@ -28,11 +27,7 @@ sealed interface BadgeType {
             }
         override val textColor: Color
             @Composable get() = if (isEnabled) {
-                when(level) {
-                    BadgeLevelType.EASY -> { Color(0xFF70A2FF)}
-                    BadgeLevelType.MEDIUM -> { AccentColor.violet300 }
-                    BadgeLevelType.HARD -> { Color(0xFFE293A4) }
-                }
+                level.color
             } else {
                 SurfaceColor.neutral300
             }
