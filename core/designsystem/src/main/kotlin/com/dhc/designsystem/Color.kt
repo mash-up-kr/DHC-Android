@@ -106,6 +106,13 @@ data object GradientColor {
             1.0f to SurfaceColor.neutral200.copy(alpha = 0.28f),
         )
     )
+
+    val buttonGradient = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0.0f to colors.background.backgroundMain.copy(0f),
+            1.0f to  colors.background.backgroundMain,
+        )
+    )
 }
 
 data object TransparentColor {
