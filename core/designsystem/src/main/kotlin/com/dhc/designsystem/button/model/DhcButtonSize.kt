@@ -20,11 +20,6 @@ enum class DhcButtonSize(
         verticalPadding = 14.dp,
         cornerRadius = 8.dp,
     ),
-    MEDIUM(
-        textStyle = DhcTypoTokens.TitleH6,
-        verticalPadding = 12.dp,
-        cornerRadius = 8.dp,
-    ),
     SMALL(
         textStyle = DhcTypoTokens.TitleH7,
         verticalPadding = 8.dp,

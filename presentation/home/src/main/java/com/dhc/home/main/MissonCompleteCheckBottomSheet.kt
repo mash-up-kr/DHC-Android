@@ -24,7 +24,7 @@ import com.dhc.home.R
 import com.dhc.home.main.HomeContract
 import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.presentation.mvi.EventHandler
-import com.dhc.designsystem.R as dR
+import com.dhc.designsystem.R as DR
 
 @Composable
 fun MissionCompleteCheckBottomSheet(
@@ -59,14 +59,14 @@ fun MissionCompleteCheckContent(
     ) {
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = stringResource(dR.string.mission_complete_title),
+            text = stringResource(DR.string.mission_complete_title),
             style = DhcTypoTokens.TitleH2,
             color = colors.text.textMain,
             textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = stringResource(dR.string.mission_complete_desc, missionCount),
+            text = stringResource(DR.string.mission_complete_desc, missionCount),
             style = DhcTypoTokens.Body3,
             color = SurfaceColor.neutral200,
             textAlign = TextAlign.Center,
