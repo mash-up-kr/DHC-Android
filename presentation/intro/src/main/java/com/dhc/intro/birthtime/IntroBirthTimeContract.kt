@@ -12,10 +12,12 @@ class IntroBirthTimeContract {
         val timeType: TimeType = TimeType.AM,
         val time: Int = 1,
         val minute: Int = 0,
-    ) : UiState
+    ) : UiState {
+        val birthTime = "${timeType.text} $time:$minute" // Todo : 어떤식으로 보내는지 확인 후 수정
+    }
 
     sealed interface Event : UiEvent {
-        data object ClickNextButton : Event
+        data class ClickNextButton(val currentState: State) : Event
         data class SelectIdkButton(val isIdkEnabled: Boolean) : Event
         data class SelectBirthTime(val timeType: TimeType, val time: Int, val minute: Int) : Event
     }

@@ -73,7 +73,7 @@ fun IntroGenderScreen(
             text = stringResource(R.string.next),
             buttonSize = DhcButtonSize.XLARGE,
             buttonStyle = DhcButtonStyle.Secondary(isEnabled = state.gender != null),
-            onClick = { eventHandler(IntroGenderContract.Event.ClickNextButton) },
+            onClick = { eventHandler(IntroGenderContract.Event.ClickNextButton(state)) },
             modifier = Modifier
                 .padding(20.dp)
                 .fillMaxWidth()
