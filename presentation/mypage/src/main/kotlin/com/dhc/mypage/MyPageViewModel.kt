@@ -26,7 +26,15 @@ class MyPageViewModel @Inject constructor(
     }
 
     override suspend fun handleEvent(event: Event) {
-        TODO("Not yet implemented")
+        when (event) {
+            is Event.ClickAppResetButton -> reduce { copy(isShowAppResetDialog = true) }
+            is Event.ClickAppResetConfirmButton -> {
+                // Todo :: UUID 초기화 코드 추가
+                reduce { copy(isShowAppResetDialog = false) }
+                postSideEffect(SideEffect.NavigateToIntro)
+            }
+            is Event.ClickDialogDismissButton -> reduce { copy(isShowAppResetDialog = false) }
+        }
     }
 
     fun loadMyPageData() = viewModelScope.launch {
@@ -41,7 +49,7 @@ class MyPageViewModel @Inject constructor(
                     )
                 }
             }
-            .onFailure { _, message ->
+            .onFailure { _, _ ->
                 // Todo :: 실패 처리
             }
     }

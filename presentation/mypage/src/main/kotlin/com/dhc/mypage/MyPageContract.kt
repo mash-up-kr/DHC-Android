@@ -11,9 +11,16 @@ class MyPageContract {
     data class State(
         val myInfo: MyInfoUiModel = MyInfoUiModel(),
         val missionCategories: List<MissionCategory> = emptyList(),
+        val isShowAppResetDialog: Boolean = false,
     ) : UiState
 
-    sealed interface Event : UiEvent
+    sealed interface Event : UiEvent {
+        data object ClickAppResetButton : Event
+        data object ClickAppResetConfirmButton : Event
+        data object ClickDialogDismissButton : Event
+    }
 
-    sealed interface SideEffect : UiSideEffect
+    sealed interface SideEffect : UiSideEffect {
+        data object NavigateToIntro : SideEffect
+    }
 }

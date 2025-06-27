@@ -28,16 +28,19 @@ import com.dhc.designsystem.GradientColor.backgroundGradient01
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.category.DhcCategoryItem
+import com.dhc.mypage.MyPageContract.Event
 import com.dhc.mypage.MyPageContract.State
 import com.dhc.mypage.R
 import com.dhc.mypage.model.MyInfoUiModel
 import com.dhc.mypage.ui.settinglist.SettingItem
 import com.dhc.mypage.ui.settinglist.SettingList
+import com.dhc.presentation.mvi.EventHandler
 import com.dhc.designsystem.R as DR
 
 @Composable
 fun MyPageScreen(
     state: State,
+    eventHandler: EventHandler<Event>,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState()
 ) {
@@ -71,7 +74,10 @@ fun MyPageScreen(
             color = colors.background.backgroundGlassEffect,
         )
 
-        Setting(modifier = Modifier.fillMaxWidth())
+        Setting(
+            eventHandler = eventHandler,
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }
 
@@ -132,7 +138,10 @@ private fun SelectedCategory(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun Setting(modifier: Modifier = Modifier) {
+private fun Setting(
+    eventHandler: EventHandler<Event>,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier.padding(vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -151,7 +160,7 @@ private fun Setting(modifier: Modifier = Modifier) {
                 SettingItem.Normal(
                     text = stringResource(R.string.initial_app),
                     iconRes = DR.drawable.ico_sign_out,
-                    onClick = {},
+                    onClick = { eventHandler(Event.ClickAppResetButton) },
                 ),
             )
         )
@@ -164,6 +173,7 @@ private fun MyPageScreenPreview() {
     DhcTheme {
         MyPageScreen(
             state = State(),
+            eventHandler = {},
         )
     }
 }

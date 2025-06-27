@@ -30,12 +30,12 @@ import com.dhc.designsystem.SurfaceColor
 fun DhcDialog(
     modifier: Modifier = Modifier,
     dialogProperties: DialogProperties = DialogProperties(),
-    onDisMissRequest: () -> Unit = {},
+    onDismissRequest: () -> Unit = {},
     dialogContent: @Composable () -> Unit,
 ) {
     Dialog(
         properties = dialogProperties,
-        onDismissRequest = onDisMissRequest,
+        onDismissRequest = onDismissRequest,
     ) {
         Column(
             modifier = modifier
@@ -47,7 +47,7 @@ fun DhcDialog(
                     .align(Alignment.End)
                     .padding(top = 16.dp, end = 12.dp)
                     .size(28.dp),
-                onClick = { onDisMissRequest() }
+                onClick = { onDismissRequest() }
             ) {
                 Image(
                     painter = painterResource(R.drawable.ico_x),
