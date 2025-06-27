@@ -139,7 +139,7 @@ private fun NotFlippedDescription() {
         gradientEndColor = Color(0xFF9BA4D5),
     ) {
         Text(
-            text = stringResource(R.string.balloon_message_click),
+            text = stringResource(R.string.balloon_message_flip),
             style = DhcTypoTokens.TitleH7,
             color = colors.text.textHighLightsPrimary,
         )
