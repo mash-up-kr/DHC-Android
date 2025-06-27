@@ -43,7 +43,7 @@ fun MissionSuccessDialog(
 
     DhcDialog(
         modifier = modifier,
-        onDisMissRequest = { eventHandler(HomeContract.Event.ClickMissionSuccess(MissionSuccessButtonType.Confirm)) },
+        onClickDismiss = { eventHandler(HomeContract.Event.ClickMissionSuccess(MissionSuccessButtonType.Confirm)) },
         dialogContent = {
             Column(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
@@ -83,7 +83,7 @@ fun MissionSuccessDialog(
                 ) {}
                 DhcButton(
                     text = stringResource(R.string.confirm_statics),
-                    buttonSize = DhcButtonSize.MEDIUM,
+                    buttonSize = DhcButtonSize.LARGE,
                     buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
                     onClick = { eventHandler(HomeContract.Event.ClickMissionSuccess(MissionSuccessButtonType.StaticConfirm))  },
                     modifier = Modifier
@@ -92,7 +92,7 @@ fun MissionSuccessDialog(
                 Spacer(modifier = Modifier.height(4.dp))
                 DhcButton(
                     text = stringResource(R.string.already_confirm),
-                    buttonSize = DhcButtonSize.MEDIUM,
+                    buttonSize = DhcButtonSize.LARGE,
                     buttonStyle = DhcButtonStyle.Teritary,
                     onClick = { eventHandler(HomeContract.Event.ClickMissionSuccess(MissionSuccessButtonType.Confirm)) },
                     modifier = Modifier
