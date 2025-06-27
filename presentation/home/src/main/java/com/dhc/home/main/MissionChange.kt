@@ -1,5 +1,6 @@
 package com.dhc.home.main
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,10 +37,12 @@ import com.dhc.designsystem.R as DR
 @Composable
 fun MissionCardReRoll(
     missionTitle: String,
+    onClickMissionChange: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var isExpanded by remember { mutableStateOf(false) }
-    val horizontalPadding = if (isExpanded) 0.dp else 16.dp
+    val targetPadding = if (isExpanded) 0.dp else 16.dp
+    val horizontalPadding by animateDpAsState(targetValue = targetPadding, label = "cardPadding")
     var missionChangeHeight by remember { mutableIntStateOf(0) }
     val density = LocalDensity.current
 
@@ -49,7 +52,8 @@ fun MissionCardReRoll(
         onExpandedChange = { isExpanded = it },
         actions = {
             MissionChange(modifier = Modifier
-                .height(with(density) { missionChangeHeight.toDp() })
+                .height(with(density) { missionChangeHeight.toDp() }),
+                onClickMissionChange = onClickMissionChange
             )
         },
         content = {
@@ -67,6 +71,7 @@ fun MissionCardReRoll(
 
 @Composable
 fun MissionChange(
+    onClickMissionChange: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val colors = LocalDhcColors.current
@@ -100,6 +105,7 @@ private fun PreviewMissionChange() {
     DhcTheme {
         MissionCardReRoll(
             missionTitle = "돈 아끼기",
+            onClickMissionChange = {},
         )
     }
 }

@@ -32,7 +32,6 @@ fun MissionItemBackGround(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
             .background(color = SurfaceColor.neutral700, shape = RoundedCornerShape(12.dp))
             .padding(horizontal = 16.dp, vertical = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,

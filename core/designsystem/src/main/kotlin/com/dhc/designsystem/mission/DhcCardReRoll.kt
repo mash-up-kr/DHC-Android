@@ -87,7 +87,7 @@ fun DhcCardReRoll(
             actions()
         }
 
-        Surface (
+        Box (
             modifier = Modifier
                 .fillMaxSize()
                 .offset { IntOffset(offsetX.roundToInt(), 0) }
