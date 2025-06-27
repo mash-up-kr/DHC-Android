@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.LocalDhcColors
+import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.check.DhcCheck
 import com.dhc.designsystem.check.model.DhcCheckStyle
 import com.dhc.designsystem.colors
@@ -28,12 +29,11 @@ fun MissionItemBackGround(
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit,
 ) {
-    val colors = LocalDhcColors.current
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
-            .background(color = colors.background.backgroundGlassEffect, shape = RoundedCornerShape(12.dp))
+            .background(color = SurfaceColor.neutral700, shape = RoundedCornerShape(12.dp))
             .padding(horizontal = 16.dp, vertical = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically

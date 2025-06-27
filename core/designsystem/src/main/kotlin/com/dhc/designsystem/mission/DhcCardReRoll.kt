@@ -53,14 +53,12 @@ fun DhcCardReRoll(
 ) {
     var contextMenuWidth by remember { mutableFloatStateOf(0f) }
     var offsetX by remember { mutableFloatStateOf(if (isExpanded) contextMenuWidth else 0f) }
-    //var isExpanded by remember { mutableStateOf(false) }
     val colors = LocalDhcColors.current
 
     val draggableState = rememberDraggableState { delta ->
         if (!isExpanded) {
             offsetX = (offsetX + delta).coerceIn(0f, contextMenuWidth)
         } else {
-            // 이미 확장된 상태에서 반대방향으로 드래그하면 닫기
             if (delta < 0) {
                 offsetX = (offsetX + delta).coerceAtLeast(0f)
                 if (offsetX <= contextMenuWidth * 0.3f) {
@@ -111,7 +109,6 @@ fun DhcCardReRoll(
                     }
                 )
                 .clip(RoundedCornerShape(12.dp)),
-            color = SurfaceColor.neutral700
         ) {
             content()
         }

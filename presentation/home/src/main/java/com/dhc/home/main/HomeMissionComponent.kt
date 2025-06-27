@@ -50,8 +50,11 @@ fun MonetaryLuckyDailyMission(
         Spacer(modifier = Modifier.height(16.dp))
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             // TODO - 추후 itemList로 변경
-            repeat(3) {
-                MissionCardReRoll()
+            val items = listOf<String>("돈 아끼기", "돔황챠돔황챠돔황챠돔황챠돔황챠돔황챠돔황챠돔황챠화이팅","돈 아끼기",)
+            items.forEach {
+                MissionCardReRoll(
+                    missionTitle = it
+                )
             }
         }
     }

@@ -11,11 +11,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -33,23 +35,30 @@ import com.dhc.designsystem.R as DR
 
 @Composable
 fun MissionCardReRoll(
+    missionTitle: String,
     modifier: Modifier = Modifier
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     val horizontalPadding = if (isExpanded) 0.dp else 16.dp
+    var missionChangeHeight by remember { mutableIntStateOf(0) }
+    val density = LocalDensity.current
+
     DhcCardReRoll(
-        modifier = Modifier.padding(horizontal = horizontalPadding),
+        modifier = modifier.padding(horizontal = horizontalPadding),
         isExpanded = isExpanded,
         onExpandedChange = { isExpanded = it },
         actions = {
-            MissionChange()
+            MissionChange(modifier = Modifier
+                .height(with(density) { missionChangeHeight.toDp() })
+            )
         },
         content = {
             MoneyFortuneMissionCard(
                 missionMode = "Easy",
                 isMissionEnabled = true,
                 isChecked = true,
-                missionTitle = "돈 아끼기"
+                missionTitle = missionTitle,
+                onHeightChanged = { missionChangeHeight = it }
             )
         }
     )
@@ -57,10 +66,12 @@ fun MissionCardReRoll(
 
 
 @Composable
-fun MissionChange() {
+fun MissionChange(
+    modifier: Modifier = Modifier
+) {
     val colors = LocalDhcColors.current
     Column(
-        modifier = Modifier
+        modifier = modifier
             .background(color = AccentColor.violet400)
             .clickable { }
             .padding(vertical = 10.dp, horizontal = 24.dp),
@@ -88,6 +99,7 @@ fun MissionChange() {
 private fun PreviewMissionChange() {
     DhcTheme {
         MissionCardReRoll(
+            missionTitle = "돈 아끼기",
         )
     }
 }
