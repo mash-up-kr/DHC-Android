@@ -17,6 +17,12 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: generate local.properties
+        env:
+          DHC_SERVER_BASE_URL: ${{ secrets.DHC_SERVER_BASE_URL }}
+        run:
+          echo DHC_SERVER_BASE_URL=$DHC_SERVER_BASE_URL > local.properties
+
       - name: Run detekt
         run: ./gradlew detekt
 
