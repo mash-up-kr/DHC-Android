@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -86,7 +87,7 @@ fun HomeScreen(
                             title = "오늘의 운세 카드",
                             description = "한템포 쉬어가기",
                             modifier = Modifier
-                                .width(143.dp)
+                                .size(width = 143.dp, height = 197.dp)
                                 .padding(top = 20.dp, bottom = 53.5.dp)
                                 .align(Alignment.Center),
                         )
@@ -96,7 +97,7 @@ fun HomeScreen(
                             title = "오늘의 운세 카드",
                             description = "한템포 쉬어가기",
                             modifier = Modifier
-                                .width(143.dp)
+                                .size(width = 143.dp, height = 197.dp)
                                 .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) }
                                 .padding(top = 20.dp, bottom = 53.5.dp)
                                 .align(Alignment.Center),

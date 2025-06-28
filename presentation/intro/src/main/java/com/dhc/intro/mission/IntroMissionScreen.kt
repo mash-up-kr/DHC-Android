@@ -60,7 +60,7 @@ fun IntroMissionScreen(
             MissionTitle(
                 title = stringResource(R.string.spending_habit_mission),
                 isInfoIconVisible = true,
-                spendTypeText = "커피값 절약",
+                spendTypeText = "식음료",
             )
             SpendingHabitMissionCard(
                 missionDday = "D-12",
@@ -72,7 +72,7 @@ fun IntroMissionScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             MissionTitle(
-                title = stringResource(R.string.spending_habit_mission),
+                title = stringResource(R.string.finance_daily_mission),
             )
             Spacer(modifier = Modifier.height(16.dp))
             MoneyFortuneMissionCardList()
@@ -89,12 +89,15 @@ fun IntroMissionScreen(
                     .height(67.dp)
                     .background(
                         brush = Brush.verticalGradient(
-                            colors = listOf(Color.Transparent, SurfaceColor.neutral900),
+                            colors = listOf(
+                                SurfaceColor.neutral900.copy(alpha = 0f),
+                                SurfaceColor.neutral900,
+                            ),
                         ),
                     )
             )
             DhcButton(
-                text = stringResource(R.string.start_with_finance_luck),
+                text = stringResource(R.string.intro_mission_button),
                 buttonSize = DhcButtonSize.XLARGE,
                 buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
                 onClick = { eventHandler(IntroMissionContract.Event.ClickNextButton) },
