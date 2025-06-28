@@ -9,16 +9,18 @@ import com.dhc.missionstatus.MissionStatusContract.SideEffect
 import com.dhc.missionstatus.MissionStatusContract.State
 import com.dhc.missionstatus.ui.ConsumptionAnalysisUiModel
 import com.dhc.presentation.mvi.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class MissionStatusViewModel @Inject constructor(
     private val authRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
     override fun createInitialState(): State {
-        return State() // Todo - 변경 필요
+        return State()
     }
 
     override suspend fun handleEvent(event: Event) {
