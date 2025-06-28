@@ -1,8 +1,10 @@
 package com.dhc.dhcandroid.repository
 
 import com.dhc.common.DhcResult
+import com.dhc.common.FormatterUtil.dhcYearMonthFormat
 import com.dhc.dhcandroid.datasource.DhcRemoteDataSource
 import com.dhc.dhcandroid.model.AnalysisViewResponse
+import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
@@ -14,6 +16,7 @@ import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 import com.dhc.dhcandroid.util.runDhcCatching
+import java.time.LocalDate
 import javax.inject.Inject
 
 class DhcRepositoryImpl @Inject constructor(
@@ -52,4 +55,10 @@ class DhcRepositoryImpl @Inject constructor(
 
     override suspend fun getMissionCategories(): DhcResult<MissionCategoriesResponse> =
         runDhcCatching { dhcRemoteDataSource.getMissionCategories() }
+
+    override suspend fun getCalendarView(
+        userId: String,
+        yearMonth: LocalDate,
+    ): DhcResult<CalendarViewResponse> =
+        runDhcCatching { dhcRemoteDataSource.getCalendarView(userId, yearMonth.format(dhcYearMonthFormat)) }
 }

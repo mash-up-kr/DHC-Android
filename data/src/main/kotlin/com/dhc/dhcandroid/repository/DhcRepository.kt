@@ -2,6 +2,7 @@ package com.dhc.dhcandroid.repository
 
 import com.dhc.common.DhcResult
 import com.dhc.dhcandroid.model.AnalysisViewResponse
+import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
@@ -12,6 +13,7 @@ import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
+import java.time.LocalDate
 
 interface DhcRepository {
     suspend fun registerUser(
@@ -46,4 +48,9 @@ interface DhcRepository {
 
     suspend fun getMissionCategories(
     ): DhcResult<MissionCategoriesResponse>
+
+    suspend fun getCalendarView(
+        userId: String,
+        yearMonth: LocalDate,
+    ): DhcResult<CalendarViewResponse>
 }
