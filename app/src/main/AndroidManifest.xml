@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
+    <!-- Todo :: usesCleartextTraffic 삭제 해야함 -->
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
