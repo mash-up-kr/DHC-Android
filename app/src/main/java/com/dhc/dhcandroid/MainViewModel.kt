@@ -27,8 +27,9 @@ class MainViewModel @Inject constructor(
     private fun setUserToken() {
         viewModelScope.launch {
             val uuid = authDataStoreRepository.getUUID().orEmpty()
-            val userToken = dhcRepository.searchUserByToken(uuid).getSuccessOrNull().orEmpty()
-            authDataStoreRepository.setUserToken(userToken)
+            dhcRepository.searchUserByToken(uuid).getSuccessOrNull()?.let { userToken ->
+                authDataStoreRepository.setUserToken(userToken)
+            }
         }
     }
 
