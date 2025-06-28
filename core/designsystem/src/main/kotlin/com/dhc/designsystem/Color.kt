@@ -69,6 +69,18 @@ data object GradientColor {
             1.0f to AccentColor.violet400.copy(alpha = 0f),
         ),
     )
+    @Composable
+    fun backgroundGradient01(radius: Float): Brush = Brush.radialGradient(
+        colorStops = arrayOf(
+            0.23f to AccentColor.violet400.copy(alpha = 1f),
+            0.51f to AccentColor.violet400.copy(alpha = 0.3f),
+            0.75f to AccentColor.violet400.copy(alpha = 0.1f),
+            0.88f to AccentColor.violet400.copy(alpha = 0.05f),
+            1.0f to AccentColor.violet400.copy(alpha = 0f),
+        ),
+        radius = radius,
+    )
+
     val backgroundGradient02
         @Composable get() = Brush.radialGradient(
             colorStops = arrayOf(
@@ -111,6 +123,14 @@ data object GradientColor {
         colorStops = arrayOf(
             0.0f to colors.background.backgroundMain.copy(0f),
             1.0f to  colors.background.backgroundMain,
+        )
+    )
+
+    val cardBorderGradient01 = Brush.linearGradient(
+        colorStops = arrayOf(
+            0.0f to SurfaceColor.neutral100.copy(0.3f),
+            0.89f to AccentColor.violet600.copy(0.3f),
+            1.0f to SurfaceColor.neutral500,
         )
     )
 }

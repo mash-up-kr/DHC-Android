@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -14,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -23,12 +26,15 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.dhc.common.FullRoundedCornerShape
 import com.dhc.designsystem.AccentColor
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.DhcTypoTokens.typoFontFamily
 import com.dhc.designsystem.GradientColor
+import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
+import com.dhc.designsystem.colors
 
 @Composable
 fun DhcFortuneCard(
@@ -36,9 +42,13 @@ fun DhcFortuneCard(
     description: String,
     modifier: Modifier = Modifier,
 ) {
+    val colors = LocalDhcColors.current
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(12.dp))
+            .shadow(
+                elevation = 2.dp,
+                shape = RoundedCornerShape(12.dp),
+            )
             .background(
                 color = SurfaceColor.neutral700,
                 shape = RoundedCornerShape(12.dp),
@@ -46,38 +56,28 @@ fun DhcFortuneCard(
             .border(
                 border = BorderStroke(
                     width = 1.dp,
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            AccentColor.violet300,
-                            SurfaceColor.neutral600,
-                        ),
-                    ),
+                    brush = GradientColor.cardBorderGradient01,
                 ),
+                shape = RoundedCornerShape(12.dp),
+            )
+            .shadow(
+                elevation = 2.dp,
                 shape = RoundedCornerShape(12.dp),
             )
             .padding(vertical = 20.dp, horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            modifier = Modifier.padding(bottom = 8.dp),
             text = title,
-            color = SurfaceColor.neutral200,
-            style = DhcTypoTokens.Body7,
+            style = DhcTypoTokens.TitleH8.copy(brush = GradientColor.textGradient02),
             textAlign = TextAlign.Center,
         )
-        // Todo : 카드 비율이 어떻게 될지 아직 몰라서 임시로 Spacer 가 들어가있습니다. 추후 정책 확정되면 제거 될 예정입니다.
-        Spacer(modifier = Modifier.height(119.dp))
         Text(
             modifier = Modifier.padding(bottom = 8.dp),
             text = description,
-            style = TextStyle(
-                fontFamily = typoFontFamily,
-                fontWeight = FontWeight.W600,
-                fontSize = 14.sp,
-                lineHeight = 20.sp,
-                brush = GradientColor.textGradient02,
-            ),
+            style = DhcTypoTokens.TitleH6,
             textAlign = TextAlign.Center,
+            color = colors.text.textBodyPrimary,
         )
     }
 }
@@ -85,12 +85,12 @@ fun DhcFortuneCard(
 private class DhcFortuneCardPreviewProvider : PreviewParameterProvider<DhcFortuneCardPreviewProvider.Parameter> {
     override val values = sequenceOf(
         Parameter(
-            title = "오늘의 운세 카드",
-            description = "'한템포 쉬어가기'",
+            title = "최고의 날",
+            description = "네잎클로버",
         ),
         Parameter(
-            title = "???",
-            description = "",
+            title = "카드 뒷면",
+            description = "임시",
         ),
     )
 
@@ -110,7 +110,7 @@ private fun DhcFortuneCardPreview(
         DhcFortuneCard(
             title = parameter.title,
             description = parameter.description,
-            modifier = Modifier.width(143.dp),
+            modifier = Modifier.size(143.dp, 197.dp),
         )
     }
 }

@@ -2,7 +2,7 @@ package com.dhc.dhcandroid.repository
 
 import kotlinx.coroutines.flow.Flow
 
-interface UserDataStoreRepository {
+interface AuthDataStoreRepository {
     suspend fun getUUID(): Flow<String?>
     suspend fun setUUID()
 

@@ -79,7 +79,7 @@ fun IntroBirthTimeScreen(
             text = stringResource(R.string.next),
             buttonSize = DhcButtonSize.XLARGE,
             buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
-            onClick = { eventHandler(IntroBirthTimeContract.Event.ClickNextButton) },
+            onClick = { eventHandler(IntroBirthTimeContract.Event.ClickNextButton(state)) },
             modifier = Modifier
                 .padding(20.dp)
                 .fillMaxWidth()

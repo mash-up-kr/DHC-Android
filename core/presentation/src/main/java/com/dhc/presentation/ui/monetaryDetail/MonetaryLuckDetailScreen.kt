@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
@@ -64,7 +65,7 @@ fun MonetaryLuckDetailScreen(
                 title = "오늘의 운세 카드",
                 description = monetaryLuckInfo.fortuneCard.message,
                 modifier = Modifier
-                    .width(143.dp)
+                    .size(width = 143.dp, height = 197.dp)
                     .padding(top = 20.dp, bottom = 53.5.dp)
             )
             Spacer(modifier = Modifier.height(15.dp))
