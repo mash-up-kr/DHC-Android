@@ -1,6 +1,7 @@
 package com.dhc.dhcandroid.datasource
 
 import com.dhc.dhcandroid.model.AnalysisViewResponse
+import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
@@ -51,4 +52,9 @@ interface DhcRemoteDataSource {
 
     suspend fun getMissionCategories(
     ): Response<MissionCategoriesResponse>
+
+    suspend fun getCalendarView(
+        userId: String,
+        yearMonth: String,
+    ): Response<CalendarViewResponse>
 }
