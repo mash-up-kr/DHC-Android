@@ -23,6 +23,7 @@ fun HomeRoute(
                 is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
                 is HomeContract.SideEffect.ShowToast -> {}
+                is HomeContract.SideEffect.ChangeMissionBoarder -> {}
             }
         }
     }

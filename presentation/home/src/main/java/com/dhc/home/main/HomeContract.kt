@@ -33,6 +33,7 @@ class HomeContract {
         data object NavigateToMonetaryDetailScreen: SideEffect
         data class ShowToast(val msg: String): SideEffect
         data object NavigateToMission: SideEffect
+        data class ChangeMissionBoarder(val missionId: Int): SideEffect
 
     }
 }

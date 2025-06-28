@@ -3,6 +3,7 @@ package com.dhc.home.main
 import com.dhc.home.main.HomeContract.Event
 import com.dhc.home.main.HomeContract.State
 import com.dhc.home.main.HomeContract.SideEffect
+import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.home.model.MissionSuccessButtonType
 import com.dhc.presentation.mvi.BaseViewModel
@@ -30,9 +31,19 @@ class HomeViewModel @Inject constructor(
                 if(event.buttonType == MissionSuccessButtonType.StaticConfirm)
                     postSideEffect(SideEffect.NavigateToMission)
             }
-            is Event.ClickMissionChange -> {}
-            is Event.ClickMissionChangeConfirm -> {}
-            is Event.ClickFinishMissionChange -> {}
+            is Event.ClickMissionChange -> {
+                //TODO - 바꾸기 count에 따라 바텀시트 분기
+                updateMissionChangeConfirmBottomSheetState(true)
+            }
+            is Event.ClickMissionChangeConfirm -> {
+                updateMissionChangeConfirmBottomSheetState(false)
+                if(event.buttonType == MissionChangeButtonType.CHANGE) {
+                    postSideEffect(SideEffect.ChangeMissionBoarder(missionId = 0))
+                }
+            }
+            is Event.ClickFinishMissionChangeConfirm -> {
+                updateFinishMissionChangeBottomSheetState(false)
+            }
         }
     }
 
@@ -44,7 +55,7 @@ class HomeViewModel @Inject constructor(
         reduce { copy(isShowMissionSuccessDialog = isShowDialog) }
     }
 
-    private fun updateMissionChangeBottomSheetState(isShowBottomSheet: Boolean) {
+    private fun updateMissionChangeConfirmBottomSheetState(isShowBottomSheet: Boolean) {
         reduce { copy(isShowMissionChangeBottomSheet = isShowBottomSheet) }
     }
 
