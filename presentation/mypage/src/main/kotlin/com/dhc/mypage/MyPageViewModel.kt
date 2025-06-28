@@ -52,6 +52,4 @@ class MyPageViewModel @Inject constructor(
                 // Todo :: 실패 처리
             }
     }
-
-
 }
