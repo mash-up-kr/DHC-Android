@@ -53,7 +53,7 @@ fun FlippableBox(
                 indication = null,
                 interactionSource = remember { MutableInteractionSource() },
                 onClick = {
-                    if (isFlipped.not()) {
+                    if (isFlipped.not() && canRotate) {
                         rotationAngleState = (rotationAngleState + maxRotationAngle)
                             .coerceIn(minRotationAngle, maxRotationAngle)
                             .also { canRotate = false }
@@ -67,7 +67,7 @@ fun FlippableBox(
                             .also { if (it == 180f) canRotate = false }
                     },
                     onHorizontalDrag = { _, dragAmount ->
-                        if (isFlipped.not()) {
+                        if (isFlipped.not() && canRotate) {
                             rotationAngleState = (rotationAngleState + dragAmount)
                                 .coerceIn(minRotationAngle, maxRotationAngle)
                         }

@@ -1,4 +1,4 @@
-package com.dhc.dhcandroid.service
+package com.dhc.dhcandroid.datasource
 
 import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
@@ -11,52 +11,35 @@ import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Path
 
-interface DhcService {
-
-    @POST("/api/users/register")
+interface DhcRemoteDataSource {
     suspend fun registerUser(
-        @Body userProfile: UserProfile,
+        userProfile: UserProfile,
     ): Response<RegisterUserResponse>
 
-    @PUT("/api/users/{userId}/missions/{missionId}")
     suspend fun changeMissionStatus(
-        @Path("userId") userId: String,
-        @Path("missionId") missionId: String,
-        @Body toggleMissionRequest: ToggleMissionRequest,
+        userId: String,
+        missionId: String,
+        toggleMissionRequest: ToggleMissionRequest,
     ): Response<Mission>
 
-    @POST("/api/users/{userId}/done")
     suspend fun requestFinishTodayMissions(
-        @Body endTodayMissionRequest: EndTodayMissionRequest,
+        endTodayMissionRequest: EndTodayMissionRequest,
     ): Response<EndTodayMissionResponse>
 
-    @POST("/api/users/{userId}/logout")
     suspend fun requestLogOutUser(
-        @Path("userId") userId: String,
+        userId: String,
     ): Response<LogoutResponse>
 
-    @GET("/api/mission-categories")
-    suspend fun getMissionCategories(
-    ): Response<AnalysisViewResponse>
-
-    @GET("/view/users/{userId}/home")
     suspend fun getHomeView(
-        @Path("userId") userId: String,
+        userId: String,
     ): Response<HomeViewResponse>
 
-    @GET("/view/users/{userId}/myPage")
     suspend fun getMyPageView(
-        @Path("userId") userId: String,
+        userId: String,
     ): Response<MyPageResponse>
 
-    @GET("/view/users/{userId}/analysis")
     suspend fun getAnalysisView(
-        @Path("userId") userId: String,
+        userId: String,
     ): Response<AnalysisViewResponse>
 }

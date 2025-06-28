@@ -13,7 +13,7 @@ class IntroGenderContract {
 
     sealed interface Event : UiEvent {
         data class SelectGender(val gender: Gender) : Event
-        data object ClickNextButton : Event
+        data class ClickNextButton(val currentState: State) : Event
     }
 
     sealed interface SideEffect : UiSideEffect {

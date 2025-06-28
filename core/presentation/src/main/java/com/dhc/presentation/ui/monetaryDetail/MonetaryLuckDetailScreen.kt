@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
@@ -22,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
+import com.dhc.designsystem.GradientColor.buttonGradient
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.button.DhcButton
 import com.dhc.designsystem.button.model.DhcButtonSize
@@ -63,7 +65,7 @@ fun MonetaryLuckDetailScreen(
                 title = "오늘의 운세 카드",
                 description = monetaryLuckInfo.fortuneCard.message,
                 modifier = Modifier
-                    .width(143.dp)
+                    .size(width = 143.dp, height = 197.dp)
                     .padding(top = 20.dp, bottom = 53.5.dp)
             )
             Spacer(modifier = Modifier.height(15.dp))
@@ -74,28 +76,38 @@ fun MonetaryLuckDetailScreen(
             if(isShowButton) Spacer(modifier = Modifier.height(52.dp))
         }
         if(isShowButton) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .background(color = colors.background.backgroundMain)
-                    .align(Alignment.BottomCenter)
+            Column(
+                modifier = Modifier.align(Alignment.BottomCenter)
             ) {
-                DhcButton(
-                    text = stringResource(R.string.monetary_confirm_and_start),
-                    buttonSize = DhcButtonSize.XLARGE,
-                    buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
-                    onClick = {  },
+                Box(
                     modifier = Modifier
-                        .padding(20.dp)
                         .fillMaxWidth()
-                        .align(Alignment.Center)
+                        .height(40.dp)
+                        .background(brush = buttonGradient)
                 )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .background(colors.background.backgroundMain)
+                ) {
+                    DhcButton(
+                        text = stringResource(R.string.monetary_confirm_and_start),
+                        buttonSize = DhcButtonSize.XLARGE,
+                        buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
+                        onClick = {  },
+                        modifier = Modifier
+                            .padding(20.dp)
+                            .fillMaxWidth()
+                            .align(Alignment.Center)
+                    )
+                }
             }
         }
     }
 
 }
+
 
 @Composable
 fun MonetaryLuckDetailCard(

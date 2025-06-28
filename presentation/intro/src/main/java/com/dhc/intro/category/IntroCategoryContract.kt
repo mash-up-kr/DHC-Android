@@ -15,7 +15,7 @@ class IntroCategoryContract {
     }
 
     sealed interface Event : UiEvent {
-        data object ClickNextButton : Event
+        data class ClickNextButton(val currentState: State) : Event
         data class ClickCategoryItem(val selectedIndex: Int) : Event
     }
 
