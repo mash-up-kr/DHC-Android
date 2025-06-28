@@ -3,8 +3,8 @@ package com.dhc.mypage
 import androidx.lifecycle.viewModelScope
 import com.dhc.common.onFailure
 import com.dhc.common.onSuccess
-import com.dhc.dhcandroid.repository.DhcRepository
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
+import com.dhc.dhcandroid.repository.DhcRepository
 import com.dhc.mypage.MyPageContract.Event
 import com.dhc.mypage.MyPageContract.SideEffect
 import com.dhc.mypage.MyPageContract.State

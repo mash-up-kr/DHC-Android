@@ -33,6 +33,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MissionTitle(
     title: String,
+    modifier: Modifier = Modifier,
     tooltipMessage: String? = null,
     isEnableTooltip: Boolean = false,
     isInfoIconVisible: Boolean = false,
@@ -43,7 +44,7 @@ fun MissionTitle(
     val coroutineScope = rememberCoroutineScope()
 
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
