@@ -45,7 +45,7 @@ class IntroCategoryViewModel @Inject constructor(
     override suspend fun handleEvent(event: Event) {
         when (event) {
             is Event.ClickNextButton -> {
-                userRepository.updateCategory(event.currentState.categoryItems.map { it.name })
+                userRepository.updateCategory(event.currentState.selectedCategoryItems.map { it.name })
                 val userToken = authDataStoreRepository.getUserToken().firstOrNull().orEmpty()
 //                val userToken = "507f1f77bcf86cd799439011" // Todo : 임시코드, 서버 정상화 되면 지울 예정
                 val userId = dhcRepository.registerUser(
