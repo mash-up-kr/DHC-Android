@@ -6,4 +6,8 @@
     <string name="setting">설정</string>
     <string name="initial_app">앱 초기화</string>
     <string name="setting_notification">알림 설정</string>
+    <string name="app_reset_dialog_title">정말 앱을 초기화 하시겠어요?</string>
+    <string name="app_reset_dialog_sub_title">앱을 초기화하면 다시 복구할 수 없어요</string>
+    <string name="app_reset_dialog_cancel">이전으로 돌아가기</string>
+    <string name="app_reset_dialog_ok">초기화</string>
 </resources>
