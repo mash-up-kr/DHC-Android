@@ -28,15 +28,19 @@ import com.dhc.designsystem.GradientColor.backgroundGradient01
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.category.DhcCategoryItem
+import com.dhc.mypage.MyPageContract.Event
 import com.dhc.mypage.MyPageContract.State
 import com.dhc.mypage.R
+import com.dhc.mypage.model.MyInfoUiModel
 import com.dhc.mypage.ui.settinglist.SettingItem
 import com.dhc.mypage.ui.settinglist.SettingList
+import com.dhc.presentation.mvi.EventHandler
 import com.dhc.designsystem.R as DR
 
 @Composable
 fun MyPageScreen(
     state: State,
+    eventHandler: EventHandler<Event>,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState()
 ) {
@@ -58,7 +62,10 @@ fun MyPageScreen(
             color = colors.text.textBodyPrimary,
         )
 
-        MyInfo(modifier = Modifier.fillMaxWidth())
+        MyInfo(
+            myInfoUiModel = state.myInfo,
+            modifier = Modifier.fillMaxWidth(),
+        )
 
         SelectedCategory(modifier = Modifier.fillMaxWidth())
 
@@ -67,12 +74,16 @@ fun MyPageScreen(
             color = colors.background.backgroundGlassEffect,
         )
 
-        Setting(modifier = Modifier.fillMaxWidth())
+        Setting(
+            eventHandler = eventHandler,
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }
 
 @Composable
 private fun MyInfo(
+    myInfoUiModel: MyInfoUiModel,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -84,8 +95,15 @@ private fun MyInfo(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            SajuCard(modifier = Modifier.size(width = 180.dp, height = 120.dp))
-            DateAndTimeOfBirthInfo(modifier = Modifier.padding(top = 16.dp))
+            SajuCard(
+                sajuName = myInfoUiModel.sajuName,
+                animalImageUrl = myInfoUiModel.animalImageUrl,
+                modifier = Modifier.size(width = 180.dp, height = 120.dp)
+            )
+            DateAndTimeOfBirthInfo(
+                birthDateTime = myInfoUiModel.birthDateTime,
+                modifier = Modifier.padding(top = 16.dp),
+            )
         }
     }
 }
@@ -120,7 +138,10 @@ private fun SelectedCategory(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun Setting(modifier: Modifier = Modifier) {
+private fun Setting(
+    eventHandler: EventHandler<Event>,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier.padding(vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -139,13 +160,7 @@ private fun Setting(modifier: Modifier = Modifier) {
                 SettingItem.Normal(
                     text = stringResource(R.string.initial_app),
                     iconRes = DR.drawable.ico_sign_out,
-                    onClick = {},
-                ),
-                SettingItem.Toggle(
-                    text = stringResource(R.string.setting_notification),
-                    iconRes = DR.drawable.ico_sign_out,
-                    isOn = true,
-                    onCheckedChange = {},
+                    onClick = { eventHandler(Event.ClickAppResetButton) },
                 ),
             )
         )
@@ -158,6 +173,7 @@ private fun MyPageScreenPreview() {
     DhcTheme {
         MyPageScreen(
             state = State(),
+            eventHandler = {},
         )
     }
 }

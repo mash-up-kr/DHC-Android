@@ -1,9 +1,11 @@
 import com.android.build.gradle.LibraryExtension
+import com.dhc.buildlogic.util.bundle
 import com.dhc.buildlogic.util.configureAndroidLibrary
 import com.dhc.buildlogic.util.configureCompose
 import com.dhc.buildlogic.util.configureFlavor
 import com.dhc.buildlogic.util.configureKotlinAndroid
 import com.dhc.buildlogic.util.implementation
+import com.dhc.buildlogic.util.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -30,6 +32,7 @@ class PresentationConventionPlugin : Plugin<Project> {
                     implementation(project(":core:presentation"))
                     implementation(project(":core:common"))
                     implementation(project(":data"))
+                    implementation(libs.bundle("coil"))
                 }
             }
         }

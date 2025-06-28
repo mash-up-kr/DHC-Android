@@ -45,3 +45,10 @@ fun NavHostController.navigateToMission() {
 fun NavHostController.navigateToMy() {
     navigateToBottomNavigation(DhcRoute.MAIN_MY)
 }
+
+fun NavHostController.navigateToIntroPageWithClearStack() {
+    navigate(DhcRoute.INTRO.route) {
+        popUpTo(graph.id) { inclusive = true }
+        launchSingleTop = true
+    }
+}

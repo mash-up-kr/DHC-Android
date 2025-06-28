@@ -112,7 +112,9 @@ fun DhcNavHost(
         }
 
         composable(DhcRoute.MAIN_MY.route) {
-            MyPageRoute()
+            MyPageRoute(
+                navigateToInitialScreen = { navController.navigateToIntroPageWithClearStack() },
+            )
         }
         composable(DhcRoute.MAIN_HOME.route) {
             HomeRoute(
