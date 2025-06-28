@@ -1,4 +1,4 @@
-package com.dhc.home
+package com.dhc.home.main
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
@@ -6,8 +6,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.dhc.home.main.HomeContract
-import com.dhc.home.main.HomeScreen
 import com.dhc.home.ui.MissionCompleteCheckBottomSheet
 import com.dhc.home.ui.MissionSuccessDialog
 

@@ -1,10 +1,9 @@
-package com.dhc.home
+package com.dhc.home.main
 
 import androidx.lifecycle.viewModelScope
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
-import com.dhc.home.main.HomeContract
 import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.home.model.MissionStatusType
 import com.dhc.home.model.MissionSuccessButtonType
