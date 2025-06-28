@@ -99,6 +99,26 @@ data object GradientColor {
         ),
     )
 
+    fun buttonSurfaceGradient02(
+        centerOffset: Offset,
+        radius: Float,
+    ) = Brush.radialGradient(
+        colorStops = arrayOf(
+            0.3f to AccentColor.violet300,
+            1.0f to AccentColor.violet300.copy(alpha = 0f),
+        ),
+        center = centerOffset,
+        radius = radius,
+    )
+
+    val buttonBorderGradient01 = Brush.linearGradient(
+        colorStops = arrayOf(
+            0f to AccentColor.violet400,
+            0.83f to AccentColor.violet400,
+            1.0f to AccentColor.violet300,
+        ),
+    )
+
     @Composable
     fun backgroundGradient02Alpha(alpha: Float): Brush = Brush.radialGradient(
         colorStops = arrayOf(
@@ -110,7 +130,6 @@ data object GradientColor {
         center = Offset(x = (LocalWindowInfo.current.containerSize.width * 72 / 100f), y = 0f),
         radius = 1200f,
     )
-
 
     val borderGradient01 = Brush.verticalGradient(
         colorStops = arrayOf(
