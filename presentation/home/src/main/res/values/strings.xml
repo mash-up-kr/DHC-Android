@@ -14,4 +14,10 @@
     <string name="save_description">을\n절약했어요</string>
     <string name="confirm_statics">통계 확인하기</string>
     <string name="already_confirm">확인했어요</string>
+    <string name="mission_change_description">미션은 하루에 4번만 변경 가능해요. (%d/4)</string>
+    <string name="mission_change_title">\'%s\'\n미션을 정말 바꾸시겠어요?</string>
+    <string name="accept_change">네, 바꿀래요</string>
+    <string name="back">돌아가기</string>
+    <string name="limit_mission_change">미션은 하루에 4번만\n변경 가능해요</string>
+    <string name="limit_mission_change_description">내일 돌아오면 새로운 미션을 받을 수 있어요!</string>
 </resources>

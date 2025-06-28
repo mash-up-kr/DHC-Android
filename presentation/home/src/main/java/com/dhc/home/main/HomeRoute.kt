@@ -23,6 +23,7 @@ fun HomeRoute(
                 is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
                 is HomeContract.SideEffect.ShowToast -> {}
+                is HomeContract.SideEffect.ChangeMissionBoarder -> {}
             }
         }
     }
@@ -40,6 +41,18 @@ fun HomeRoute(
 
         if(state.isShowMissionSuccessDialog) {
             MissionSuccessDialog(
+                eventHandler = viewModel::sendEvent
+            )
+        }
+
+        if(state.isShowMissionChangeBottomSheet) {
+            MissionChangeBottomSheet(
+                eventHandler = viewModel::sendEvent
+            )
+        }
+
+        if(state.isShowFinishMissionChangeBottomSheet) {
+            FinishMissionChangeBottomSheet(
                 eventHandler = viewModel::sendEvent
             )
         }
