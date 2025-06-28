@@ -26,6 +26,7 @@
     <string name="dialog_app_initialization_description">앱을 초기화하면 다시 복구할 수 없어요</string>
     <string name="go_back">이전으로 돌아가기</string>
     <string name="initialize">초기화</string>
+    <string name="confirm">확인</string>
 
 </resources>
 

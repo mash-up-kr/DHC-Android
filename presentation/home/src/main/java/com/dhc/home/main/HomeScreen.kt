@@ -56,60 +56,63 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 20.dp)
                 .verticalScroll(scrollState),
         ) {
-            Spacer(modifier = Modifier.height(13.dp))
-            Text(
-                text = "5월 20일",
-                style = DhcTypoTokens.Body3,
-                color = SurfaceColor.neutral300,
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            MonetaryLuckInfo(
-                onClickMoreButton = { eventHandler(HomeContract.Event.ClickMoreButton) }
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            Box(
-                modifier = Modifier
-                    .padding(20.dp)
-                    .align(Alignment.CenterHorizontally)
-                    .fillMaxWidth()
-                    .height(280.dp)
-                    .background(brush = GradientColor.backgroundGradient01)
-                    .offset(y = -(10.dp)),
+            Column(
+                modifier = Modifier.padding(horizontal = 20.dp)
             ) {
-                FlippableBox(
-                    isFlipped = false,
-                    onFlipEnd = {},
-                    frontScreen = {
-                        DhcFortuneCard(
-                            title = "오늘의 운세 카드",
-                            description = "한템포 쉬어가기",
-                            modifier = Modifier
-                                .size(width = 143.dp, height = 197.dp)
-                                .padding(top = 20.dp, bottom = 53.5.dp)
-                                .align(Alignment.Center),
-                        )
-                    },
-                    backScreen = {
-                        DhcFortuneCard(
-                            title = "오늘의 운세 카드",
-                            description = "한템포 쉬어가기",
-                            modifier = Modifier
-                                .size(width = 143.dp, height = 197.dp)
-                                .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) }
-                                .padding(top = 20.dp, bottom = 53.5.dp)
-                                .align(Alignment.Center),
-                        )
-                    },
-                    modifier = Modifier.align(Alignment.Center),
-                    initialRotationZ = -4f,
+                Spacer(modifier = Modifier.height(13.dp))
+                Text(
+                    text = "5월 20일",
+                    style = DhcTypoTokens.Body3,
+                    color = SurfaceColor.neutral300,
                 )
+                Spacer(modifier = Modifier.height(16.dp))
+                MonetaryLuckInfo(
+                    onClickMoreButton = { eventHandler(HomeContract.Event.ClickMoreButton) }
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                Box(
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .align(Alignment.CenterHorizontally)
+                        .fillMaxWidth()
+                        .height(280.dp)
+                        .background(brush = GradientColor.backgroundGradient01)
+                        .offset(y = -(10.dp)),
+                ) {
+                    FlippableBox(
+                        isFlipped = false,
+                        onFlipEnd = {},
+                        frontScreen = {
+                            DhcFortuneCard(
+                                title = "오늘의 운세 카드",
+                                description = "한템포 쉬어가기",
+                                modifier = Modifier
+                                    .padding(top = 20.dp, bottom = 60.dp)
+                                    .size(width = 144.dp, height = 200.dp)
+                                    .align(Alignment.Center),
+                            )
+                        },
+                        backScreen = {
+                            DhcFortuneCard(
+                                title = "오늘의 운세 카드",
+                                description = "한템포 쉬어가기",
+                                modifier = Modifier
+                                    .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) }
+                                    .padding(top = 20.dp, bottom = 60.dp)
+                                    .size(width = 144.dp, height = 200.dp)
+                                    .align(Alignment.Center),
+                            )
+                        },
+                        modifier = Modifier.align(Alignment.Center),
+                        initialRotationZ = -4f,
+                    )
+                }
+                Spacer(modifier = Modifier.height(13.5.dp))
+                SpendingHabitMission()
+                Spacer(modifier = Modifier.height(24.dp))
             }
-            Spacer(modifier = Modifier.height(13.5.dp))
-            SpendingHabitMission()
-            Spacer(modifier = Modifier.height(24.dp))
             MonetaryLuckyDailyMission()
             Spacer(modifier = Modifier.height(136.dp))
         }
@@ -124,6 +127,7 @@ fun HomeScreen(
         )
     }
 }
+
 
 @Composable
 @Preview
