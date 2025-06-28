@@ -12,6 +12,7 @@ import com.dhc.intro.category.IntroCategoryContract.State
 import com.dhc.intro.category.IntroCategoryContract.Event
 import com.dhc.intro.category.IntroCategoryContract.SideEffect
 import com.dhc.intro.category.model.CategoryItem
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -45,8 +46,8 @@ class IntroCategoryViewModel @Inject constructor(
         when (event) {
             is Event.ClickNextButton -> {
                 userRepository.updateCategory(event.currentState.categoryItems.map { it.name })
-//                val userToken = authDataStoreRepository.getUserToken().firstOrNull().orEmpty()
-                val userToken = "507f1f77bcf86cd799439011" // Todo : 임시코드
+                val userToken = authDataStoreRepository.getUserToken().firstOrNull().orEmpty()
+//                val userToken = "507f1f77bcf86cd799439011" // Todo : 임시코드, 서버 정상화 되면 지울 예정
                 val userId = dhcRepository.registerUser(
                     userProfile = userRepository.getUserProfile().copy(userToken = userToken)
                 ).getSuccessOrNull()?.id.orEmpty()

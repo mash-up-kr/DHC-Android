@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    private val userRepository: AuthDataStoreRepository,
+    private val authRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
     override fun createInitialState(): State {
@@ -37,7 +37,7 @@ class MyPageViewModel @Inject constructor(
     }
 
     fun loadMyPageData() = viewModelScope.launch {
-        val userId = "" // Todo : UserId 로 변경 예정
+        val userId = authRepository.getUserId().firstOrNull().orEmpty()
         dhcRepository.getMyPageView(userId)
             .onSuccess { response ->
                 response ?: return@onSuccess
