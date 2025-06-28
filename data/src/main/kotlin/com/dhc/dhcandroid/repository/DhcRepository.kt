@@ -21,7 +21,7 @@ interface DhcRepository {
         userId: String,
         missionId: String,
         toggleMissionRequest: ToggleMissionRequest,
-    ): DhcResult<Mission>
+    ): DhcResult<List<Mission>>
 
     suspend fun requestFinishTodayMissions(
         endTodayMissionRequest: EndTodayMissionRequest,

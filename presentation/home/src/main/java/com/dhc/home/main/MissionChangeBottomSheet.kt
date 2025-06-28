@@ -26,6 +26,8 @@ import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun MissionChangeBottomSheet(
+    missionTitle: String,
+    missionChangeCount: Int,
     eventHandler: EventHandler<HomeContract.Event>,
 ) {
     DhcModalBottomSheet(
@@ -34,8 +36,8 @@ fun MissionChangeBottomSheet(
         onDismissRequest = {},
         content = {
             MissionChangeContent(
-                missionTitle = "가까운 거리 걸어다니기",
-                missionChangeCount = 0,
+                missionTitle = missionTitle,
+                missionChangeCount = missionChangeCount,
                 onClickDismiss = { eventHandler(HomeContract.Event.ClickMissionChangeConfirm(MissionChangeButtonType.BACK))},
                 onClickChange = { eventHandler(HomeContract.Event.ClickMissionChangeConfirm(MissionChangeButtonType.CHANGE))},
             )
@@ -96,6 +98,8 @@ fun MissionChangeContent(
 private fun PreviewMissionChangeBottomSheet() {
     DhcTheme {
         MissionChangeBottomSheet(
+            missionTitle = "가까운 거리 걸어다니기",
+            missionChangeCount = 3,
             eventHandler = {}
         )
     }

@@ -25,7 +25,7 @@ class DhcRepositoryImpl @Inject constructor(
         userId: String,
         missionId: String,
         toggleMissionRequest: ToggleMissionRequest
-    ): DhcResult<Mission> =
+    ): DhcResult<List<Mission>> =
         runDhcCatching {
             dhcRemoteDataSource.changeMissionStatus(
                 userId,

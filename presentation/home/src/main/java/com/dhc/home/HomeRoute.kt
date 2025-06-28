@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dhc.home.main.FinishMissionChangeBottomSheet
@@ -21,13 +24,17 @@ fun HomeRoute(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    var isBlink by remember { mutableStateOf(false) }
+
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
                 is HomeContract.SideEffect.ShowToast -> {}
-                is HomeContract.SideEffect.ChangeMissionBoarder -> {}
+                is HomeContract.SideEffect.ChangeMissionBoarder -> {
+                    isBlink = true
+                }
             }
         }
     }
@@ -35,6 +42,7 @@ fun HomeRoute(
     Box {
         HomeScreen(
             state = state,
+            isBlink = isBlink,
             eventHandler = viewModel::sendEvent
         )
         if(state.isShowMissionCompleteBottomSheet) {
@@ -52,6 +60,8 @@ fun HomeRoute(
 
         if(state.isShowMissionChangeBottomSheet) {
             MissionChangeBottomSheet(
+                missionTitle = state.selectedMissionInfo.missionTitle,
+                missionChangeCount = state.selectedMissionInfo.switchCount,
                 eventHandler = viewModel::sendEvent
             )
         }

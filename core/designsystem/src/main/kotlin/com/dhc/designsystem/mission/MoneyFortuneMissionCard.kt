@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -25,6 +24,7 @@ import com.dhc.designsystem.badge.model.BadgeType
 
 @Composable
 fun MoneyFortuneMissionCard(
+    isBlink: Boolean,
     missionMode: String,
     missionTitle: String,
     isChecked: Boolean,
@@ -39,6 +39,7 @@ fun MoneyFortuneMissionCard(
         else SurfaceColor.neutral400
 
     MissionItemBackGround(
+        isBlink = isBlink,
         modifier = modifier.onSizeChanged {
             onHeightChanged(it.height)
         },
@@ -78,7 +79,8 @@ private fun PreviewMoneyFortuneMissionCard(
             missionMode = "Easy",
             isMissionEnabled = parameter.isMissionEnabled,
             isChecked = parameter.isChecked,
-            missionTitle = parameter.missionTitle
+            missionTitle = parameter.missionTitle,
+            isBlink = false,
         )
     }
 }

@@ -33,11 +33,13 @@ import com.dhc.designsystem.floatingButton.DhcFloatingButton
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.home.R
+import com.dhc.home.model.SelectChangeMission
 import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun HomeScreen(
     state: HomeContract.State,
+    isBlink: Boolean,
     eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
@@ -119,8 +121,15 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(24.dp))
             }
             MonetaryLuckyDailyMission(
+                isBlink = isBlink,
                 dailyMissionList = state.homeInfo.todayDailyMissionList,
-                onClickMissionChange = { eventHandler(HomeContract.Event.ClickMissionChange) },
+                onClickMissionChange = { mission -> eventHandler(HomeContract.Event.ClickMissionChange(
+                    SelectChangeMission(
+                        missionId = mission.missionId,
+                        switchCount = mission.switchCount,
+                        missionTitle = mission.title
+                    )
+                )) },
             )
             Spacer(modifier = Modifier.height(136.dp))
         }
@@ -144,6 +153,7 @@ fun HomeScreenPreview() {
         HomeScreen(
             eventHandler = {},
             state = HomeContract.State(),
+            isBlink = false,
         )
     }
 }

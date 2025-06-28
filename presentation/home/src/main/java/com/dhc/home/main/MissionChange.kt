@@ -37,6 +37,7 @@ import com.dhc.designsystem.R as DR
 
 @Composable
 fun MissionCardReRoll(
+    isBlink: Boolean,
     missionTitle: String,
     missionMode: String,
     isChecked: Boolean,
@@ -65,6 +66,7 @@ fun MissionCardReRoll(
         },
         content = {
             MoneyFortuneMissionCard(
+                isBlink = isBlink,
                 missionMode = missionMode,
                 isMissionEnabled = isMissionEnabled,
                 isChecked = isChecked,
@@ -116,6 +118,7 @@ private fun PreviewMissionChange() {
             missionMode = "Easy",
             isMissionEnabled = true,
             isChecked = true,
+            isBlink = false
         )
     }
 }

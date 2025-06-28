@@ -138,6 +138,7 @@ private fun PreviewSwipeTest() {
             },
             content = {
                 MoneyFortuneMissionCard(
+                    isBlink = true,
                     missionMode = "Easy",
                     isMissionEnabled = true,
                     isChecked = true,
