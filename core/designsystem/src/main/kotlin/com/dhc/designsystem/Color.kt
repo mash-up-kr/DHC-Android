@@ -138,6 +138,13 @@ data object GradientColor {
         )
     )
 
+    val buttonGradient = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0.0f to colors.background.backgroundMain.copy(0f),
+            1.0f to  colors.background.backgroundMain,
+        )
+    )
+
     val cardBorderGradient01 = Brush.linearGradient(
         colorStops = arrayOf(
             0.0f to SurfaceColor.neutral100.copy(0.3f),
