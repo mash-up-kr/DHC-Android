@@ -22,6 +22,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dhc.common.FormatterUtil.wonFormat
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
@@ -47,7 +48,6 @@ fun MissionStatusScreen(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .background(color = SurfaceColor.neutral800) // Todo :: 배경색 변경 필요
             .padding(20.dp)
     ) {
         Text(
@@ -59,26 +59,33 @@ fun MissionStatusScreen(
             color = colors.text.textBodyPrimary,
         )
 
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 20.dp),
-            text = stringResource(R.string.consumption_analysis_title),
-            style = DhcTypoTokens.Body3,
-            color = SurfaceColor.neutral30,
-        )
+        if (state.consumptionAnalysisUiModel != null) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                text = stringResource(R.string.consumption_analysis_title),
+                style = DhcTypoTokens.Body3,
+                color = SurfaceColor.neutral30,
+            )
 
-        DhcMissionStatusCard(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp),
-            title = stringResource(R.string.save_total_money_until_now),
-            subTitle = "130,000원 아꼈어요!",
-        )
+            DhcMissionStatusCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp),
+                title = stringResource(R.string.save_total_money_until_now_prefix),
+                subTitle = stringResource(
+                    R.string.save_total_money_until_now,
+                    wonFormat.format(state.consumptionAnalysisUiModel.totalSaveMoney)
+                ),
+            )
 
-        ConsumptionAnalysisContent(
-            modifier = Modifier.padding(top = 12.dp),
-        )
+            ConsumptionAnalysisContent(
+                weeklySaveMoney = state.consumptionAnalysisUiModel.weeklySaveMoney,
+                graphData = state.consumptionAnalysisUiModel.graphData,
+                modifier = Modifier.padding(top = 12.dp),
+            )
+        }
 
         Text(
             modifier = Modifier
@@ -130,7 +137,11 @@ fun MissionStatusScreen(
 }
 
 @Composable
-private fun ConsumptionAnalysisContent(modifier: Modifier = Modifier) {
+private fun ConsumptionAnalysisContent(
+    weeklySaveMoney: Int,
+    graphData: AnalysisGraphUiModel,
+    modifier: Modifier = Modifier
+) {
     val colors = LocalDhcColors.current
 
     Column(
@@ -142,9 +153,9 @@ private fun ConsumptionAnalysisContent(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth(),
             text = buildAnnotatedString {
                 withStyle(style = SpanStyle(color = colors.text.textHighLightsSecondary)) {
-                    append("이번주에  ")
+                    append(stringResource(R.string.consumption_analysis_this_week))
                 }
-                append("20대 남성 대비")
+                append(stringResource(R.string.consumption_analysis_target, graphData.target))
             },
             style = DhcTypoTokens.TitleH3,
             color = colors.text.textMain,
@@ -154,9 +165,9 @@ private fun ConsumptionAnalysisContent(modifier: Modifier = Modifier) {
                 .padding(top = 4.dp)
                 .fillMaxWidth(),
             text = buildAnnotatedString {
-                append("28,000원 ")
+                append(stringResource(R.string.consumption_analysis_money, wonFormat.format(weeklySaveMoney)))
                 withStyle(style = SpanStyle(color = colors.text.textHighLightsSecondary)) {
-                    append("더절약했어요")
+                    append(stringResource(R.string.consumption_analysis_save_more_money))
                 }
             },
             style = DhcTypoTokens.TitleH3,
@@ -168,21 +179,21 @@ private fun ConsumptionAnalysisContent(modifier: Modifier = Modifier) {
                 .height(200.dp)
                 .padding(top = 40.dp),
             dhcGraphConfig = DhcGraphConfig(
-                maxValue = 100_000,
-                lineLabels = listOf("10 만원", "7.5 만원", "5 만원", "2.5 만원", "0 원")
+                maxValue = 120_000,
+                lineLabels = listOf(12, 9, 6, 3, 0).map { stringResource(R.string.consumption_analysis_calendar_man_won, it) }
             ),
             graphData = listOf(
                 DhcGraphData(
-                    label = "나",
-                    value = 52_000,
+                    label = stringResource(R.string.consumption_analysis_calendar_me),
+                    value = weeklySaveMoney,
                     isHighlight = true,
-                    tooltipMessage = "52,000원",
+                    tooltipMessage = stringResource(R.string.consumption_analysis_calendar_won, weeklySaveMoney),
                 ),
                 DhcGraphData(
-                    label = "20대 남성",
-                    value = 80_000,
+                    label = graphData.target,
+                    value = graphData.targetData,
                     isHighlight = false,
-                    tooltipMessage = "80,000원",
+                    tooltipMessage = stringResource(R.string.consumption_analysis_calendar_won, graphData.targetData),
                 )
             )
         )
@@ -193,6 +204,10 @@ private fun ConsumptionAnalysisContent(modifier: Modifier = Modifier) {
 @Composable
 private fun MissionStatusScreenPreview() {
     DhcTheme {
-        MissionStatusScreen(state = State())
+        MissionStatusScreen(
+            state = State(
+                consumptionAnalysisUiModel = ConsumptionAnalysisUiModel(),
+            )
+        )
     }
 }

@@ -8,7 +8,7 @@ import com.dhc.presentation.mvi.UiState
 class MissionStatusContract {
 
     data class State(
-        val consumptionAnalysisUiModel: ConsumptionAnalysisUiModel = ConsumptionAnalysisUiModel(),
+        val consumptionAnalysisUiModel: ConsumptionAnalysisUiModel? = null,
     ): UiState
 
 
