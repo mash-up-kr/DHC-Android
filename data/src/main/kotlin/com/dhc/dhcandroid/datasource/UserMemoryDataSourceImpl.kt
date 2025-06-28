@@ -23,7 +23,7 @@ class UserMemoryDataSourceImpl @Inject constructor(
         _userProfileState.update { it.copy(birthDate = birthDate) }
     }
 
-    override fun updateBirthTime(birthTime: String) {
+    override fun updateBirthTime(birthTime: String?) {
         _userProfileState.update { it.copy(birthTime = birthTime) }
     }
 

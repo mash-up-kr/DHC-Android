@@ -11,6 +11,6 @@ interface UserMemoryDataSource {
 
     fun updateGender(gender: Gender)
     fun updateBirthDay(birthDate: BirthDate)
-    fun updateBirthTime(birthTime: String)
+    fun updateBirthTime(birthTime: String?)
     fun updateCategory(categoryList: List<MissionCategory>)
 }

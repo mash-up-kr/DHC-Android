@@ -7,7 +7,7 @@ import com.dhc.dhcandroid.model.MissionCategory
 interface UserRepository {
     fun updateGender(gender: Gender)
     fun updateBirthDay(birthDate: BirthDate)
-    fun updateBirthTime(birthTime: String)
+    fun updateBirthTime(birthTime: String?)
     fun updateCategory(categoryList: List<MissionCategory>)
     fun updateUserProfile()
 }

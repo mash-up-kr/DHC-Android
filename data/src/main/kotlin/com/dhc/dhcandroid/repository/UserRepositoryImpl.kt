@@ -17,7 +17,7 @@ class UserRepositoryImpl @Inject constructor(
         userMemoryDataSource.updateBirthDay(birthDate)
     }
 
-    override fun updateBirthTime(birthTime: String) {
+    override fun updateBirthTime(birthTime: String?) {
         userMemoryDataSource.updateBirthTime(birthTime)
     }
 
