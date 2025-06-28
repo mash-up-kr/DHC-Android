@@ -25,6 +25,7 @@ fun HomeRoute(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     var isBlink by remember { mutableStateOf(false) }
+    var reRollExpanded by remember { mutableStateOf(false) }
     var changeMissionId by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
@@ -33,9 +34,8 @@ fun HomeRoute(
                 is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
                 is HomeContract.SideEffect.ShowToast -> {}
-                is HomeContract.SideEffect.ChangeMissionBoarder -> {
-                    isBlink = true
-                    changeMissionId = sideEffect.missionId
+                is HomeContract.SideEffect.ReRollExpanded -> {
+                    reRollExpanded = true
                 }
             }
         }
@@ -44,10 +44,9 @@ fun HomeRoute(
     Box {
         HomeScreen(
             state = state,
-            isBlink = isBlink,
             eventHandler = viewModel::sendEvent,
             onBlinkEnd = { isBlink = false },
-            changeMissionId = changeMissionId
+            reRollExpanded = reRollExpanded,
         )
         if(state.isShowMissionCompleteBottomSheet) {
             MissionCompleteCheckBottomSheet(

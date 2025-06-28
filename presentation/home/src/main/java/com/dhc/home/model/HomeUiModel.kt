@@ -58,6 +58,8 @@ data class MissionUiModel(
     val endDate: String = "",
     val difficulty: String = "",
     val switchCount: Int = 0,
+    val isBlink: Boolean = false,
+    val isExpanded: Boolean = false
 ) {
     companion object {
         fun Int.calDifficulty(): String {

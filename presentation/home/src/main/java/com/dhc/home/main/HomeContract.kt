@@ -30,7 +30,7 @@ class HomeContract {
         data object ClickMissionComplete: Event
         data class ClickMissionCompleteConfirm(val buttonType: MissionCompleteButtonType): Event
         data class ClickMissionSuccess(val buttonType: MissionSuccessButtonType): Event
-        data class ClickMissionChange(val selectChangeMission: SelectChangeMission): Event //TODO - item id로 받기
+        data class ClickMissionChange(val selectChangeMission: SelectChangeMission): Event
         data class ClickMissionChangeConfirm(val buttonType: MissionChangeButtonType): Event
         data object ClickFinishMissionChangeConfirm: Event
     }
@@ -39,7 +39,6 @@ class HomeContract {
         data object NavigateToMonetaryDetailScreen: SideEffect
         data class ShowToast(val msg: String): SideEffect
         data object NavigateToMission: SideEffect
-        data class ChangeMissionBoarder(val missionId: String): SideEffect
-
+        data object ReRollExpanded: SideEffect
     }
 }

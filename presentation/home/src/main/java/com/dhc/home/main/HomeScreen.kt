@@ -39,8 +39,7 @@ import com.dhc.presentation.mvi.EventHandler
 @Composable
 fun HomeScreen(
     state: HomeContract.State,
-    isBlink: Boolean,
-    changeMissionId: String,
+    reRollExpanded: Boolean,
     eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
@@ -123,8 +122,6 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(24.dp))
             }
             MonetaryLuckyDailyMission(
-                isBlink = isBlink,
-                changeMissionId = changeMissionId,
                 dailyMissionList = state.homeInfo.todayDailyMissionList,
                 onClickMissionChange = { mission -> eventHandler(HomeContract.Event.ClickMissionChange(
                     SelectChangeMission(
@@ -134,6 +131,7 @@ fun HomeScreen(
                     )
                 )) },
                 onBlinkEnd = onBlinkEnd,
+                reRollExpanded = reRollExpanded,
             )
             Spacer(modifier = Modifier.height(136.dp))
         }
@@ -159,7 +157,8 @@ fun HomeScreenPreview() {
             state = HomeContract.State(),
             isBlink = false,
             changeMissionId = "",
-            onBlinkEnd = {}
+            onBlinkEnd = {},
+            reRollExpanded = true
         )
     }
 }

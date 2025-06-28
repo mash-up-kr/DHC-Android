@@ -62,14 +62,14 @@ class HomeViewModel @Inject constructor(
                     updateMissionChangeConfirmBottomSheetState(true)
                 }
             }
-            is Event.ClickMissionChangeConfirm -> {
+            is Event.ClickMissionChangeConfirm -> { //리롤 복귀, isExpanded를 저장
                 updateMissionChangeConfirmBottomSheetState(false)
+                postSideEffect(SideEffect.ReRollExpanded)
                 if(event.buttonType == MissionChangeButtonType.CHANGE) {
                     updateMissionStatus(
                         missionId = state.value.selectedMissionInfo.missionId,
                         missionStatusType = MissionStatusType.CHANGE
                     )
-                    postSideEffect(SideEffect.ChangeMissionBoarder(missionId = state.value.selectedMissionInfo.missionId ))
                 }
             }
             is Event.ClickFinishMissionChangeConfirm -> {
@@ -124,7 +124,7 @@ class HomeViewModel @Inject constructor(
                     longTermMission = longTermMission.first().toUiModel(),
                     todayDailyMissionList = todayDailyMissionList.toUiModel(),
                 ))}
-                postSideEffect(SideEffect.ChangeMissionBoarder(newIds))
+                postSideEffect(SideEffect.ReRollExpanded)
             }
         }
     }
