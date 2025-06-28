@@ -1,11 +1,10 @@
 package com.dhc.mypage
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.dhc.common.onFailure
 import com.dhc.common.onSuccess
 import com.dhc.dhcandroid.repository.DhcRepository
-import com.dhc.dhcandroid.repository.UserDataStoreRepository
+import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.mypage.MyPageContract.Event
 import com.dhc.mypage.MyPageContract.SideEffect
 import com.dhc.mypage.MyPageContract.State
@@ -18,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    private val userRepository: UserDataStoreRepository,
+    private val userRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
     override fun createInitialState(): State {
