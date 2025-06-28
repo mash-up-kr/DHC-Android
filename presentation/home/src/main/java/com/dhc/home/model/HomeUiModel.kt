@@ -4,7 +4,6 @@ import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.MissionCategory
 import com.dhc.dhcandroid.model.MissionType
 import com.dhc.home.model.MissionUiModel.Companion.calDifficulty
-import com.dhc.home.model.MissionUiModel.Companion.toCategory
 import com.dhc.home.model.MissionUiModel.Companion.toDDay
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -20,7 +19,7 @@ data class HomeUiModel(
         fun from(homeViewResponse: HomeViewResponse) = HomeUiModel(
             longTermMission = MissionUiModel(
                 missionId = homeViewResponse.longTermMission.missionId,
-                category = homeViewResponse.longTermMission.category.toCategory(),
+                category = homeViewResponse.longTermMission.category,
                 type = homeViewResponse.longTermMission.type,
                 finished = homeViewResponse.longTermMission.finished,
                 title = homeViewResponse.longTermMission.title,
@@ -31,7 +30,7 @@ data class HomeUiModel(
             todayDailyMissionList = homeViewResponse.todayDailyMissionList.map {
                 MissionUiModel(
                     missionId = it.missionId,
-                    category = it.category.toCategory(),
+                    category = it.category,
                     type = it.type,
                     finished = it.finished,
                     title = it.title,
@@ -85,19 +84,6 @@ data class MissionUiModel(
                 }
             } catch (e: Exception) {
                 "Invalid Date"
-            }
-        }
-
-        //Todo - 정의되면 바꾸기
-        fun MissionCategory.toCategory(): String {
-            return when (this) {
-                MissionCategory.TRANSPORTATION -> "Transportation"
-                MissionCategory.FOOD -> "Food"
-                MissionCategory.SHOPPING -> "Shopping"
-                MissionCategory.DIGITAL -> "Shopping"
-                MissionCategory.TRAVEL -> "Shopping"
-                MissionCategory.SOCIAL -> "Shopping"
-                else -> "Unknown"
             }
         }
     }

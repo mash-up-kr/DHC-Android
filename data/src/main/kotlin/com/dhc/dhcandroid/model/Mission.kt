@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Mission(
     val missionId: String = "",
-    val category: MissionCategory = MissionCategory.TRANSPORTATION,
+    val category: String = "",
     val difficulty: Int = 0,
     val type: MissionType = MissionType.LONG_TERM,
     val finished: Boolean = false,
