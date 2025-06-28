@@ -24,6 +24,7 @@ import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
 import com.dhc.dhcandroid.MainViewModel
 
+// MainViewModel.init() 실행을 위해 미사용이지만 파라미터가 필요합니다
 @Suppress("UnusedParameter")
 @Composable
 fun DhcApp(
