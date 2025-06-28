@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -41,18 +42,21 @@ fun MissionCardReRoll(
     modifier: Modifier = Modifier
 ) {
     var isExpanded by remember { mutableStateOf(false) }
-    val targetPadding = if (isExpanded) 0.dp else 16.dp
+    val targetPadding = if (isExpanded) 16.dp else 0.dp
     val horizontalPadding by animateDpAsState(targetValue = targetPadding, label = "cardPadding")
     var missionChangeHeight by remember { mutableIntStateOf(0) }
     val density = LocalDensity.current
 
     DhcCardReRoll(
-        modifier = modifier.padding(horizontal = horizontalPadding),
+        modifier = modifier
+            .padding(horizontal = 16.dp)
+            .graphicsLayer { translationX = -(horizontalPadding.value * density.density) },
         isExpanded = isExpanded,
         onExpandedChange = { isExpanded = it },
-        actions = {
-            MissionChange(modifier = Modifier
-                .height(with(density) { missionChangeHeight.toDp() }),
+        actionContent = {
+            MissionChange(
+                modifier = Modifier
+                    .height(with(density) { missionChangeHeight.toDp() }),
                 onClickMissionChange = onClickMissionChange
             )
         },
@@ -78,7 +82,7 @@ fun MissionChange(
     Column(
         modifier = modifier
             .background(color = AccentColor.violet400)
-            .clickable { }
+            .clickable { onClickMissionChange() }
             .padding(vertical = 10.dp, horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
