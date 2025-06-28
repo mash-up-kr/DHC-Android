@@ -1,6 +1,5 @@
 package com.dhc.dhcandroid.model
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
