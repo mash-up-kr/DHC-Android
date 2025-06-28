@@ -6,6 +6,7 @@ import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.Mission
+import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
@@ -42,4 +43,7 @@ interface DhcRemoteDataSource {
     suspend fun getAnalysisView(
         userId: String,
     ): Response<AnalysisViewResponse>
+
+    suspend fun getMissionCategories(
+    ): Response<MissionCategoriesResponse>
 }
