@@ -101,7 +101,7 @@ fun DhcNavHost(
             }
             composable(DhcRoute.INTRO_CATEGORY.route) {
                 IntroCategoryRoute(
-                    navigateToNextScreen = { navController.navigateToHome() },
+                    navigateToNextScreen = { navController.navigateToHomeFromIntro() },
                 )
             }
         }

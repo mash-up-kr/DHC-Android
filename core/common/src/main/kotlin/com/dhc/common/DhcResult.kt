@@ -26,3 +26,5 @@ inline fun <T> DhcResult<T>.onException(action: (Throwable) -> Unit): DhcResult<
     }
     return this
 }
+
+fun <T> DhcResult<T>.getSuccessOrNull() = if (this is DhcResult.Success) this.data else null

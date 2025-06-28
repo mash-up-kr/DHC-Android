@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -72,15 +70,14 @@ fun IntroCategoryScreen(
             ) {
                 itemsIndexed(
                     items = state.categoryItems,
-                    key = { _, item -> item.id },
+                    key = { _, item -> item.toString() },
                 ) { categoryIndex, item ->
                     DhcCategoryItem(
-                        name = item.name,
-                        isChecked = state.selectedIndexSet.contains(categoryIndex),
+                        name = item.displayName,
                         imageUrl = item.imageUrl,
+                        isChecked = state.selectedIndexSet.contains(categoryIndex),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(1.6f)
                             .clickable {
                                 eventHandler(
                                     IntroCategoryContract.Event.ClickCategoryItem(categoryIndex)
@@ -96,7 +93,7 @@ fun IntroCategoryScreen(
             buttonStyle = DhcButtonStyle.Secondary(isEnabled = state.nextButtonEnabled),
             onClick = {
                 if (state.nextButtonEnabled) {
-                    eventHandler(IntroCategoryContract.Event.ClickNextButton(state))
+                    eventHandler(IntroCategoryContract.Event.ClickNextButton(currentState = state))
                 }
             },
             modifier = Modifier
