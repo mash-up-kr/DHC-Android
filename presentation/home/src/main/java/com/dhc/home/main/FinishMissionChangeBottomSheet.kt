@@ -66,7 +66,7 @@ fun FinishMissionChangeContent(
             text = stringResource(DR.string.confirm),
             buttonSize = DhcButtonSize.XLARGE,
             buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
-            onClick = { onClickConfirm() },
+            onClick = onClickConfirm,
             modifier = Modifier
                 .fillMaxWidth()
         )

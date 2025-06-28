@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(
             is Event.ClickMissionChangeConfirm -> {
                 updateMissionChangeConfirmBottomSheetState(false)
                 if(event.buttonType == MissionChangeButtonType.CHANGE) {
-                    postSideEffect(SideEffect.ChangeMissionBoarder(missionId = 0))
+                    postSideEffect(SideEffect.ChangeMissionBoarder(missionId = 0))  // TODO - id 변경
                 }
             }
             is Event.ClickFinishMissionChangeConfirm -> {

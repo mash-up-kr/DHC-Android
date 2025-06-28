@@ -73,7 +73,7 @@ fun MissionChangeContent(
             text = stringResource(R.string.accept_change),
             buttonSize = DhcButtonSize.XLARGE,
             buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
-            onClick = { onClickChange() },
+            onClick = onClickChange,
             modifier = Modifier
                 .fillMaxWidth()
         )
@@ -82,7 +82,7 @@ fun MissionChangeContent(
             text = stringResource(R.string.back),
             buttonSize = DhcButtonSize.XLARGE,
             buttonStyle = DhcButtonStyle.Teritary,
-            onClick = { onClickDismiss() },
+            onClick = onClickDismiss,
             modifier = Modifier
                 .fillMaxWidth()
         )
