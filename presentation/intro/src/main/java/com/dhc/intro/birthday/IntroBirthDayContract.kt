@@ -13,7 +13,8 @@ class IntroBirthDayContract {
         val month: Int = 1,
         val day: Int = 1,
     ) : UiState {
-        val date = "$year-$month-$day" // Todo : 어떤식으로 보내는지 확인 후 수정
+        private val dateFormat = "%04d-%02d-%02d" // Todo : 공통 Formatter 로 이동
+        val date = dateFormat.format(year, month, day)
     }
 
     sealed interface Event : UiEvent {
