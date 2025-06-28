@@ -25,12 +25,16 @@ import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
+import com.dhc.designsystem.button.DhcButton
+import com.dhc.designsystem.button.model.DhcButtonSize
+import com.dhc.designsystem.button.model.DhcButtonStyle
 
 @Composable
 fun DhcDialog(
     modifier: Modifier = Modifier,
     dialogProperties: DialogProperties = DialogProperties(),
     onDismissRequest: () -> Unit = {},
+    onClickDismiss: () -> Unit = {},
     dialogContent: @Composable () -> Unit,
 ) {
     Dialog(
@@ -47,7 +51,7 @@ fun DhcDialog(
                     .align(Alignment.End)
                     .padding(top = 16.dp, end = 12.dp)
                     .size(28.dp),
-                onClick = { onDismissRequest() }
+                onClick = onClickDismiss
             ) {
                 Image(
                     painter = painterResource(R.drawable.ico_x),

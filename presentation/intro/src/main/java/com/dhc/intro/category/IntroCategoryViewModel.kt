@@ -1,5 +1,6 @@
 package com.dhc.intro.category
 
+import com.dhc.dhcandroid.repository.UserRepository
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -10,6 +11,7 @@ import com.dhc.intro.category.model.CategoryItem
 
 @HiltViewModel
 class IntroCategoryViewModel @Inject constructor(
+    private val repository: UserRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
 
     override fun createInitialState(): State {
@@ -27,7 +29,14 @@ class IntroCategoryViewModel @Inject constructor(
 
     override suspend fun handleEvent(event: Event) {
         when (event) {
-            is Event.ClickNextButton -> postSideEffect(SideEffect.NavigateToNextScreen)
+            is Event.ClickNextButton -> {
+                val selectedCategory = event.currentState.categoryItems.filterIndexed { index, _ ->
+                    event.currentState.selectedIndexSet.contains(index)
+                }
+                repository.updateCategory(selectedCategory.map { it.toServerType() })
+                repository.updateUserProfile()
+                postSideEffect(SideEffect.NavigateToNextScreen)
+            }
             is Event.ClickCategoryItem -> reduce {
                 copy(
                     selectedIndexSet = if (selectedIndexSet.contains(event.selectedIndex)) {

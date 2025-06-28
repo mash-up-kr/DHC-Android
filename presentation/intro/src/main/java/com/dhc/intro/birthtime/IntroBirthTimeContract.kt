@@ -12,10 +12,13 @@ class IntroBirthTimeContract {
         val timeType: TimeType = TimeType.AM,
         val time: Int = 1,
         val minute: Int = 0,
-    ) : UiState
+    ) : UiState {
+        private val timeFormat = "%02d:%02d" // Todo : 공통 Formatter 로 이동
+        val birthTime: String? = if (isIdkChecked) null else timeFormat.format(time, minute)
+    }
 
     sealed interface Event : UiEvent {
-        data object ClickNextButton : Event
+        data class ClickNextButton(val currentState: State) : Event
         data class SelectIdkButton(val isIdkEnabled: Boolean) : Event
         data class SelectBirthTime(val timeType: TimeType, val time: Int, val minute: Int) : Event
     }
