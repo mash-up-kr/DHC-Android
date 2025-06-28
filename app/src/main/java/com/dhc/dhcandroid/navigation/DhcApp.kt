@@ -24,6 +24,7 @@ import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
 import com.dhc.dhcandroid.MainViewModel
 
+@Suppress("UnusedParameter")
 @Composable
 fun DhcApp(
     modifier: Modifier = Modifier,
