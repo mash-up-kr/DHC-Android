@@ -2,7 +2,7 @@ package com.dhc.dhcandroid.datasource
 
 import kotlinx.coroutines.flow.Flow
 
-interface UserLocalDataSource {
+interface AuthLocalDataSource {
     suspend fun setUUID()
     suspend fun getUUID(): Flow<String?>
 
