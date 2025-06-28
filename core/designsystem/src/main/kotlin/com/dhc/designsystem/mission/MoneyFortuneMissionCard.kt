@@ -24,12 +24,13 @@ import com.dhc.designsystem.badge.model.BadgeType
 
 @Composable
 fun MoneyFortuneMissionCard(
-    isBlink: Boolean,
     missionMode: String,
     missionTitle: String,
     isChecked: Boolean,
     isMissionEnabled: Boolean,
     modifier: Modifier = Modifier,
+    isBlink: Boolean = false,
+    onBlinkEnd: () -> Unit = {},
     onHeightChanged: (Int) -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
@@ -39,10 +40,11 @@ fun MoneyFortuneMissionCard(
         else SurfaceColor.neutral400
 
     MissionItemBackGround(
-        isBlink = isBlink,
         modifier = modifier.onSizeChanged {
             onHeightChanged(it.height)
         },
+        isBlink = isBlink,
+        onBlinkEnd = onBlinkEnd,
         isChecked = isChecked,
         isEnabled = isMissionEnabled,
         content = {

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +23,7 @@ import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.check.DhcCheck
 import com.dhc.designsystem.check.model.DhcCheckStyle
 import com.dhc.designsystem.colors
+import kotlinx.coroutines.delay
 
 @Composable
 fun MissionItemBackGround(
@@ -29,8 +31,15 @@ fun MissionItemBackGround(
     isEnabled: Boolean,
     modifier: Modifier = Modifier,
     isBlink: Boolean = false,
+    onBlinkEnd: () -> Unit = {},
     content: @Composable RowScope.() -> Unit,
 ) {
+    LaunchedEffect(isBlink) {
+        if (isBlink) {
+            delay(1500)
+            onBlinkEnd()
+        }
+    }
     Row(
         modifier = modifier
             .fillMaxWidth()

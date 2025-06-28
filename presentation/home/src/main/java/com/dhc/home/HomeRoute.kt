@@ -25,6 +25,7 @@ fun HomeRoute(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     var isBlink by remember { mutableStateOf(false) }
+    var changeMissionId by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
@@ -34,6 +35,7 @@ fun HomeRoute(
                 is HomeContract.SideEffect.ShowToast -> {}
                 is HomeContract.SideEffect.ChangeMissionBoarder -> {
                     isBlink = true
+                    changeMissionId = sideEffect.missionId
                 }
             }
         }
@@ -43,7 +45,9 @@ fun HomeRoute(
         HomeScreen(
             state = state,
             isBlink = isBlink,
-            eventHandler = viewModel::sendEvent
+            eventHandler = viewModel::sendEvent,
+            onBlinkEnd = { isBlink = false },
+            changeMissionId = changeMissionId
         )
         if(state.isShowMissionCompleteBottomSheet) {
             MissionCompleteCheckBottomSheet(

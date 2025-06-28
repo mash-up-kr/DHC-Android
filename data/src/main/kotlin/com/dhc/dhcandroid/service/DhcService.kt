@@ -29,7 +29,7 @@ interface DhcService {
         @Path("userId") userId: String,
         @Path("missionId") missionId: String,
         @Body toggleMissionRequest: ToggleMissionRequest,
-    ): Response<Mission>
+    ): Response<List<Mission>>
 
     @POST("/api/users/{userId}/done")
     suspend fun requestFinishTodayMissions(

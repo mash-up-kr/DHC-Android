@@ -40,9 +40,11 @@ import com.dhc.presentation.mvi.EventHandler
 fun HomeScreen(
     state: HomeContract.State,
     isBlink: Boolean,
+    changeMissionId: String,
     eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
+    onBlinkEnd: () -> Unit,
 ) {
     Box(
         modifier = modifier.fillMaxSize()
@@ -122,6 +124,7 @@ fun HomeScreen(
             }
             MonetaryLuckyDailyMission(
                 isBlink = isBlink,
+                changeMissionId = changeMissionId,
                 dailyMissionList = state.homeInfo.todayDailyMissionList,
                 onClickMissionChange = { mission -> eventHandler(HomeContract.Event.ClickMissionChange(
                     SelectChangeMission(
@@ -130,6 +133,7 @@ fun HomeScreen(
                         missionTitle = mission.title
                     )
                 )) },
+                onBlinkEnd = onBlinkEnd,
             )
             Spacer(modifier = Modifier.height(136.dp))
         }
@@ -154,6 +158,8 @@ fun HomeScreenPreview() {
             eventHandler = {},
             state = HomeContract.State(),
             isBlink = false,
+            changeMissionId = "",
+            onBlinkEnd = {}
         )
     }
 }

@@ -41,9 +41,10 @@ fun MissionCardReRoll(
     missionTitle: String,
     missionMode: String,
     isChecked: Boolean,
-    isMissionEnabled: Boolean,
+    isMissionFinished: Boolean,
     onClickMissionChange: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onBlinkEnd: () -> Unit = {},
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     val targetPadding = if (isExpanded) 16.dp else 0.dp
@@ -68,9 +69,10 @@ fun MissionCardReRoll(
             MoneyFortuneMissionCard(
                 isBlink = isBlink,
                 missionMode = missionMode,
-                isMissionEnabled = isMissionEnabled,
+                isMissionEnabled = !isMissionFinished,
                 isChecked = isChecked,
                 missionTitle = missionTitle,
+                onBlinkEnd = onBlinkEnd,
                 onHeightChanged = { missionChangeHeight = it }
             )
         }
@@ -116,7 +118,7 @@ private fun PreviewMissionChange() {
             missionTitle = "돈 아끼기",
             onClickMissionChange = {},
             missionMode = "Easy",
-            isMissionEnabled = true,
+            isMissionFinished = true,
             isChecked = true,
             isBlink = false
         )

@@ -2,7 +2,6 @@ package com.dhc.home.model
 
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.Mission
-import com.dhc.dhcandroid.model.MissionCategory
 import com.dhc.dhcandroid.model.MissionType
 import com.dhc.home.model.MissionUiModel.Companion.calDifficulty
 import com.dhc.home.model.MissionUiModel.Companion.toDDay
@@ -124,3 +123,4 @@ fun List<Mission>.toUiModel() = map {
 fun getMissionIdList(longTermMission: MissionUiModel, todayDailyMissionList: List<MissionUiModel>): List<String> {
     return listOf(longTermMission.missionId) + todayDailyMissionList.map { it.missionId }
 }
+

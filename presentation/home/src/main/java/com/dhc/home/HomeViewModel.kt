@@ -111,7 +111,7 @@ class HomeViewModel @Inject constructor(
                 MissionStatusType.CHANGE -> ToggleMissionRequest(switch = true)
             }
             dhcRepository.changeMissionStatus(
-                userId = userId,
+                userId = "68600689fe2fbbba96b0ab4a", //TODO - 추후 변경
                 missionId = missionId,
                 toggleMissionRequest = toggleMissionRequest
             ).onSuccess { response ->
