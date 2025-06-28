@@ -12,6 +12,7 @@ import com.dhc.mypage.MyPageContract.State
 import com.dhc.mypage.model.MyInfoUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +20,6 @@ import javax.inject.Inject
 class MyPageViewModel @Inject constructor(
     private val userRepository: UserDataStoreRepository,
     private val dhcRepository: DhcRepository,
-    private val savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<State, Event, SideEffect>() {
     override fun createInitialState(): State {
         return State()
@@ -38,8 +38,8 @@ class MyPageViewModel @Inject constructor(
     }
 
     fun loadMyPageData() = viewModelScope.launch {
-        val userId = userRepository.getUUID()
-        dhcRepository.getMyPageView("685d5c51e2653443ce6cf530") // Todo :: 추후 userId로 변경 필요
+        val userId = userRepository.getUUID().firstOrNull().orEmpty()
+        dhcRepository.getMyPageView(userId)
             .onSuccess { response ->
                 response ?: return@onSuccess
                 reduce {

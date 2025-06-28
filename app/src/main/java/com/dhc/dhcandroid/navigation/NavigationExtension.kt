@@ -48,7 +48,7 @@ fun NavHostController.navigateToMy() {
 
 fun NavHostController.navigateToIntroPageWithClearStack() {
     navigate(DhcRoute.INTRO.route) {
-        popUpTo(0) { inclusive = true }
+        popUpTo(graph.id) { inclusive = true }
         launchSingleTop = true
     }
 }

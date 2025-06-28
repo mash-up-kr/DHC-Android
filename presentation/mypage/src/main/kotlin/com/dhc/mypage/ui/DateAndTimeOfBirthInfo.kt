@@ -16,8 +16,8 @@ import com.dhc.common.FullRoundedCornerShape
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
-import com.dhc.mypage.utils.SajuUtil.sajuCardDateFormat
-import com.dhc.mypage.utils.SajuUtil.sajuCardTimeFormat
+import com.dhc.mypage.utils.Formatter.sajuCardDateFormat
+import com.dhc.mypage.utils.Formatter.sajuCardTimeFormat
 import java.time.LocalDateTime
 
 @Composable

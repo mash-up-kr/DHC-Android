@@ -8,6 +8,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.bundles.coil)
     testImplementation(libs.junit)
 }
