@@ -21,19 +21,23 @@ import com.dhc.designsystem.button.DhcButton
 import com.dhc.designsystem.button.model.DhcButtonSize
 import com.dhc.designsystem.button.model.DhcButtonStyle
 import com.dhc.home.R
+import com.dhc.home.model.MissionChangeButtonType
+import com.dhc.presentation.mvi.EventHandler
 
 @Composable
-fun MissionChangeBottomSheet() {
+fun MissionChangeBottomSheet(
+    eventHandler: EventHandler<HomeContract.Event>,
+) {
     DhcModalBottomSheet(
         isCloseButtonEnabled = false,
         containerColor = SurfaceColor.neutral700,
-        onDismissRequest = { },
+        onDismissRequest = {},
         content = {
             MissionChangeContent(
                 missionTitle = "가까운 거리 걸어다니기",
                 missionChangeCount = 0,
-                onClickDismiss = {},
-                onClickFinish = {},
+                onClickDismiss = { eventHandler(HomeContract.Event.ClickMissionChangeConfirm(MissionChangeButtonType.BACK))},
+                onClickChange = { eventHandler(HomeContract.Event.ClickMissionChangeConfirm(MissionChangeButtonType.CHANGE))},
             )
         }
     )
@@ -43,7 +47,7 @@ fun MissionChangeBottomSheet() {
 fun MissionChangeContent(
     missionTitle: String,
     missionChangeCount: Int,
-    onClickFinish: () -> Unit,
+    onClickChange: () -> Unit,
     onClickDismiss: () -> Unit,
 ) {
     val colors = LocalDhcColors.current
@@ -69,7 +73,7 @@ fun MissionChangeContent(
             text = stringResource(R.string.accept_change),
             buttonSize = DhcButtonSize.XLARGE,
             buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
-            onClick = { onClickFinish() },
+            onClick = { onClickChange() },
             modifier = Modifier
                 .fillMaxWidth()
         )
@@ -91,6 +95,8 @@ fun MissionChangeContent(
 @Composable
 private fun PreviewMissionChangeBottomSheet() {
     DhcTheme {
-        MissionChangeBottomSheet()
+        MissionChangeBottomSheet(
+            eventHandler = {}
+        )
     }
 }

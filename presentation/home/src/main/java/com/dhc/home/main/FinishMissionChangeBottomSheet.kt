@@ -21,19 +21,20 @@ import com.dhc.designsystem.button.DhcButton
 import com.dhc.designsystem.button.model.DhcButtonSize
 import com.dhc.designsystem.button.model.DhcButtonStyle
 import com.dhc.home.R
+import com.dhc.presentation.mvi.EventHandler
 import com.dhc.designsystem.R as DR
 
 @Composable
 fun FinishMissionChangeBottomSheet(
-    onDismissRequest: () -> Unit,
+    eventHandler: EventHandler<HomeContract.Event>,
 ) {
     DhcModalBottomSheet(
         isCloseButtonEnabled = true,
         containerColor = SurfaceColor.neutral700,
-        onDismissRequest = onDismissRequest,
+        onDismissRequest = { eventHandler(HomeContract.Event.ClickFinishMissionChangeConfirm) },
         content = {
             FinishMissionChangeContent(
-                onClickConfirm = onDismissRequest
+                onClickConfirm = { eventHandler(HomeContract.Event.ClickFinishMissionChangeConfirm) }
             )
         }
     )
@@ -78,7 +79,7 @@ fun FinishMissionChangeContent(
 private fun PreviewFinishMissionChangeBottomSheet() {
     DhcTheme {
         FinishMissionChangeBottomSheet(
-            onDismissRequest = {}
+            eventHandler = {}
         )
     }
 }

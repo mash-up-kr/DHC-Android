@@ -1,5 +1,6 @@
 package com.dhc.home.main
 
+import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.home.model.MissionSuccessButtonType
 import com.dhc.presentation.mvi.UiEvent
@@ -11,7 +12,9 @@ class HomeContract {
     data class State(
         val isLoading: Boolean = false,
         val isShowMissionCompleteBottomSheet: Boolean = false,
-        val isShowMissionSuccessDialog: Boolean = false
+        val isShowMissionSuccessDialog: Boolean = false,
+        val isShowMissionChangeBottomSheet: Boolean = false,
+        val isShowFinishMissionChangeBottomSheet: Boolean = false,
     ): UiState
 
 
@@ -21,6 +24,9 @@ class HomeContract {
         data object ClickMissionComplete: Event
         data class ClickMissionCompleteConfirm(val buttonType: MissionCompleteButtonType): Event
         data class ClickMissionSuccess(val buttonType: MissionSuccessButtonType): Event
+        data object ClickMissionChange: Event //TODO - item id로 받기
+        data class ClickMissionChangeConfirm(val buttonType: MissionChangeButtonType): Event
+        data object ClickFinishMissionChangeConfirm: Event
     }
 
     sealed interface SideEffect : UiSideEffect {

@@ -30,6 +30,9 @@ class HomeViewModel @Inject constructor(
                 if(event.buttonType == MissionSuccessButtonType.StaticConfirm)
                     postSideEffect(SideEffect.NavigateToMission)
             }
+            is Event.ClickMissionChange -> {}
+            is Event.ClickMissionChangeConfirm -> {}
+            is Event.ClickFinishMissionChange -> {}
         }
     }
 
@@ -39,5 +42,13 @@ class HomeViewModel @Inject constructor(
 
     private fun updateMissionSuccessDialogState(isShowDialog: Boolean) {
         reduce { copy(isShowMissionSuccessDialog = isShowDialog) }
+    }
+
+    private fun updateMissionChangeBottomSheetState(isShowBottomSheet: Boolean) {
+        reduce { copy(isShowMissionChangeBottomSheet = isShowBottomSheet) }
+    }
+
+    private fun updateFinishMissionChangeBottomSheetState(isShowBottomSheet: Boolean) {
+        reduce { copy(isShowFinishMissionChangeBottomSheet = isShowBottomSheet) }
     }
 }

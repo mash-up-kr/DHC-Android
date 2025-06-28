@@ -43,5 +43,17 @@ fun HomeRoute(
                 eventHandler = viewModel::sendEvent
             )
         }
+
+        if(state.isShowMissionChangeBottomSheet) {
+            MissionChangeBottomSheet(
+                eventHandler = viewModel::sendEvent
+            )
+        }
+
+        if(state.isShowFinishMissionChangeBottomSheet) {
+            FinishMissionChangeBottomSheet(
+                eventHandler = viewModel::sendEvent
+            )
+        }
     }
 }
