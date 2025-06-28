@@ -1,6 +1,6 @@
 package com.dhc.mypage
 
-import com.dhc.dhcandroid.model.MissionCategory
+import com.dhc.mypage.model.MissionCategoryUiModel
 import com.dhc.mypage.model.MyInfoUiModel
 import com.dhc.presentation.mvi.UiEvent
 import com.dhc.presentation.mvi.UiSideEffect
@@ -10,7 +10,7 @@ class MyPageContract {
 
     data class State(
         val myInfo: MyInfoUiModel = MyInfoUiModel(),
-        val missionCategories: List<MissionCategory> = emptyList(),
+        val missionCategories: List<MissionCategoryUiModel> = emptyList(),
         val isShowAppResetDialog: Boolean = false,
     ) : UiState
 
