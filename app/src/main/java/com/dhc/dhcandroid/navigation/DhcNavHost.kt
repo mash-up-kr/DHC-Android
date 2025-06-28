@@ -14,7 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.dhc.home.detail.MonetaryLuckDetailRoute
-import com.dhc.home.main.HomeRoute
+import com.dhc.home.HomeRoute
 import com.dhc.intro.birthday.IntroBirthDayRoute
 import com.dhc.intro.birthtime.IntroBirthTimeRoute
 import com.dhc.intro.category.IntroCategoryRoute
@@ -41,7 +41,8 @@ fun DhcNavHost(
         composable(DhcRoute.SPLASH.route) {
             SplashRoute(
                 navigateToNextScreen = {
-                    navController.navigateToIntroFromSplash()
+                    //navController.navigateToIntroFromSplash()
+                    navController.navigateToHomeFromIntro()
                 },
             )
         }

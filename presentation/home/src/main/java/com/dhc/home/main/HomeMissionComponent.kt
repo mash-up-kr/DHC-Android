@@ -13,10 +13,12 @@ import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.mission.SpendingHabitMissionCard
 import com.dhc.home.R
+import com.dhc.home.model.MissionUiModel
 import com.dhc.presentation.component.MissionTitle
 
 @Composable
 fun SpendingHabitMission(
+    missionUiModel: MissionUiModel,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -25,16 +27,16 @@ fun SpendingHabitMission(
         MissionTitle(
             title = stringResource(R.string.spending_habit_mission),
             isInfoIconVisible = true,
-            tooltipMessage = "이것은 툴팁 메시지입니다.",
+            tooltipMessage = stringResource(R.string.mission_tooltip_message),
             isEnableTooltip = true,
-            spendTypeText = "커피값 절약",
+            spendTypeText = missionUiModel.category
         )
         Spacer(modifier = Modifier.height(5.dp))
         SpendingHabitMissionCard(
-            missionDday = "D-3",
-            missionTitle = "텀블러 들고 다니기",
-            isChecked = true,
-            isMissionEnabled = true
+            missionDday = missionUiModel.endDate,
+            missionTitle = missionUiModel.title,
+            isChecked = missionUiModel.finished,
+            isMissionEnabled = missionUiModel.finished
         )
     }
 }
@@ -42,6 +44,8 @@ fun SpendingHabitMission(
 
 @Composable
 fun MonetaryLuckyDailyMission(
+    onClickMissionChange: () -> Unit,
+    dailyMissionList: List<MissionUiModel>,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -53,12 +57,13 @@ fun MonetaryLuckyDailyMission(
         )
         Spacer(modifier = Modifier.height(16.dp))
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            // TODO - 추후 itemList로 변경
-            val items = listOf<String>("돈 아끼기", "돔황챠돔황챠돔황챠돔황챠돔황챠돔황챠돔황챠돔황챠화이팅","돈 아끼기",)
-            items.forEach {
+            dailyMissionList.forEach { mission ->
                 MissionCardReRoll(
-                    missionTitle = it,
-                    onClickMissionChange = {}
+                    missionTitle = mission.title,
+                    missionMode = mission.difficulty,
+                    isChecked = mission.finished,
+                    isMissionEnabled = mission.finished,
+                    onClickMissionChange = onClickMissionChange
                 )
             }
         }
@@ -70,9 +75,14 @@ fun MonetaryLuckyDailyMission(
 private fun PreviewMonetaryLuckyDailyMission() {
     DhcTheme {
         Column {
-            SpendingHabitMission()
+            SpendingHabitMission(
+                missionUiModel = MissionUiModel()
+            )
             Spacer(modifier = Modifier.height(24.dp))
-            MonetaryLuckyDailyMission()
+            MonetaryLuckyDailyMission(
+                dailyMissionList = listOf(),
+                onClickMissionChange = {}
+            )
         }
     }
 }

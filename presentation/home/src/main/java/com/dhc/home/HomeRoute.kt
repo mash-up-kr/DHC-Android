@@ -1,4 +1,4 @@
-package com.dhc.home.main
+package com.dhc.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
@@ -6,6 +6,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dhc.home.main.FinishMissionChangeBottomSheet
+import com.dhc.home.main.HomeContract
+import com.dhc.home.main.HomeScreen
+import com.dhc.home.main.MissionChangeBottomSheet
 import com.dhc.home.ui.MissionCompleteCheckBottomSheet
 import com.dhc.home.ui.MissionSuccessDialog
 
@@ -30,6 +34,7 @@ fun HomeRoute(
 
     Box {
         HomeScreen(
+            state = state,
             eventHandler = viewModel::sendEvent
         )
         if(state.isShowMissionCompleteBottomSheet) {

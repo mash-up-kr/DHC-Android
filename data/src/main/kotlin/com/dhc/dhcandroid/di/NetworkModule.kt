@@ -11,6 +11,7 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
@@ -37,9 +38,11 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideDhcOkHttpClient(
+        httpLoggingInterceptor: HttpLoggingInterceptor,
         flipperOkhttpInterceptor: FlipperOkhttpInterceptor,
     ): OkHttpClient = OkHttpClient.Builder().apply {
         addInterceptor(flipperOkhttpInterceptor)
+        addInterceptor(httpLoggingInterceptor)
     }.build()
 
     @Provides
@@ -52,6 +55,14 @@ object NetworkModule {
     @Singleton
     fun providesNetworkFlipperPlugin(): NetworkFlipperPlugin =
         NetworkFlipperPlugin()
+
+    @Provides
+    @Singleton
+    fun providesLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+        if(BuildConfig.DEBUG) {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
 
     @Provides
     @Singleton

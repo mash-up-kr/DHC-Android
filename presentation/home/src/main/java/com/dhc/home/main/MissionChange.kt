@@ -38,6 +38,9 @@ import com.dhc.designsystem.R as DR
 @Composable
 fun MissionCardReRoll(
     missionTitle: String,
+    missionMode: String,
+    isChecked: Boolean,
+    isMissionEnabled: Boolean,
     onClickMissionChange: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -62,9 +65,9 @@ fun MissionCardReRoll(
         },
         content = {
             MoneyFortuneMissionCard(
-                missionMode = "Easy",
-                isMissionEnabled = true,
-                isChecked = true,
+                missionMode = missionMode,
+                isMissionEnabled = isMissionEnabled,
+                isChecked = isChecked,
                 missionTitle = missionTitle,
                 onHeightChanged = { missionChangeHeight = it }
             )
@@ -110,6 +113,9 @@ private fun PreviewMissionChange() {
         MissionCardReRoll(
             missionTitle = "돈 아끼기",
             onClickMissionChange = {},
+            missionMode = "Easy",
+            isMissionEnabled = true,
+            isChecked = true,
         )
     }
 }

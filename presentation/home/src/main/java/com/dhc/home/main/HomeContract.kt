@@ -1,8 +1,11 @@
 package com.dhc.home.main
 
+import com.dhc.home.model.HomeUiModel
 import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.home.model.MissionSuccessButtonType
+import com.dhc.home.model.MissionUiModel
+import com.dhc.home.model.TodayDailyFortuneUiModel
 import com.dhc.presentation.mvi.UiEvent
 import com.dhc.presentation.mvi.UiSideEffect
 import com.dhc.presentation.mvi.UiState
@@ -15,6 +18,7 @@ class HomeContract {
         val isShowMissionSuccessDialog: Boolean = false,
         val isShowMissionChangeBottomSheet: Boolean = false,
         val isShowFinishMissionChangeBottomSheet: Boolean = false,
+        val homeInfo: HomeUiModel = HomeUiModel()
     ): UiState
 
 

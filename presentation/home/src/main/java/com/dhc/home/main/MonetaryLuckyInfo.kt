@@ -19,6 +19,8 @@ import com.dhc.designsystem.LocalDhcColors
 
 @Composable
 fun MonetaryLuckInfo(
+    fortuneDetail: String,
+    fortuneScore: Int,
     onClickMoreButton: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -31,7 +33,7 @@ fun MonetaryLuckInfo(
     ) {
         Column {
             Text(
-                text = "지갑이 들뜨는 날,\n한템포 쉬어가요.",
+                text = fortuneDetail,
                 style = DhcTypoTokens.TitleH2_1,
                 color = colors.text.textBodyPrimary
             )
@@ -42,7 +44,7 @@ fun MonetaryLuckInfo(
         }
         FortuneCore(
             modifier = Modifier.size(75.dp),
-            fortuneScore = 35
+            fortuneScore = fortuneScore
         )
     }
 }
@@ -52,7 +54,9 @@ fun MonetaryLuckInfo(
 fun PreviewMonetaryLuckInfo() {
     DhcTheme {
         MonetaryLuckInfo(
-            onClickMoreButton = {}
+            onClickMoreButton = {},
+            fortuneScore = 35,
+            fortuneDetail = "지갑이 들뜨는 날,\n한템포 쉬어가요."
         )
     }
 }
