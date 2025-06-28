@@ -87,7 +87,6 @@ data object GradientColor {
         ),
     )
 
-    @Composable
     fun buttonSurfaceGradient02(
         centerOffset: Offset,
         radius: Float,

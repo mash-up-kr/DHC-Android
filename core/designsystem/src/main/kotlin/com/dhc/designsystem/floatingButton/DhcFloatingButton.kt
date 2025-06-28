@@ -1,12 +1,18 @@
 package com.dhc.designsystem.floatingButton
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -31,28 +37,10 @@ fun DhcFloatingButton(
     modifier: Modifier = Modifier,
 ) {
     val colors = LocalDhcColors.current
-    Text(
-        text = text,
-        style = DhcTypoTokens.TitleH5_1,
-        color = if (isEnabled) colors.text.textMain else SurfaceColor.neutral400,
+    Box(
         modifier = modifier
             .shadow(
                 elevation = 4.dp,
-                shape = FullRoundedCornerShape,
-            )
-            .background(color = AccentColor.violet500)
-            .background(
-                brush = if (isEnabled) {
-                    GradientColor.buttonSurfaceGradient02(
-                        centerOffset = Offset(
-                            x = 72.dp.toPx(),
-                            y = 58.dp.toPx(),
-                        ),
-                        radius = 130f,
-                    )
-                } else {
-                    BrushUtil.solidColor(color = SurfaceColor.neutral500)
-                },
                 shape = FullRoundedCornerShape,
             )
             .borderIf(
@@ -61,11 +49,47 @@ fun DhcFloatingButton(
                 brush = GradientColor.buttonBorderGradient01,
                 shape = FullRoundedCornerShape,
             )
-            .clickableIf(predicate = { isEnabled }) { onClick() }
-            .padding(vertical = 13.dp, horizontal = 20.dp),
-    )
+            .clickableIf(predicate = { isEnabled }) { onClick() },
+    ) {
+        Spacer(
+            modifier = Modifier
+                .matchParentSize()
+                .background(
+                    color = if (isEnabled) AccentColor.violet500 else SurfaceColor.neutral500,
+                    shape = FullRoundedCornerShape,
+                )
+        )
+        if (isEnabled) {
+            Canvas(
+                modifier = Modifier
+                    .matchParentSize()
+                    .graphicsLayer {
+                        translationY = size.height / 2
+                        scaleX = 1.5f
+                    },
+            ) {
+                drawOval(
+                    brush = GradientColor.buttonSurfaceGradient02(
+                        centerOffset = Offset.Unspecified,
+                        radius = 100f,
+                    ),
+                    size = Size(
+                        width = size.width,
+                        height = size.height * 2,
+                    ),
+                )
+            }
+        }
+        Text(
+            modifier = Modifier
+                .padding(vertical = 13.dp, horizontal = 20.dp)
+                .align(Alignment.Center),
+            text = text,
+            style = DhcTypoTokens.TitleH5_1,
+            color = if (isEnabled) colors.text.textMain else SurfaceColor.neutral400,
+        )
+    }
 }
-
 
 private class DhcFloatingButtonPreviewProvider :
     PreviewParameterProvider<DhcFloatingButtonPreviewProvider.Parameter> {
