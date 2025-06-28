@@ -4,7 +4,7 @@ import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.GenerationMoneyViewResponse
 import com.dhc.missionstatus.utils.getGenderString
 import com.dhc.missionstatus.utils.getGenerationString
-import com.dhc.missionstatus.utils.toWon
+import com.dhc.missionstatus.utils.toIntOrZero
 
 data class ConsumptionAnalysisUiModel(
     val totalSaveMoney: Int = 0,
@@ -14,8 +14,8 @@ data class ConsumptionAnalysisUiModel(
     companion object {
         fun from(analysisViewResponse: AnalysisViewResponse) =
             ConsumptionAnalysisUiModel(
-                totalSaveMoney = analysisViewResponse.totalSavedMoney.toWon(),
-                weeklySaveMoney = analysisViewResponse.weeklySavedMoney.toWon(),
+                totalSaveMoney = analysisViewResponse.totalSavedMoney.toIntOrZero(),
+                weeklySaveMoney = analysisViewResponse.weeklySavedMoney.toIntOrZero(),
                 graphData = AnalysisGraphUiModel.from(analysisViewResponse.generationMoneyViewResponse)
             )
     }
@@ -29,7 +29,7 @@ data class AnalysisGraphUiModel(
         fun from(generationMoneyViewResponse: GenerationMoneyViewResponse) =
             AnalysisGraphUiModel(
                 target = "${generationMoneyViewResponse.generation.getGenerationString()} ${generationMoneyViewResponse.gender.getGenderString()}",
-                targetData = generationMoneyViewResponse.averageSpendMoney.toWon()
+                targetData = generationMoneyViewResponse.averageSpendMoney.toIntOrZero()
             )
     }
 }
