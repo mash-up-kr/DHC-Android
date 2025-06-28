@@ -46,6 +46,13 @@ fun HomeScreen(
     ) {
         val density = LocalDensity.current
         val topBarSize = WindowInsets.statusBars.getTop(density)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(466.dp)
+                .offset(y = -(topBarSize.div(density.density).dp))
+                .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -60,41 +67,6 @@ fun HomeScreen(
                     style = DhcTypoTokens.Body3,
                     color = SurfaceColor.neutral300,
                 )
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(466.dp)
-                        .offset(y = -(topBarSize.div(density.density).dp))
-                        .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
-                ) {
-                    FlippableBox(
-                        isFlipped = false,
-                        onFlipEnd = {},
-                        frontScreen = {
-                            DhcFortuneCard(
-                                title = "오늘의 운세 카드",
-                                description = "한템포 쉬어가기",
-                                modifier = Modifier
-                                    .size(width = 143.dp, height = 197.dp)
-                                    .padding(top = 20.dp, bottom = 53.5.dp)
-                                    .align(Alignment.Center),
-                            )
-                        },
-                        backScreen = {
-                            DhcFortuneCard(
-                                title = "오늘의 운세 카드",
-                                description = "한템포 쉬어가기",
-                                modifier = Modifier
-                                    .size(width = 143.dp, height = 197.dp)
-                                    .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) }
-                                    .padding(top = 20.dp, bottom = 53.5.dp)
-                                    .align(Alignment.Center),
-                            )
-                        },
-                        modifier = Modifier.align(Alignment.Center),
-                        initialRotationZ = -4f,
-                    )
-                }
                 Spacer(modifier = Modifier.height(16.dp))
                 MonetaryLuckInfo(
                     onClickMoreButton = { eventHandler(HomeContract.Event.ClickMoreButton) }
@@ -117,8 +89,8 @@ fun HomeScreen(
                                 title = "오늘의 운세 카드",
                                 description = "한템포 쉬어가기",
                                 modifier = Modifier
-                                    .width(143.dp)
-                                    .padding(top = 20.dp, bottom = 53.5.dp)
+                                    .padding(top = 20.dp, bottom = 60.dp)
+                                    .size(width = 144.dp, height = 200.dp)
                                     .align(Alignment.Center),
                             )
                         },
@@ -127,9 +99,9 @@ fun HomeScreen(
                                 title = "오늘의 운세 카드",
                                 description = "한템포 쉬어가기",
                                 modifier = Modifier
-                                    .width(143.dp)
                                     .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) }
-                                    .padding(top = 20.dp, bottom = 53.5.dp)
+                                    .padding(top = 20.dp, bottom = 60.dp)
+                                    .size(width = 144.dp, height = 200.dp)
                                     .align(Alignment.Center),
                             )
                         },
@@ -151,10 +123,11 @@ fun HomeScreen(
                 .padding(bottom = 24.dp, end = 20.dp),
             text = stringResource(R.string.finish_today_mission),
             isEnabled = true,
-            onClick = { eventHandler(HomeContract.Event.ClickMissionComplete) },
+            onClick = {},
         )
     }
 }
+
 
 @Composable
 @Preview
