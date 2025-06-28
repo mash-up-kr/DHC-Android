@@ -1,0 +1,16 @@
+package com.dhc.dhcandroid.datasource
+
+import com.dhc.dhcandroid.model.BirthDate
+import com.dhc.dhcandroid.model.Gender
+import com.dhc.dhcandroid.model.MissionCategory
+import com.dhc.dhcandroid.model.UserProfile
+import kotlinx.coroutines.flow.StateFlow
+
+interface UserMemoryDataSource {
+    val userProfileState: StateFlow<UserProfile>
+
+    fun updateGender(gender: Gender)
+    fun updateBirthDay(birthDate: BirthDate)
+    fun updateBirthTime(birthTime: String?)
+    fun updateCategory(categoryList: List<MissionCategory>)
+}

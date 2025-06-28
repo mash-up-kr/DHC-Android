@@ -96,7 +96,7 @@ fun IntroCategoryScreen(
             buttonStyle = DhcButtonStyle.Secondary(isEnabled = state.nextButtonEnabled),
             onClick = {
                 if (state.nextButtonEnabled) {
-                    eventHandler(IntroCategoryContract.Event.ClickNextButton)
+                    eventHandler(IntroCategoryContract.Event.ClickNextButton(state))
                 }
             },
             modifier = Modifier

@@ -78,7 +78,7 @@ fun IntroBirthDayScreen(
             text = stringResource(R.string.next),
             buttonSize = DhcButtonSize.XLARGE,
             buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
-            onClick = { eventHandler(IntroBirthDayContract.Event.ClickNextButton) },
+            onClick = { eventHandler(IntroBirthDayContract.Event.ClickNextButton(state)) },
             modifier = Modifier
                 .padding(20.dp)
                 .fillMaxWidth()

@@ -13,12 +13,10 @@ class MoneyDetailLuckContract {
 
 
     sealed interface Event: UiEvent {
-        data object ClickAddButton : Event
-        data object ClickMinusButton : Event
+
     }
 
     sealed interface SideEffect : UiSideEffect {
-        data class ShowToast(val msg: String): SideEffect
 
     }
 }

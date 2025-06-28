@@ -1,11 +1,9 @@
-package com.dhc.designsystem.bottomsheet
+package com.dhc.home.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,23 +15,33 @@ import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcColors
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
-import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
+import com.dhc.designsystem.bottomsheet.DhcModalBottomSheet
+import com.dhc.designsystem.button.DhcButton
+import com.dhc.designsystem.button.model.DhcButtonSize
+import com.dhc.designsystem.button.model.DhcButtonStyle
+import com.dhc.home.R
+import com.dhc.home.main.HomeContract
+import com.dhc.home.model.MissionCompleteButtonType
+import com.dhc.presentation.mvi.EventHandler
+import com.dhc.designsystem.R as DR
 
 @Composable
 fun MissionCompleteCheckBottomSheet(
     missionCount: Int,
-    onDismissRequest: () -> Unit,
+    eventHandler: EventHandler<HomeContract.Event>,
 ) {
     val colors = LocalDhcColors.current
     DhcModalBottomSheet(
         isCloseButtonEnabled = false,
         containerColor = SurfaceColor.neutral700,
-        onDismissRequest = onDismissRequest,
+        onDismissRequest = { eventHandler(HomeContract.Event.ClickMissionCompleteConfirm(MissionCompleteButtonType.Back)) },
         content = {
             MissionCompleteCheckContent(
                 missionCount = missionCount,
-                colors = colors
+                colors = colors,
+                onClickFinish = { eventHandler(HomeContract.Event.ClickMissionCompleteConfirm(MissionCompleteButtonType.Complete)) },
+                onClickDismiss =  { eventHandler(HomeContract.Event.ClickMissionCompleteConfirm(MissionCompleteButtonType.Back))  }
             )
         }
     )
@@ -43,47 +51,44 @@ fun MissionCompleteCheckBottomSheet(
 fun MissionCompleteCheckContent(
     missionCount: Int,
     colors: DhcColors,
+    onClickFinish: () -> Unit,
+    onClickDismiss: () -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = stringResource(R.string.mission_complete_title),
+            text = stringResource(DR.string.mission_complete_title),
             style = DhcTypoTokens.TitleH2,
             color = colors.text.textMain,
             textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = stringResource(R.string.mission_complete_desc, missionCount),
+            text = stringResource(DR.string.mission_complete_desc, missionCount),
             style = DhcTypoTokens.Body3,
             color = SurfaceColor.neutral200,
             textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(32.dp))
-        Button(
-            modifier = Modifier.padding(bottom = 20.dp).fillMaxWidth(),
-            onClick = {}
-        ) {
-            Text(
-                text = "임시버튼",
-                style = DhcTypoTokens.TitleH2,
-                color = colors.text.textMain,
-                textAlign = TextAlign.Center,
-            )
-        }
-        Button(
-            modifier = Modifier.padding(bottom = 20.dp).fillMaxWidth(),
-            onClick = {}
-        ) {
-            Text(
-                text = "임시버튼",
-                style = DhcTypoTokens.TitleH2,
-                color = colors.text.textMain,
-                textAlign = TextAlign.Center,
-            )
-        }
+        DhcButton(
+            text = stringResource(R.string.finish_mission),
+            buttonSize = DhcButtonSize.XLARGE,
+            buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
+            onClick = { onClickFinish() },
+            modifier = Modifier
+                .fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        DhcButton(
+            text = stringResource(R.string.go_back),
+            buttonSize = DhcButtonSize.XLARGE,
+            buttonStyle = DhcButtonStyle.Teritary,
+            onClick = { onClickDismiss() },
+            modifier = Modifier
+                .fillMaxWidth()
+        )
         Spacer(modifier = Modifier.height(20.dp))
 
     }
@@ -93,7 +98,7 @@ fun MissionCompleteCheckContent(
 @Composable
 private fun PreviewMissionCompleteCheckBottomSheet() {
     MissionCompleteCheckBottomSheet(
-        onDismissRequest = {},
-        missionCount = 0
+        eventHandler = {},
+        missionCount = 0,
     )
 }
