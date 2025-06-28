@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -21,9 +22,13 @@ import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
+import com.dhc.dhcandroid.MainViewModel
 
 @Composable
-fun DhcApp(modifier: Modifier = Modifier) {
+fun DhcApp(
+    modifier: Modifier = Modifier,
+    mainViewModel: MainViewModel = hiltViewModel(),
+) {
     val colors = LocalDhcColors.current
     val startDestination = DhcRoute.SPLASH
     val navController = rememberNavController()

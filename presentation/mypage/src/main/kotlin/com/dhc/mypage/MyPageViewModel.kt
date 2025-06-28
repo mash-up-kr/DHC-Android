@@ -37,7 +37,7 @@ class MyPageViewModel @Inject constructor(
     }
 
     fun loadMyPageData() = viewModelScope.launch {
-        val userId = userRepository.getUUID().firstOrNull().orEmpty()
+        val userId = "" // Todo : UserId 로 변경 예정
         dhcRepository.getMyPageView(userId)
             .onSuccess { response ->
                 response ?: return@onSuccess

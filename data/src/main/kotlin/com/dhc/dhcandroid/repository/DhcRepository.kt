@@ -14,6 +14,10 @@ import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 
 interface DhcRepository {
+    suspend fun searchUserByToken(
+        userToken: String,
+    ): DhcResult<String?>
+
     suspend fun registerUser(
         userProfile: UserProfile,
     ): DhcResult<RegisterUserResponse>

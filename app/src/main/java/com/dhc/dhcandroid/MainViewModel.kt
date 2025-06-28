@@ -4,7 +4,9 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dhc.common.getSuccessOrNull
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
+import com.dhc.dhcandroid.repository.DhcRepository
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,26 +15,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val userDataStoreRepository: AuthDataStoreRepository,
+    private val authDataStoreRepository: AuthDataStoreRepository,
+    private val dhcRepository: DhcRepository,
 ) : ViewModel() {
 
     init {
         getFcmToken()
-        checkUserId()
+        setUserToken()
     }
 
-    /**
-     * 기존에 서버에서 발급한 UserToken이 있는지 여부에 따라 저장
-     */
-    fun checkUserId() {
+    private fun setUserToken() {
         viewModelScope.launch {
-            userDataStoreRepository.setUUID()
+            val uuid = authDataStoreRepository.getUUID().orEmpty()
+            val userToken = dhcRepository.searchUserByToken(uuid).getSuccessOrNull().orEmpty()
+            authDataStoreRepository.setUserToken(userToken)
         }
     }
 
     fun setFcmToken(token: String) {
         viewModelScope.launch {
-            userDataStoreRepository.setFcmToken(token)
+            authDataStoreRepository.setFcmToken(token)
         }
     }
 
