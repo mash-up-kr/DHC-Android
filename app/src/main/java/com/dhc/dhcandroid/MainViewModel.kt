@@ -4,7 +4,7 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dhc.dhcandroid.repository.UserDataStoreRepository
+import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val userDataStoreRepository: UserDataStoreRepository,
+    private val userDataStoreRepository: AuthDataStoreRepository,
 ) : ViewModel() {
 
     init {

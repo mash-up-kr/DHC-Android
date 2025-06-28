@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
+import com.dhc.designsystem.badge.model.BadgeLevelType
 import com.dhc.designsystem.badge.model.BadgeType
 
 @Composable
@@ -36,7 +37,15 @@ private class BadgePreviewProvider : PreviewParameterProvider<BadgePreviewProvid
     override val values = sequenceOf(
         Parameter(
             text = "Easy",
-            type = BadgeType.Level(isEnabled = true),
+            type = BadgeType.Level(isEnabled = true, level = BadgeLevelType.EASY),
+        ),
+        Parameter(
+            text = "Medium",
+            type = BadgeType.Level(isEnabled = true, level = BadgeLevelType.MEDIUM),
+        ),
+        Parameter(
+            text = "Hard",
+            type = BadgeType.Level(isEnabled = true, level = BadgeLevelType.HARD),
         ),
         Parameter(
             text = "Easy",

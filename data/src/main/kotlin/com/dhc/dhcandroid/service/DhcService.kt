@@ -41,6 +41,10 @@ interface DhcService {
         @Path("userId") userId: String,
     ): Response<LogoutResponse>
 
+    @GET("/api/mission-categories")
+    suspend fun getMissionCategories(
+    ): Response<AnalysisViewResponse>
+
     @GET("/view/users/{userId}/home")
     suspend fun getHomeView(
         @Path("userId") userId: String,

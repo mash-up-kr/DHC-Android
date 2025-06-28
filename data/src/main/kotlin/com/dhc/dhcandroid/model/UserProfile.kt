@@ -8,7 +8,7 @@ data class UserProfile(
     val userToken: String = "",
     val gender: Gender = Gender.MALE,
     val birthDate: BirthDate? = null,
-    val birthTime: String = "",
+    val birthTime: String? = null,
     val preferredMissionCategoryList: List<MissionCategory> = emptyList(),
 )
 

@@ -41,7 +41,8 @@ fun DhcNavHost(
         composable(DhcRoute.SPLASH.route) {
             SplashRoute(
                 navigateToNextScreen = {
-                    navController.navigateToIntroFromSplash()
+                    navController.navigateToHomeFromIntro()
+                    // navController.navigateToIntroFromSplash()
                 },
             )
         }
@@ -115,6 +116,7 @@ fun DhcNavHost(
         }
         composable(DhcRoute.MAIN_HOME.route) {
             HomeRoute(
+                navigateToMission = { navController.navigateToMission() },
                 navigateToMonetaryLuckDetail = { navController.navigateTo(DhcRoute.HOME_MONETARY_DETAIL) },
             )
         }
