@@ -27,6 +27,8 @@ import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
+import com.dhc.designsystem.calendar.DhcCalendarController
+import com.dhc.designsystem.calendar.model.DhcCalendarInitialData
 import com.dhc.designsystem.calendar.ui.DhcCalendar
 import com.dhc.designsystem.graph.DhcGraph
 import com.dhc.designsystem.graph.model.DhcGraphConfig
@@ -35,12 +37,16 @@ import com.dhc.designsystem.info.DhcMissionInfoCard
 import com.dhc.designsystem.info.DhcMissionStatusCard
 import com.dhc.missionstatus.MissionStatusContract.State
 import com.dhc.missionstatus.R
+import java.time.LocalDate
 
 @Composable
 fun MissionStatusScreen(
     state: State,
     modifier: Modifier = Modifier,
-    scrollState: ScrollState = rememberScrollState()
+    scrollState: ScrollState = rememberScrollState(),
+    calendarController: DhcCalendarController = DhcCalendarController(
+        initialData = DhcCalendarInitialData(initialDate = LocalDate.now())
+    )
 ) {
     val colors = LocalDhcColors.current
 
@@ -108,6 +114,8 @@ fun MissionStatusScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 12.dp),
+            initialDate = LocalDate.now(),
+            controller = calendarController,
         )
 
         Row(
@@ -165,7 +173,12 @@ private fun ConsumptionAnalysisContent(
                 .padding(top = 4.dp)
                 .fillMaxWidth(),
             text = buildAnnotatedString {
-                append(stringResource(R.string.consumption_analysis_money, wonFormat.format(weeklySaveMoney)))
+                append(
+                    stringResource(
+                        R.string.consumption_analysis_money,
+                        wonFormat.format(weeklySaveMoney)
+                    )
+                )
                 withStyle(style = SpanStyle(color = colors.text.textHighLightsSecondary)) {
                     append(stringResource(R.string.consumption_analysis_save_more_money))
                 }
@@ -187,13 +200,19 @@ private fun ConsumptionAnalysisContent(
                     label = stringResource(R.string.consumption_analysis_calendar_me),
                     value = weeklySaveMoney,
                     isHighlight = true,
-                    tooltipMessage = stringResource(R.string.consumption_analysis_calendar_won, weeklySaveMoney),
+                    tooltipMessage = stringResource(
+                        R.string.consumption_analysis_calendar_won,
+                        weeklySaveMoney
+                    ),
                 ),
                 DhcGraphData(
                     label = graphData.target,
                     value = graphData.targetData,
                     isHighlight = false,
-                    tooltipMessage = stringResource(R.string.consumption_analysis_calendar_won, graphData.targetData),
+                    tooltipMessage = stringResource(
+                        R.string.consumption_analysis_calendar_won,
+                        graphData.targetData
+                    ),
                 )
             )
         )
