@@ -5,7 +5,7 @@ import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
-import com.dhc.dhcandroid.model.Mission
+import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
@@ -29,7 +29,7 @@ interface DhcService {
         @Path("userId") userId: String,
         @Path("missionId") missionId: String,
         @Body toggleMissionRequest: ToggleMissionRequest,
-    ): Response<List<Mission>>
+    ): Response<MissionsResponse>
 
     @POST("/api/users/{userId}/done")
     suspend fun requestFinishTodayMissions(

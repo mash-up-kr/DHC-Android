@@ -6,6 +6,7 @@ import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.Mission
+import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
@@ -21,7 +22,7 @@ interface DhcRemoteDataSource {
         userId: String,
         missionId: String,
         toggleMissionRequest: ToggleMissionRequest,
-    ): Response<List<Mission>>
+    ): Response<MissionsResponse>
 
     suspend fun requestFinishTodayMissions(
         endTodayMissionRequest: EndTodayMissionRequest,

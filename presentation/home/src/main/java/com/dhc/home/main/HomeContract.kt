@@ -33,6 +33,7 @@ class HomeContract {
         data class ClickMissionChange(val selectChangeMission: SelectChangeMission): Event
         data class ClickMissionChangeConfirm(val buttonType: MissionChangeButtonType): Event
         data object ClickFinishMissionChangeConfirm: Event
+        data class BlinkEnd(val missionId: String): Event
     }
 
     sealed interface SideEffect : UiSideEffect {

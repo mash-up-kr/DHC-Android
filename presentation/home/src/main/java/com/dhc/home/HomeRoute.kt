@@ -23,10 +23,7 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-
-    var isBlink by remember { mutableStateOf(false) }
     var reRollExpanded by remember { mutableStateOf(false) }
-    var changeMissionId by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
@@ -34,9 +31,7 @@ fun HomeRoute(
                 is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
                 is HomeContract.SideEffect.ShowToast -> {}
-                is HomeContract.SideEffect.ReRollExpanded -> {
-                    reRollExpanded = true
-                }
+                is HomeContract.SideEffect.ReRollExpanded -> { reRollExpanded = true }
             }
         }
     }
@@ -45,7 +40,6 @@ fun HomeRoute(
         HomeScreen(
             state = state,
             eventHandler = viewModel::sendEvent,
-            onBlinkEnd = { isBlink = false },
             reRollExpanded = reRollExpanded,
         )
         if(state.isShowMissionCompleteBottomSheet) {

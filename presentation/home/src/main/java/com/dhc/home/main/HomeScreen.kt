@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
@@ -43,7 +42,6 @@ fun HomeScreen(
     eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
-    onBlinkEnd: () -> Unit,
 ) {
     Box(
         modifier = modifier.fillMaxSize()
@@ -130,7 +128,7 @@ fun HomeScreen(
                         missionTitle = mission.title
                     )
                 )) },
-                onBlinkEnd = onBlinkEnd,
+                onBlinkEnd = {missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId))},
                 reRollExpanded = reRollExpanded,
             )
             Spacer(modifier = Modifier.height(136.dp))
@@ -155,9 +153,6 @@ fun HomeScreenPreview() {
         HomeScreen(
             eventHandler = {},
             state = HomeContract.State(),
-            isBlink = false,
-            changeMissionId = "",
-            onBlinkEnd = {},
             reRollExpanded = true
         )
     }

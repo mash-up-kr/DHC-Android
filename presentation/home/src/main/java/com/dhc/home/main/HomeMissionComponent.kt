@@ -48,7 +48,7 @@ fun MonetaryLuckyDailyMission(
     onClickMissionChange: (MissionUiModel) -> Unit,
     dailyMissionList: List<MissionUiModel>,
     modifier: Modifier = Modifier,
-    onBlinkEnd: () -> Unit
+    onBlinkEnd: (String) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -64,7 +64,7 @@ fun MonetaryLuckyDailyMission(
                     reRollExpanded = reRollExpanded,
                     missionUiModel = mission,
                     onClickMissionChange = { onClickMissionChange(mission) },
-                    onBlinkEnd = onBlinkEnd
+                    onBlinkEnd = { onBlinkEnd(mission.missionId) }
                 )
             }
         }
