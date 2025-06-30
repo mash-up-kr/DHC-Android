@@ -20,6 +20,7 @@ fun ServerGeneration.getGenerationString(): String {
 
 fun ServerGender.getGenderString(): String {
     return when (this) {
+        ServerGender.UNKNOWN -> ""
         ServerGender.MALE -> "남자"
         ServerGender.FEMALE -> "여자"
     }
