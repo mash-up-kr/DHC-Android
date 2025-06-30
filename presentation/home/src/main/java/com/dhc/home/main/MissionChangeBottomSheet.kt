@@ -33,7 +33,7 @@ fun MissionChangeBottomSheet(
     DhcModalBottomSheet(
         isCloseButtonEnabled = false,
         containerColor = SurfaceColor.neutral700,
-        onDismissRequest = {},
+        onDismissRequest = { eventHandler(HomeContract.Event.ClickMissionChangeConfirm(MissionChangeButtonType.BACK)) },
         content = {
             MissionChangeContent(
                 missionTitle = missionTitle,

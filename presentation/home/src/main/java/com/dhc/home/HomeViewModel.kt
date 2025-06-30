@@ -77,6 +77,7 @@ class HomeViewModel @Inject constructor(
             }
             is Event.ClickFinishMissionChangeConfirm -> {
                 updateFinishMissionChangeBottomSheetState(false)
+                rollBackAllCards()
             }
             is Event.BlinkEnd -> {
                 updateMissionBlinkState(missionId = event.missionId, isBlink = false)
