@@ -93,30 +93,32 @@ fun MissionStatusScreen(
             )
         }
 
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 20.dp),
-            text = stringResource(R.string.mission_analysis_title),
-            style = DhcTypoTokens.Body3,
-            color = SurfaceColor.neutral30,
-        )
+        if (state.missionAnalysisUiModel != null) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                text = stringResource(R.string.mission_analysis_title),
+                style = DhcTypoTokens.Body3,
+                color = SurfaceColor.neutral30,
+            )
 
-        DhcMissionStatusCard(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp),
-            title = "5월달",
-            subTitle = "미션 평균 성공률 82%",
-        )
+            DhcMissionStatusCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp),
+                title = "${state.missionAnalysisUiModel.currentMonth}월달",
+                subTitle = "미션 평균 성공률 ${state.missionAnalysisUiModel.averageSucceedProbability}%",
+            )
 
-        DhcCalendar(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp),
-            initialDate = LocalDate.now(),
-            controller = calendarController,
-        )
+            DhcCalendar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp),
+                initialDate = LocalDate.now(),
+                controller = calendarController,
+            )
+        }
 
         Row(
             modifier = Modifier
@@ -225,6 +227,10 @@ private fun MissionStatusScreenPreview() {
     DhcTheme {
         MissionStatusScreen(
             state = State(
+                missionAnalysisUiModel = MissionAnalysisUiModel(
+                    currentMonth = 10,
+                    averageSucceedProbability = 75,
+                ),
                 consumptionAnalysisUiModel = ConsumptionAnalysisUiModel(),
             )
         )

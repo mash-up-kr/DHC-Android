@@ -11,6 +11,7 @@ import com.dhc.missionstatus.MissionStatusContract.Event
 import com.dhc.missionstatus.MissionStatusContract.SideEffect
 import com.dhc.missionstatus.MissionStatusContract.State
 import com.dhc.missionstatus.ui.ConsumptionAnalysisUiModel
+import com.dhc.missionstatus.ui.MissionAnalysisUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.firstOrNull
@@ -42,13 +43,23 @@ class MissionStatusViewModel @Inject constructor(
 
     suspend fun getCalendarData(yearMonth: LocalDate): Map<LocalDate, DhcCalendarMonthData> {
         if (yearMonth.isAfter(LocalDate.now())) {
+            reduce {
+                copy(
+                    missionAnalysisUiModel = MissionAnalysisUiModel(
+                        currentMonth = yearMonth.monthValue,
+                        averageSucceedProbability = 0,
+                    )
+                )
+            }
             return emptyMap()
         }
 
         val userId = authRepository.getUUID().firstOrNull().orEmpty() // Todo :: UserId로 변경 필요
-        return dhcRepository.getCalendarView(userId, yearMonth)
-            .getSuccessOrNull()
-            ?.threeMonthViewResponse
+        val result = dhcRepository.getCalendarView(userId, yearMonth).getSuccessOrNull()
+
+        reduce { copy(missionAnalysisUiModel = MissionAnalysisUiModel.from(result?.threeMonthViewResponse?.firstOrNull { it.month == yearMonth.monthValue })) }
+
+        return result?.threeMonthViewResponse
             ?.mapIndexed { index, data ->
                 val month = yearMonth.plusMonths(index - 1L)
                 month to DhcCalendarMonthData(
