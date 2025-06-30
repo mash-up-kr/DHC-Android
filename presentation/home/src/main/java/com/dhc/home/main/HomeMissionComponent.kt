@@ -6,11 +6,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
+import com.dhc.designsystem.mission.MoneyFortuneMissionCard
 import com.dhc.designsystem.mission.SpendingHabitMissionCard
 import com.dhc.home.R
 import com.dhc.home.model.MissionUiModel
@@ -60,11 +65,23 @@ fun MonetaryLuckyDailyMission(
         Spacer(modifier = Modifier.height(16.dp))
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             dailyMissionList.forEach { mission ->
+                var missionChangeHeight by remember { mutableIntStateOf(0) }
                 MissionCardReRoll(
+                    missionChangeHeight = missionChangeHeight,
                     missionUiModel = mission,
                     onClickMissionChange = { onClickMissionChange(mission) },
-                    onBlinkEnd = { onBlinkEnd(mission.missionId) },
-                    onExpandedChange = { onExpandedChange(it, mission.missionId)}
+                    onExpandedChange = { onExpandedChange(it, mission.missionId)},
+                    content = {
+                        MoneyFortuneMissionCard(
+                            isBlink = mission.isBlink,
+                            missionMode = mission.difficulty,
+                            isMissionEnabled = !mission.finished,
+                            isChecked = !mission.finished,
+                            missionTitle = mission.title,
+                            onBlinkEnd = { onBlinkEnd(mission.missionId) },
+                            onHeightChanged = { missionChangeHeight = it }
+                        )
+                    }
                 )
             }
         }

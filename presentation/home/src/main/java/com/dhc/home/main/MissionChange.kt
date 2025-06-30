@@ -39,16 +39,16 @@ import com.dhc.designsystem.R as DR
 
 @Composable
 fun MissionCardReRoll(
+    missionChangeHeight: Int,
     missionUiModel: MissionUiModel,
     onClickMissionChange: () -> Unit,
     modifier: Modifier = Modifier,
-    onBlinkEnd: () -> Unit = {},
     onExpandedChange: (Boolean) -> Unit,
+    content: @Composable () -> Unit,
 ) {
     var isExpanded by remember { mutableStateOf(missionUiModel.isExpanded) }
     val targetPadding = if (isExpanded) 16.dp else 0.dp
     val horizontalPadding by animateDpAsState(targetValue = targetPadding, label = "cardPadding")
-    var missionChangeHeight by remember { mutableIntStateOf(0) }
     val density = LocalDensity.current
 
     LaunchedEffect(missionUiModel.isExpanded) {
@@ -72,15 +72,7 @@ fun MissionCardReRoll(
             )
         },
         content = {
-            MoneyFortuneMissionCard(
-                isBlink = missionUiModel.isBlink,
-                missionMode = missionUiModel.difficulty,
-                isMissionEnabled = !missionUiModel.finished,
-                isChecked = !missionUiModel.finished,
-                missionTitle = missionUiModel.title,
-                onBlinkEnd = onBlinkEnd,
-                onHeightChanged = { missionChangeHeight = it }
-            )
+            content()
         }
     )
 }
@@ -121,9 +113,11 @@ fun MissionChange(
 private fun PreviewMissionChange() {
     DhcTheme {
         MissionCardReRoll(
+            missionChangeHeight = 0,
             onClickMissionChange = {},
             missionUiModel = MissionUiModel(),
-            onExpandedChange = {}
+            onExpandedChange = {},
+            content = {}
         )
     }
 }
