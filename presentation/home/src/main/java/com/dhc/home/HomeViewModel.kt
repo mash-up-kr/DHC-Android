@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.dhc.common.onException
 import com.dhc.common.onFailure
 import com.dhc.common.onSuccess
+import com.dhc.dhcandroid.model.Mission
 import com.dhc.dhcandroid.model.MissionType
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
@@ -58,7 +59,7 @@ class HomeViewModel @Inject constructor(
             }
             is Event.ClickMissionChange -> {
                 updateSelectedMissionInfo(event.selectChangeMission)
-                if(event.selectChangeMission.switchCount > 4) {
+                if(event.selectChangeMission.switchCount >= 4) {
                     updateFinishMissionChangeBottomSheetState(true)
                 } else {
                     updateMissionChangeConfirmBottomSheetState(true)
@@ -106,6 +107,20 @@ class HomeViewModel @Inject constructor(
         reduce { copy(selectedMissionInfo = selectedMissionInfo) }
     }
 
+
+    fun getHomeInfo() {
+        viewModelScope.launch {
+            val userId = userRepository.getUUID().firstOrNull().orEmpty() //TODO - 추후 변경
+            dhcRepository.getHomeView(userId = "685faf11de38af6c7bd9d25d") //TODO - 추후 변경
+                .onSuccess { response ->
+                    response ?: return@onSuccess
+                    reduce { copy(homeInfo = HomeUiModel.from(response) )}
+                }.onFailure { _, _ ->
+                    // Todo :: 실패 처리
+                }
+        }
+    }
+
     fun updateMissionStatus(
         missionId: String,
         missionStatusType: MissionStatusType,
@@ -124,39 +139,29 @@ class HomeViewModel @Inject constructor(
                 toggleMissionRequest = toggleMissionRequest
             ).onSuccess { response ->
                 response ?: return@onSuccess
-                val longTermMission = response.missions.filter { it.type == MissionType.LONG_TERM }
-                val todayDailyMissionList = response.missions.filter { it.type == MissionType.DAILY }
-                val missionIdList = response.missions.map { it.missionId }
-                val newIds = missionIdList.first { it !in existIdList }
-                val updatedLongTermMission = longTermMission.first().toUiModel().copy(
-                    isBlink = longTermMission.first().missionId == newIds
-                )
-                val updatedTodayDailyMissionList = todayDailyMissionList.map { it.toUiModel()}.map { mission ->
-                    mission.copy(isBlink = mission.missionId == newIds)
+                when(missionStatusType) {
+                    MissionStatusType.COMPLETE -> {}
+                    MissionStatusType.INCOMPLETE -> {}
+                    MissionStatusType.CHANGE -> updateNewMissionList(response.missions, existIdList)
                 }
-                reduce { copy(homeInfo = state.value.homeInfo.copy(
-                    longTermMission = updatedLongTermMission,
-                    todayDailyMissionList = updatedTodayDailyMissionList,
-                ))}
             }.onFailure { code, message ->
-
+                Log.d("updateMissionStatus", "onFailure:${code} message:${message} ");
             }.onException { e->
                 Log.d("updateMissionStatus", "onException:${e} ");
             }
         }
     }
 
-    fun getHomeInfo() {
-        viewModelScope.launch {
-            val userId = userRepository.getUUID().firstOrNull().orEmpty() //TODO - 추후 변경
-            dhcRepository.getHomeView(userId = "685faf11de38af6c7bd9d25d") //TODO - 추후 변경
-                .onSuccess { response ->
-                    response ?: return@onSuccess
-                    reduce { copy(homeInfo = HomeUiModel.from(response) )}
-                }.onFailure { _, _ ->
-                    // Todo :: 실패 처리
-                }
-        }
+    private fun updateNewMissionList(missionList: List<Mission>, existIdList: List<String>) {
+        val longTermMission = missionList.filter { it.type == MissionType.LONG_TERM }
+        val todayDailyMissionList = missionList.filter { it.type == MissionType.DAILY }
+        val missionIdList = missionList.map { it.missionId }
+        val newIds = missionIdList.first { it !in existIdList }
+        reduce { copy(homeInfo = state.value.homeInfo.copy(
+            longTermMission = longTermMission.first().toUiModel(),
+            todayDailyMissionList =  todayDailyMissionList.map { it.toUiModel()},
+        ))}
+        updateMissionBlinkState(newIds, true)
     }
 
     private fun updateMissionBlinkState(missionId: String, isBlink: Boolean) {
