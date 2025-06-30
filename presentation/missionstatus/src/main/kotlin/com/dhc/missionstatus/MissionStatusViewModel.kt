@@ -33,7 +33,7 @@ class MissionStatusViewModel @Inject constructor(
     }
 
     fun loadAnalysisUiData() = viewModelScope.launch {
-        val userId = authRepository.getUUID().firstOrNull().orEmpty() // Todo :: userId로 변경 필요
+        val userId = authRepository.getUserId().firstOrNull() ?: return@launch
         dhcRepository.getAnalysisView(userId)
             .onSuccess { data ->
                 data ?: return@onSuccess // Todo :: null 응답 관련 처리 필요
@@ -54,7 +54,7 @@ class MissionStatusViewModel @Inject constructor(
             return emptyMap()
         }
 
-        val userId = authRepository.getUUID().firstOrNull().orEmpty() // Todo :: UserId로 변경 필요
+        val userId = authRepository.getUserId().firstOrNull() ?: return emptyMap()
         val result = dhcRepository.getCalendarView(userId, yearMonth).getSuccessOrNull()
 
         reduce { copy(missionAnalysisUiModel = MissionAnalysisUiModel.from(result?.threeMonthViewResponse?.firstOrNull { it.month == yearMonth.monthValue })) }
