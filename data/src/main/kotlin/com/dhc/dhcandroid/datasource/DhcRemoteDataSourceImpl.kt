@@ -1,6 +1,5 @@
 package com.dhc.dhcandroid.datasource
 
-import android.util.Log
 import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
@@ -23,7 +22,6 @@ class DhcRemoteDataSourceImpl @Inject constructor(
         dhcService.searchUserByToken(userToken)
 
     override suspend fun registerUser(userProfile: UserProfile): Response<RegisterUserResponse> {
-        Log.e("zemic", "test: ${userProfile}")
         return dhcService.registerUser(userProfile)
     }
 
