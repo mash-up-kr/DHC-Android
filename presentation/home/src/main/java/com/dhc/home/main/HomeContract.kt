@@ -10,13 +10,19 @@ import com.dhc.presentation.mvi.UiState
 class HomeContract {
 
     data class State(
-        val isLoading: Boolean = false,
+        val homeState: HomeState = HomeState.Loading,
         val isShowMissionCompleteBottomSheet: Boolean = false,
         val isShowMissionSuccessDialog: Boolean = false,
         val isShowMissionChangeBottomSheet: Boolean = false,
         val isShowFinishMissionChangeBottomSheet: Boolean = false,
     ): UiState
 
+    sealed interface HomeState {
+        data object Loading : HomeState
+        data object FlipCard : HomeState
+        data object Success : HomeState
+        data object Error : HomeState
+    }
 
     sealed interface Event : UiEvent {
         data object ClickMoreButton : Event

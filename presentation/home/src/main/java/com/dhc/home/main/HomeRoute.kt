@@ -29,9 +29,18 @@ fun HomeRoute(
     }
 
     Box {
-        HomeScreen(
-            eventHandler = viewModel::sendEvent
-        )
+        when (state.homeState) {
+            HomeContract.HomeState.Error -> TODO()
+            HomeContract.HomeState.FlipCard -> TODO()
+            HomeContract.HomeState.Loading -> {
+                HomeLoadingScreen(modifier = Modifier.fillMaxSize())
+            }
+            HomeContract.HomeState.Success -> {
+                HomeScreen(
+                    eventHandler = viewModel::sendEvent
+                )
+            }
+        }
         if(state.isShowMissionCompleteBottomSheet) {
             MissionCompleteCheckBottomSheet(
                 missionCount = 0,
