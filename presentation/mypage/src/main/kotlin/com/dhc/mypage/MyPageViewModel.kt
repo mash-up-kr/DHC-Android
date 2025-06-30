@@ -8,6 +8,7 @@ import com.dhc.dhcandroid.repository.DhcRepository
 import com.dhc.mypage.MyPageContract.Event
 import com.dhc.mypage.MyPageContract.SideEffect
 import com.dhc.mypage.MyPageContract.State
+import com.dhc.mypage.model.MissionCategoryUiModel
 import com.dhc.mypage.model.MyInfoUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,6 +33,7 @@ class MyPageViewModel @Inject constructor(
                 reduce { copy(isShowAppResetDialog = false) }
                 postSideEffect(SideEffect.NavigateToIntro)
             }
+
             is Event.ClickDialogDismissButton -> reduce { copy(isShowAppResetDialog = false) }
         }
     }
@@ -44,7 +46,11 @@ class MyPageViewModel @Inject constructor(
                 reduce {
                     copy(
                         myInfo = MyInfoUiModel.from(myPageResponse = response),
-                        missionCategories = response.preferredMissionCategoryList,
+                        missionCategories = response.preferredMissionCategoryList.map {
+                            MissionCategoryUiModel.from(
+                                it
+                            )
+                        },
                     )
                 }
             }
