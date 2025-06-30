@@ -36,6 +36,8 @@ fun SpendingHabitMissionCard(
     missionTitle: String,
     isChecked: Boolean,
     isMissionEnabled: Boolean,
+    isBlink: Boolean = false,
+    onBlinkEnd: () -> Unit = {},
     onHeightChanged: (Int) -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
@@ -53,6 +55,8 @@ fun SpendingHabitMissionCard(
             modifier = Modifier.onSizeChanged{ onHeightChanged(it.height) },
             isChecked = isChecked,
             isEnabled = isMissionEnabled,
+            isBlink = isBlink,
+            onBlinkEnd = onBlinkEnd,
             content = {
                 Row(
                     modifier = Modifier.fillMaxWidth().weight(1f),
