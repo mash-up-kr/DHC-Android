@@ -4,6 +4,7 @@ import com.dhc.dhcandroid.datasource.UserMemoryDataSource
 import com.dhc.dhcandroid.model.BirthDate
 import com.dhc.dhcandroid.model.Gender
 import com.dhc.dhcandroid.model.MissionCategory
+import com.dhc.dhcandroid.model.UserProfile
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -25,8 +26,6 @@ class UserRepositoryImpl @Inject constructor(
         userMemoryDataSource.updateCategory(categoryList)
     }
 
-    override fun updateUserProfile() {
-        val userProfile = userMemoryDataSource.userProfileState.value
-        // Todo : userProfile 서버에 업로드하는 코드 작성
-    }
+    override fun getUserProfile(): UserProfile =
+        userMemoryDataSource.userProfileState.value
 }

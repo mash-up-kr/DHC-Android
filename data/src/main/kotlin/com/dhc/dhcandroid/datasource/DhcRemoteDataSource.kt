@@ -12,8 +12,13 @@ import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 import retrofit2.Response
+import retrofit2.http.Query
 
 interface DhcRemoteDataSource {
+    suspend fun searchUserByToken(
+        userToken: String,
+    ): Response<String?>
+
     suspend fun registerUser(
         userProfile: UserProfile,
     ): Response<RegisterUserResponse>
