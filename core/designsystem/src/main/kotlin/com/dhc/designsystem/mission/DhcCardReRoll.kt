@@ -31,6 +31,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.AccentColor
@@ -42,6 +43,7 @@ import kotlin.math.roundToInt
 
 @Composable
 fun DhcCardReRoll(
+    actionPadding: Dp = 0.dp,
     isExpanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     actionContent: @Composable () -> Unit,
@@ -75,6 +77,7 @@ fun DhcCardReRoll(
     ) {
         Box(
             modifier = Modifier
+                .padding(top = actionPadding)
                 .clip(
                     if(offsetX > 0) RoundedCornerShape(0.dp)
                     else RoundedCornerShape(12.dp)

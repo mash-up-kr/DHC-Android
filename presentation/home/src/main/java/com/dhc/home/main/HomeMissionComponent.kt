@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.mission.MoneyFortuneMissionCard
 import com.dhc.designsystem.mission.SpendingHabitMissionCard
+import com.dhc.dhcandroid.model.MissionType
 import com.dhc.home.R
 import com.dhc.home.model.MissionUiModel
 import com.dhc.presentation.component.MissionTitle
@@ -24,12 +25,17 @@ import com.dhc.presentation.component.MissionTitle
 @Composable
 fun SpendingHabitMission(
     missionUiModel: MissionUiModel,
+    onExpandedChange: (Boolean, String) -> Unit,
+    onClickMissionChange: (MissionUiModel) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var missionChangeHeight by remember { mutableIntStateOf(0) }
+
     Column(
         modifier = modifier
     ) {
         MissionTitle(
+            modifier = Modifier.padding(start = 20.dp),
             title = stringResource(R.string.spending_habit_mission),
             isInfoIconVisible = true,
             tooltipMessage = stringResource(R.string.mission_tooltip_message),
@@ -37,11 +43,22 @@ fun SpendingHabitMission(
             spendTypeText = missionUiModel.category
         )
         Spacer(modifier = Modifier.height(5.dp))
-        SpendingHabitMissionCard(
-            missionDday = missionUiModel.endDate,
-            missionTitle = missionUiModel.title,
-            isChecked = !missionUiModel.finished,
-            isMissionEnabled = !missionUiModel.finished
+        MissionCardReRoll(
+            type = MissionType.LONG_TERM,
+            modifier = Modifier.padding(top = 12.dp),
+            missionChangeHeight = missionChangeHeight,
+            missionUiModel = missionUiModel,
+            onClickMissionChange = { onClickMissionChange(missionUiModel) },
+            onExpandedChange = { onExpandedChange(it, missionUiModel.missionId)},
+            content = {
+                SpendingHabitMissionCard(
+                    missionDday = missionUiModel.endDate,
+                    missionTitle = missionUiModel.title,
+                    isChecked = !missionUiModel.finished,
+                    isMissionEnabled = !missionUiModel.finished,
+                    onHeightChanged = { missionChangeHeight = it }
+                )
+            }
         )
     }
 }
@@ -67,6 +84,7 @@ fun MonetaryLuckyDailyMission(
             dailyMissionList.forEach { mission ->
                 var missionChangeHeight by remember { mutableIntStateOf(0) }
                 MissionCardReRoll(
+                    type = MissionType.DAILY,
                     missionChangeHeight = missionChangeHeight,
                     missionUiModel = mission,
                     onClickMissionChange = { onClickMissionChange(mission) },
@@ -94,7 +112,9 @@ private fun PreviewMonetaryLuckyDailyMission() {
     DhcTheme {
         Column {
             SpendingHabitMission(
-                missionUiModel = MissionUiModel()
+                missionUiModel = MissionUiModel(),
+                onExpandedChange = { _, _ -> },
+                onClickMissionChange = { _ -> },
             )
             Spacer(modifier = Modifier.height(24.dp))
             MonetaryLuckyDailyMission(

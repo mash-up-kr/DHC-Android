@@ -113,11 +113,19 @@ fun HomeScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(13.5.dp))
-                SpendingHabitMission(
-                    missionUiModel = state.homeInfo.longTermMission,
-                )
-                Spacer(modifier = Modifier.height(24.dp))
             }
+            SpendingHabitMission(
+                missionUiModel = state.homeInfo.longTermMission,
+                onClickMissionChange = { mission -> eventHandler(HomeContract.Event.ClickMissionChange(
+                    SelectChangeMission(
+                        missionId = mission.missionId,
+                        switchCount = mission.switchCount,
+                        missionTitle = mission.title
+                    )
+                )) },
+                onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
+            )
+            Spacer(modifier = Modifier.height(24.dp))
             MonetaryLuckyDailyMission(
                 dailyMissionList = state.homeInfo.todayDailyMissionList,
                 onClickMissionChange = { mission -> eventHandler(HomeContract.Event.ClickMissionChange(

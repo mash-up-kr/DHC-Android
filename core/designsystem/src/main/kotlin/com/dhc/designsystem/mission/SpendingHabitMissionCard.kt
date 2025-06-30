@@ -8,11 +8,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -32,7 +35,8 @@ fun SpendingHabitMissionCard(
     missionDday: String,
     missionTitle: String,
     isChecked: Boolean,
-    isMissionEnabled: Boolean
+    isMissionEnabled: Boolean,
+    onHeightChanged: (Int) -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
     val missionColor =
@@ -42,10 +46,11 @@ fun SpendingHabitMissionCard(
 
     Box(
         modifier = Modifier
-            .fillMaxWidth()
             .padding(top = 12.dp)
+            .fillMaxWidth()
     ) {
         MissionItemBackGround(
+            modifier = Modifier.onSizeChanged{ onHeightChanged(it.height) },
             isChecked = isChecked,
             isEnabled = isMissionEnabled,
             content = {
@@ -67,7 +72,7 @@ fun SpendingHabitMissionCard(
             }
         )
         Image(
-            modifier = Modifier.align(Alignment.TopStart).offset(x = 8.dp, y = (-12).dp),
+            modifier = Modifier.align(Alignment.TopStart).offset(x = (-1).dp, y = (-12).dp),
             painter = painterResource(R.drawable.ico_pin),
             contentDescription = "mission_card_pin",
             colorFilter = ColorFilter.tint(color = SurfaceColor.neutral300),
