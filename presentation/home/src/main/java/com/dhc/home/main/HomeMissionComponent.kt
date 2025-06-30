@@ -27,6 +27,7 @@ fun SpendingHabitMission(
     missionUiModel: MissionUiModel,
     onExpandedChange: (Boolean, String) -> Unit,
     onClickMissionChange: (MissionUiModel) -> Unit,
+    onCheckChange: (Boolean, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var missionChangeHeight by remember { mutableIntStateOf(0) }
@@ -56,7 +57,8 @@ fun SpendingHabitMission(
                     missionTitle = missionUiModel.title,
                     isChecked = !missionUiModel.finished,
                     isMissionEnabled = !missionUiModel.finished,
-                    onHeightChanged = { missionChangeHeight = it }
+                    onHeightChanged = { missionChangeHeight = it },
+                    onCheckChange = { onCheckChange( !missionUiModel.finished, missionUiModel.missionId)}
                 )
             }
         )
@@ -71,6 +73,7 @@ fun MonetaryLuckyDailyMission(
     modifier: Modifier = Modifier,
     onBlinkEnd: (String) -> Unit,
     onExpandedChange: (Boolean, String) -> Unit,
+    onCheckChange: (Boolean, String) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -97,7 +100,8 @@ fun MonetaryLuckyDailyMission(
                             isChecked = !mission.finished,
                             missionTitle = mission.title,
                             onBlinkEnd = { onBlinkEnd(mission.missionId) },
-                            onHeightChanged = { missionChangeHeight = it }
+                            onHeightChanged = { missionChangeHeight = it },
+                            onCheckChange = { onCheckChange( !mission.finished, mission.missionId)}
                         )
                     }
                 )
@@ -115,13 +119,15 @@ private fun PreviewMonetaryLuckyDailyMission() {
                 missionUiModel = MissionUiModel(),
                 onExpandedChange = { _, _ -> },
                 onClickMissionChange = { _ -> },
+                onCheckChange = { _, _ ->}
             )
             Spacer(modifier = Modifier.height(24.dp))
             MonetaryLuckyDailyMission(
                 dailyMissionList = listOf(),
                 onClickMissionChange = {_ ->},
                 onBlinkEnd = {},
-                onExpandedChange = { _, _ ->}
+                onExpandedChange = { _, _ ->},
+                onCheckChange = { _, _ ->}
             )
         }
     }

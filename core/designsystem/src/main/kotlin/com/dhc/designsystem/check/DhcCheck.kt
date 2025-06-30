@@ -1,6 +1,7 @@
 package com.dhc.designsystem.check
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -23,6 +24,7 @@ fun DhcCheck(
     isChecked: Boolean,
     isEnabled: Boolean,
     dhcCheckStyle: DhcCheckStyle,
+    onCheckChange: () -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
     val backgroundColor = when {
@@ -38,7 +40,8 @@ fun DhcCheck(
             .background(
                 color = backgroundColor,
                 shape = CircleShape
-            ),
+            )
+            .clickable { onCheckChange() },
         contentAlignment = Alignment.Center,
     ) {
         Icon(

@@ -32,6 +32,7 @@ fun MissionItemBackGround(
     modifier: Modifier = Modifier,
     isBlink: Boolean = false,
     onBlinkEnd: () -> Unit = {},
+    onCheckChange: () -> Unit = {},
     content: @Composable RowScope.() -> Unit,
 ) {
     LaunchedEffect(isBlink) {
@@ -74,6 +75,7 @@ private fun PreviewMissionItem() {
             isChecked = true,
             isEnabled = true,
             content = {},
+            onCheckChange = {}
         )
     }
 }

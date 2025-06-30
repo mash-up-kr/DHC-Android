@@ -31,6 +31,7 @@ fun MoneyFortuneMissionCard(
     modifier: Modifier = Modifier,
     isBlink: Boolean = false,
     onBlinkEnd: () -> Unit = {},
+    onCheckChange: () -> Unit = {},
     onHeightChanged: (Int) -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
@@ -47,6 +48,7 @@ fun MoneyFortuneMissionCard(
         onBlinkEnd = onBlinkEnd,
         isChecked = isChecked,
         isEnabled = isMissionEnabled,
+        onCheckChange = onCheckChange,
         content = {
             Row(
                 modifier = Modifier
