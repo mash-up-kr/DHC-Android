@@ -57,6 +57,7 @@ class HomeViewModel @Inject constructor(
                 updateFinishMissionChangeBottomSheetState(false)
             }
             is Event.FortuneCardFlipped -> {
+                delay(1000L)
                 reduce { copy(homeState = HomeContract.HomeState.Success) }
             }
         }
