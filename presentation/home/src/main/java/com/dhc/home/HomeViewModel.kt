@@ -64,9 +64,9 @@ class HomeViewModel @Inject constructor(
                     updateMissionChangeConfirmBottomSheetState(true)
                 }
             }
-            is Event.ClickMissionChangeConfirm -> { //isExpanded를 저장
+            is Event.ClickMissionChangeConfirm -> {
                 updateMissionChangeConfirmBottomSheetState(false)
-                postSideEffect(SideEffect.ReRollExpanded)
+                rollBackAllCards()
                 if(event.buttonType == MissionChangeButtonType.CHANGE) {
                     updateMissionStatus(
                         missionId = state.value.selectedMissionInfo.missionId,
@@ -79,6 +79,9 @@ class HomeViewModel @Inject constructor(
             }
             is Event.BlinkEnd -> {
                 updateMissionBlinkState(missionId = event.missionId, isBlink = false)
+            }
+            is Event.ChangeExpandCard -> {
+                updateMissionCardExpanded(missionId = event.missionId, isExpanded = event.isExpanded)
             }
         }
     }
@@ -108,43 +111,36 @@ class HomeViewModel @Inject constructor(
         missionStatusType: MissionStatusType,
     ) {
         viewModelScope.launch {
-            val userId = userRepository.getUUID().firstOrNull().orEmpty()
+            val userId = userRepository.getUUID().firstOrNull().orEmpty() //TODO - 추후 변경
             val existIdList = getMissionIdList(state.value.homeInfo.longTermMission, state.value.homeInfo.todayDailyMissionList)
-            Log.d("updateMissionStatus", "existIdList:${existIdList} ");
             val toggleMissionRequest = when(missionStatusType) {
                 MissionStatusType.COMPLETE -> ToggleMissionRequest(finished = true)
                 MissionStatusType.INCOMPLETE -> ToggleMissionRequest(finished = false)
                 MissionStatusType.CHANGE -> ToggleMissionRequest(switch = true)
             }
             dhcRepository.changeMissionStatus(
-                userId = "68600689fe2fbbba96b0ab4a", //TODO - 추후 변경
+                userId = "685faf11de38af6c7bd9d25d", //TODO - 추후 변경
                 missionId = missionId,
                 toggleMissionRequest = toggleMissionRequest
             ).onSuccess { response ->
                 response ?: return@onSuccess
-                val data = response.missions
-                val longTermMission = data.filter { it.type == MissionType.LONG_TERM }
-                val todayDailyMissionList = data.filter { it.type == MissionType.DAILY }
-                val missionIdList = data.map { it.missionId }
+                val longTermMission = response.missions.filter { it.type == MissionType.LONG_TERM }
+                val todayDailyMissionList = response.missions.filter { it.type == MissionType.DAILY }
+                val missionIdList = response.missions.map { it.missionId }
                 val newIds = missionIdList.first { it !in existIdList }
-                Log.d("updateMissionStatus", "missionIdList:${missionIdList} ");
-                Log.d("updateMissionStatus", "newIds:${newIds} ");
                 val updatedLongTermMission = longTermMission.first().toUiModel().copy(
                     isBlink = longTermMission.first().missionId == newIds
                 )
-                val updatedTodayDailyMissionList = todayDailyMissionList.toUiModel().map { mission ->
+                val updatedTodayDailyMissionList = todayDailyMissionList.map { it.toUiModel()}.map { mission ->
                     mission.copy(isBlink = mission.missionId == newIds)
                 }
                 reduce { copy(homeInfo = state.value.homeInfo.copy(
                     longTermMission = updatedLongTermMission,
                     todayDailyMissionList = updatedTodayDailyMissionList,
                 ))}
-                postSideEffect(SideEffect.ReRollExpanded)
             }.onFailure { code, message ->
-                Log.d("updateMissionStatus", "onFailure:${code} ");
-                Log.d("updateMissionStatus", "onFailuremessage:${message} ");
 
-            }.onException {e->
+            }.onException { e->
                 Log.d("updateMissionStatus", "onException:${e} ");
             }
         }
@@ -152,8 +148,8 @@ class HomeViewModel @Inject constructor(
 
     fun getHomeInfo() {
         viewModelScope.launch {
-            val userId = userRepository.getUUID().firstOrNull().orEmpty()
-            dhcRepository.getHomeView(userId = "68600689fe2fbbba96b0ab4a")
+            val userId = userRepository.getUUID().firstOrNull().orEmpty() //TODO - 추후 변경
+            dhcRepository.getHomeView(userId = "685faf11de38af6c7bd9d25d") //TODO - 추후 변경
                 .onSuccess { response ->
                     response ?: return@onSuccess
                     reduce { copy(homeInfo = HomeUiModel.from(response) )}
@@ -179,6 +175,32 @@ class HomeViewModel @Inject constructor(
                     }
                 }
             ))
+        }
+    }
+
+    private fun updateMissionCardExpanded(missionId: String, isExpanded: Boolean) {
+        reduce {
+            copy(homeInfo = state.value.homeInfo.copy(
+                longTermMission = if (state.value.homeInfo.longTermMission.missionId == missionId) {
+                    state.value.homeInfo.longTermMission.copy(isExpanded = isExpanded)
+                } else {
+                    state.value.homeInfo.longTermMission
+                },
+                todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { mission ->
+                    if (mission.missionId == missionId) {
+                        mission.copy(isExpanded = isExpanded)
+                    } else {
+                        mission
+                    }
+                }
+            ))
+        }
+    }
+
+    fun rollBackAllCards() {
+        reduce { copy(homeInfo = state.value.homeInfo.copy(
+            longTermMission = state.value.homeInfo.longTermMission.copy(isExpanded = false),
+            todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { it.copy(isExpanded = false) }))
         }
     }
 }

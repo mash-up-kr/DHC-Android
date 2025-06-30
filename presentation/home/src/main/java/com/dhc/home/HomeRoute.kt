@@ -4,9 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dhc.home.main.FinishMissionChangeBottomSheet
@@ -23,7 +20,6 @@ fun HomeRoute(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    var reRollExpanded by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
@@ -31,7 +27,6 @@ fun HomeRoute(
                 is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
                 is HomeContract.SideEffect.ShowToast -> {}
-                is HomeContract.SideEffect.ReRollExpanded -> { reRollExpanded = true }
             }
         }
     }
@@ -40,7 +35,6 @@ fun HomeRoute(
         HomeScreen(
             state = state,
             eventHandler = viewModel::sendEvent,
-            reRollExpanded = reRollExpanded,
         )
         if(state.isShowMissionCompleteBottomSheet) {
             MissionCompleteCheckBottomSheet(

@@ -97,7 +97,7 @@ fun Mission.toUiModel() = MissionUiModel(
     type = type,
     finished = finished,
     title = title,
-    endDate = endDate,
+    endDate = endDate.toDDay(),
     difficulty = difficulty.calDifficulty(),
     switchCount = switchCount,
 )
@@ -109,18 +109,6 @@ data class TodayDailyFortuneUiModel(
     val score: Int = 0,
 )
 
-fun List<Mission>.toUiModel() = map {
-    MissionUiModel(
-        missionId = it.missionId,
-        category = it.category,
-        type = it.type,
-        finished = it.finished,
-        title = it.title,
-        endDate = it.endDate,
-        difficulty = it.difficulty.calDifficulty(),
-        switchCount = it.switchCount,
-    )
-}
 
 fun getMissionIdList(longTermMission: MissionUiModel, todayDailyMissionList: List<MissionUiModel>): List<String> {
     return listOf(longTermMission.missionId) + todayDailyMissionList.map { it.missionId }

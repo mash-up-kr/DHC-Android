@@ -39,22 +39,20 @@ import com.dhc.designsystem.R as DR
 
 @Composable
 fun MissionCardReRoll(
-    reRollExpanded: Boolean,
     missionUiModel: MissionUiModel,
     onClickMissionChange: () -> Unit,
     modifier: Modifier = Modifier,
     onBlinkEnd: () -> Unit = {},
+    onExpandedChange: (Boolean) -> Unit,
 ) {
-    var isExpanded by remember { mutableStateOf(false) }
+    var isExpanded by remember { mutableStateOf(missionUiModel.isExpanded) }
     val targetPadding = if (isExpanded) 16.dp else 0.dp
     val horizontalPadding by animateDpAsState(targetValue = targetPadding, label = "cardPadding")
     var missionChangeHeight by remember { mutableIntStateOf(0) }
     val density = LocalDensity.current
 
-    LaunchedEffect(reRollExpanded) {
-        if (reRollExpanded) {
-            isExpanded = false
-        }
+    LaunchedEffect(missionUiModel.isExpanded) {
+        isExpanded = missionUiModel.isExpanded
     }
 
     DhcCardReRoll(
@@ -62,7 +60,10 @@ fun MissionCardReRoll(
             .padding(horizontal = 16.dp)
             .graphicsLayer { translationX = -(horizontalPadding.value * density.density) },
         isExpanded = isExpanded,
-        onExpandedChange = { isExpanded = it },
+        onExpandedChange = {
+            isExpanded = it
+            onExpandedChange(it)
+                           },
         actionContent = {
             MissionChange(
                 modifier = Modifier
@@ -122,7 +123,7 @@ private fun PreviewMissionChange() {
         MissionCardReRoll(
             onClickMissionChange = {},
             missionUiModel = MissionUiModel(),
-            reRollExpanded = false,
+            onExpandedChange = {}
         )
     }
 }

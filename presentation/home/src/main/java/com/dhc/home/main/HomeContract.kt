@@ -4,9 +4,7 @@ import com.dhc.home.model.HomeUiModel
 import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.home.model.MissionSuccessButtonType
-import com.dhc.home.model.MissionUiModel
 import com.dhc.home.model.SelectChangeMission
-import com.dhc.home.model.TodayDailyFortuneUiModel
 import com.dhc.presentation.mvi.UiEvent
 import com.dhc.presentation.mvi.UiSideEffect
 import com.dhc.presentation.mvi.UiState
@@ -20,7 +18,7 @@ class HomeContract {
         val isShowMissionChangeBottomSheet: Boolean = false,
         val isShowFinishMissionChangeBottomSheet: Boolean = false,
         val selectedMissionInfo: SelectChangeMission = SelectChangeMission(),
-        val homeInfo: HomeUiModel = HomeUiModel()
+        val homeInfo: HomeUiModel = HomeUiModel(),
     ): UiState
 
 
@@ -34,12 +32,12 @@ class HomeContract {
         data class ClickMissionChangeConfirm(val buttonType: MissionChangeButtonType): Event
         data object ClickFinishMissionChangeConfirm: Event
         data class BlinkEnd(val missionId: String): Event
+        data class ChangeExpandCard(val missionId: String, val isExpanded: Boolean): Event
     }
 
     sealed interface SideEffect : UiSideEffect {
         data object NavigateToMonetaryDetailScreen: SideEffect
         data class ShowToast(val msg: String): SideEffect
         data object NavigateToMission: SideEffect
-        data object ReRollExpanded: SideEffect
     }
 }

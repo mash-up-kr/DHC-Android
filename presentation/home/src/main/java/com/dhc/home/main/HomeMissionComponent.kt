@@ -35,7 +35,7 @@ fun SpendingHabitMission(
         SpendingHabitMissionCard(
             missionDday = missionUiModel.endDate,
             missionTitle = missionUiModel.title,
-            isChecked = missionUiModel.finished,
+            isChecked = !missionUiModel.finished,
             isMissionEnabled = !missionUiModel.finished
         )
     }
@@ -44,11 +44,11 @@ fun SpendingHabitMission(
 
 @Composable
 fun MonetaryLuckyDailyMission(
-    reRollExpanded: Boolean,
     onClickMissionChange: (MissionUiModel) -> Unit,
     dailyMissionList: List<MissionUiModel>,
     modifier: Modifier = Modifier,
-    onBlinkEnd: (String) -> Unit
+    onBlinkEnd: (String) -> Unit,
+    onExpandedChange: (Boolean, String) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -61,10 +61,10 @@ fun MonetaryLuckyDailyMission(
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             dailyMissionList.forEach { mission ->
                 MissionCardReRoll(
-                    reRollExpanded = reRollExpanded,
                     missionUiModel = mission,
                     onClickMissionChange = { onClickMissionChange(mission) },
-                    onBlinkEnd = { onBlinkEnd(mission.missionId) }
+                    onBlinkEnd = { onBlinkEnd(mission.missionId) },
+                    onExpandedChange = { onExpandedChange(it, mission.missionId)}
                 )
             }
         }
@@ -84,7 +84,7 @@ private fun PreviewMonetaryLuckyDailyMission() {
                 dailyMissionList = listOf(),
                 onClickMissionChange = {_ ->},
                 onBlinkEnd = {},
-                reRollExpanded = false,
+                onExpandedChange = { _, _ ->}
             )
         }
     }

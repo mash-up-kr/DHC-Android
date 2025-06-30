@@ -38,7 +38,6 @@ import com.dhc.presentation.mvi.EventHandler
 @Composable
 fun HomeScreen(
     state: HomeContract.State,
-    reRollExpanded: Boolean,
     eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
@@ -128,8 +127,8 @@ fun HomeScreen(
                         missionTitle = mission.title
                     )
                 )) },
+                onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
                 onBlinkEnd = {missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId))},
-                reRollExpanded = reRollExpanded,
             )
             Spacer(modifier = Modifier.height(136.dp))
         }
@@ -153,7 +152,6 @@ fun HomeScreenPreview() {
         HomeScreen(
             eventHandler = {},
             state = HomeContract.State(),
-            reRollExpanded = true
         )
     }
 }
