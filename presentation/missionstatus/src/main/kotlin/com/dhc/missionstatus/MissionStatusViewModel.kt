@@ -28,7 +28,7 @@ class MissionStatusViewModel @Inject constructor(
     }
 
     fun loadAnalysisUiData() = viewModelScope.launch {
-        val userId = authRepository.getUUID().firstOrNull().orEmpty()
+        val userId = authRepository.getUUID().firstOrNull().orEmpty() // Todo :: userId로 변경 필요
         dhcRepository.getAnalysisView(userId)
             .onSuccess { data ->
                 data ?: return@onSuccess // Todo :: null 응답 관련 처리 필요
