@@ -33,6 +33,7 @@ class HomeContract {
         data object ClickFinishMissionChangeConfirm: Event
         data class BlinkEnd(val missionId: String): Event
         data class ChangeExpandCard(val missionId: String, val isExpanded: Boolean): Event
+        data class ClickMissionCheck(val isChecked: Boolean, val missionId: String): Event
     }
 
     sealed interface SideEffect : UiSideEffect {

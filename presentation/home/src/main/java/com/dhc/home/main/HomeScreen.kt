@@ -123,8 +123,8 @@ fun HomeScreen(
                         missionTitle = mission.title
                     )
                 )) },
-                onCheckChange = {isChecked, id -> },
-                onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
+                onCheckChange = { isChecked, id -> eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
+                onExpandedChange = { isExpanded,id -> eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
             )
             Spacer(modifier = Modifier.height(24.dp))
             MonetaryLuckyDailyMission(
@@ -136,7 +136,7 @@ fun HomeScreen(
                         missionTitle = mission.title
                     )
                 )) },
-                onCheckChange = {isChecked, id -> },
+                onCheckChange = { isChecked, id -> eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
                 onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
                 onBlinkEnd = {missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId))},
             )

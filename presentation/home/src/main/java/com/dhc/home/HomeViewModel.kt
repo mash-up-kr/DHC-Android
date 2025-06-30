@@ -85,6 +85,9 @@ class HomeViewModel @Inject constructor(
             is Event.ChangeExpandCard -> {
                 updateMissionCardExpanded(missionId = event.missionId, isExpanded = event.isExpanded)
             }
+            is Event.ClickMissionCheck -> {
+
+            }
         }
     }
 
