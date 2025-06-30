@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,11 +36,14 @@ import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.designsystem.score.DhcScoreText
 import com.dhc.home.R
 import com.dhc.presentation.component.WordBalloon
+import com.dhc.presentation.mvi.EventHandler
 
 @Composable
-fun HomeFlipCardScreen(modifier: Modifier = Modifier) {
-    val colors = LocalDhcColors.current
-    val isCardFlipped by remember { mutableStateOf(false) }
+fun HomeFlipCardScreen(
+    eventHandler: EventHandler<HomeContract.Event>,
+    modifier: Modifier = Modifier,
+) {
+    var isCardFlipped by remember { mutableStateOf(false) }
     val density = LocalDensity.current
     val topBarSize = WindowInsets.statusBars.getTop(density)
     Box(
@@ -54,14 +58,6 @@ fun HomeFlipCardScreen(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(84.dp))
-        Text(
-            text = stringResource(R.string.fortune_card_description),
-            style = DhcTypoTokens.TitleH3,
-            color = colors.text.textBodyPrimary,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(),
-        )
-        Spacer(modifier = Modifier.height(40.dp))
         if (isCardFlipped.not()) {
             NotFlippedDescription()
         } else {
@@ -79,7 +75,8 @@ fun HomeFlipCardScreen(modifier: Modifier = Modifier) {
             FlippableBox(
                 isFlipped = isCardFlipped,
                 onFlipEnd = {
-                    // Todo : Flipped 이후 로직 작성
+                    isCardFlipped = true
+                    eventHandler(HomeContract.Event.FortuneCardFlipped)
                 },
                 frontScreen = {
                     DhcFortuneCard(
@@ -143,6 +140,8 @@ private fun FlippedDescription() {
 @Composable
 private fun HomeFlipCardScreenPreview() {
     DhcTheme {
-        HomeFlipCardScreen()
+        HomeFlipCardScreen(
+            eventHandler = {},
+        )
     }
 }

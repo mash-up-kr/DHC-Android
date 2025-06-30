@@ -32,9 +32,14 @@ fun HomeRoute(
 
     Box {
         when (state.homeState) {
-            HomeContract.HomeState.Error -> TODO()
+            HomeContract.HomeState.Error -> {
+                // Todo : 에러화면 구현하기
+            }
             HomeContract.HomeState.FlipCard -> {
-                HomeFlipCardScreen(modifier = Modifier.fillMaxSize())
+                HomeFlipCardScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    eventHandler = viewModel::sendEvent,
+                )
             }
             HomeContract.HomeState.Loading -> {
                 HomeLoadingScreen(modifier = Modifier.fillMaxSize())

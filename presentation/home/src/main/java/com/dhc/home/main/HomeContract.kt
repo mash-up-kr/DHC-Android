@@ -33,6 +33,7 @@ class HomeContract {
         data object ClickMissionChange: Event //TODO - item id로 받기
         data class ClickMissionChangeConfirm(val buttonType: MissionChangeButtonType): Event
         data object ClickFinishMissionChangeConfirm: Event
+        data object FortuneCardFlipped: Event
     }
 
     sealed interface SideEffect : UiSideEffect {
