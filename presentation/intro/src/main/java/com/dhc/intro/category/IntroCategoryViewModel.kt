@@ -46,10 +46,11 @@ class IntroCategoryViewModel @Inject constructor(
             is Event.ClickNextButton -> {
                 userRepository.updateCategory(event.currentState.selectedCategoryItems.map { it.name })
                 val userToken = authDataStoreRepository.getUUID().orEmpty()
-                val userId = dhcRepository.registerUser(
+                dhcRepository.registerUser(
                     userProfile = userRepository.getUserProfile().copy(userToken = userToken)
-                ).getSuccessOrNull()?.id.orEmpty()
-                authDataStoreRepository.setUserId(userId)
+                ).getSuccessOrNull()?.id?.let { userId ->
+                    authDataStoreRepository.setUserId(userId)
+                }
 
                 postSideEffect(SideEffect.NavigateToNextScreen)
             }
