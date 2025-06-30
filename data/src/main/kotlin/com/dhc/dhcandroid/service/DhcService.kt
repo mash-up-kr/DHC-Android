@@ -6,6 +6,7 @@ import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.MissionsResponse
+import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
@@ -43,7 +44,7 @@ interface DhcService {
 
     @GET("/api/mission-categories")
     suspend fun getMissionCategories(
-    ): Response<AnalysisViewResponse>
+    ): Response<MissionCategoriesResponse>
 
     @GET("/view/users/{userId}/home")
     suspend fun getHomeView(

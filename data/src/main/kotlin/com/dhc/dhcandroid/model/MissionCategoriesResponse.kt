@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MissionCategoriesResponse(
-    val categories: List<String> = emptyList(),
+    val categories: List<MissionCategoryResponse> = emptyList(),
 )
 
 @Serializable
