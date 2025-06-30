@@ -119,30 +119,6 @@ fun MissionStatusScreen(
                 controller = calendarController,
             )
         }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            DhcMissionInfoCard(
-                modifier = Modifier.weight(1f),
-                categoryText = "식음료",
-                categoryTextColor = Color(0xFFFFC84D),
-                message = "미션을 잘 수행\n하고 있어요",
-                totalMissionCount = 20,
-                currentMissionCount = 12,
-            )
-            DhcMissionInfoCard(
-                modifier = Modifier.weight(1f),
-                categoryText = "쇼핑",
-                categoryTextColor = Color(0xFF52D1FF),
-                message = "미션에 어려움을\n겪고 있어요",
-                totalMissionCount = 18,
-                currentMissionCount = 4,
-            )
-        }
     }
 }
 
