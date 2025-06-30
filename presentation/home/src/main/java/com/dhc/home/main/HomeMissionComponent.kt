@@ -55,10 +55,9 @@ fun SpendingHabitMission(
                 SpendingHabitMissionCard(
                     missionDday = missionUiModel.endDate,
                     missionTitle = missionUiModel.title,
-                    isChecked = !missionUiModel.finished,
-                    isMissionEnabled = !missionUiModel.finished,
+                    isChecked = missionUiModel.isChecked,
                     onHeightChanged = { missionChangeHeight = it },
-                    onCheckChange = { onCheckChange( !missionUiModel.finished, missionUiModel.missionId)}
+                    onCheckChange = { onCheckChange( missionUiModel.isChecked, missionUiModel.missionId)}
                 )
             }
         )
@@ -96,12 +95,11 @@ fun MonetaryLuckyDailyMission(
                         MoneyFortuneMissionCard(
                             isBlink = mission.isBlink,
                             missionMode = mission.difficulty,
-                            isMissionEnabled = !mission.finished,
-                            isChecked = !mission.finished,
+                            isChecked = mission.isChecked,
                             missionTitle = mission.title,
                             onBlinkEnd = { onBlinkEnd(mission.missionId) },
                             onHeightChanged = { missionChangeHeight = it },
-                            onCheckChange = { onCheckChange( !mission.finished, mission.missionId)}
+                            onCheckChange = { onCheckChange(  mission.isChecked, mission.missionId)}
                         )
                     }
                 )

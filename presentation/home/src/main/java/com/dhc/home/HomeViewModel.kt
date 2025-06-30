@@ -86,7 +86,10 @@ class HomeViewModel @Inject constructor(
                 updateMissionCardExpanded(missionId = event.missionId, isExpanded = event.isExpanded)
             }
             is Event.ClickMissionCheck -> {
-
+                updateMissionStatus(
+                    missionId = event.missionId,
+                    missionStatusType = if(event.isChecked) MissionStatusType.COMPLETE else MissionStatusType.INCOMPLETE
+                )
             }
         }
     }
@@ -144,8 +147,7 @@ class HomeViewModel @Inject constructor(
             ).onSuccess { response ->
                 response ?: return@onSuccess
                 when(missionStatusType) {
-                    MissionStatusType.COMPLETE -> {}
-                    MissionStatusType.INCOMPLETE -> {}
+                    MissionStatusType.COMPLETE, MissionStatusType.INCOMPLETE  -> { updateMissionCompleteState(missionId, response.missions) }
                     MissionStatusType.CHANGE -> updateNewMissionList(response.missions, existIdList)
                 }
             }.onFailure { code, message ->
@@ -153,6 +155,26 @@ class HomeViewModel @Inject constructor(
             }.onException { e->
                 Log.d("updateMissionStatus", "onException:${e} ");
             }
+        }
+    }
+
+    private fun updateMissionCompleteState(missionId: String, missionList: List<Mission>) {
+        val mission = missionList.firstOrNull { it.missionId == missionId }
+        reduce {
+            copy(homeInfo = state.value.homeInfo.copy(
+                longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission?.missionId) {
+                    state.value.homeInfo.longTermMission.copy(isChecked = mission.finished.not())
+                } else {
+                    state.value.homeInfo.longTermMission
+                },
+                todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
+                    if (it.missionId == mission?.missionId) {
+                        it.copy(isChecked = mission.finished.not())
+                    } else {
+                        it
+                    }
+                }
+            ))
         }
     }
 

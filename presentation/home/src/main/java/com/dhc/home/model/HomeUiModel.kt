@@ -1,14 +1,8 @@
 package com.dhc.home.model
 
 import com.dhc.dhcandroid.model.HomeViewResponse
-import com.dhc.dhcandroid.model.Mission
-import com.dhc.dhcandroid.model.MissionType
 import com.dhc.home.model.MissionUiModel.Companion.calDifficulty
 import com.dhc.home.model.MissionUiModel.Companion.toDDay
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
-import kotlin.math.abs
 
 data class HomeUiModel(
     val longTermMission: MissionUiModel = MissionUiModel(),
@@ -21,7 +15,7 @@ data class HomeUiModel(
                 missionId = homeViewResponse.longTermMission.missionId,
                 category = homeViewResponse.longTermMission.category,
                 type = homeViewResponse.longTermMission.type,
-                finished = homeViewResponse.longTermMission.finished,
+                isChecked = homeViewResponse.longTermMission.finished.not(),
                 title = homeViewResponse.longTermMission.title,
                 switchCount = homeViewResponse.longTermMission.switchCount,
                 endDate = homeViewResponse.longTermMission.endDate.toDDay(),
@@ -32,7 +26,7 @@ data class HomeUiModel(
                     missionId = it.missionId,
                     category = it.category,
                     type = it.type,
-                    finished = it.finished,
+                    isChecked = it.finished.not(),
                     title = it.title,
                     switchCount = it.switchCount,
                     endDate = it.endDate.toDDay(),

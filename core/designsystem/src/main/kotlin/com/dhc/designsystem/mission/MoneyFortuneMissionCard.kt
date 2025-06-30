@@ -27,7 +27,6 @@ fun MoneyFortuneMissionCard(
     missionMode: String,
     missionTitle: String,
     isChecked: Boolean,
-    isMissionEnabled: Boolean,
     modifier: Modifier = Modifier,
     isBlink: Boolean = false,
     onBlinkEnd: () -> Unit = {},
@@ -36,7 +35,7 @@ fun MoneyFortuneMissionCard(
 ) {
     val colors = LocalDhcColors.current
     val missionColor =
-        if(isMissionEnabled)
+        if(isChecked)
             colors.text.textBodyPrimary
         else SurfaceColor.neutral400
 
@@ -47,7 +46,6 @@ fun MoneyFortuneMissionCard(
         isBlink = isBlink,
         onBlinkEnd = onBlinkEnd,
         isChecked = isChecked,
-        isEnabled = isMissionEnabled,
         onCheckChange = onCheckChange,
         content = {
             Row(
@@ -58,7 +56,7 @@ fun MoneyFortuneMissionCard(
                 DhcBadge(
                     modifier = Modifier.height(24.dp),
                     text = missionMode,
-                    type = BadgeType.Level(isEnabled = isMissionEnabled)
+                    type = BadgeType.Level(isEnabled = isChecked)
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
@@ -81,7 +79,6 @@ private fun PreviewMoneyFortuneMissionCard(
     DhcTheme {
         MoneyFortuneMissionCard(
             missionMode = "Easy",
-            isMissionEnabled = parameter.isMissionEnabled,
             isChecked = parameter.isChecked,
             missionTitle = parameter.missionTitle,
             isBlink = false,

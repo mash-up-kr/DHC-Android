@@ -8,12 +8,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
@@ -35,13 +33,12 @@ fun SpendingHabitMissionCard(
     missionDday: String,
     missionTitle: String,
     isChecked: Boolean,
-    isMissionEnabled: Boolean,
     onHeightChanged: (Int) -> Unit = {},
     onCheckChange: () -> Unit = {}
 ) {
     val colors = LocalDhcColors.current
     val missionColor =
-        if(isMissionEnabled)
+        if(isChecked)
             colors.text.textBodyPrimary
         else SurfaceColor.neutral400
 
@@ -53,7 +50,6 @@ fun SpendingHabitMissionCard(
         MissionItemBackGround(
             modifier = Modifier.onSizeChanged{ onHeightChanged(it.height) },
             isChecked = isChecked,
-            isEnabled = isMissionEnabled,
             onCheckChange = onCheckChange,
             content = {
                 Row(
@@ -61,7 +57,7 @@ fun SpendingHabitMissionCard(
                 ) {
                     DhcBadge(
                         text = missionDday,
-                        type = BadgeType.Level(isEnabled = isMissionEnabled)
+                        type = BadgeType.Level(isEnabled = isChecked)
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Text(
@@ -93,7 +89,6 @@ private fun PreviewSpendingHabitMissionCard(
             missionDday = "D-3",
             missionTitle = "텀블러 들고 다니기",
             isChecked = parameter.isChecked,
-            isMissionEnabled = parameter.isMissionEnabled
         )
     }
 }
