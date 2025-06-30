@@ -2,7 +2,9 @@ package com.dhc.dhcandroid.repository
 
 import com.dhc.common.DhcResult
 import com.dhc.common.FormatterUtil.dhcYearMonthFormat
+import com.dhc.common.getSuccessOrNull
 import com.dhc.dhcandroid.datasource.DhcRemoteDataSource
+import com.dhc.dhcandroid.model.AnalysisMonthViewResponse
 import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
@@ -22,6 +24,9 @@ import javax.inject.Inject
 class DhcRepositoryImpl @Inject constructor(
     private val dhcRemoteDataSource: DhcRemoteDataSource,
 ) : DhcRepository {
+
+    private val cachedCalendarView = mutableMapOf<LocalDate, AnalysisMonthViewResponse>()
+
     override suspend fun searchUserByToken(userToken: String): DhcResult<String?> =
         runDhcCatching { dhcRemoteDataSource.searchUserByToken(userToken) }
 
@@ -62,6 +67,37 @@ class DhcRepositoryImpl @Inject constructor(
     override suspend fun getCalendarView(
         userId: String,
         yearMonth: LocalDate,
-    ): DhcResult<CalendarViewResponse> =
-        runDhcCatching { dhcRemoteDataSource.getCalendarView(userId, yearMonth.format(dhcYearMonthFormat)) }
+    ): DhcResult<CalendarViewResponse> {
+        if (listOf(
+                yearMonth.plusMonths(-1),
+                yearMonth,
+                yearMonth.plusMonths(1)
+            ).all { cachedCalendarView.containsKey(it) }
+        ) {
+            return DhcResult.Success(
+                CalendarViewResponse(
+                    threeMonthViewResponse = listOf(
+                        cachedCalendarView[yearMonth.plusMonths(-1)] ?: AnalysisMonthViewResponse(),
+                        cachedCalendarView[yearMonth] ?: AnalysisMonthViewResponse(),
+                        cachedCalendarView[yearMonth.plusMonths(1)] ?: AnalysisMonthViewResponse()
+                    )
+                )
+            )
+        }
+
+        val result = runDhcCatching {
+            dhcRemoteDataSource.getCalendarView(
+                userId,
+                yearMonth.format(dhcYearMonthFormat)
+            )
+        }
+
+        result.getSuccessOrNull()
+            ?.threeMonthViewResponse
+            ?.forEachIndexed { index, analysisMonthViewResponse ->
+                cachedCalendarView[yearMonth.plusMonths(index - 1L)] = analysisMonthViewResponse
+            }
+
+        return result
+    }
 }
