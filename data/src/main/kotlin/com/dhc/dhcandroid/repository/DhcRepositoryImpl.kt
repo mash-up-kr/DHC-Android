@@ -8,6 +8,7 @@ import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.Mission
+import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
@@ -18,6 +19,9 @@ import javax.inject.Inject
 class DhcRepositoryImpl @Inject constructor(
     private val dhcRemoteDataSource: DhcRemoteDataSource,
 ) : DhcRepository {
+    override suspend fun searchUserByToken(userToken: String): DhcResult<String?> =
+        runDhcCatching { dhcRemoteDataSource.searchUserByToken(userToken) }
+
     override suspend fun registerUser(userProfile: UserProfile): DhcResult<RegisterUserResponse> =
         runDhcCatching { dhcRemoteDataSource.registerUser(userProfile) }
 
@@ -48,4 +52,7 @@ class DhcRepositoryImpl @Inject constructor(
 
     override suspend fun getAnalysisView(userId: String): DhcResult<AnalysisViewResponse> =
         runDhcCatching { dhcRemoteDataSource.getAnalysisView(userId) }
+
+    override suspend fun getMissionCategories(): DhcResult<MissionCategoriesResponse> =
+        runDhcCatching { dhcRemoteDataSource.getMissionCategories() }
 }

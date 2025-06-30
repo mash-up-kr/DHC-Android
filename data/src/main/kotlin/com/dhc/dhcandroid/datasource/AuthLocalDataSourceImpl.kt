@@ -17,27 +17,28 @@ class AuthLocalDataSourceImpl @Inject constructor(
     private val userProtoDataStore: DataStore<UserPreferences>,
     @ApplicationContext private val context: Context,
 ): AuthLocalDataSource {
-    val userPreferences: Flow<UserPreferences> = userProtoDataStore.data
-
-    override suspend fun setUUID() {
-        val uuid = userPreferences.firstOrNull()?.uuid
-        if(uuid.isNullOrEmpty()) {
-            userProtoDataStore.updateData { pref ->
-                pref.toBuilder().setUuid(getUUIDFromDevice()).build()
-            }
+    private val userPreferences: Flow<UserPreferences> = userProtoDataStore.data
+    override suspend fun setUserId(userId: String) {
+        userProtoDataStore.updateData { pref ->
+            pref.toBuilder().setUserId(userId).build()
         }
     }
 
-    @SuppressLint("HardwareIds")
-    private fun getUUIDFromDevice(): String? {
-        val userId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-        Log.d(TAG, "UUID from Device: $userId")
-        return userId
+    override suspend fun getUserId(): Flow<String?> =
+        userProtoDataStore.data.map { it.userId }
+
+    override suspend fun setUserToken(token: String) {
+        userProtoDataStore.updateData { pref ->
+            pref.toBuilder().setUserToken(token).build()
+        }
     }
 
-    override suspend fun getUUID(): Flow<String?> {
-        return  return userPreferences.map { it.uuid }
-    }
+    override suspend fun getUserToken(): Flow<String?> =
+        userProtoDataStore.data.map { it.userToken }
+
+    @SuppressLint("HardwareIds")
+    override suspend fun getUUID(): String? =
+        Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
 
     override suspend fun setFcmToken(token: String) {
         userProtoDataStore.updateData { pref ->

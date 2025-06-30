@@ -7,12 +7,17 @@ import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.Mission
+import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 
 interface DhcRepository {
+    suspend fun searchUserByToken(
+        userToken: String,
+    ): DhcResult<String?>
+
     suspend fun registerUser(
         userProfile: UserProfile,
     ): DhcResult<RegisterUserResponse>
@@ -42,4 +47,7 @@ interface DhcRepository {
     suspend fun getAnalysisView(
         userId: String,
     ): DhcResult<AnalysisViewResponse>
+
+    suspend fun getMissionCategories(
+    ): DhcResult<MissionCategoriesResponse>
 }

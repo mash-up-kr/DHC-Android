@@ -6,6 +6,7 @@ import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.Mission
+import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
@@ -16,8 +17,14 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface DhcService {
+
+    @GET("/api/users")
+    suspend fun searchUserByToken(
+        @Query("userToken") userToken: String,
+    ): Response<String?>
 
     @POST("/api/users/register")
     suspend fun registerUser(
@@ -43,7 +50,7 @@ interface DhcService {
 
     @GET("/api/mission-categories")
     suspend fun getMissionCategories(
-    ): Response<AnalysisViewResponse>
+    ): Response<MissionCategoriesResponse>
 
     @GET("/view/users/{userId}/home")
     suspend fun getHomeView(

@@ -4,12 +4,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MissionCategoriesResponse(
-    val categories: List<String> = emptyList(),
+    val categories: List<MissionCategoryResponse> = emptyList(),
 )
 
 @Serializable
 data class MissionCategoryResponse(
-    val name: MissionCategory? = null,
+    val name: MissionCategory = MissionCategory.UNKNOWN,
     val displayName: String = "",
     val imageUrl: String = "",
 )
