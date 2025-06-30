@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
@@ -132,8 +133,7 @@ private fun SelectedCategory(
             contentPadding = PaddingValues(horizontal = 20.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(categoryList.size) { index ->
-                val category = categoryList[index]
+            items(categoryList) { category ->
                 DhcCategoryItem(
                     modifier = Modifier.width(120.dp),
                     name = category.displayName,
