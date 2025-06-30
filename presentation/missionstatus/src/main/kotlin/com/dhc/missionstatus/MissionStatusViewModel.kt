@@ -41,7 +41,11 @@ class MissionStatusViewModel @Inject constructor(
     }
 
     suspend fun getCalendarData(yearMonth: LocalDate): Map<LocalDate, DhcCalendarMonthData> {
-        val userId = authRepository.getUUID().firstOrNull().orEmpty()
+        if (yearMonth.isAfter(LocalDate.now())) {
+            return emptyMap()
+        }
+
+        val userId = authRepository.getUUID().firstOrNull().orEmpty() // Todo :: UserId로 변경 필요
         return dhcRepository.getCalendarView(userId, yearMonth)
             .getSuccessOrNull()
             ?.threeMonthViewResponse
