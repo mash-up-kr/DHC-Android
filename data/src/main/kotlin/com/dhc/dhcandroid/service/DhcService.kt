@@ -1,6 +1,7 @@
 package com.dhc.dhcandroid.service
 
 import com.dhc.dhcandroid.model.AnalysisViewResponse
+import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
@@ -66,4 +67,10 @@ interface DhcService {
     suspend fun getAnalysisView(
         @Path("userId") userId: String,
     ): Response<AnalysisViewResponse>
+
+    @GET("/view/users/{userId}/calendar")
+    suspend fun getCalendarView(
+        @Path("userId") userId: String,
+        @Query("yearMonth") yearMonth: String
+    ): Response<CalendarViewResponse>
 }
