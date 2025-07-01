@@ -9,6 +9,7 @@ import com.dhc.dhcandroid.model.Mission
 import com.dhc.dhcandroid.model.MissionType
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
+import com.dhc.home.main.HomeContract
 import com.dhc.home.main.HomeContract.Event
 import com.dhc.home.main.HomeContract.SideEffect
 import com.dhc.home.main.HomeContract.State
@@ -23,6 +24,7 @@ import com.dhc.home.model.toToggleMissionRequest
 import com.dhc.home.model.toUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,6 +39,11 @@ class HomeViewModel @Inject constructor(
 
     init {
         getHomeInfo()
+        // Todo : FlipCard 로 넘어가기 위한 임시 코드
+        viewModelScope.launch {
+            delay(2000)
+            reduce { copy(homeState = HomeContract.HomeState.FlipCard) }
+        }
     }
 
     override suspend fun handleEvent(event: Event) {
@@ -102,6 +109,11 @@ class HomeViewModel @Inject constructor(
                     missionId = event.missionId,
                     missionStatusType = if (event.isChecked) MissionStatusType.COMPLETE else MissionStatusType.INCOMPLETE
                 )
+            }
+
+            is Event.FortuneCardFlipped -> {
+                delay(1000L)
+                reduce { copy(homeState = HomeContract.HomeState.Success) }
             }
         }
     }
@@ -176,19 +188,19 @@ class HomeViewModel @Inject constructor(
         reduce {
             copy(
                 homeInfo = state.value.homeInfo.copy(
-                longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission?.missionId) {
-                    state.value.homeInfo.longTermMission.copy(isChecked = mission.finished.not())
-                } else {
-                    state.value.homeInfo.longTermMission
-                },
-                todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
-                    if (it.missionId == mission?.missionId) {
-                        it.copy(isChecked = mission.finished.not())
+                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission?.missionId) {
+                        state.value.homeInfo.longTermMission.copy(isChecked = mission.finished.not())
                     } else {
-                        it
+                        state.value.homeInfo.longTermMission
+                    },
+                    todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
+                        if (it.missionId == mission?.missionId) {
+                            it.copy(isChecked = mission.finished.not())
+                        } else {
+                            it
+                        }
                     }
-                }
-            ))
+                ))
         }
     }
 
@@ -213,19 +225,19 @@ class HomeViewModel @Inject constructor(
         reduce {
             copy(
                 homeInfo = state.value.homeInfo.copy(
-                longTermMission = if (state.value.homeInfo.longTermMission.missionId == missionId) {
-                    state.value.homeInfo.longTermMission.copy(isBlink = isBlink)
-                } else {
-                    state.value.homeInfo.longTermMission
-                },
-                todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { mission ->
-                    if (mission.missionId == missionId) {
-                        mission.copy(isBlink = isBlink)
+                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == missionId) {
+                        state.value.homeInfo.longTermMission.copy(isBlink = isBlink)
                     } else {
-                        mission
+                        state.value.homeInfo.longTermMission
+                    },
+                    todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { mission ->
+                        if (mission.missionId == missionId) {
+                            mission.copy(isBlink = isBlink)
+                        } else {
+                            mission
+                        }
                     }
-                }
-            ))
+                ))
         }
     }
 
@@ -233,19 +245,19 @@ class HomeViewModel @Inject constructor(
         reduce {
             copy(
                 homeInfo = state.value.homeInfo.copy(
-                longTermMission = if (state.value.homeInfo.longTermMission.missionId == missionId) {
-                    state.value.homeInfo.longTermMission.copy(isExpanded = isExpanded)
-                } else {
-                    state.value.homeInfo.longTermMission
-                },
-                todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { mission ->
-                    if (mission.missionId == missionId) {
-                        mission.copy(isExpanded = isExpanded)
+                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == missionId) {
+                        state.value.homeInfo.longTermMission.copy(isExpanded = isExpanded)
                     } else {
-                        mission
+                        state.value.homeInfo.longTermMission
+                    },
+                    todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { mission ->
+                        if (mission.missionId == missionId) {
+                            mission.copy(isExpanded = isExpanded)
+                        } else {
+                            mission
+                        }
                     }
-                }
-            ))
+                ))
         }
     }
 
