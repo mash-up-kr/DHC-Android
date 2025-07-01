@@ -19,7 +19,6 @@ import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.home.model.MissionStatusType
 import com.dhc.home.model.MissionSuccessButtonType
 import com.dhc.home.model.SelectChangeMission
-import com.dhc.home.model.getMissionIdList
 import com.dhc.home.model.toUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -128,7 +127,6 @@ class HomeViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             val userId = userRepository.getUUID().firstOrNull().orEmpty() //TODO - 추후 변경
-            val existIdList = getMissionIdList(state.value.homeInfo.longTermMission, state.value.homeInfo.todayDailyMissionList)
             val toggleMissionRequest = when(missionStatusType) {
                 MissionStatusType.COMPLETE -> ToggleMissionRequest(finished = true)
                 MissionStatusType.INCOMPLETE -> ToggleMissionRequest(finished = false)
@@ -143,7 +141,7 @@ class HomeViewModel @Inject constructor(
                 when(missionStatusType) {
                     MissionStatusType.COMPLETE -> {}
                     MissionStatusType.INCOMPLETE -> {}
-                    MissionStatusType.CHANGE -> updateNewMissionList(response.missions, existIdList)
+                    MissionStatusType.CHANGE -> updateNewMissionList(response.missions, state.value.getMissionIdList())
                 }
             }.onFailure { code, message ->
                 Log.d("updateMissionStatus", "onFailure:${code} message:${message} ");

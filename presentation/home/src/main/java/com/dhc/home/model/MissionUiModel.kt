@@ -61,9 +61,3 @@ fun Mission.toUiModel() = MissionUiModel(
     difficulty = difficulty.calDifficulty(),
     switchCount = switchCount,
 )
-
-
-
-fun getMissionIdList(longTermMission: MissionUiModel, todayDailyMissionList: List<MissionUiModel>): List<String> {
-    return listOf(longTermMission.missionId) + todayDailyMissionList.map { it.missionId }
-}
