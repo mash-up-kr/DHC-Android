@@ -36,11 +36,6 @@ fun HomeRoute(
     }
 
     Box {
-        HomeScreen(
-            state = state,
-            eventHandler = viewModel::sendEvent,
-        )
-
         when (state.homeState) {
             HomeContract.HomeState.Error -> {
                 // Todo : 에러화면 구현하기
