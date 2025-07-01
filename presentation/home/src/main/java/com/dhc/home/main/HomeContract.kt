@@ -20,6 +20,7 @@ class HomeContract {
         val isShowFinishMissionChangeBottomSheet: Boolean = false,
         val selectedMissionInfo: SelectChangeMission = SelectChangeMission(),
         val homeInfo: HomeUiModel = HomeUiModel(),
+        val finishTodayMission: Boolean = false,
     ): UiState {
         fun getMissionIdList(): List<String> {
             return listOf(homeInfo.longTermMission.missionId) + homeInfo.todayDailyMissionList.map { it.missionId }
@@ -44,6 +45,7 @@ class HomeContract {
         data object ClickFinishMissionChangeConfirm: Event
         data class BlinkEnd(val missionId: String): Event
         data class ChangeExpandCard(val missionId: String, val isExpanded: Boolean): Event
+        data class ClickMissionCheck(val isChecked: Boolean, val missionId: String): Event
         data object FortuneCardFlipped: Event
     }
 

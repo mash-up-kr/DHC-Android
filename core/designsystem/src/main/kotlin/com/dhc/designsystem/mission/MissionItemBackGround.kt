@@ -32,6 +32,7 @@ fun MissionItemBackGround(
     modifier: Modifier = Modifier,
     isBlink: Boolean = false,
     onBlinkEnd: () -> Unit = {},
+    onCheckChange: () -> Unit = {},
     content: @Composable RowScope.() -> Unit,
 ) {
     LaunchedEffect(isBlink) {
@@ -59,7 +60,8 @@ fun MissionItemBackGround(
         DhcCheck(
             isChecked = isChecked,
             isEnabled = isEnabled,
-            dhcCheckStyle = DhcCheckStyle.Default
+            dhcCheckStyle = DhcCheckStyle.Default,
+            onCheckChange = onCheckChange
         )
     }
 }
@@ -72,8 +74,9 @@ private fun PreviewMissionItem() {
     ) {
         MissionItemBackGround(
             isChecked = true,
-            isEnabled = true,
             content = {},
+            onCheckChange = {},
+            isEnabled = false,
         )
     }
 }
