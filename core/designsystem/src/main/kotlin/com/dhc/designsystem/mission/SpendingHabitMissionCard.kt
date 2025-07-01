@@ -34,6 +34,8 @@ fun SpendingHabitMissionCard(
     missionTitle: String,
     isChecked: Boolean,
     isFinishedTodayMission: Boolean = false,
+    isBlink: Boolean = false,
+    onBlinkEnd: () -> Unit = {},
     onHeightChanged: (Int) -> Unit = {},
     onCheckChange: () -> Unit = {}
 ) {
@@ -53,6 +55,8 @@ fun SpendingHabitMissionCard(
             isChecked = isChecked,
             isEnabled = isFinishedTodayMission.not(),
             onCheckChange = onCheckChange,
+            isBlink = isBlink,
+            onBlinkEnd = onBlinkEnd,
             content = {
                 Row(
                     modifier = Modifier.fillMaxWidth().weight(1f),
