@@ -1,5 +1,6 @@
 package com.dhc.home.main
 
+import androidx.lifecycle.viewModelScope
 import com.dhc.home.main.HomeContract.Event
 import com.dhc.home.main.HomeContract.State
 import com.dhc.home.main.HomeContract.SideEffect
@@ -7,10 +8,21 @@ import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.home.model.MissionSuccessButtonType
 import com.dhc.presentation.mvi.BaseViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
 ): BaseViewModel<State, Event, SideEffect>() {
+
+    init {
+        // Todo : FlipCard 로 넘어가기 위한 임시 코드
+        viewModelScope.launch {
+            delay(2000)
+            reduce { copy(homeState = HomeContract.HomeState.FlipCard) }
+        }
+    }
+
     override fun createInitialState(): State {
         return State()
     }
@@ -43,6 +55,10 @@ class HomeViewModel @Inject constructor(
             }
             is Event.ClickFinishMissionChangeConfirm -> {
                 updateFinishMissionChangeBottomSheetState(false)
+            }
+            is Event.FortuneCardFlipped -> {
+                delay(1000L)
+                reduce { copy(homeState = HomeContract.HomeState.Success) }
             }
         }
     }
