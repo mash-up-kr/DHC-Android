@@ -41,17 +41,10 @@ fun AppResetDialog(
             modifier = Modifier.padding(top = 12.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .fillMaxWidth()
-                    .height(100.dp)
-                    .background(color = SurfaceColor.neutral500, shape = RoundedCornerShape(12.dp))
-            )
             Text(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
-                    .padding(top = 16.dp)
+                    .padding(top = 12.dp)
                     .fillMaxWidth(),
                 text = stringResource(R.string.app_reset_dialog_title),
                 style = DhcTypoTokens.TitleH3,
