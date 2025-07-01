@@ -33,12 +33,13 @@ fun SpendingHabitMissionCard(
     missionDday: String,
     missionTitle: String,
     isChecked: Boolean,
+    isFinishedTodayMission: Boolean = false,
     onHeightChanged: (Int) -> Unit = {},
     onCheckChange: () -> Unit = {}
 ) {
     val colors = LocalDhcColors.current
     val missionColor =
-        if(isChecked)
+        if(!isFinishedTodayMission)
             colors.text.textBodyPrimary
         else SurfaceColor.neutral400
 
@@ -50,6 +51,7 @@ fun SpendingHabitMissionCard(
         MissionItemBackGround(
             modifier = Modifier.onSizeChanged{ onHeightChanged(it.height) },
             isChecked = isChecked,
+            isEnabled = isFinishedTodayMission.not(),
             onCheckChange = onCheckChange,
             content = {
                 Row(
@@ -57,7 +59,7 @@ fun SpendingHabitMissionCard(
                 ) {
                     DhcBadge(
                         text = missionDday,
-                        type = BadgeType.Level(isEnabled = isChecked)
+                        type = BadgeType.Level(isEnabled = isFinishedTodayMission.not())
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Text(
@@ -89,6 +91,7 @@ private fun PreviewSpendingHabitMissionCard(
             missionDday = "D-3",
             missionTitle = "텀블러 들고 다니기",
             isChecked = parameter.isChecked,
+            isFinishedTodayMission = parameter.isMissionEnabled
         )
     }
 }
