@@ -43,11 +43,11 @@ import kotlin.math.roundToInt
 
 @Composable
 fun DhcCardReRoll(
-    actionPadding: Dp = 0.dp,
     isExpanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     actionContent: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier:Modifier = Modifier,
+    actionTopPadding: Dp = 0.dp,
     content: @Composable () -> Unit
 ) {
     val density = LocalDensity.current
@@ -77,7 +77,7 @@ fun DhcCardReRoll(
     ) {
         Box(
             modifier = Modifier
-                .padding(top = actionPadding)
+                .padding(top = actionTopPadding)
                 .clip(
                     if(offsetX > 0) RoundedCornerShape(0.dp)
                     else RoundedCornerShape(12.dp)
