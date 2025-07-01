@@ -36,6 +36,7 @@ import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun MissionSuccessDialog(
+    savedMoney: String,
     eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
 ) {
@@ -65,7 +66,7 @@ fun MissionSuccessDialog(
                         append(stringResource(R.string.today_total))
                         append(" ")
                         withStyle(style = SpanStyle(brush = GradientColor.textGradient01)) {
-                            append(stringResource(R.string.amount, "3300"))
+                            append(stringResource(R.string.amount, savedMoney))
                         }
                         append(stringResource(R.string.save_description))
                     },
@@ -109,6 +110,7 @@ fun MissionSuccessDialog(
 fun PreviewMissionSuccessDialog() {
     DhcTheme {
         MissionSuccessDialog(
+            savedMoney = "",
             eventHandler = {}
         )
     }

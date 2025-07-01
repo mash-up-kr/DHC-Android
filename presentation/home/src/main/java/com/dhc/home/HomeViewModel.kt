@@ -2,9 +2,11 @@ package com.dhc.home
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.dhc.common.FormatterUtil.todayStringFormat
 import com.dhc.common.onException
 import com.dhc.common.onFailure
 import com.dhc.common.onSuccess
+import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.Mission
 import com.dhc.dhcandroid.model.MissionType
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
@@ -52,14 +54,15 @@ class HomeViewModel @Inject constructor(
                 SideEffect.NavigateToMonetaryDetailScreen
             )
 
-            is Event.ClickMissionComplete -> {
+            is Event.ClickTodayMissionFinish -> {
                 updateMissionCompleteBottomSheetState(isShowBottomSheet = true)
             }
 
             is Event.ClickMissionCompleteConfirm -> {
                 updateMissionCompleteBottomSheetState(isShowBottomSheet = false)
-                if (event.buttonType == MissionCompleteButtonType.Complete)
-                    updateMissionSuccessDialogState(isShowDialog = true)
+                if (event.buttonType == MissionCompleteButtonType.Complete) {
+                    finishTodayMission()
+                }
             }
 
             is Event.ClickMissionSuccess -> {
@@ -272,6 +275,23 @@ class HomeViewModel @Inject constructor(
                         )
                     })
             )
+        }
+    }
+
+    fun finishTodayMission() {
+        viewModelScope.launch {
+            dhcRepository.requestFinishTodayMissions(
+                EndTodayMissionRequest(
+                    date = todayStringFormat
+                )
+            ).onSuccess {response ->
+                response ?: return@onSuccess
+                reduce { copy(todaySavedMoney = response.todaySavedMoney) }
+                updateMissionSuccessDialogState(isShowDialog = true)
+
+            }.onFailure { code, message ->
+                Log.d("finishTodayMission", "onFailure:${code} message:${message} ");
+            }
         }
     }
 }

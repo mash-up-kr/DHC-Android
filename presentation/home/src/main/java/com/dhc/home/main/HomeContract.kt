@@ -4,7 +4,6 @@ import com.dhc.home.model.HomeUiModel
 import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.home.model.MissionSuccessButtonType
-import com.dhc.home.model.MissionUiModel
 import com.dhc.home.model.SelectChangeMission
 import com.dhc.presentation.mvi.UiEvent
 import com.dhc.presentation.mvi.UiSideEffect
@@ -21,6 +20,7 @@ class HomeContract {
         val selectedMissionInfo: SelectChangeMission = SelectChangeMission(),
         val homeInfo: HomeUiModel = HomeUiModel(),
         val finishTodayMission: Boolean = false,
+        val todaySavedMoney: String = ""
     ): UiState {
         fun getMissionIdList(): List<String> {
             return listOf(homeInfo.longTermMission.missionId) + homeInfo.todayDailyMissionList.map { it.missionId }
@@ -37,7 +37,7 @@ class HomeContract {
     sealed interface Event : UiEvent {
         data object ClickMoreButton : Event
         data object ClickFortuneCard: Event
-        data object ClickMissionComplete: Event
+        data object ClickTodayMissionFinish: Event
         data class ClickMissionCompleteConfirm(val buttonType: MissionCompleteButtonType): Event
         data class ClickMissionSuccess(val buttonType: MissionSuccessButtonType): Event
         data class ClickMissionChange(val selectChangeMission: SelectChangeMission): Event

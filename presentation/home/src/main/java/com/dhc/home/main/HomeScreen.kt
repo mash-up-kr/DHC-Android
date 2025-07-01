@@ -152,7 +152,7 @@ fun HomeScreen(
                 .padding(bottom = 24.dp, end = 20.dp),
             text = stringResource(R.string.finish_today_mission),
             isEnabled = true,
-            onClick = { eventHandler(HomeContract.Event.ClickMissionComplete) },
+            onClick = { eventHandler(HomeContract.Event.ClickTodayMissionFinish) },
         )
     }
 }
