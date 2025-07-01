@@ -44,7 +44,7 @@ fun HomeLoadingScreen(modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize()) {
         VideoView(
             videoResId = R.raw.loading_video,
-            thumbnailResId = null, // Todo : 추후 썸네일 반영 예정
+            thumbnailResId = R.drawable.loading_video_thumbnail,
             modifier = Modifier
                 .fillMaxSize()
                 .offset(y = -(topBarSize.div(density.density).dp)),
