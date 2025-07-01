@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -33,26 +34,36 @@ import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.mission.DhcCardReRoll
 import com.dhc.designsystem.mission.MoneyFortuneMissionCard
 import com.dhc.home.R
+import com.dhc.home.model.MissionUiModel
 import com.dhc.designsystem.R as DR
 
 @Composable
 fun MissionCardReRoll(
-    missionTitle: String,
+    missionUiModel: MissionUiModel,
     onClickMissionChange: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onBlinkEnd: () -> Unit = {},
+    onExpandedChange: (Boolean) -> Unit,
 ) {
-    var isExpanded by remember { mutableStateOf(false) }
+    var isExpanded by remember { mutableStateOf(missionUiModel.isExpanded) }
     val targetPadding = if (isExpanded) 16.dp else 0.dp
     val horizontalPadding by animateDpAsState(targetValue = targetPadding, label = "cardPadding")
     var missionChangeHeight by remember { mutableIntStateOf(0) }
     val density = LocalDensity.current
+
+    LaunchedEffect(missionUiModel.isExpanded) {
+        isExpanded = missionUiModel.isExpanded
+    }
 
     DhcCardReRoll(
         modifier = modifier
             .padding(horizontal = 16.dp)
             .graphicsLayer { translationX = -(horizontalPadding.value * density.density) },
         isExpanded = isExpanded,
-        onExpandedChange = { isExpanded = it },
+        onExpandedChange = {
+            isExpanded = it
+            onExpandedChange(it)
+        },
         actionContent = {
             MissionChange(
                 modifier = Modifier
@@ -62,10 +73,12 @@ fun MissionCardReRoll(
         },
         content = {
             MoneyFortuneMissionCard(
-                missionMode = "Easy",
-                isMissionEnabled = true,
-                isChecked = true,
-                missionTitle = missionTitle,
+                isBlink = missionUiModel.isBlink,
+                missionMode = missionUiModel.difficulty,
+                isMissionEnabled = !missionUiModel.finished,
+                isChecked = !missionUiModel.finished,
+                missionTitle = missionUiModel.title,
+                onBlinkEnd = onBlinkEnd,
                 onHeightChanged = { missionChangeHeight = it }
             )
         }
@@ -108,8 +121,9 @@ fun MissionChange(
 private fun PreviewMissionChange() {
     DhcTheme {
         MissionCardReRoll(
-            missionTitle = "돈 아끼기",
             onClickMissionChange = {},
+            missionUiModel = MissionUiModel(),
+            onExpandedChange = {}
         )
     }
 }

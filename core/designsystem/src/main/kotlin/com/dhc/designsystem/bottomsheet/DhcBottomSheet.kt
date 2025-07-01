@@ -13,6 +13,7 @@ import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,6 +40,7 @@ fun DhcModalBottomSheet(
             !isCloseButtonEnabled || newValue != SheetValue.Hidden
         }
     )
+
     val scope = rememberCoroutineScope()
 
     ModalBottomSheet(
@@ -64,7 +66,10 @@ fun DhcModalBottomSheet(
                 if(isCloseButtonEnabled) {
                     IconButton (
                         modifier = Modifier.align(Alignment.End),
-                        onClick = { scope.launch { sheetState.hide() } }
+                        onClick = {
+                            scope.launch { sheetState.hide() }
+                            onDismissRequest()
+                        }
                     ) {
                         Image(
                             painter = painterResource(R.drawable.ico_x),

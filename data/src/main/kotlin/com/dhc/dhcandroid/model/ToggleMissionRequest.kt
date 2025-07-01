@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ToggleMissionRequest(
-    val finished: Boolean = false,
-    val switch: Boolean = false,
+    val finished: Boolean? = null,
+    val switch: Boolean? = null,
 )

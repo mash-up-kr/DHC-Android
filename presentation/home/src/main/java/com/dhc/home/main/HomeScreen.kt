@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
@@ -33,10 +32,12 @@ import com.dhc.designsystem.floatingButton.DhcFloatingButton
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.home.R
+import com.dhc.home.model.SelectChangeMission
 import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun HomeScreen(
+    state: HomeContract.State,
     eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
     scrollState: ScrollState = rememberScrollState(),
@@ -63,12 +64,14 @@ fun HomeScreen(
             ) {
                 Spacer(modifier = Modifier.height(13.dp))
                 Text(
-                    text = "5월 20일",
+                    text = state.homeInfo.todayDailyFortune.date,
                     style = DhcTypoTokens.Body3,
                     color = SurfaceColor.neutral300,
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 MonetaryLuckInfo(
+                    fortuneScore = state.homeInfo.todayDailyFortune.score,
+                    fortuneDetail = state.homeInfo.todayDailyFortune.fortuneDetail,
                     onClickMoreButton = { eventHandler(HomeContract.Event.ClickMoreButton) }
                 )
                 Spacer(modifier = Modifier.height(12.dp))
@@ -86,8 +89,8 @@ fun HomeScreen(
                         onFlipEnd = {},
                         frontScreen = {
                             DhcFortuneCard(
-                                title = "오늘의 운세 카드",
-                                description = "한템포 쉬어가기",
+                                title = state.homeInfo.todayDailyFortune.fortuneTitle,
+                                description = state.homeInfo.todayDailyFortune.fortuneDetail,
                                 modifier = Modifier
                                     .padding(top = 20.dp, bottom = 60.dp)
                                     .size(width = 144.dp, height = 200.dp)
@@ -96,8 +99,8 @@ fun HomeScreen(
                         },
                         backScreen = {
                             DhcFortuneCard(
-                                title = "오늘의 운세 카드",
-                                description = "한템포 쉬어가기",
+                                title = state.homeInfo.todayDailyFortune.fortuneTitle,
+                                description = state.homeInfo.todayDailyFortune.fortuneDetail,
                                 modifier = Modifier
                                     .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) }
                                     .padding(top = 20.dp, bottom = 60.dp)
@@ -110,10 +113,23 @@ fun HomeScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(13.5.dp))
-                SpendingHabitMission()
+                SpendingHabitMission(
+                    missionUiModel = state.homeInfo.longTermMission,
+                )
                 Spacer(modifier = Modifier.height(24.dp))
             }
-            MonetaryLuckyDailyMission()
+            MonetaryLuckyDailyMission(
+                dailyMissionList = state.homeInfo.todayDailyMissionList,
+                onClickMissionChange = { mission -> eventHandler(HomeContract.Event.ClickMissionChange(
+                    SelectChangeMission(
+                        missionId = mission.missionId,
+                        switchCount = mission.switchCount,
+                        missionTitle = mission.title
+                    )
+                )) },
+                onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
+                onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId)) },
+            )
             Spacer(modifier = Modifier.height(136.dp))
         }
 
@@ -134,7 +150,8 @@ fun HomeScreen(
 fun HomeScreenPreview() {
     DhcTheme {
         HomeScreen(
-            eventHandler = {}
+            eventHandler = {},
+            state = HomeContract.State(),
         )
     }
 }

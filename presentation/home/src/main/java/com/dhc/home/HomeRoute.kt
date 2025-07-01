@@ -1,4 +1,4 @@
-package com.dhc.home.main
+package com.dhc.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +8,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dhc.home.main.FinishMissionChangeBottomSheet
+import com.dhc.home.main.HomeContract
+import com.dhc.home.main.HomeFlipCardScreen
+import com.dhc.home.main.HomeLoadingScreen
+import com.dhc.home.main.HomeScreen
+import com.dhc.home.main.MissionChangeBottomSheet
 import com.dhc.home.ui.MissionCompleteCheckBottomSheet
 import com.dhc.home.ui.MissionSuccessDialog
 
@@ -25,12 +31,16 @@ fun HomeRoute(
                 is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
                 is HomeContract.SideEffect.ShowToast -> {}
-                is HomeContract.SideEffect.ChangeMissionBoarder -> {}
             }
         }
     }
 
     Box {
+        HomeScreen(
+            state = state,
+            eventHandler = viewModel::sendEvent,
+        )
+
         when (state.homeState) {
             HomeContract.HomeState.Error -> {
                 // Todo : 에러화면 구현하기
@@ -46,7 +56,8 @@ fun HomeRoute(
             }
             HomeContract.HomeState.Success -> {
                 HomeScreen(
-                    eventHandler = viewModel::sendEvent
+                    state = state,
+                    eventHandler = viewModel::sendEvent,
                 )
             }
         }
@@ -65,6 +76,8 @@ fun HomeRoute(
 
         if(state.isShowMissionChangeBottomSheet) {
             MissionChangeBottomSheet(
+                missionTitle = state.selectedMissionInfo.missionTitle,
+                missionChangeCount = state.selectedMissionInfo.switchCount,
                 eventHandler = viewModel::sendEvent
             )
         }
@@ -74,5 +87,6 @@ fun HomeRoute(
                 eventHandler = viewModel::sendEvent
             )
         }
+
     }
 }

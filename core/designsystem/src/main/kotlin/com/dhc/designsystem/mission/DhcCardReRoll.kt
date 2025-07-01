@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
@@ -58,6 +59,14 @@ fun DhcCardReRoll(
             if (delta < 0) {
                 offsetX = (offsetX + delta).coerceAtLeast(0f)
             }
+        }
+    }
+
+    LaunchedEffect(isExpanded) {
+        offsetX = if (!isExpanded) {
+            0f
+        } else {
+            contextMenuWidth - (12.dp.value * density.density)
         }
     }
 
@@ -138,6 +147,7 @@ private fun PreviewSwipeTest() {
             },
             content = {
                 MoneyFortuneMissionCard(
+                    isBlink = true,
                     missionMode = "Easy",
                     isMissionEnabled = true,
                     isChecked = true,

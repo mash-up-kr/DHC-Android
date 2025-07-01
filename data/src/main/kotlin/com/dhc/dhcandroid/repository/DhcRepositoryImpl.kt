@@ -11,7 +11,7 @@ import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
-import com.dhc.dhcandroid.model.Mission
+import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
@@ -37,7 +37,7 @@ class DhcRepositoryImpl @Inject constructor(
         userId: String,
         missionId: String,
         toggleMissionRequest: ToggleMissionRequest
-    ): DhcResult<Mission> =
+    ): DhcResult<MissionsResponse> =
         runDhcCatching {
             dhcRemoteDataSource.changeMissionStatus(
                 userId,

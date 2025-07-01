@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -30,6 +29,8 @@ fun MoneyFortuneMissionCard(
     isChecked: Boolean,
     isMissionEnabled: Boolean,
     modifier: Modifier = Modifier,
+    isBlink: Boolean = false,
+    onBlinkEnd: () -> Unit = {},
     onHeightChanged: (Int) -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
@@ -42,6 +43,8 @@ fun MoneyFortuneMissionCard(
         modifier = modifier.onSizeChanged {
             onHeightChanged(it.height)
         },
+        isBlink = isBlink,
+        onBlinkEnd = onBlinkEnd,
         isChecked = isChecked,
         isEnabled = isMissionEnabled,
         content = {
@@ -78,7 +81,8 @@ private fun PreviewMoneyFortuneMissionCard(
             missionMode = "Easy",
             isMissionEnabled = parameter.isMissionEnabled,
             isChecked = parameter.isChecked,
-            missionTitle = parameter.missionTitle
+            missionTitle = parameter.missionTitle,
+            isBlink = false,
         )
     }
 }

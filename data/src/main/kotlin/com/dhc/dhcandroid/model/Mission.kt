@@ -1,12 +1,16 @@
 package com.dhc.dhcandroid.model
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
+@Serializable
+data class MissionsResponse(
+    val missions: List<Mission> = listOf()
+)
 
 @Serializable
 data class Mission(
     val missionId: String = "",
-    val category: MissionCategory = MissionCategory.TRANSPORTATION,
+    val category: String = "",
     val difficulty: Int = 0,
     val type: MissionType = MissionType.LONG_TERM,
     val finished: Boolean = false,

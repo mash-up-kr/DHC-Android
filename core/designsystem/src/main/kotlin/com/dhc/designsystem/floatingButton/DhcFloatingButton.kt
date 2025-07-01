@@ -17,11 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import com.dhc.common.BrushUtil
 import com.dhc.common.FullRoundedCornerShape
 import com.dhc.common.borderIf
 import com.dhc.common.clickableIf
-import com.dhc.common.toPx
 import com.dhc.designsystem.AccentColor
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
