@@ -65,19 +65,16 @@ class DhcRepositoryImpl @Inject constructor(
         userId: String,
         yearMonth: LocalDate,
     ): DhcResult<CalendarViewResponse> {
-        if (listOf(
-                yearMonth.plusMonths(-1),
-                yearMonth,
-                yearMonth.plusMonths(1)
-            ).all { cachedCalendarView.containsKey(it) }
-        ) {
+        val prevMonth = yearMonth.plusMonths(-1L)
+        val nextMonth = yearMonth.plusMonths(1L)
+        val targetMonthList = listOf(prevMonth, yearMonth, nextMonth)
+
+        if (targetMonthList.all { cachedCalendarView.containsKey(it) }) {
             return DhcResult.Success(
                 CalendarViewResponse(
-                    threeMonthViewResponse = listOf(
-                        cachedCalendarView[yearMonth.plusMonths(-1)] ?: AnalysisMonthViewResponse(),
-                        cachedCalendarView[yearMonth] ?: AnalysisMonthViewResponse(),
-                        cachedCalendarView[yearMonth.plusMonths(1)] ?: AnalysisMonthViewResponse()
-                    )
+                    threeMonthViewResponse = targetMonthList.map {
+                        cachedCalendarView[it] ?: AnalysisMonthViewResponse()
+                    }
                 )
             )
         }
@@ -92,9 +89,10 @@ class DhcRepositoryImpl @Inject constructor(
         result.getSuccessOrNull()
             ?.threeMonthViewResponse
             ?.forEachIndexed { index, analysisMonthViewResponse ->
-                cachedCalendarView[yearMonth.plusMonths(index - 1L)] = analysisMonthViewResponse
+                if (index < targetMonthList.size) {
+                    cachedCalendarView[targetMonthList[index]] = analysisMonthViewResponse
+                }
             }
-
         return result
     }
 }
