@@ -33,7 +33,7 @@ fun IntroDescriptionScreen(
 ) {
     Box(modifier = modifier) {
         Column(modifier = Modifier.fillMaxSize()) {
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(48.dp))
             DhcTitle(
                 titleState = DhcTitleState(
                     title = stringResource(R.string.intro_description_title),
