@@ -28,9 +28,10 @@ fun FlippableBox(
     maxRotationAngle: Float = 180f,
     flipThreshold: Float = 90f,
     initialRotationZ: Float = 0f,
+    isEnabled: Boolean = true,
 ) {
     val initialIsBack by remember { mutableStateOf(isFlipped) }
-    var canRotate by remember { mutableStateOf(true) }
+    var canRotate by remember(isEnabled) { mutableStateOf(isEnabled) }
     var rotationAngleState by remember { mutableFloatStateOf(0f) }
     val animatedRotationAngleState by animateFloatAsState(targetValue = rotationAngleState, label = "")
     val isFront by remember(animatedRotationAngleState) {

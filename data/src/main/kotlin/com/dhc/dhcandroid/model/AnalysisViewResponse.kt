@@ -20,11 +20,3 @@ data class GenerationMoneyViewResponse(
 enum class Generation {
     TEENAGERS, TWENTIES, THIRTIES, FORTIES, UNKNOWN,
 }
-
-@Serializable
-data class CalendarDayMissionView(
-    val day: Int = 0,
-    val date: String = "",
-    val finishedMissionCount: Int = 0,
-    val totalMissionCount: Int = 0,
-)

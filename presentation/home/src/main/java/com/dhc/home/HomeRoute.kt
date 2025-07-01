@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -16,6 +17,8 @@ import com.dhc.designsystem.DhcSnackBar
 import com.dhc.designsystem.SnackBarContent
 import com.dhc.home.main.FinishMissionChangeBottomSheet
 import com.dhc.home.main.HomeContract
+import com.dhc.home.main.HomeFlipCardScreen
+import com.dhc.home.main.HomeLoadingScreen
 import com.dhc.home.main.HomeScreen
 import com.dhc.home.main.MissionChangeBottomSheet
 import com.dhc.home.ui.MissionCompleteCheckBottomSheet
@@ -51,6 +54,27 @@ fun HomeRoute(
             state = state,
             eventHandler = viewModel::sendEvent,
         )
+
+        when (state.homeState) {
+            HomeContract.HomeState.Error -> {
+                // Todo : 에러화면 구현하기
+            }
+            HomeContract.HomeState.FlipCard -> {
+                HomeFlipCardScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    eventHandler = viewModel::sendEvent,
+                )
+            }
+            HomeContract.HomeState.Loading -> {
+                HomeLoadingScreen(modifier = Modifier.fillMaxSize())
+            }
+            HomeContract.HomeState.Success -> {
+                HomeScreen(
+                    state = state,
+                    eventHandler = viewModel::sendEvent,
+                )
+            }
+        }
         if(state.isShowMissionCompleteBottomSheet) {
             MissionCompleteCheckBottomSheet(
                 missionCount = 0,

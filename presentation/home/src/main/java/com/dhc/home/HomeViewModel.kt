@@ -9,6 +9,7 @@ import com.dhc.dhcandroid.model.Mission
 import com.dhc.dhcandroid.model.MissionType
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
+import com.dhc.home.main.HomeContract
 import com.dhc.home.main.HomeContract.Event
 import com.dhc.home.main.HomeContract.SideEffect
 import com.dhc.home.main.HomeContract.State
@@ -24,6 +25,7 @@ import com.dhc.home.model.toToggleMissionRequest
 import com.dhc.home.model.toUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,6 +40,11 @@ class HomeViewModel @Inject constructor(
 
     init {
         getHomeInfo()
+        // Todo : FlipCard 로 넘어가기 위한 임시 코드
+        viewModelScope.launch {
+            delay(2000)
+            reduce { copy(homeState = HomeContract.HomeState.FlipCard) }
+        }
     }
 
     override suspend fun handleEvent(event: Event) {
@@ -88,8 +95,12 @@ class HomeViewModel @Inject constructor(
             is Event.ClickMissionCheck -> {
                 updateMissionStatus(
                     missionId = event.missionId,
-                    missionStatusType = if(event.isChecked) MissionStatusType.COMPLETE else MissionStatusType.INCOMPLETE
+                    missionStatusType = if (event.isChecked) MissionStatusType.COMPLETE else MissionStatusType.INCOMPLETE
                 )
+            }
+            is Event.FortuneCardFlipped -> {
+                delay(1000L)
+                reduce { copy(homeState = HomeContract.HomeState.Success) }
             }
         }
     }
