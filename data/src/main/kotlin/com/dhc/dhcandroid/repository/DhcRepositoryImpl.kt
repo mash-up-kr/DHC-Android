@@ -19,6 +19,9 @@ import javax.inject.Inject
 class DhcRepositoryImpl @Inject constructor(
     private val dhcRemoteDataSource: DhcRemoteDataSource,
 ) : DhcRepository {
+    override suspend fun searchUserByToken(userToken: String): DhcResult<String?> =
+        runDhcCatching { dhcRemoteDataSource.searchUserByToken(userToken) }
+
     override suspend fun registerUser(userProfile: UserProfile): DhcResult<RegisterUserResponse> =
         runDhcCatching { dhcRemoteDataSource.registerUser(userProfile) }
 

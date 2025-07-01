@@ -37,6 +37,9 @@ coil = "3.2.0"
 #kotlinx-serialization
 kotlinx-serialization = "1.8.1"
 
+#exoplayer
+exoplayer = "1.6.1"
+
 # 프로젝트 설정
 targetSdk = "35"
 versionCode = "1"
@@ -103,6 +106,10 @@ coil-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", versio
 #kotlinx-serialization
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
+#exoplayer
+exoplayer-core = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "exoplayer" }
+exoplayer-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "exoplayer" }
+
 [bundles]
 hilt = [
     "hilt-navigation",
@@ -147,6 +154,10 @@ coil = [
     "coil-okhttp",
 ]
 
+exoplayer = [
+    "exoplayer-core",
+    "exoplayer-ui",
+]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

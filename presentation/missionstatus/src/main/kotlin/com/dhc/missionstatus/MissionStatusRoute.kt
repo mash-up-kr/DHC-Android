@@ -16,6 +16,10 @@ fun MissionStatusRoute(
     val scrollState = rememberScrollState()
 
     LaunchedEffect(Unit) {
+        viewModel.loadAnalysisUiData()
+    }
+
+    LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
 
         }

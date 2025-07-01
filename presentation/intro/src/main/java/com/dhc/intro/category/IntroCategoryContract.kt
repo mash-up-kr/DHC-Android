@@ -11,6 +11,7 @@ class IntroCategoryContract {
         val categoryItems: List<CategoryItem> = emptyList(),
         val selectedIndexSet: Set<Int> = emptySet(),
     ) : UiState {
+        val selectedCategoryItems get() = categoryItems.filterIndexed { index, _ -> selectedIndexSet.contains(index) }
         val nextButtonEnabled: Boolean = selectedIndexSet.size > 2
     }
 
