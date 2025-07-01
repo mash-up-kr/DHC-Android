@@ -1,9 +1,11 @@
 package com.dhc.home
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dhc.home.main.FinishMissionChangeBottomSheet
@@ -36,6 +38,27 @@ fun HomeRoute(
             state = state,
             eventHandler = viewModel::sendEvent,
         )
+
+        when (state.homeState) {
+            HomeContract.HomeState.Error -> {
+                // Todo : 에러화면 구현하기
+            }
+            HomeContract.HomeState.FlipCard -> {
+                HomeFlipCardScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    eventHandler = viewModel::sendEvent,
+                )
+            }
+            HomeContract.HomeState.Loading -> {
+                HomeLoadingScreen(modifier = Modifier.fillMaxSize())
+            }
+            HomeContract.HomeState.Success -> {
+                HomeScreen(
+                    state = state,
+                    eventHandler = viewModel::sendEvent,
+                )
+            }
+        }
         if(state.isShowMissionCompleteBottomSheet) {
             MissionCompleteCheckBottomSheet(
                 missionCount = 0,
@@ -62,5 +85,6 @@ fun HomeRoute(
                 eventHandler = viewModel::sendEvent
             )
         }
+
     }
 }
