@@ -18,6 +18,7 @@ import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.home.model.MissionStatusType
 import com.dhc.home.model.MissionSuccessButtonType
+import com.dhc.home.model.MissionUiModel
 import com.dhc.home.model.SelectChangeMission
 import com.dhc.home.model.toToggleMissionRequest
 import com.dhc.home.model.toUiModel
@@ -136,7 +137,7 @@ class HomeViewModel @Inject constructor(
                 response ?: return@onSuccess
                 when(missionStatusType) {
                     MissionStatusType.COMPLETE -> {}
-                    MissionStatusType.INCOMPLETE -> {}
+                    MissionStatusType.INCOMPLETE -> {} //TODO - check status
                     MissionStatusType.CHANGE -> updateNewMissionList(response.missions, state.value.getMissionIdList())
                 }
             }.onFailure { code, message ->
@@ -151,12 +152,12 @@ class HomeViewModel @Inject constructor(
         val longTermMission = missionList.filter { it.type == MissionType.LONG_TERM }
         val todayDailyMissionList = missionList.filter { it.type == MissionType.DAILY }
         val missionIdList = missionList.map { it.missionId }
-        val newIds = missionIdList.first { it !in existIdList }
+        val newIds = missionIdList.firstOrNull { it !in existIdList }
         reduce { copy(homeInfo = state.value.homeInfo.copy(
-            longTermMission = longTermMission.first().toUiModel(),
+            longTermMission = longTermMission.firstOrNull()?.toUiModel() ?: MissionUiModel(),
             todayDailyMissionList =  todayDailyMissionList.map { it.toUiModel()},
         ))}
-        updateMissionBlinkState(newIds, true)
+        newIds?.let { updateMissionBlinkState(newIds, true) }
     }
 
     private fun updateMissionBlinkState(missionId: String, isBlink: Boolean) {

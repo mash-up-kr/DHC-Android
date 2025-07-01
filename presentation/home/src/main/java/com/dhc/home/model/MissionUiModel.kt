@@ -2,7 +2,6 @@ package com.dhc.home.model
 
 import com.dhc.dhcandroid.model.Mission
 import com.dhc.dhcandroid.model.MissionType
-import com.dhc.home.model.MissionUiModel.Companion.calDifficulty
 import com.dhc.home.model.MissionUiModel.Companion.toDDay
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -22,14 +21,17 @@ data class MissionUiModel(
     val isExpanded: Boolean = false
 ) {
     companion object {
-        fun Int.calDifficulty(): String {
-            return when (this) {
-                1 -> "Easy"
-                2 -> "Medium"
-                3 -> "Hard"
-                else -> "Easy"
-            }
-        }
+
+        fun from(mission: Mission): MissionUiModel = MissionUiModel(
+            missionId = mission.missionId,
+            category = mission.category,
+            type = mission.type,
+            finished = mission.finished,
+            title = mission.title,
+            switchCount = mission.switchCount,
+            endDate = mission.endDate.toDDay(),
+            difficulty = MissionDifficulty.from(mission.difficulty)
+        )
 
         fun String.toDDay(): String {
             return try {
@@ -58,6 +60,6 @@ fun Mission.toUiModel() = MissionUiModel(
     finished = finished,
     title = title,
     endDate = endDate.toDDay(),
-    difficulty = difficulty.calDifficulty(),
+    difficulty = MissionDifficulty.from(difficulty),
     switchCount = switchCount,
 )
