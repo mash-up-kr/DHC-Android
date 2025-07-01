@@ -26,6 +26,13 @@ class DhcCalendarController(
         currentDate = getDateByPage(page)
     }
 
+    fun updateCalendarMonthData(
+        date: LocalDate,
+        monthData: DhcCalendarMonthData,
+    ) {
+        calendarMonthState[date] = monthData
+    }
+
     companion object {
         val Saver: Saver<DhcCalendarController, String> = Saver(
             save = { it.initialData.initialDate.toString() },
