@@ -28,14 +28,14 @@ import com.dhc.mypage.R
 @Composable
 fun AppResetDialog(
     onClickAppResetButton: () -> Unit,
-    onDismissButton: () -> Unit,
+    onClickDismissButton: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val colors = LocalDhcColors.current
 
     DhcDialog(
         modifier = modifier,
-        onDismissRequest = onDismissButton,
+        onClickDismiss = onClickDismissButton,
     ) {
         Column(
             modifier = Modifier.padding(top = 12.dp),
@@ -76,7 +76,7 @@ fun AppResetDialog(
                 text = stringResource(R.string.app_reset_dialog_cancel),
                 buttonSize = DhcButtonSize.LARGE,
                 buttonStyle = DhcButtonStyle.Primary(true),
-                onClick = onClickAppResetButton
+                onClick = onClickDismissButton
             )
             DhcButton(
                 modifier = Modifier
@@ -98,7 +98,7 @@ private fun AppResetDialogPreview() {
     DhcTheme {
         AppResetDialog(
             onClickAppResetButton = {},
-            onDismissButton = {},
+            onClickDismissButton = {},
         )
     }
 }
