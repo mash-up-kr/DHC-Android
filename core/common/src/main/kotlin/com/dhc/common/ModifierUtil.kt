@@ -19,7 +19,7 @@ fun Modifier.clickableIf(predicate: () -> Boolean, onClick: () -> Unit) =
 fun Modifier.borderIf(width: Dp, brush: Brush, shape: Shape, predicate: () -> Boolean) =
     if (predicate()) this.then(Modifier.border(width, brush, shape)) else this
 
-fun Modifier.borderColorIf(width: Dp, color: Color, shape: Shape, predicate: () -> Boolean) =
+fun Modifier.borderIf(width: Dp, color: Color, shape: Shape, predicate: () -> Boolean) =
     if (predicate()) this.then(Modifier.border(width, color, shape)) else this
 
 fun Modifier.drawBalloonTail(

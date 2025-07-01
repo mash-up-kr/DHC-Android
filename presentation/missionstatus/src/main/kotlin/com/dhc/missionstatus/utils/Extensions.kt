@@ -22,5 +22,6 @@ fun ServerGender.getGenderString(): String {
     return when (this) {
         ServerGender.MALE -> "남자"
         ServerGender.FEMALE -> "여자"
+        ServerGender.UNKNOWN -> ""
     }
 }

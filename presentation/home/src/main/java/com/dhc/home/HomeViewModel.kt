@@ -112,7 +112,7 @@ class HomeViewModel @Inject constructor(
 
     fun getHomeInfo() {
         viewModelScope.launch {
-            val userId = userRepository.getUUID().firstOrNull().orEmpty() //TODO - 추후 변경
+            val userId = userRepository.getUUID()?.firstOrNull() ?: "" //TODO - 추후 변경
             dhcRepository.getHomeView(userId = "685faf11de38af6c7bd9d25d") //TODO - 추후 변경
                 .onSuccess { response ->
                     response ?: return@onSuccess
@@ -128,7 +128,7 @@ class HomeViewModel @Inject constructor(
         missionStatusType: MissionStatusType,
     ) {
         viewModelScope.launch {
-            val userId = userRepository.getUUID().firstOrNull().orEmpty() //TODO - 추후 변경
+            val userId = userRepository.getUUID()?.firstOrNull() ?: "" //TODO - 추후 변경
             dhcRepository.changeMissionStatus(
                 userId = "685faf11de38af6c7bd9d25d", //TODO - 추후 변경
                 missionId = missionId,

@@ -1,7 +1,6 @@
 package com.dhc.home.model
 
 import com.dhc.dhcandroid.model.HomeViewResponse
-import com.dhc.home.model.MissionUiModel.Companion.toDDay
 
 data class HomeUiModel(
     val longTermMission: MissionUiModel = MissionUiModel(),

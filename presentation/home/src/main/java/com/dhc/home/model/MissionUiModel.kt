@@ -1,12 +1,8 @@
 package com.dhc.home.model
 
+import com.dhc.common.FormatterUtil.toDDay
 import com.dhc.dhcandroid.model.Mission
 import com.dhc.dhcandroid.model.MissionType
-import com.dhc.home.model.MissionUiModel.Companion.toDDay
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
-import kotlin.math.abs
 
 data class MissionUiModel(
     val missionId: String = "",
@@ -32,24 +28,6 @@ data class MissionUiModel(
             endDate = mission.endDate.toDDay(),
             difficulty = MissionDifficulty.from(mission.difficulty)
         )
-
-        fun String.toDDay(): String {
-            return try {
-                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                val targetDate = LocalDate.parse(this, formatter)
-                val today = LocalDate.now()
-
-                val daysBetween = ChronoUnit.DAYS.between(today, targetDate)
-
-                when {
-                    daysBetween > 0 -> "D-${daysBetween}"
-                    daysBetween == 0L -> "D-Day"
-                    else -> "D+${abs(daysBetween)}"
-                }
-            } catch (e: Exception) {
-                "Invalid Date"
-            }
-        }
     }
 }
 
