@@ -1,16 +1,13 @@
 package com.dhc.home.model
 
-import androidx.annotation.StringRes
-import com.dhc.home.R
-
-enum class FinishMissionToast(@StringRes val messageRes: Int) {
-    MESSAGE_1(R.string.finish_mission_toast_1),
-    MESSAGE_2(R.string.finish_mission_toast_2),
-    MESSAGE_3(R.string.finish_mission_toast_3),
-    MESSAGE_4(R.string.finish_mission_toast_4),
-    MESSAGE_5(R.string.finish_mission_toast_5);
+enum class FinishMissionToast(val messageRes: String) {
+    MESSAGE_1("차근차근 잘하고 있어요!"),
+    MESSAGE_2("시작이 반이죠! 잘하고 있어요"),
+    MESSAGE_3("멋져요! 오늘도 발전하는 하루에요"),
+    MESSAGE_4("점점 부자가 되고 있어요!"),
+    MESSAGE_5("작은 절약이 큰 변화를 만들어요");
 
     companion object {
-        fun getRandomMessage(): Int = FinishMissionToast.entries.toTypedArray().random().messageRes
+        fun getRandomMessage(): String = FinishMissionToast.entries.toTypedArray().random().messageRes
     }
 }

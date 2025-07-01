@@ -21,10 +21,4 @@
     <string name="limit_mission_change">미션은 하루에 4번만\n변경 가능해요</string>
     <string name="limit_mission_change_description">내일 돌아오면 새로운 미션을 받을 수 있어요!</string>
 
-    <string name="finish_mission_toast_1">차근차근 잘하고 있어요!</string>
-    <string name="finish_mission_toast_2">시작이 반이죠! 잘하고 있어요</string>
-    <string name="finish_mission_toast_3">멋져요! 오늘도 발전하는 하루에요</string>
-    <string name="finish_mission_toast_4">점점 부자가 되고 있어요!</string>
-    <string name="finish_mission_toast_5">작은 절약이 큰 변화를 만들어요</string>
-
 </resources>
