@@ -20,4 +20,6 @@
     <string name="back">돌아가기</string>
     <string name="limit_mission_change">미션은 하루에 4번만\n변경 가능해요</string>
     <string name="limit_mission_change_description">내일 돌아오면 새로운 미션을 받을 수 있어요!</string>
+    <string name="fortune_card_description">오늘의 운세 카드를\n뒤집어보세요!</string>
+    <string name="balloon_message_flip">Flip!</string>
 </resources>
