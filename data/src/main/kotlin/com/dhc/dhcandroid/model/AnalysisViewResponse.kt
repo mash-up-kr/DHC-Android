@@ -11,12 +11,7 @@ data class AnalysisViewResponse(
 
 @Serializable
 data class GenerationMoneyViewResponse(
-    val generation: Generation = Generation.UNKNOWN,
+    val generation: String = "",
     val gender: Gender = Gender.MALE,
     val averageSpendMoney: String = "0",
 )
-
-@Serializable
-enum class Generation {
-    TEENAGERS, TWENTIES, THIRTIES, FORTIES, UNKNOWN,
-}

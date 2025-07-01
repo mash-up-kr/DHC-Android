@@ -3,7 +3,6 @@ package com.dhc.missionstatus.ui
 import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.GenerationMoneyViewResponse
 import com.dhc.missionstatus.utils.getGenderString
-import com.dhc.missionstatus.utils.getGenerationString
 import com.dhc.missionstatus.utils.toIntOrZero
 
 data class ConsumptionAnalysisUiModel(
@@ -28,7 +27,7 @@ data class AnalysisGraphUiModel(
     companion object {
         fun from(generationMoneyViewResponse: GenerationMoneyViewResponse) =
             AnalysisGraphUiModel(
-                target = "${generationMoneyViewResponse.generation.getGenerationString()} ${generationMoneyViewResponse.gender.getGenderString()}",
+                target = "${generationMoneyViewResponse.generation} ${generationMoneyViewResponse.gender.getGenderString()}",
                 targetData = generationMoneyViewResponse.averageSpendMoney.toIntOrZero()
             )
     }
