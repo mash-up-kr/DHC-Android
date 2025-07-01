@@ -40,12 +40,15 @@ fun IntroDescriptionScreen(
                     titleStyle = DhcTypoTokens.TitleH2,
                 ),
                 textAlign = TextAlign.Center,
-                subTitleState = null,
+                subTitleState = DhcTitleState(
+                    title = stringResource(R.string.intro_description_sub_title),
+                    titleStyle = DhcTypoTokens.Body3,
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 24.dp, start = 20.dp, end = 20.dp),
             )
-            Spacer(modifier = Modifier.height(120.dp))
+            Spacer(modifier = Modifier.height(56.dp))
             Column(
                 modifier = Modifier.padding(top = 24.dp, start = 20.dp, end = 20.dp, bottom = 32.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
