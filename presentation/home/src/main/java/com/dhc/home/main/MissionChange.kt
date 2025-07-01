@@ -63,7 +63,7 @@ fun MissionCardReRoll(
         onExpandedChange = {
             isExpanded = it
             onExpandedChange(it)
-                           },
+        },
         actionContent = {
             MissionChange(
                 modifier = Modifier
