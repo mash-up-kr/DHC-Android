@@ -27,6 +27,8 @@ import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
+import com.dhc.designsystem.calendar.DhcCalendarController
+import com.dhc.designsystem.calendar.model.DhcCalendarInitialData
 import com.dhc.designsystem.calendar.ui.DhcCalendar
 import com.dhc.designsystem.graph.DhcGraph
 import com.dhc.designsystem.graph.model.DhcGraphConfig
@@ -35,12 +37,16 @@ import com.dhc.designsystem.info.DhcMissionInfoCard
 import com.dhc.designsystem.info.DhcMissionStatusCard
 import com.dhc.missionstatus.MissionStatusContract.State
 import com.dhc.missionstatus.R
+import java.time.LocalDate
 
 @Composable
 fun MissionStatusScreen(
     state: State,
     modifier: Modifier = Modifier,
-    scrollState: ScrollState = rememberScrollState()
+    scrollState: ScrollState = rememberScrollState(),
+    calendarController: DhcCalendarController = DhcCalendarController(
+        initialData = DhcCalendarInitialData(initialDate = LocalDate.now())
+    )
 ) {
     val colors = LocalDhcColors.current
 
@@ -87,50 +93,30 @@ fun MissionStatusScreen(
             )
         }
 
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 20.dp),
-            text = stringResource(R.string.mission_analysis_title),
-            style = DhcTypoTokens.Body3,
-            color = SurfaceColor.neutral30,
-        )
-
-        DhcMissionStatusCard(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp),
-            title = "5월달",
-            subTitle = "미션 평균 성공률 82%",
-        )
-
-        DhcCalendar(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp),
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            DhcMissionInfoCard(
-                modifier = Modifier.weight(1f),
-                categoryText = "식음료",
-                categoryTextColor = Color(0xFFFFC84D),
-                message = "미션을 잘 수행\n하고 있어요",
-                totalMissionCount = 20,
-                currentMissionCount = 12,
+        if (state.missionAnalysisUiModel != null) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                text = stringResource(R.string.mission_analysis_title),
+                style = DhcTypoTokens.Body3,
+                color = SurfaceColor.neutral30,
             )
-            DhcMissionInfoCard(
-                modifier = Modifier.weight(1f),
-                categoryText = "쇼핑",
-                categoryTextColor = Color(0xFF52D1FF),
-                message = "미션에 어려움을\n겪고 있어요",
-                totalMissionCount = 18,
-                currentMissionCount = 4,
+
+            DhcMissionStatusCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp),
+                title = "${state.missionAnalysisUiModel.currentMonth}월달",
+                subTitle = "미션 평균 성공률 ${state.missionAnalysisUiModel.averageSucceedProbability}%",
+            )
+
+            DhcCalendar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 12.dp),
+                initialDate = LocalDate.now(),
+                controller = calendarController,
             )
         }
     }
@@ -165,7 +151,12 @@ private fun ConsumptionAnalysisContent(
                 .padding(top = 4.dp)
                 .fillMaxWidth(),
             text = buildAnnotatedString {
-                append(stringResource(R.string.consumption_analysis_money, wonFormat.format(weeklySaveMoney)))
+                append(
+                    stringResource(
+                        R.string.consumption_analysis_money,
+                        wonFormat.format(weeklySaveMoney)
+                    )
+                )
                 withStyle(style = SpanStyle(color = colors.text.textHighLightsSecondary)) {
                     append(stringResource(R.string.consumption_analysis_save_more_money))
                 }
@@ -187,13 +178,19 @@ private fun ConsumptionAnalysisContent(
                     label = stringResource(R.string.consumption_analysis_calendar_me),
                     value = weeklySaveMoney,
                     isHighlight = true,
-                    tooltipMessage = stringResource(R.string.consumption_analysis_calendar_won, weeklySaveMoney),
+                    tooltipMessage = stringResource(
+                        R.string.consumption_analysis_calendar_won,
+                        weeklySaveMoney
+                    ),
                 ),
                 DhcGraphData(
                     label = graphData.target,
                     value = graphData.targetData,
                     isHighlight = false,
-                    tooltipMessage = stringResource(R.string.consumption_analysis_calendar_won, graphData.targetData),
+                    tooltipMessage = stringResource(
+                        R.string.consumption_analysis_calendar_won,
+                        graphData.targetData
+                    ),
                 )
             )
         )
@@ -206,6 +203,10 @@ private fun MissionStatusScreenPreview() {
     DhcTheme {
         MissionStatusScreen(
             state = State(
+                missionAnalysisUiModel = MissionAnalysisUiModel(
+                    currentMonth = 10,
+                    averageSucceedProbability = 75,
+                ),
                 consumptionAnalysisUiModel = ConsumptionAnalysisUiModel(),
             )
         )

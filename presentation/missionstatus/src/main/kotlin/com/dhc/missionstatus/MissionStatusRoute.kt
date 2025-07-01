@@ -6,6 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dhc.designsystem.calendar.rememberDhcCalendarController
 import com.dhc.missionstatus.ui.MissionStatusScreen
 
 @Composable
@@ -14,9 +15,21 @@ fun MissionStatusRoute(
 ) {
     val state by viewModel.state.collectAsState()
     val scrollState = rememberScrollState()
+    val calendarController = rememberDhcCalendarController()
 
     LaunchedEffect(Unit) {
         viewModel.loadAnalysisUiData()
+    }
+
+    LaunchedEffect(calendarController.currentDate) {
+        viewModel.getCalendarData(
+            yearMonth = calendarController.currentDate,
+        ).forEach { (localDate, dhcCalendarMonthData) ->
+            calendarController.updateCalendarMonthData(
+                date = localDate,
+                monthData = dhcCalendarMonthData,
+            )
+        }
     }
 
     LaunchedEffect(Unit) {
@@ -28,5 +41,6 @@ fun MissionStatusRoute(
     MissionStatusScreen(
         state = state,
         scrollState = scrollState,
+        calendarController = calendarController,
     )
 }
