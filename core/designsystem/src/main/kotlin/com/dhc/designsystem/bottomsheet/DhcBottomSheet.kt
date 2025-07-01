@@ -66,9 +66,8 @@ fun DhcModalBottomSheet(
                 if(isCloseButtonEnabled) {
                     IconButton (
                         modifier = Modifier.align(Alignment.End),
-                        onClick = { scope.launch {
-                            sheetState.hide()
-                        }
+                        onClick = {
+                            scope.launch { sheetState.hide() }
                             onDismissRequest()
                         }
                     ) {

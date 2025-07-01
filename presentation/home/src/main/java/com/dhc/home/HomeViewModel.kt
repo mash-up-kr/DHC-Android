@@ -104,7 +104,7 @@ class HomeViewModel @Inject constructor(
         reduce { copy(isShowFinishMissionChangeBottomSheet = isShowBottomSheet) }
     }
 
-    fun updateSelectedMissionInfo(selectedMissionInfo: SelectChangeMission) {
+    private fun updateSelectedMissionInfo(selectedMissionInfo: SelectChangeMission) {
         reduce { copy(selectedMissionInfo = selectedMissionInfo) }
     }
 
@@ -122,7 +122,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun updateMissionStatus(
+    private fun updateMissionStatus(
         missionId: String,
         missionStatusType: MissionStatusType,
     ) {
@@ -203,7 +203,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun rollBackAllCards() {
+    private fun rollBackAllCards() {
         reduce { copy(homeInfo = state.value.homeInfo.copy(
             longTermMission = state.value.homeInfo.longTermMission.copy(isExpanded = false),
             todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { it.copy(isExpanded = false) }))
