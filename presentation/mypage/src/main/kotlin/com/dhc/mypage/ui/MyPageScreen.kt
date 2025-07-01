@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
@@ -31,6 +32,7 @@ import com.dhc.designsystem.category.DhcCategoryItem
 import com.dhc.mypage.MyPageContract.Event
 import com.dhc.mypage.MyPageContract.State
 import com.dhc.mypage.R
+import com.dhc.mypage.model.MissionCategoryUiModel
 import com.dhc.mypage.model.MyInfoUiModel
 import com.dhc.mypage.ui.settinglist.SettingItem
 import com.dhc.mypage.ui.settinglist.SettingList
@@ -67,7 +69,10 @@ fun MyPageScreen(
             modifier = Modifier.fillMaxWidth(),
         )
 
-        SelectedCategory(modifier = Modifier.fillMaxWidth())
+        SelectedCategory(
+            categoryList = state.missionCategories,
+            modifier = Modifier.fillMaxWidth()
+        )
 
         HorizontalDivider(
             thickness = 7.dp,
@@ -109,7 +114,10 @@ private fun MyInfo(
 }
 
 @Composable
-private fun SelectedCategory(modifier: Modifier = Modifier) {
+private fun SelectedCategory(
+    categoryList: List<MissionCategoryUiModel>,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier.padding(vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -125,12 +133,12 @@ private fun SelectedCategory(modifier: Modifier = Modifier) {
             contentPadding = PaddingValues(horizontal = 20.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(5) {
+            items(categoryList) { category ->
                 DhcCategoryItem(
                     modifier = Modifier.width(120.dp),
-                    name = "식음료",
+                    name = category.displayName,
                     isChecked = false,
-                    imageUrl = "sampleImageUrl",
+                    imageUrl = category.imageUrl,
                 )
             }
         }

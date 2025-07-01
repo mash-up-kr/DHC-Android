@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class UserProfile(
     val id: String = "",
     val userToken: String = "",
-    val gender: Gender = Gender.MALE,
+    val gender: Gender = Gender.UNKNOWN,
     val birthDate: BirthDate? = null,
     val birthTime: String? = null,
     val preferredMissionCategoryList: List<MissionCategory> = emptyList(),
@@ -14,6 +14,7 @@ data class UserProfile(
 
 @Serializable
 enum class Gender {
+    UNKNOWN,
     MALE,
     FEMALE
 }
@@ -21,17 +22,19 @@ enum class Gender {
 @Serializable
 data class BirthDate(
     val date: String = "",
-    val calendarType: CalendarType = CalendarType.SOLAR,
+    val calendarType: CalendarType = CalendarType.UNKNOWN,
 )
 
 @Serializable
 enum class CalendarType {
+    UNKNOWN,
     SOLAR,
     LUNAR,
 }
 
 @Serializable
 enum class MissionCategory {
+    UNKNOWN,
     TRANSPORTATION,
     FOOD,
     DIGITAL,
