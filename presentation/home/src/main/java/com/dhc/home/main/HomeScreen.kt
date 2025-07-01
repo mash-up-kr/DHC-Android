@@ -123,6 +123,7 @@ fun HomeScreen(
                         missionTitle = mission.title
                     )
                 )) },
+                onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId))},
                 onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
             )
             Spacer(modifier = Modifier.height(24.dp))

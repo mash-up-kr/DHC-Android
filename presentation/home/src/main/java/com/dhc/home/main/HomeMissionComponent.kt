@@ -27,6 +27,7 @@ fun SpendingHabitMission(
     missionUiModel: MissionUiModel,
     onExpandedChange: (Boolean, String) -> Unit,
     onClickMissionChange: (MissionUiModel) -> Unit,
+    onBlinkEnd: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var missionChangeHeight by remember { mutableIntStateOf(0) }
@@ -56,7 +57,9 @@ fun SpendingHabitMission(
                     missionTitle = missionUiModel.title,
                     isChecked = !missionUiModel.finished,
                     isMissionEnabled = !missionUiModel.finished,
-                    onHeightChanged = { missionChangeHeight = it }
+                    isBlink = missionUiModel.isBlink,
+                    onHeightChanged = { missionChangeHeight = it },
+                    onBlinkEnd = { onBlinkEnd(missionUiModel.missionId) },
                 )
             }
         )
@@ -115,6 +118,7 @@ private fun PreviewMonetaryLuckyDailyMission() {
                 missionUiModel = MissionUiModel(),
                 onExpandedChange = { _, _ -> },
                 onClickMissionChange = { _ -> },
+                onBlinkEnd = {}
             )
             Spacer(modifier = Modifier.height(24.dp))
             MonetaryLuckyDailyMission(
