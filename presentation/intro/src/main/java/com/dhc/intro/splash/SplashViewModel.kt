@@ -1,6 +1,5 @@
 package com.dhc.intro.splash
 
-import androidx.lifecycle.viewModelScope
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -14,30 +13,16 @@ import kotlinx.coroutines.launch
 class SplashViewModel @Inject constructor(
 ) : BaseViewModel<State, Event, SideEffect>() {
 
-    init {
-        waitSplashTimeAndFinished()
-    }
-
     override fun createInitialState(): State {
         return State()
     }
 
     override suspend fun handleEvent(event: Event) {
         when (event) {
-            Event.SplashFinish -> {
+            Event.LottieAnimationFinished -> {
+                delay(500L)
                 reduce { copy(isSplashFinished = true) }
             }
         }
-    }
-
-    private fun waitSplashTimeAndFinished() {
-        viewModelScope.launch {
-            delay(SPLASH_TIME)
-            handleEvent(Event.SplashFinish)
-        }
-    }
-
-    companion object {
-        private const val SPLASH_TIME = 1500L // 2 seconds
     }
 }
