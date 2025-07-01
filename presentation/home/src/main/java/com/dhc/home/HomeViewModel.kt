@@ -194,13 +194,13 @@ class HomeViewModel @Inject constructor(
             copy(
                 homeInfo = state.value.homeInfo.copy(
                 longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission.missionId) {
-                    state.value.homeInfo.longTermMission.copy(isChecked = mission.finished.not())
+                    state.value.homeInfo.longTermMission.copy(isChecked = mission.finished)
                 } else {
                     state.value.homeInfo.longTermMission
                 },
                 todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
                     if (it.missionId == mission.missionId) {
-                        it.copy(isChecked = mission.finished.not())
+                        it.copy(isChecked = mission.finished)
                     } else {
                         it
                     }
