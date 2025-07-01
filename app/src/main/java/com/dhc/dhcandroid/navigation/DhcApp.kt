@@ -1,10 +1,5 @@
 package com.dhc.dhcandroid.navigation
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.Crossfade
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,7 +24,6 @@ import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
 import com.dhc.dhcandroid.MainViewModel
-import com.dhc.intro.splash.SplashRoute
 
 @Composable
 fun DhcApp(
@@ -65,25 +59,15 @@ fun DhcApp(
         containerColor = colors.background.backgroundMain,
         modifier = modifier,
     ) { paddingValues ->
-        Crossfade(
-            targetState = state.isShowNextPage && state.startPage != DhcRoute.NONE,
-        ) { isSplash ->
-            if (isSplash) {
-                DhcNavHost(
-                    navController = navController,
-                    startDestination = state.startPage,
-                    modifier = Modifier
-                        .padding(paddingValues)
-                        .fillMaxWidth(),
-                )
-            } else {
-                SplashRoute(
-                    navigateToNextScreen = {
-                        mainViewModel.triggerShowNextPage()
-                    },
-                )
-            }
-        }
+        DhcNavHost(
+            navController = navController,
+            startPage = state.startPage,
+            isShowNextPage = state.isShowNextPage,
+            triggerShowNextPage = mainViewModel::triggerShowNextPage,
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxWidth(),
+        )
     }
 }
 
