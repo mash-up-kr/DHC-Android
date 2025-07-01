@@ -1,5 +1,10 @@
 package com.dhc.dhcandroid.navigation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -23,18 +29,17 @@ import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
 import com.dhc.dhcandroid.MainViewModel
+import com.dhc.intro.splash.SplashRoute
 
-// MainViewModel.init() 실행을 위해 미사용이지만 파라미터가 필요합니다
-@Suppress("UnusedParameter")
 @Composable
 fun DhcApp(
     modifier: Modifier = Modifier,
     mainViewModel: MainViewModel = hiltViewModel(),
 ) {
     val colors = LocalDhcColors.current
-    val startDestination = DhcRoute.SPLASH
     val navController = rememberNavController()
     val currentScreenConfig by currentScreenConfigAsState(navController)
+    val state by mainViewModel.state.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -60,13 +65,25 @@ fun DhcApp(
         containerColor = colors.background.backgroundMain,
         modifier = modifier,
     ) { paddingValues ->
-        DhcNavHost(
-            navController = navController,
-            startDestination = startDestination,
-            modifier = Modifier
-                .padding(paddingValues)
-                .fillMaxWidth(),
-        )
+        Crossfade(
+            targetState = state.isShowNextPage && state.startPage != DhcRoute.NONE,
+        ) { isSplash ->
+            if (isSplash) {
+                DhcNavHost(
+                    navController = navController,
+                    startDestination = state.startPage,
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .fillMaxWidth(),
+                )
+            } else {
+                SplashRoute(
+                    navigateToNextScreen = {
+                        mainViewModel.triggerShowNextPage()
+                    },
+                )
+            }
+        }
     }
 }
 

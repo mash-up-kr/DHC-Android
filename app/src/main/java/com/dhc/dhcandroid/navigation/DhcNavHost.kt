@@ -38,14 +38,6 @@ fun DhcNavHost(
         navController = navController,
         startDestination = startDestination.route,
     ) {
-        composable(DhcRoute.SPLASH.route) {
-            SplashRoute(
-                navigateToNextScreen = {
-                    navController.navigateToIntroFromSplash()
-                },
-            )
-        }
-
         navigation(
             route = DhcRoute.INTRO.route,
             startDestination = DhcRoute.INTRO_START.route,
