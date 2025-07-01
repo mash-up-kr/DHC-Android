@@ -20,7 +20,7 @@ class HomeContract {
         val isShowFinishMissionChangeBottomSheet: Boolean = false,
         val selectedMissionInfo: SelectChangeMission = SelectChangeMission(),
         val homeInfo: HomeUiModel = HomeUiModel(),
-        val finishTodayMission: Boolean = true,
+        val finishTodayMission: Boolean = false,
     ): UiState {
         fun getMissionIdList(): List<String> {
             return listOf(homeInfo.longTermMission.missionId) + homeInfo.todayDailyMissionList.map { it.missionId }
