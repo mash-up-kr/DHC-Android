@@ -28,6 +28,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun MissionItemBackGround(
     isChecked: Boolean,
+    isEnabled: Boolean,
     modifier: Modifier = Modifier,
     isBlink: Boolean = false,
     onBlinkEnd: () -> Unit = {},
@@ -58,7 +59,7 @@ fun MissionItemBackGround(
         Spacer(modifier = Modifier.width(16.dp))
         DhcCheck(
             isChecked = isChecked,
-            isEnabled = isChecked,
+            isEnabled = isEnabled,
             dhcCheckStyle = DhcCheckStyle.Default,
             onCheckChange = onCheckChange
         )
@@ -74,7 +75,8 @@ private fun PreviewMissionItem() {
         MissionItemBackGround(
             isChecked = true,
             content = {},
-            onCheckChange = {}
+            onCheckChange = {},
+            isEnabled = false,
         )
     }
 }

@@ -56,10 +56,10 @@ fun MissionCardReRoll(
     }
 
     DhcCardReRoll(
-        actionPadding = if(type == MissionType.LONG_TERM) 12.dp else 0.dp,
         modifier = modifier
             .padding(horizontal = 16.dp)
             .graphicsLayer { translationX = -(horizontalPadding.value * density.density) },
+        actionTopPadding = if(type == MissionType.LONG_TERM) 12.dp else 0.dp,
         isExpanded = isExpanded,
         onExpandedChange = {
             isExpanded = it
@@ -72,9 +72,7 @@ fun MissionCardReRoll(
                 onClickMissionChange = onClickMissionChange
             )
         },
-        content = {
-            content()
-        }
+        content = content
     )
 }
 

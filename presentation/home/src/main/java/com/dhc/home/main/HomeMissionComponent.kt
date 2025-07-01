@@ -28,7 +28,9 @@ fun SpendingHabitMission(
     onExpandedChange: (Boolean, String) -> Unit,
     onClickMissionChange: (MissionUiModel) -> Unit,
     onCheckChange: (Boolean, String) -> Unit,
-    modifier: Modifier = Modifier
+    onBlinkEnd: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    isFinishedTodayMission: Boolean = false,
 ) {
     var missionChangeHeight by remember { mutableIntStateOf(0) }
 
@@ -56,8 +58,11 @@ fun SpendingHabitMission(
                     missionDday = missionUiModel.endDate,
                     missionTitle = missionUiModel.title,
                     isChecked = missionUiModel.isChecked,
+                    isFinishedTodayMission = isFinishedTodayMission,
                     onHeightChanged = { missionChangeHeight = it },
-                    onCheckChange = { onCheckChange( missionUiModel.isChecked, missionUiModel.missionId)}
+                    onCheckChange = { onCheckChange( missionUiModel.isChecked, missionUiModel.missionId)},
+                    isBlink = missionUiModel.isBlink,
+                    onBlinkEnd = { onBlinkEnd(missionUiModel.missionId) },
                 )
             }
         )
@@ -72,7 +77,8 @@ fun MonetaryLuckyDailyMission(
     modifier: Modifier = Modifier,
     onBlinkEnd: (String) -> Unit,
     onExpandedChange: (Boolean, String) -> Unit,
-    onCheckChange: (Boolean, String) -> Unit
+    onCheckChange: (Boolean, String) -> Unit,
+    isFinishedTodayMission: Boolean = false,
 ) {
     Column(
         modifier = modifier
@@ -96,6 +102,7 @@ fun MonetaryLuckyDailyMission(
                             isBlink = mission.isBlink,
                             missionMode = mission.difficulty,
                             isChecked = mission.isChecked,
+                            isFinishedTodayMission = isFinishedTodayMission,
                             missionTitle = mission.title,
                             onBlinkEnd = { onBlinkEnd(mission.missionId) },
                             onHeightChanged = { missionChangeHeight = it },
@@ -117,7 +124,8 @@ private fun PreviewMonetaryLuckyDailyMission() {
                 missionUiModel = MissionUiModel(),
                 onExpandedChange = { _, _ -> },
                 onClickMissionChange = { _ -> },
-                onCheckChange = { _, _ ->}
+                onCheckChange = { _, _ ->},
+                onBlinkEnd = {}
             )
             Spacer(modifier = Modifier.height(24.dp))
             MonetaryLuckyDailyMission(
