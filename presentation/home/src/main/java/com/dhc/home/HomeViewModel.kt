@@ -12,6 +12,7 @@ import com.dhc.dhcandroid.repository.DhcRepository
 import com.dhc.home.main.HomeContract.Event
 import com.dhc.home.main.HomeContract.SideEffect
 import com.dhc.home.main.HomeContract.State
+import com.dhc.home.model.FinishMissionToast
 import com.dhc.home.model.HomeUiModel
 import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
@@ -140,7 +141,7 @@ class HomeViewModel @Inject constructor(
             ).onSuccess { response ->
                 response ?: return@onSuccess
                 when(missionStatusType) {
-                    MissionStatusType.COMPLETE, MissionStatusType.INCOMPLETE  -> { updateMissionCompleteState(missionId, response.missions) }
+                    MissionStatusType.COMPLETE, MissionStatusType.INCOMPLETE  -> { updateMissionCompleteState(missionId, response.missions , missionStatusType) }
                     MissionStatusType.CHANGE -> updateNewMissionList(response.missions, state.value.getMissionIdList())
                 }
             }.onFailure { code, message ->
@@ -151,24 +152,31 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun updateMissionCompleteState(missionId: String, missionList: List<Mission>) {
+    private fun updateMissionCompleteState(
+        missionId: String,
+        missionList: List<Mission>,
+        missionStatusType: MissionStatusType
+    ) {
         val mission = missionList.firstOrNull { it.missionId == missionId }
         if(mission == null) return
         reduce {
             copy(homeInfo = state.value.homeInfo.copy(
-                longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission?.missionId) {
+                longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission.missionId) {
                     state.value.homeInfo.longTermMission.copy(isChecked = mission.finished.not())
                 } else {
                     state.value.homeInfo.longTermMission
                 },
                 todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
-                    if (it.missionId == mission?.missionId) {
+                    if (it.missionId == mission.missionId) {
                         it.copy(isChecked = mission.finished.not())
                     } else {
                         it
                     }
                 }
             ))
+        }
+        if(missionStatusType == MissionStatusType.COMPLETE) {
+            postSideEffect(SideEffect.ShowToast(FinishMissionToast.getRandomMessage()))
         }
     }
 
