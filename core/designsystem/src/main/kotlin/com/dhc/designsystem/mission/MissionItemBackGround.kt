@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dhc.common.borderColorIf
+import com.dhc.common.borderIf
 import com.dhc.designsystem.AccentColor
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
@@ -43,7 +43,7 @@ fun MissionItemBackGround(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .borderColorIf(
+            .borderIf(
                 width = 2.dp,
                 color = AccentColor.violet400,
                 shape = RoundedCornerShape(12.dp),

@@ -18,6 +18,9 @@ import javax.inject.Inject
 class DhcRemoteDataSourceImpl @Inject constructor(
     private val dhcService: DhcService,
 ): DhcRemoteDataSource {
+    override suspend fun searchUserByToken(userToken: String): Response<String?> =
+        dhcService.searchUserByToken(userToken)
+
     override suspend fun registerUser(userProfile: UserProfile): Response<RegisterUserResponse> {
         return dhcService.registerUser(userProfile)
     }

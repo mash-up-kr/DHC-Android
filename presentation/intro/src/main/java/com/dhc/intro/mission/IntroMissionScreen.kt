@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,6 +37,7 @@ fun IntroMissionScreen(
     eventHandler: EventHandler<IntroMissionContract.Event>,
     modifier: Modifier = Modifier,
 ) {
+    val scrollState = rememberScrollState()
     Box(modifier = modifier) {
         Column(modifier = Modifier.padding(horizontal = 20.dp)) {
             Spacer(modifier = Modifier.height(24.dp))
@@ -56,24 +59,30 @@ fun IntroMissionScreen(
 
             Spacer(modifier = Modifier.height(46.dp))
 
-            MissionTitle(
-                title = stringResource(R.string.spending_habit_mission),
-                isInfoIconVisible = true,
-                spendTypeText = "식음료",
-            )
-            SpendingHabitMissionCard(
-                missionDday = "D-12",
-                missionTitle = "텀블러 들고 다니기",
-                isChecked = true,
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(state = scrollState),
+            ) {
+                MissionTitle(
+                    title = stringResource(R.string.spending_habit_mission),
+                    isInfoIconVisible = true,
+                    spendTypeText = "식음료",
+                )
+                SpendingHabitMissionCard(
+                    missionDday = "D-12",
+                    missionTitle = "텀블러 들고 다니기",
+                    isChecked = true,
+                )
 
-            Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-            MissionTitle(
-                title = stringResource(R.string.finance_daily_mission),
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            MoneyFortuneMissionCardList()
+                MissionTitle(
+                    title = stringResource(R.string.finance_daily_mission),
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                MoneyFortuneMissionCardList()
+            }
         }
         Column(
             modifier = Modifier

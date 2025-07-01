@@ -4,6 +4,7 @@ option java_package = "com.dhc.data";
 option java_multiple_files = true;
 
 message UserPreferences {
-  string uuid = 1;
+  string userToken = 1;
   string fcmToken = 2;
+  string userId = 3;
 }

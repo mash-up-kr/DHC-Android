@@ -7,7 +7,6 @@ import com.dhc.common.onFailure
 import com.dhc.common.onSuccess
 import com.dhc.dhcandroid.model.Mission
 import com.dhc.dhcandroid.model.MissionType
-import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
 import com.dhc.home.main.HomeContract.Event
@@ -18,12 +17,12 @@ import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
 import com.dhc.home.model.MissionStatusType
 import com.dhc.home.model.MissionSuccessButtonType
+import com.dhc.home.model.MissionUiModel
 import com.dhc.home.model.SelectChangeMission
-import com.dhc.home.model.getMissionIdList
+import com.dhc.home.model.toToggleMissionRequest
 import com.dhc.home.model.toUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -110,14 +109,14 @@ class HomeViewModel @Inject constructor(
         reduce { copy(isShowFinishMissionChangeBottomSheet = isShowBottomSheet) }
     }
 
-    fun updateSelectedMissionInfo(selectedMissionInfo: SelectChangeMission) {
+    private fun updateSelectedMissionInfo(selectedMissionInfo: SelectChangeMission) {
         reduce { copy(selectedMissionInfo = selectedMissionInfo) }
     }
 
 
     fun getHomeInfo() {
         viewModelScope.launch {
-            val userId = userRepository.getUUID().firstOrNull().orEmpty() //TODO - 추후 변경
+            val userId = userRepository.getUUID()?.firstOrNull() ?: "" //TODO - 추후 변경
             dhcRepository.getHomeView(userId = "685faf11de38af6c7bd9d25d") //TODO - 추후 변경
                 .onSuccess { response ->
                     response ?: return@onSuccess
@@ -128,27 +127,21 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun updateMissionStatus(
+    private fun updateMissionStatus(
         missionId: String,
         missionStatusType: MissionStatusType,
     ) {
         viewModelScope.launch {
-            val userId = userRepository.getUUID().firstOrNull().orEmpty() //TODO - 추후 변경
-            val existIdList = getMissionIdList(state.value.homeInfo.longTermMission, state.value.homeInfo.todayDailyMissionList)
-            val toggleMissionRequest = when(missionStatusType) {
-                MissionStatusType.COMPLETE -> ToggleMissionRequest(finished = true)
-                MissionStatusType.INCOMPLETE -> ToggleMissionRequest(finished = false)
-                MissionStatusType.CHANGE -> ToggleMissionRequest(switch = true)
-            }
+            val userId = userRepository.getUUID()?.firstOrNull() ?: "" //TODO - 추후 변경
             dhcRepository.changeMissionStatus(
                 userId = "685faf11de38af6c7bd9d25d", //TODO - 추후 변경
                 missionId = missionId,
-                toggleMissionRequest = toggleMissionRequest
+                toggleMissionRequest = missionStatusType.toToggleMissionRequest()
             ).onSuccess { response ->
                 response ?: return@onSuccess
                 when(missionStatusType) {
                     MissionStatusType.COMPLETE, MissionStatusType.INCOMPLETE  -> { updateMissionCompleteState(missionId, response.missions) }
-                    MissionStatusType.CHANGE -> updateNewMissionList(response.missions, existIdList)
+                    MissionStatusType.CHANGE -> updateNewMissionList(response.missions, state.value.getMissionIdList())
                 }
             }.onFailure { code, message ->
                 Log.d("updateMissionStatus", "onFailure:${code} message:${message} ");
@@ -182,12 +175,12 @@ class HomeViewModel @Inject constructor(
         val longTermMission = missionList.filter { it.type == MissionType.LONG_TERM }
         val todayDailyMissionList = missionList.filter { it.type == MissionType.DAILY }
         val missionIdList = missionList.map { it.missionId }
-        val newIds = missionIdList.first { it !in existIdList }
+        val newIds = missionIdList.firstOrNull { it !in existIdList }
         reduce { copy(homeInfo = state.value.homeInfo.copy(
-            longTermMission = longTermMission.first().toUiModel(),
+            longTermMission = longTermMission.firstOrNull()?.toUiModel() ?: MissionUiModel(),
             todayDailyMissionList =  todayDailyMissionList.map { it.toUiModel()},
         ))}
-        updateMissionBlinkState(newIds, true)
+        newIds?.let { updateMissionBlinkState(newIds, true) }
     }
 
     private fun updateMissionBlinkState(missionId: String, isBlink: Boolean) {
@@ -228,7 +221,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun rollBackAllCards() {
+    private fun rollBackAllCards() {
         reduce { copy(homeInfo = state.value.homeInfo.copy(
             longTermMission = state.value.homeInfo.longTermMission.copy(isExpanded = false),
             todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { it.copy(isExpanded = false) }))

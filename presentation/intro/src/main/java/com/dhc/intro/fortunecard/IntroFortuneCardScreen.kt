@@ -97,6 +97,7 @@ fun IntroFortuneCardScreen(
                         DhcFortuneCard(
                             title = "최고의 날",
                             description = "네잎클로버",
+                            cardDrawableResId = R.drawable.fortune_card_sample,
                             modifier = Modifier.size(width = 143.dp, height = 197.dp),
                         )
                     },

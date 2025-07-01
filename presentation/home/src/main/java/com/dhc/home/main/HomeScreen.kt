@@ -138,7 +138,7 @@ fun HomeScreen(
                 )) },
                 onCheckChange = { isChecked, id -> eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
                 onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
-                onBlinkEnd = {missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId))},
+                onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId)) },
             )
             Spacer(modifier = Modifier.height(136.dp))
         }
