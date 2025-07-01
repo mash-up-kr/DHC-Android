@@ -153,6 +153,7 @@ class HomeViewModel @Inject constructor(
 
     private fun updateMissionCompleteState(missionId: String, missionList: List<Mission>) {
         val mission = missionList.firstOrNull { it.missionId == missionId }
+        if(mission == null) return
         reduce {
             copy(homeInfo = state.value.homeInfo.copy(
                 longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission?.missionId) {
