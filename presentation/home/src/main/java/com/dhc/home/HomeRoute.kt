@@ -10,6 +10,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dhc.home.main.FinishMissionChangeBottomSheet
 import com.dhc.home.main.HomeContract
+import com.dhc.home.main.HomeFlipCardScreen
+import com.dhc.home.main.HomeLoadingScreen
 import com.dhc.home.main.HomeScreen
 import com.dhc.home.main.MissionChangeBottomSheet
 import com.dhc.home.ui.MissionCompleteCheckBottomSheet
