@@ -13,5 +13,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.firebase.messaging.ktx)
+    implementation(libs.lottie.compose)
     testImplementation(libs.junit)
 }
