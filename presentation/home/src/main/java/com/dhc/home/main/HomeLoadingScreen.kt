@@ -37,7 +37,7 @@ fun HomeLoadingScreen(modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(466.dp)
+            .height(412.dp)
             .offset(y = -(topBarSize.div(density.density).dp))
             .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
     )
