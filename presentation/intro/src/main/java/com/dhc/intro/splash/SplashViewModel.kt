@@ -7,7 +7,6 @@ import com.dhc.intro.splash.SplashContract.State
 import com.dhc.intro.splash.SplashContract.Event
 import com.dhc.intro.splash.SplashContract.SideEffect
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
