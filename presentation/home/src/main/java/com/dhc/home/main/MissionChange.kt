@@ -13,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,23 +31,24 @@ import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.mission.DhcCardReRoll
-import com.dhc.designsystem.mission.MoneyFortuneMissionCard
+import com.dhc.dhcandroid.model.MissionType
 import com.dhc.home.R
 import com.dhc.home.model.MissionUiModel
 import com.dhc.designsystem.R as DR
 
 @Composable
 fun MissionCardReRoll(
+    type: MissionType,
+    missionChangeHeight: Int,
     missionUiModel: MissionUiModel,
     onClickMissionChange: () -> Unit,
     modifier: Modifier = Modifier,
-    onBlinkEnd: () -> Unit = {},
     onExpandedChange: (Boolean) -> Unit,
+    content: @Composable () -> Unit,
 ) {
     var isExpanded by remember { mutableStateOf(missionUiModel.isExpanded) }
     val targetPadding = if (isExpanded) 16.dp else 0.dp
     val horizontalPadding by animateDpAsState(targetValue = targetPadding, label = "cardPadding")
-    var missionChangeHeight by remember { mutableIntStateOf(0) }
     val density = LocalDensity.current
 
     LaunchedEffect(missionUiModel.isExpanded) {
@@ -59,6 +59,7 @@ fun MissionCardReRoll(
         modifier = modifier
             .padding(horizontal = 16.dp)
             .graphicsLayer { translationX = -(horizontalPadding.value * density.density) },
+        actionTopPadding = if(type == MissionType.LONG_TERM) 12.dp else 0.dp,
         isExpanded = isExpanded,
         onExpandedChange = {
             isExpanded = it
@@ -71,17 +72,7 @@ fun MissionCardReRoll(
                 onClickMissionChange = onClickMissionChange
             )
         },
-        content = {
-            MoneyFortuneMissionCard(
-                isBlink = missionUiModel.isBlink,
-                missionMode = missionUiModel.difficulty,
-                isMissionEnabled = !missionUiModel.finished,
-                isChecked = !missionUiModel.finished,
-                missionTitle = missionUiModel.title,
-                onBlinkEnd = onBlinkEnd,
-                onHeightChanged = { missionChangeHeight = it }
-            )
-        }
+        content = content
     )
 }
 
@@ -121,9 +112,12 @@ fun MissionChange(
 private fun PreviewMissionChange() {
     DhcTheme {
         MissionCardReRoll(
+            type = MissionType.LONG_TERM,
+            missionChangeHeight = 0,
             onClickMissionChange = {},
             missionUiModel = MissionUiModel(),
-            onExpandedChange = {}
+            onExpandedChange = {},
+            content = {}
         )
     }
 }
