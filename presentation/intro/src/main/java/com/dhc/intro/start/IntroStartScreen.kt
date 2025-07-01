@@ -6,13 +6,21 @@ import androidx.annotation.OptIn
 import androidx.annotation.RawRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -37,9 +46,8 @@ import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
-import com.dhc.designsystem.button.DhcButton
-import com.dhc.designsystem.button.model.DhcButtonSize
-import com.dhc.designsystem.button.model.DhcButtonStyle
+import com.dhc.designsystem.LocalDhcColors
+import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.title.DhcTitle
 import com.dhc.designsystem.title.DhcTitleState
 import com.dhc.intro.R
@@ -50,14 +58,15 @@ fun IntroStartScreen(
     eventHandler: EventHandler<IntroStartContract.Event>,
     modifier: Modifier = Modifier,
 ) {
+    val colors = LocalDhcColors.current
+    val scrollState = rememberScrollState()
     Box(modifier = modifier) {
-        VideoView(
-            videoResId = R.raw.intro_video,
-            thumbnailResId = R.drawable.intro_thumbnail, // Todo : 섬네일 넣어줄 예정
-            modifier = Modifier.fillMaxSize()
-        )
-        Column(modifier = Modifier.fillMaxSize()) {
-            Spacer(modifier = Modifier.height(24.dp))
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState),
+        ) {
+            Spacer(modifier = Modifier.height(60.dp))
             DhcTitle(
                 titleState = DhcTitleState(
                     title = stringResource(R.string.intro_start_title),
@@ -70,19 +79,34 @@ fun IntroStartScreen(
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 24.dp, start = 20.dp, end = 20.dp),
+                    .padding(horizontal = 20.dp),
             )
-            Spacer(modifier = Modifier.height(38.dp))
+            Spacer(modifier = Modifier.height(29.dp))
+            // todo : 영상적용하기
+            VideoView(
+                videoResId = R.raw.intro_video,
+                thumbnailResId = R.drawable.intro_thumbnail, // Todo : 섬네일 넣어줄 예정
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(375f / 496f)
+            )
         }
-        DhcButton(
+        Text(
             text = stringResource(R.string.start_with_finance_luck),
-            buttonSize = DhcButtonSize.XLARGE,
-            buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
-            onClick = { eventHandler(IntroStartContract.Event.ClickNextButton) },
+            color = colors.text.textMain,
+            style = DhcTypoTokens.TitleH5_1,
+            textAlign = TextAlign.Center,
             modifier = Modifier
                 .padding(20.dp)
                 .fillMaxWidth()
-                .align(Alignment.BottomCenter),
+                .align(Alignment.BottomCenter)
+                .clip(RoundedCornerShape(8.dp))
+                .background(
+                    color = SurfaceColor.neutral700,
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .clickable { eventHandler(IntroStartContract.Event.ClickNextButton) }
+                .padding(vertical = 15.dp),
         )
     }
 }
