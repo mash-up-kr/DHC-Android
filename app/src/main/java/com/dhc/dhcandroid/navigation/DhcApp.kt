@@ -19,7 +19,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.dhc.designsystem.LocalDhcColors
-import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
 import com.dhc.dhcandroid.MainViewModel
@@ -43,7 +42,7 @@ fun DhcApp(
                 navigateUp = { navController.navigateUp() },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .statusBarsPadding()
+                    .statusBarsPadding(),
             )
         },
         bottomBar = {
