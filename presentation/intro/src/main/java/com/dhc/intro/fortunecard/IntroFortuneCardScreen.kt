@@ -4,20 +4,15 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -37,6 +32,8 @@ import com.dhc.designsystem.score.DhcScoreText
 import com.dhc.designsystem.title.DhcTitle
 import com.dhc.designsystem.title.DhcTitleState
 import com.dhc.intro.R
+import com.dhc.presentation.component.FortuneCardBack
+import com.dhc.presentation.R as PR
 import com.dhc.presentation.component.WordBalloon
 import com.dhc.presentation.mvi.EventHandler
 
@@ -85,20 +82,13 @@ fun IntroFortuneCardScreen(
                         eventHandler(IntroFortuneCardContract.Event.FlippedFortuneCard)
                     },
                     frontScreen = {
-                        // Todo : 디자인 확정되면 수정하기
-                        DhcFortuneCard(
-                            title = "카드 뒷면",
-                            description = "임시",
-                            modifier = Modifier.size(width = 143.dp, height = 197.dp),
-                        )
+                        FortuneCardBack()
                     },
                     backScreen = {
-                        // Todo : 디자인 확정되면 수정하기
                         DhcFortuneCard(
                             title = "최고의 날",
                             description = "네잎클로버",
                             cardDrawableResId = R.drawable.fortune_card_sample,
-                            modifier = Modifier.size(width = 143.dp, height = 197.dp),
                         )
                     },
                     modifier = Modifier.align(Alignment.Center),

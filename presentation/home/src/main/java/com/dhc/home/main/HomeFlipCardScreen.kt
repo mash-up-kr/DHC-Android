@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.common.CalendarUtil
@@ -35,6 +33,8 @@ import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.designsystem.score.DhcScoreText
 import com.dhc.home.R
+import com.dhc.presentation.component.FortuneCardBack
+import com.dhc.presentation.R as PR
 import com.dhc.presentation.component.WordBalloon
 import com.dhc.presentation.mvi.EventHandler
 
@@ -79,18 +79,13 @@ fun HomeFlipCardScreen(
                     eventHandler(HomeContract.Event.FortuneCardFlipped)
                 },
                 frontScreen = {
-                    DhcFortuneCard(
-                        title = "카드 뒷면",
-                        description = "임시",
-                        modifier = Modifier.size(width = 140.dp, height = 200.dp),
-                    )
+                    FortuneCardBack()
                 },
                 backScreen = {
                     DhcFortuneCard(
                         title = "최고의 날",
                         description = "네잎클로버",
                         cardDrawableResId = R.drawable.fortune_card_sample,
-                        modifier = Modifier.size(width = 140.dp, height = 200.dp),
                     )
                 },
                 modifier = Modifier.align(Alignment.Center),
@@ -103,13 +98,15 @@ fun HomeFlipCardScreen(
 @Composable
 private fun NotFlippedDescription() {
     val colors = LocalDhcColors.current
-    Text(
-        text = stringResource(R.string.fortune_card_description),
-        style = DhcTypoTokens.TitleH3,
-        color = colors.text.textBodyPrimary,
-        textAlign = TextAlign.Center,
+    DhcScoreText(
+        badgeText = CalendarUtil.getCurrentDate().run {
+            "%d년 %d월 %d일".format(year, month.value, dayOfMonth) // Todo : 공통 Formmater 로 이동
+        },
+        score = stringResource(R.string.question_score),
+        description = stringResource(R.string.home_fortune_card_description),
+        modifier = Modifier.fillMaxWidth(),
     )
-    Spacer(modifier = Modifier.height(40.dp))
+    Spacer(modifier = Modifier.height(24.dp))
     WordBalloon(
         gradientStartColor = Color(0xFFCFD4DE),
         gradientEndColor = Color(0xFF9BA4D5),
