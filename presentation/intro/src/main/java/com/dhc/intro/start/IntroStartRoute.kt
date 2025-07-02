@@ -4,28 +4,32 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun IntroRoute(
     navigateToNextScreen: () -> Unit,
     viewModel: IntroStartViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-
+    var isShowVideo by remember { mutableStateOf(true) }
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                IntroStartContract.SideEffect.NavigateToNextScreen -> navigateToNextScreen()
+                IntroStartContract.SideEffect.NavigateToNextScreen -> {
+                    isShowVideo = false
+                    navigateToNextScreen()
+                }
             }
         }
     }
 
     IntroStartScreen(
-        state = state,
+        eventHandler = viewModel::sendEvent,
+        isVideoShow = isShowVideo,
         modifier = Modifier.fillMaxSize(),
-        eventHandler = viewModel::sendEvent
     )
 }

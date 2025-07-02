@@ -17,7 +17,6 @@ class IntroStartViewModel @Inject constructor(
     override suspend fun handleEvent(event: Event) {
         when (event) {
             Event.ClickNextButton -> {
-                reduce { copy(isPageFinished = true) }
                 postSideEffect(SideEffect.NavigateToNextScreen)
             }
         }

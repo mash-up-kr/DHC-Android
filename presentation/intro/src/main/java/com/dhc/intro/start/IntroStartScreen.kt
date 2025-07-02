@@ -55,8 +55,8 @@ import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun IntroStartScreen(
-    state: IntroStartContract.State,
     eventHandler: EventHandler<IntroStartContract.Event>,
+    isVideoShow: Boolean,
     modifier: Modifier = Modifier,
 ) {
     val colors = LocalDhcColors.current
@@ -69,7 +69,7 @@ fun IntroStartScreen(
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
                 .aspectRatio(375f / 672f)
-                .graphicsLayer { alpha = if (state.isPageFinished) 0f else 1f }
+                .graphicsLayer { alpha = if (isVideoShow) 1f else 0f }
         )
         Column(
             modifier = Modifier
@@ -179,8 +179,9 @@ private fun VideoView(
 private fun IntroStartScreenPreview() {
     DhcTheme {
         IntroStartScreen(
-            state = IntroStartContract.State(),
             eventHandler = {},
+            isVideoShow = true,
+            modifier = Modifier,
         )
     }
 }
