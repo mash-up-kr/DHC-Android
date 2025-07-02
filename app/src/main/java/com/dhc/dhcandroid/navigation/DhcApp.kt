@@ -44,7 +44,6 @@ fun DhcApp(
                 modifier = Modifier
                     .fillMaxWidth()
                     .statusBarsPadding()
-                    .background(SurfaceColor.neutral900), // Todo : Theme 적용 완료되면 background 제거하기
             )
         },
         bottomBar = {
@@ -57,7 +56,10 @@ fun DhcApp(
                     .height(60.dp),
             )
         },
-        containerColor = colors.background.backgroundMain,
+        containerColor = when (val containerColor = currentScreenConfig.containerColor) {
+            is ContainerColor.Default -> colors.background.backgroundMain
+            is ContainerColor.ComposeColor -> containerColor.color
+        },
         modifier = modifier,
     ) { paddingValues ->
         DhcNavHost(
