@@ -4,6 +4,7 @@ import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
+import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.MissionsResponse
@@ -73,4 +74,10 @@ interface DhcService {
         @Path("userId") userId: String,
         @Query("yearMonth") yearMonth: String
     ): Response<CalendarViewResponse>
+
+    @GET("/api/users/{userId}/fortune")
+    suspend fun getDailyFortune(
+        @Path("userId") userId: String,
+        @Query("date") date: String,
+    ): Response<FortuneResponse>
 }
