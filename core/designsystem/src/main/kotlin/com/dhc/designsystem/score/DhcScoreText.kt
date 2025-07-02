@@ -26,6 +26,21 @@ fun DhcScoreText(
     description: String,
     modifier: Modifier = Modifier,
 ) {
+    DhcScoreText(
+        badgeText = badgeText,
+        score = score.toString(),
+        description = description,
+        modifier = modifier,
+    )
+}
+
+@Composable
+fun DhcScoreText(
+    badgeText: String,
+    score: String,
+    description: String,
+    modifier: Modifier = Modifier,
+) {
     val colors = LocalDhcColors.current
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
