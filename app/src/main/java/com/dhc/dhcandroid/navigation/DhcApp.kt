@@ -40,7 +40,7 @@ fun DhcApp(
     var containerColor by remember { mutableStateOf(colors.background.backgroundMain) }
     val animatedColor by animateColorAsState(
         targetValue = containerColor,
-        label = "containerColor"
+        label = "containerColor",
     )
 
     LaunchedEffect(currentScreenConfig) {
