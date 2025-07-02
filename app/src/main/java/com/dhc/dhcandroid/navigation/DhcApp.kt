@@ -81,7 +81,8 @@ private fun currentScreenConfigAsState(navController: NavHostController): State<
         derivedStateOf {
             val screenConfig = DhcRoute.fromRoute(route).screenConfig
             val items = DhcBottomBarState.BottomNavigation.items
-            val selectedIndex = items.indexOfFirst { it.routeName == DhcRoute.fromRoute(route).name }.takeIf { it >= 0 } ?: 0
+            val selectedIndex = items
+                .indexOfFirst { it.routeName == DhcRoute.fromRoute(route).name }.takeIf { it >= 0 } ?: 0
             screenConfig.copy(bottomBarSelectedIndex = selectedIndex)
         }
     }
