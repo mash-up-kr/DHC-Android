@@ -19,7 +19,6 @@ class HomeContract {
         val isShowFinishMissionChangeBottomSheet: Boolean = false,
         val selectedMissionInfo: SelectChangeMission = SelectChangeMission(),
         val homeInfo: HomeUiModel = HomeUiModel(),
-        val finishTodayMission: Boolean = false,
         val todaySavedMoney: String = "",
     ): UiState {
         val remainingMissionCount: Int

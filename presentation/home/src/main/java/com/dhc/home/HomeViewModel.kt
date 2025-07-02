@@ -146,7 +146,7 @@ class HomeViewModel @Inject constructor(
     fun getHomeInfo() {
         viewModelScope.launch {
             val userId = userRepository.getUserId().firstOrNull() ?: return@launch
-            dhcRepository.getHomeView(userId = userId)
+            dhcRepository.getHomeView(userId = "685faf11de38af6c7bd9d25e")
                 .onSuccess { response ->
                     response ?: return@onSuccess
                     reduce { copy(homeInfo = HomeUiModel.from(response)) }
@@ -163,7 +163,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val userId = userRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.changeMissionStatus(
-                userId = userId,
+                userId = "685faf11de38af6c7bd9d25e",
                 missionId = missionId,
                 toggleMissionRequest = missionStatusType.toToggleMissionRequest()
             ).onSuccess { response ->
@@ -283,13 +283,13 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val userId = userRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.requestFinishTodayMissions(
-                userId = userId,
+                userId = "685faf11de38af6c7bd9d25e",
                 EndTodayMissionRequest(
                     date = todayStringFormat
                 )
             ).onSuccess {response ->
                 response ?: return@onSuccess
-                reduce { copy(todaySavedMoney = response.todaySavedMoney) }
+                reduce { copy(todaySavedMoney = response.todaySavedMoney, homeInfo = state.value.homeInfo.copy(todayDone = true)) }
                 updateMissionSuccessDialogState(isShowDialog = true)
 
             }.onFailure { code, message ->
