@@ -21,6 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.gnb.DhcBottomBar
+import com.dhc.designsystem.gnb.model.DhcBottomBarState
 import com.dhc.designsystem.topbar.DhcTopBar
 import com.dhc.dhcandroid.MainViewModel
 
@@ -50,6 +51,7 @@ fun DhcApp(
         bottomBar = {
             DhcBottomBar(
                 state = currentScreenConfig.bottomBarState,
+                selectedIndex = currentScreenConfig.bottomBarSelectedIndex,
                 navigateToRoute = { navController.navigateToBottomNavigation(DhcRoute.fromName(it)) },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -77,7 +79,10 @@ private fun currentScreenConfigAsState(navController: NavHostController): State<
 
     return remember(route) {
         derivedStateOf {
-            DhcRoute.fromRoute(route).screenConfig
+            val screenConfig = DhcRoute.fromRoute(route).screenConfig
+            val items = DhcBottomBarState.BottomNavigation.items
+            val selectedIndex = items.indexOfFirst { it.routeName == DhcRoute.fromRoute(route).name }.takeIf { it >= 0 } ?: 0
+            screenConfig.copy(bottomBarSelectedIndex = selectedIndex)
         }
     }
 }
