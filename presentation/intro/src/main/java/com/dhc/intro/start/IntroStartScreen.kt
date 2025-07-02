@@ -1,5 +1,6 @@
 package com.dhc.intro.start
 
+import android.view.TextureView
 import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.OptIn
@@ -122,14 +123,10 @@ private fun VideoView(
     val localContext = LocalContext.current
     var onPlayWhenReady by remember { mutableStateOf(false) }
     val exoPlayer = remember {
-        ExoPlayer.Builder(localContext).build().apply {
-            setMediaItem(
-                MediaItem.fromUri("android.resource://${localContext.packageName}/${videoResId}")
-            )
-            repeatMode = Player.REPEAT_MODE_ALL
-            prepare()
-            playWhenReady = true
-        }
+        ExoPlayer.Builder(localContext).build()
+    }
+    val mediaItem = remember {
+        MediaItem.fromUri("android.resource://${localContext.packageName}/${videoResId}")
     }
 
     LifecycleStartEffect(Unit) {
@@ -138,13 +135,20 @@ private fun VideoView(
                 onPlayWhenReady = playbackState == Player.STATE_READY
             }
         }
-        exoPlayer.addListener(listener)
+        with(exoPlayer) {
+            setMediaItem(mediaItem)
+            repeatMode = Player.REPEAT_MODE_ALL
+            prepare()
+            playWhenReady = true
+            addListener(listener)
+        }
         onStopOrDispose {
-            exoPlayer.release()
-            exoPlayer.removeListener(listener)
+            with(exoPlayer) {
+                release()
+                removeListener(listener)
+            }
         }
     }
-
     Box(modifier = modifier) {
         AnimatedVisibility(onPlayWhenReady.not()) {
             Image(
