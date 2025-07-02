@@ -36,7 +36,7 @@ fun DhcScoreText(
 
 @Composable
 fun DhcScoreText(
-    badgeText: String,
+    badgeText: String?,
     score: String,
     description: String,
     modifier: Modifier = Modifier,
@@ -47,10 +47,12 @@ fun DhcScoreText(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
-        DhcBadge(
-            text = badgeText,
-            type = BadgeType.Date,
-        )
+        if (badgeText != null) {
+            DhcBadge(
+                text = badgeText,
+                type = BadgeType.Date,
+            )
+        }
         Text(
             text = score,
             style = DhcTypoTokens.TitleH0.copy(brush = GradientColor.textGradient02),
