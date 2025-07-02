@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,7 +36,6 @@ import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.designsystem.score.DhcScoreText
 import com.dhc.home.R
 import com.dhc.presentation.component.FortuneCardBack
-import com.dhc.presentation.R as PR
 import com.dhc.presentation.component.WordBalloon
 import com.dhc.presentation.mvi.EventHandler
 
@@ -63,33 +64,35 @@ fun HomeFlipCardScreen(
         } else {
             FlippedDescription()
         }
-        Box(modifier = Modifier.fillMaxWidth()) {
-            val canvasBackgroundBrush = GradientColor.backgroundGradient01(radius = 350f)
-            Canvas(modifier = Modifier.matchParentSize()) {
-                drawOval(
-                    brush = canvasBackgroundBrush,
-                    size = size,
-                    alpha = 0.6f,
+
+        FlippableBox(
+            isFlipped = isCardFlipped,
+            onFlipEnd = {
+                isCardFlipped = true
+                eventHandler(HomeContract.Event.FortuneCardFlipped)
+            },
+            frontScreen = {
+                FortuneCardBack()
+            },
+            backScreen = {
+                DhcFortuneCard(
+                    title = "최고의 날",
+                    description = "네잎클로버",
+                    cardDrawableResId = R.drawable.fortune_card_sample,
                 )
-            }
-            FlippableBox(
-                isFlipped = isCardFlipped,
-                onFlipEnd = {
-                    isCardFlipped = true
-                    eventHandler(HomeContract.Event.FortuneCardFlipped)
-                },
-                frontScreen = {
-                    FortuneCardBack()
-                },
-                backScreen = {
-                    DhcFortuneCard(
-                        title = "최고의 날",
-                        description = "네잎클로버",
-                        cardDrawableResId = R.drawable.fortune_card_sample,
-                    )
-                },
-                modifier = Modifier.align(Alignment.Center),
-                initialRotationZ = -4f,
+            },
+            initialRotationZ = -4f,
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        Canvas(
+            modifier = Modifier
+                .size(width = 32.dp, height = 32.dp)
+                .graphicsLayer { scaleX = 4f },
+        ) {
+            drawOval(
+                brush = GradientColor.cardBottomGradient01,
+                size = size,
+                alpha = 0.4f,
             )
         }
     }
@@ -130,7 +133,7 @@ private fun FlippedDescription() {
         score = 35,
         description = "마음이 들뜨는 날이에요,\n한템포 쉬어가요.",
     )
-    Spacer(modifier = Modifier.height(21.dp))
+    Spacer(modifier = Modifier.height(64.dp))
 }
 
 @Preview
