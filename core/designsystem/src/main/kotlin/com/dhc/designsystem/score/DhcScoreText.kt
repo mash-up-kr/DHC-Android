@@ -21,7 +21,7 @@ import com.dhc.designsystem.badge.model.BadgeType
 
 @Composable
 fun DhcScoreText(
-    badgeText: String,
+    badgeText: String?,
     score: Int,
     description: String,
     modifier: Modifier = Modifier,

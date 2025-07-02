@@ -17,6 +17,7 @@
 
     <string name="intro_fortune_card_title">먼저 금전운을 하나\n받아볼까요?</string>
     <string name="intro_fortune_card_description">운세 카드를 뒤집고\n오늘의 금전운을 확인해보세요</string>
+    <string name="intro_flipped_fortune_card_description">오늘 도착한 금전운이에요.\n함께 확인해볼까요?</string>
     <string name="intro_fortune_card_button">금전운 상세보기</string>
 
     <string name="m_month_d_day_finance_luck">%d월 %d일 금전운</string>

@@ -152,6 +152,14 @@ data object GradientColor {
             1.0f to SurfaceColor.neutral500,
         )
     )
+
+    val cardBottomGradient01 = Brush.radialGradient(
+        colorStops = arrayOf(
+            0.0f to Color(0xFF343B8C).copy(alpha = 1f),
+            0.5f to Color(0xFF343B8C).copy(alpha = 0.5f),
+            1.0f to Color(0xFF343B8C).copy(alpha = 0f),
+        )
+    )
 }
 
 data object TransparentColor {
