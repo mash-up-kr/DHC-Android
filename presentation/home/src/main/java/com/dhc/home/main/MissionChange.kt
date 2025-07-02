@@ -39,6 +39,7 @@ import com.dhc.designsystem.R as DR
 @Composable
 fun MissionCardReRoll(
     type: MissionType,
+    canEnabled: Boolean,
     missionChangeHeight: Int,
     missionUiModel: MissionUiModel,
     onClickMissionChange: () -> Unit,
@@ -65,6 +66,7 @@ fun MissionCardReRoll(
             isExpanded = it
             onExpandedChange(it)
         },
+        canEnabled = canEnabled,
         actionContent = {
             MissionChange(
                 modifier = Modifier
@@ -114,6 +116,7 @@ private fun PreviewMissionChange() {
         MissionCardReRoll(
             type = MissionType.LONG_TERM,
             missionChangeHeight = 0,
+            canEnabled = true,
             onClickMissionChange = {},
             missionUiModel = MissionUiModel(),
             onExpandedChange = {},

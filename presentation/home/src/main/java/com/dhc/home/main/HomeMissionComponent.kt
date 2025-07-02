@@ -53,6 +53,7 @@ fun SpendingHabitMission(
             missionUiModel = missionUiModel,
             onClickMissionChange = { onClickMissionChange(missionUiModel) },
             onExpandedChange = { onExpandedChange(it, missionUiModel.missionId)},
+            canEnabled = if(isFinishedTodayMission) false else !missionUiModel.isChecked,
             content = {
                 SpendingHabitMissionCard(
                     missionDday = missionUiModel.endDate,
@@ -97,6 +98,7 @@ fun MonetaryLuckyDailyMission(
                     missionUiModel = mission,
                     onClickMissionChange = { onClickMissionChange(mission) },
                     onExpandedChange = { onExpandedChange(it, mission.missionId)},
+                    canEnabled = if(isFinishedTodayMission) false else !mission.isChecked,
                     content = {
                         MoneyFortuneMissionCard(
                             isBlink = mission.isBlink,
@@ -124,15 +126,15 @@ private fun PreviewMonetaryLuckyDailyMission() {
                 missionUiModel = MissionUiModel(),
                 onExpandedChange = { _, _ -> },
                 onClickMissionChange = { _ -> },
-                onCheckChange = { _, _ ->},
+                onCheckChange = { _, _ -> },
                 onBlinkEnd = {}
             )
             Spacer(modifier = Modifier.height(24.dp))
             MonetaryLuckyDailyMission(
                 dailyMissionList = listOf(),
-                onClickMissionChange = {_ ->},
+                onClickMissionChange = {_ -> },
                 onBlinkEnd = {},
-                onExpandedChange = { _, _ ->},
+                onExpandedChange = { _, _ -> },
                 onCheckChange = { _, _ ->}
             )
         }
