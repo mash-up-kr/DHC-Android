@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -61,6 +60,14 @@ fun IntroStartScreen(
     val colors = LocalDhcColors.current
     val scrollState = rememberScrollState()
     Box(modifier = modifier) {
+        VideoView(
+            videoResId = R.raw.intro_start_video,
+            thumbnailResId = R.drawable.intro_start_video_thumbnail,
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .aspectRatio(375f / 672f)
+        )
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -81,18 +88,9 @@ fun IntroStartScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp),
             )
-            Spacer(modifier = Modifier.height(29.dp))
-            // todo : 영상적용하기
-            VideoView(
-                videoResId = R.raw.intro_video,
-                thumbnailResId = R.drawable.intro_thumbnail, // Todo : 섬네일 넣어줄 예정
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(375f / 496f)
-            )
         }
         Text(
-            text = stringResource(R.string.start_with_finance_luck),
+            text = stringResource(R.string.next),
             color = colors.text.textMain,
             style = DhcTypoTokens.TitleH5_1,
             textAlign = TextAlign.Center,
