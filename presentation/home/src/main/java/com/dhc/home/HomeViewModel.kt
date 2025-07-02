@@ -25,7 +25,9 @@ import com.dhc.home.model.toUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,11 +41,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         getHomeInfo()
-        // Todo : FlipCard 로 넘어가기 위한 임시 코드
-        viewModelScope.launch {
-            delay(2000)
-            reduce { copy(homeState = HomeContract.HomeState.FlipCard) }
-        }
+        checkCompletedLoading()
     }
 
     override suspend fun handleEvent(event: Event) {
@@ -273,5 +271,25 @@ class HomeViewModel @Inject constructor(
                     })
             )
         }
+    }
+
+    private fun checkCompletedLoading() = viewModelScope.launch {
+        if (state.value.homeState != HomeContract.HomeState.Loading) return@launch
+
+        val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+        repeat(POLLING_TRY_TIME) {
+            dhcRepository.getCalendarView(userId, LocalDate.now()) // Todo :: 캘린더 뷰 가져오는게 아니라 금전운 가져오는걸로 바꿔야함 ㅋㅋ
+                .onSuccess {
+                    reduce { copy(homeState = HomeContract.HomeState.Success) }
+                    return@launch
+                }
+            delay(POLLING_INTERVAL_TIME_MS)
+        }
+        reduce { copy(homeState = HomeContract.HomeState.Error) }
+    }
+
+    companion object {
+        private const val POLLING_TRY_TIME = 5
+        private const val POLLING_INTERVAL_TIME_MS = 5000L
     }
 }
