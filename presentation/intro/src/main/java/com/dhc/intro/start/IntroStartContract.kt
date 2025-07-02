@@ -6,7 +6,9 @@ import com.dhc.presentation.mvi.UiState
 
 class IntroStartContract {
 
-    class State : UiState
+    data class State(
+        val isPageFinished: Boolean = false,
+    ) : UiState
 
     sealed interface Event : UiEvent {
         data object ClickNextButton : Event

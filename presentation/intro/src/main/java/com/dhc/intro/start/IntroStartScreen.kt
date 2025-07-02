@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -54,6 +55,7 @@ import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun IntroStartScreen(
+    state: IntroStartContract.State,
     eventHandler: EventHandler<IntroStartContract.Event>,
     modifier: Modifier = Modifier,
 ) {
@@ -67,6 +69,7 @@ fun IntroStartScreen(
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
                 .aspectRatio(375f / 672f)
+                .graphicsLayer { alpha = if (state.isPageFinished) 0f else 1f }
         )
         Column(
             modifier = Modifier
@@ -175,6 +178,9 @@ private fun VideoView(
 @Composable
 private fun IntroStartScreenPreview() {
     DhcTheme {
-        IntroStartScreen(eventHandler = {})
+        IntroStartScreen(
+            state = IntroStartContract.State(),
+            eventHandler = {},
+        )
     }
 }
