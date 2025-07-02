@@ -28,7 +28,7 @@ fun DhcScoreText(
 ) {
     DhcScoreText(
         badgeText = badgeText,
-        score = score.toString(),
+        score = stringResource(R.string.d_score, score),
         description = description,
         modifier = modifier,
     )
@@ -52,7 +52,7 @@ fun DhcScoreText(
             type = BadgeType.Date,
         )
         Text(
-            text = stringResource(R.string.d_score, score),
+            text = score,
             style = DhcTypoTokens.TitleH0.copy(brush = GradientColor.textGradient02),
         )
         Text(
