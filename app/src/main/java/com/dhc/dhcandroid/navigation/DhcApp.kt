@@ -1,6 +1,6 @@
 package com.dhc.dhcandroid.navigation
 
-import androidx.compose.foundation.background
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -8,10 +8,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,6 +37,18 @@ fun DhcApp(
     val startDestination = DhcRoute.SPLASH
     val navController = rememberNavController()
     val currentScreenConfig by currentScreenConfigAsState(navController)
+    var containerColor by remember { mutableStateOf(colors.background.backgroundMain) }
+    val animatedColor by animateColorAsState(
+        targetValue = containerColor,
+        label = "containerColor"
+    )
+
+    LaunchedEffect(currentScreenConfig) {
+        containerColor = when (val color = currentScreenConfig.containerColor) {
+            is ContainerColor.Default -> colors.background.backgroundMain
+            is ContainerColor.ComposeColor -> color.color
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -55,10 +70,7 @@ fun DhcApp(
                     .height(60.dp),
             )
         },
-        containerColor = when (val containerColor = currentScreenConfig.containerColor) {
-            is ContainerColor.Default -> colors.background.backgroundMain
-            is ContainerColor.ComposeColor -> containerColor.color
-        },
+        containerColor = animatedColor,
         modifier = modifier,
     ) { paddingValues ->
         DhcNavHost(
