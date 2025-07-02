@@ -41,6 +41,7 @@ interface DhcService {
 
     @POST("/api/users/{userId}/done")
     suspend fun requestFinishTodayMissions(
+        @Path("userId") userId: String,
         @Body endTodayMissionRequest: EndTodayMissionRequest,
     ): Response<EndTodayMissionResponse>
 

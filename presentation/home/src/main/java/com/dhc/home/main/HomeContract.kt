@@ -20,10 +20,19 @@ class HomeContract {
         val selectedMissionInfo: SelectChangeMission = SelectChangeMission(),
         val homeInfo: HomeUiModel = HomeUiModel(),
         val finishTodayMission: Boolean = false,
-        val todaySavedMoney: String = ""
+        val todaySavedMoney: String = "",
     ): UiState {
+        val remainingMissionCount: Int
+            get() = 4 - getFinishedMissionCount()
+
         fun getMissionIdList(): List<String> {
             return listOf(homeInfo.longTermMission.missionId) + homeInfo.todayDailyMissionList.map { it.missionId }
+        }
+
+        fun getFinishedMissionCount(): Int {
+            val longTermFinished = if (homeInfo.longTermMission.isChecked) 1 else 0
+            val dailyFinishedCount = homeInfo.todayDailyMissionList.count { it.isChecked }
+            return longTermFinished + dailyFinishedCount
         }
     }
 

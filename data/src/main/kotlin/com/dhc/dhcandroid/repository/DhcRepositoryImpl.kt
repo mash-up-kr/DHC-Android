@@ -46,8 +46,8 @@ class DhcRepositoryImpl @Inject constructor(
             )
         }
 
-    override suspend fun requestFinishTodayMissions(endTodayMissionRequest: EndTodayMissionRequest): DhcResult<EndTodayMissionResponse> =
-        runDhcCatching { dhcRemoteDataSource.requestFinishTodayMissions(endTodayMissionRequest) }
+    override suspend fun requestFinishTodayMissions(userId: String, endTodayMissionRequest: EndTodayMissionRequest): DhcResult<EndTodayMissionResponse> =
+        runDhcCatching { dhcRemoteDataSource.requestFinishTodayMissions(userId, endTodayMissionRequest) }
 
     override suspend fun requestLogOutUser(userId: String): DhcResult<LogoutResponse> =
         runDhcCatching { dhcRemoteDataSource.requestLogOutUser(userId) }

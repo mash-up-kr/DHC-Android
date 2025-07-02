@@ -58,7 +58,7 @@ fun HomeRoute(
         }
         if(state.isShowMissionCompleteBottomSheet) {
             MissionCompleteCheckBottomSheet(
-                missionCount = 0,
+                missionCount = state.remainingMissionCount,
                 eventHandler = viewModel::sendEvent
             )
         }

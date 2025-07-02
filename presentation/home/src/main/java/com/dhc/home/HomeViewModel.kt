@@ -27,6 +27,7 @@ import com.dhc.home.model.toUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -144,8 +145,8 @@ class HomeViewModel @Inject constructor(
 
     fun getHomeInfo() {
         viewModelScope.launch {
-            val userId = userRepository.getUUID()?.firstOrNull() ?: "" //TODO - 추후 변경
-            dhcRepository.getHomeView(userId = "685faf11de38af6c7bd9d25d") //TODO - 추후 변경
+            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+            dhcRepository.getHomeView(userId = userId)
                 .onSuccess { response ->
                     response ?: return@onSuccess
                     reduce { copy(homeInfo = HomeUiModel.from(response)) }
@@ -160,9 +161,9 @@ class HomeViewModel @Inject constructor(
         missionStatusType: MissionStatusType,
     ) {
         viewModelScope.launch {
-            val userId = userRepository.getUUID()?.firstOrNull() ?: "" //TODO - 추후 변경
+            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.changeMissionStatus(
-                userId = "685faf11de38af6c7bd9d25d", //TODO - 추후 변경
+                userId = userId,
                 missionId = missionId,
                 toggleMissionRequest = missionStatusType.toToggleMissionRequest()
             ).onSuccess { response ->
@@ -191,13 +192,13 @@ class HomeViewModel @Inject constructor(
         reduce {
             copy(
                 homeInfo = state.value.homeInfo.copy(
-                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission?.missionId) {
+                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission.missionId) {
                         state.value.homeInfo.longTermMission.copy(isChecked = mission.finished.not())
                     } else {
                         state.value.homeInfo.longTermMission
                     },
                     todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
-                        if (it.missionId == mission?.missionId) {
+                        if (it.missionId == mission.missionId) {
                             it.copy(isChecked = mission.finished.not())
                         } else {
                             it
@@ -280,7 +281,9 @@ class HomeViewModel @Inject constructor(
 
     fun finishTodayMission() {
         viewModelScope.launch {
+            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.requestFinishTodayMissions(
+                userId = userId,
                 EndTodayMissionRequest(
                     date = todayStringFormat
                 )
