@@ -10,14 +10,15 @@ import com.dhc.intro.start.IntroStartContract.SideEffect
 @HiltViewModel
 class IntroStartViewModel @Inject constructor(
 ) : BaseViewModel<State, Event, SideEffect>() {
-
     override fun createInitialState(): State {
         return State()
     }
 
     override suspend fun handleEvent(event: Event) {
         when (event) {
-            Event.ClickNextButton -> postSideEffect(SideEffect.NavigateToNextScreen)
+            Event.ClickNextButton -> {
+                postSideEffect(SideEffect.NavigateToNextScreen)
+            }
         }
     }
 }
