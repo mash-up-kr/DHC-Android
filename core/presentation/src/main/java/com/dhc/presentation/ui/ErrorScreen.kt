@@ -54,7 +54,7 @@ fun ErrorScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = stringResource(R.string.error_title),
+                text = stringResource(R.string.error_description),
                 style = DhcTypoTokens.Body3,
                 color = SurfaceColor.neutral300,
                 textAlign = TextAlign.Center,
