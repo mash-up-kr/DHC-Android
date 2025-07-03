@@ -59,7 +59,7 @@ fun MonetaryLuckDetailScreen(
             )
             Spacer(modifier = Modifier.height(20.dp))
             DhcFortuneCard(
-                title = "오늘의 운세 카드",
+                title = monetaryLuckInfo.fortuneCard.title,
                 description = monetaryLuckInfo.fortuneCard.message,
                 modifier = Modifier
                     .size(width = 143.dp, height = 197.dp)
