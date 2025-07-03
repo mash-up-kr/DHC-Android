@@ -22,7 +22,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
 import com.dhc.dhcandroid.MainViewModel
@@ -32,22 +31,19 @@ fun DhcApp(
     modifier: Modifier = Modifier,
     mainViewModel: MainViewModel = hiltViewModel(),
 ) {
-    val colors = LocalDhcColors.current
     val navController = rememberNavController()
     val currentScreenConfig by currentScreenConfigAsState(navController)
-    var containerColor by remember { mutableStateOf(colors.background.backgroundMain) }
+    val containerColor = currentScreenConfig.containerColor.color
+    var currentContainerColor by remember { mutableStateOf(containerColor) }
     val animatedColor by animateColorAsState(
-        targetValue = containerColor,
+        targetValue = currentContainerColor,
         label = "containerColor",
     )
-
-    LaunchedEffect(currentScreenConfig) {
-        containerColor = when (val color = currentScreenConfig.containerColor) {
-            is ContainerColor.Default -> colors.background.backgroundMain
-            is ContainerColor.ComposeColor -> color.color
-        }
-    }
     val state by mainViewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(containerColor) {
+        currentContainerColor = containerColor
+    }
 
     Scaffold(
         topBar = {
