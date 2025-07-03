@@ -5,11 +5,16 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dhc.common.getSuccessOrNull
+import com.dhc.dhcandroid.navigation.DhcRoute
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,6 +24,9 @@ class MainViewModel @Inject constructor(
     private val dhcRepository: DhcRepository,
 ) : ViewModel() {
 
+    private val _state: MutableStateFlow<MainState> = MutableStateFlow(MainState())
+    val state: StateFlow<MainState> = _state.asStateFlow()
+
     init {
         getFcmToken()
         setUserToken()
@@ -27,19 +35,23 @@ class MainViewModel @Inject constructor(
     private fun setUserToken() {
         viewModelScope.launch {
             val uuid = authDataStoreRepository.getUUID().orEmpty()
-            dhcRepository.searchUserByToken(uuid).getSuccessOrNull()?.let { userToken ->
+            val userToken = dhcRepository.searchUserByToken(uuid).getSuccessOrNull()?.id
+            if (userToken.isNullOrEmpty()) {
+                _state.update { it.copy(startPage = DhcRoute.INTRO) }
+            } else {
+                _state.update { it.copy(startPage = DhcRoute.MAIN_HOME) }
                 authDataStoreRepository.setUserToken(userToken)
             }
         }
     }
 
-    fun setFcmToken(token: String) {
+    private fun setFcmToken(token: String) {
         viewModelScope.launch {
             authDataStoreRepository.setFcmToken(token)
         }
     }
 
-    fun getFcmToken() {
+    private fun getFcmToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(
             OnCompleteListener { task ->
                 if (!task.isSuccessful) {
@@ -52,4 +64,13 @@ class MainViewModel @Inject constructor(
             },
         )
     }
+
+    fun triggerShowNextPage() {
+        _state.update { it.copy(isShowNextPage = true) }
+    }
 }
+
+data class MainState(
+    val startPage: DhcRoute = DhcRoute.NONE,
+    val isShowNextPage: Boolean = false,
+)

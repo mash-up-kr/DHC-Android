@@ -1,7 +1,6 @@
 package com.dhc.home.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -36,6 +36,7 @@ import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun MissionSuccessDialog(
+    savedMoney: String,
     eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
 ) {
@@ -46,59 +47,70 @@ fun MissionSuccessDialog(
         onClickDismiss = { eventHandler(HomeContract.Event.ClickMissionSuccess(MissionSuccessButtonType.Confirm)) },
         dialogContent = {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                DhcBadge(
-                    text = stringResource(R.string.mission_success),
-                    BadgeType.Date
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = stringResource(R.string.great),
-                    style = DhcTypoTokens.Body2,
-                    color = SurfaceColor.neutral200
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = buildAnnotatedString {
-                        append(stringResource(R.string.today_total))
-                        append(" ")
-                        withStyle(style = SpanStyle(brush = GradientColor.textGradient01)) {
-                            append(stringResource(R.string.amount, "3300"))
-                        }
-                        append(stringResource(R.string.save_description))
-                    },
-                    style = DhcTypoTokens.TitleH2_1,
-                    color = colors.text.textMain,
-                    textAlign = TextAlign.Center
-                )
-                Box(
-                    modifier = Modifier
-                        .padding(vertical = 12.dp)
-                        .align(Alignment.CenterHorizontally)
-                        .fillMaxWidth()
-                        .height(216.dp)
-                        .background(brush = GradientColor.backgroundGradient01),
-                ) {}
-                DhcButton(
-                    text = stringResource(R.string.confirm_statics),
-                    buttonSize = DhcButtonSize.LARGE,
-                    buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
-                    onClick = { eventHandler(HomeContract.Event.ClickMissionSuccess(MissionSuccessButtonType.StaticConfirm))  },
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    DhcBadge(
+                        text = stringResource(R.string.mission_success),
+                        BadgeType.Date
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = stringResource(R.string.great),
+                        style = DhcTypoTokens.Body2,
+                        color = SurfaceColor.neutral200
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = buildAnnotatedString {
+                            append(stringResource(R.string.today_total))
+                            append(" ")
+                            withStyle(style = SpanStyle(brush = GradientColor.textGradient01)) {
+                                append(stringResource(R.string.amount, savedMoney))
+                            }
+                            append(stringResource(R.string.save_description))
+                        },
+                        style = DhcTypoTokens.TitleH2_1,
+                        color = colors.text.textMain,
+                        textAlign = TextAlign.Center
+                    )
+                }
+                Image(
+                    painter = painterResource(R.drawable.mission_success),
+                    contentDescription = "missionSuccess",
+                    modifier = Modifier.fillMaxWidth()
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                DhcButton(
-                    text = stringResource(R.string.already_confirm),
-                    buttonSize = DhcButtonSize.LARGE,
-                    buttonStyle = DhcButtonStyle.Teritary,
-                    onClick = { eventHandler(HomeContract.Event.ClickMissionSuccess(MissionSuccessButtonType.Confirm)) },
+                Spacer(modifier = Modifier.height(12.dp))
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+                        .padding(horizontal = 20.dp)
+                ) {
+                    DhcButton(
+                        text = stringResource(R.string.confirm_statics),
+                        buttonSize = DhcButtonSize.LARGE,
+                        buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
+                        onClick = { eventHandler(HomeContract.Event.ClickMissionSuccess(MissionSuccessButtonType.StaticConfirm))  },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    DhcButton(
+                        text = stringResource(R.string.already_confirm),
+                        buttonSize = DhcButtonSize.LARGE,
+                        buttonStyle = DhcButtonStyle.Teritary,
+                        onClick = { eventHandler(HomeContract.Event.ClickMissionSuccess(MissionSuccessButtonType.Confirm)) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
             }
         }
     )
@@ -109,6 +121,7 @@ fun MissionSuccessDialog(
 fun PreviewMissionSuccessDialog() {
     DhcTheme {
         MissionSuccessDialog(
+            savedMoney = "",
             eventHandler = {}
         )
     }

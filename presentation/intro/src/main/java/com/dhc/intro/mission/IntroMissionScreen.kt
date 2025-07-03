@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -74,7 +73,6 @@ fun IntroMissionScreen(
                     missionDday = "D-12",
                     missionTitle = "텀블러 들고 다니기",
                     isChecked = true,
-                    isMissionEnabled = true,
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -125,25 +123,21 @@ private fun MoneyFortuneMissionCardList() {
             missionMode = "Easy",
             missionTitle = "가까운 거리 걸어다니기",
             isChecked = true,
-            isMissionEnabled = true,
         ),
         MoneyFortuneMissionState(
             missionMode = "Easy",
             missionTitle = "가까운 거리 걸어다니기",
             isChecked = false,
-            isMissionEnabled = true,
         ),
         MoneyFortuneMissionState(
             missionMode = "Easy",
             missionTitle = "가까운 거리 걸어다니기",
             isChecked = false,
-            isMissionEnabled = true,
         ),
         MoneyFortuneMissionState(
             missionMode = "Easy",
             missionTitle = "가까운 거리 걸어다니기",
             isChecked = false,
-            isMissionEnabled = true,
         ),
     )
     Column(
@@ -155,7 +149,6 @@ private fun MoneyFortuneMissionCardList() {
                 missionMode = it.missionMode,
                 missionTitle = it.missionTitle,
                 isChecked = it.isChecked,
-                isMissionEnabled = it.isMissionEnabled,
             )
         }
     }
@@ -165,7 +158,6 @@ private data class MoneyFortuneMissionState(
     val missionMode: String,
     val missionTitle: String,
     val isChecked: Boolean,
-    val isMissionEnabled: Boolean,
 )
 
 @Preview(showBackground = true)

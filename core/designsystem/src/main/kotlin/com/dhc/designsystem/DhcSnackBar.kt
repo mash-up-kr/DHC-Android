@@ -48,11 +48,13 @@ fun SnackBarContent(
         )
     },
 ) {
+    val colors = LocalDhcColors.current
+
     Row(
         modifier = modifier
             .background(color = SurfaceColor.neutral500)
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(horizontal = 16.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         snackBarActionIcon()
@@ -61,7 +63,7 @@ fun SnackBarContent(
         Text(
             text = snackBarMessage,
             style = DhcTypoTokens.Body4,
-            color = Color.White,
+            color = colors.text.textMain,
         )
     }
 }

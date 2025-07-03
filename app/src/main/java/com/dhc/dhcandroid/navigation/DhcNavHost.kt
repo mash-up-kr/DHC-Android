@@ -1,8 +1,10 @@
 package com.dhc.dhcandroid.navigation
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +31,33 @@ import com.dhc.mypage.MyPageRoute
 
 @Composable
 fun DhcNavHost(
+    isShowNextPage: Boolean,
+    startPage: DhcRoute,
+    triggerShowNextPage: () -> Unit,
+    modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController(),
+) {
+    Crossfade(
+        targetState = isShowNextPage && startPage != DhcRoute.NONE,
+    ) { isSplash ->
+        if (isSplash) {
+            DhcNavHost(
+                navController = navController,
+                startDestination = startPage,
+                modifier = modifier.fillMaxWidth(),
+            )
+        } else {
+            SplashRoute(
+                navigateToNextScreen = {
+                    triggerShowNextPage()
+                },
+            )
+        }
+    }
+}
+
+@Composable
+fun DhcNavHost(
     startDestination: DhcRoute,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
@@ -38,14 +67,6 @@ fun DhcNavHost(
         navController = navController,
         startDestination = startDestination.route,
     ) {
-        composable(DhcRoute.SPLASH.route) {
-            SplashRoute(
-                navigateToNextScreen = {
-                    navController.navigateToIntroFromSplash()
-                },
-            )
-        }
-
         navigation(
             route = DhcRoute.INTRO.route,
             startDestination = DhcRoute.INTRO_START.route,

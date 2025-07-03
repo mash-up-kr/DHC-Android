@@ -2,18 +2,20 @@ package com.dhc.home
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.dhc.common.FormatterUtil.todayStringFormat
 import com.dhc.common.onException
 import com.dhc.common.onFailure
 import com.dhc.common.onSuccess
+import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.Mission
 import com.dhc.dhcandroid.model.MissionType
-import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
 import com.dhc.home.main.HomeContract
 import com.dhc.home.main.HomeContract.Event
 import com.dhc.home.main.HomeContract.SideEffect
 import com.dhc.home.main.HomeContract.State
+import com.dhc.home.model.FinishMissionToast
 import com.dhc.home.model.HomeUiModel
 import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
@@ -34,7 +36,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val userRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
-): BaseViewModel<State, Event, SideEffect>() {
+) : BaseViewModel<State, Event, SideEffect>() {
     override fun createInitialState(): State {
         return State()
     }
@@ -51,48 +53,69 @@ class HomeViewModel @Inject constructor(
     override suspend fun handleEvent(event: Event) {
         when (event) {
             Event.ClickMoreButton, Event.ClickFortuneCard -> postSideEffect(
-                SideEffect.NavigateToMonetaryDetailScreen)
-            is Event.ClickMissionComplete -> {
+                SideEffect.NavigateToMonetaryDetailScreen
+            )
+
+            is Event.ClickTodayMissionFinish -> {
                 updateMissionCompleteBottomSheetState(isShowBottomSheet = true)
             }
+
             is Event.ClickMissionCompleteConfirm -> {
                 updateMissionCompleteBottomSheetState(isShowBottomSheet = false)
-                if(event.buttonType == MissionCompleteButtonType.Complete)
-                    updateMissionSuccessDialogState(isShowDialog = true)
+                if (event.buttonType == MissionCompleteButtonType.Complete) {
+                    finishTodayMission()
+                }
             }
+
             is Event.ClickMissionSuccess -> {
                 updateMissionSuccessDialogState(isShowDialog = false)
-                if(event.buttonType == MissionSuccessButtonType.StaticConfirm)
+                if (event.buttonType == MissionSuccessButtonType.StaticConfirm)
                     postSideEffect(SideEffect.NavigateToMission)
             }
+
             is Event.ClickMissionChange -> {
                 updateSelectedMissionInfo(event.selectChangeMission)
-                if(event.selectChangeMission.switchCount >= 4) {
+                if (event.selectChangeMission.switchCount >= 4) {
                     updateFinishMissionChangeBottomSheetState(true)
                 } else {
                     updateMissionChangeConfirmBottomSheetState(true)
                 }
             }
+
             is Event.ClickMissionChangeConfirm -> {
                 updateMissionChangeConfirmBottomSheetState(false)
                 rollBackAllCards()
-                if(event.buttonType == MissionChangeButtonType.CHANGE) {
+                if (event.buttonType == MissionChangeButtonType.CHANGE) {
                     updateMissionStatus(
                         missionId = state.value.selectedMissionInfo.missionId,
                         missionStatusType = MissionStatusType.CHANGE
                     )
                 }
             }
+
             is Event.ClickFinishMissionChangeConfirm -> {
                 updateFinishMissionChangeBottomSheetState(false)
                 rollBackAllCards()
             }
+
             is Event.BlinkEnd -> {
                 updateMissionBlinkState(missionId = event.missionId, isBlink = false)
             }
+
             is Event.ChangeExpandCard -> {
-                updateMissionCardExpanded(missionId = event.missionId, isExpanded = event.isExpanded)
+                updateMissionCardExpanded(
+                    missionId = event.missionId,
+                    isExpanded = event.isExpanded
+                )
             }
+
+            is Event.ClickMissionCheck -> {
+                updateMissionStatus(
+                    missionId = event.missionId,
+                    missionStatusType = if (event.isChecked) MissionStatusType.COMPLETE else MissionStatusType.INCOMPLETE
+                )
+            }
+
             is Event.FortuneCardFlipped -> {
                 delay(1000L)
                 reduce { copy(homeState = HomeContract.HomeState.Success) }
@@ -123,11 +146,11 @@ class HomeViewModel @Inject constructor(
 
     fun getHomeInfo() {
         viewModelScope.launch {
-            val userId = userRepository.getUUID()?.firstOrNull() ?: "" //TODO - 추후 변경
-            dhcRepository.getHomeView(userId = "685faf11de38af6c7bd9d25d") //TODO - 추후 변경
+            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+            dhcRepository.getHomeView(userId = userId)
                 .onSuccess { response ->
                     response ?: return@onSuccess
-                    reduce { copy(homeInfo = HomeUiModel.from(response) )}
+                    reduce { copy(homeInfo = HomeUiModel.from(response)) }
                 }.onFailure { _, _ ->
                     // Todo :: 실패 처리
                 }
@@ -139,23 +162,57 @@ class HomeViewModel @Inject constructor(
         missionStatusType: MissionStatusType,
     ) {
         viewModelScope.launch {
-            val userId = userRepository.getUUID()?.firstOrNull() ?: "" //TODO - 추후 변경
+            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.changeMissionStatus(
-                userId = "685faf11de38af6c7bd9d25d", //TODO - 추후 변경
+                userId = userId,
                 missionId = missionId,
                 toggleMissionRequest = missionStatusType.toToggleMissionRequest()
             ).onSuccess { response ->
                 response ?: return@onSuccess
-                when(missionStatusType) {
-                    MissionStatusType.COMPLETE -> {}
-                    MissionStatusType.INCOMPLETE -> {} //TODO - check status
-                    MissionStatusType.CHANGE -> updateNewMissionList(response.missions, state.value.getMissionIdList())
+                when (missionStatusType) {
+                    MissionStatusType.COMPLETE, MissionStatusType.INCOMPLETE -> {
+                        updateMissionCompleteState(missionId, response.missions, missionStatusType)
+                    }
+
+                    MissionStatusType.CHANGE -> updateNewMissionList(
+                        response.missions,
+                        state.value.getMissionIdList()
+                    )
                 }
             }.onFailure { code, message ->
                 Log.d("updateMissionStatus", "onFailure:${code} message:${message} ");
-            }.onException { e->
+            }.onException { e ->
                 Log.d("updateMissionStatus", "onException:${e} ");
             }
+        }
+    }
+
+    private fun updateMissionCompleteState(
+        missionId: String,
+        missionList: List<Mission>,
+        missionStatusType: MissionStatusType
+    ) {
+        val mission = missionList.firstOrNull { it.missionId == missionId }
+        if (mission == null) return
+        reduce {
+            copy(
+                homeInfo = state.value.homeInfo.copy(
+                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission.missionId) {
+                        state.value.homeInfo.longTermMission.copy(isChecked = mission.finished)
+                    } else {
+                        state.value.homeInfo.longTermMission
+                    },
+                    todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
+                        if (it.missionId == mission.missionId) {
+                            it.copy(isChecked = mission.finished)
+                        } else {
+                            it
+                    }
+                }
+            ))
+        }
+        if (missionStatusType == MissionStatusType.COMPLETE) {
+            postSideEffect(SideEffect.ShowToast(FinishMissionToast.getRandomMessage()))
         }
     }
 
@@ -164,55 +221,88 @@ class HomeViewModel @Inject constructor(
         val todayDailyMissionList = missionList.filter { it.type == MissionType.DAILY }
         val missionIdList = missionList.map { it.missionId }
         val newIds = missionIdList.firstOrNull { it !in existIdList }
-        reduce { copy(homeInfo = state.value.homeInfo.copy(
-            longTermMission = longTermMission.firstOrNull()?.toUiModel() ?: MissionUiModel(),
-            todayDailyMissionList =  todayDailyMissionList.map { it.toUiModel()},
-        ))}
+        reduce {
+            copy(
+                homeInfo = state.value.homeInfo.copy(
+                    longTermMission = longTermMission.firstOrNull()?.toUiModel()
+                        ?: MissionUiModel(),
+                    todayDailyMissionList = todayDailyMissionList.map { it.toUiModel() },
+                )
+            )
+        }
         newIds?.let { updateMissionBlinkState(newIds, true) }
     }
 
     private fun updateMissionBlinkState(missionId: String, isBlink: Boolean) {
         reduce {
-            copy(homeInfo = state.value.homeInfo.copy(
-                longTermMission = if (state.value.homeInfo.longTermMission.missionId == missionId) {
-                    state.value.homeInfo.longTermMission.copy(isBlink = isBlink)
-                } else {
-                    state.value.homeInfo.longTermMission
-                },
-                todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { mission ->
-                    if (mission.missionId == missionId) {
-                        mission.copy(isBlink = isBlink)
+            copy(
+                homeInfo = state.value.homeInfo.copy(
+                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == missionId) {
+                        state.value.homeInfo.longTermMission.copy(isBlink = isBlink)
                     } else {
-                        mission
+                        state.value.homeInfo.longTermMission
+                    },
+                    todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { mission ->
+                        if (mission.missionId == missionId) {
+                            mission.copy(isBlink = isBlink)
+                        } else {
+                            mission
+                        }
                     }
-                }
-            ))
+                ))
         }
     }
 
     private fun updateMissionCardExpanded(missionId: String, isExpanded: Boolean) {
         reduce {
-            copy(homeInfo = state.value.homeInfo.copy(
-                longTermMission = if (state.value.homeInfo.longTermMission.missionId == missionId) {
-                    state.value.homeInfo.longTermMission.copy(isExpanded = isExpanded)
-                } else {
-                    state.value.homeInfo.longTermMission
-                },
-                todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { mission ->
-                    if (mission.missionId == missionId) {
-                        mission.copy(isExpanded = isExpanded)
+            copy(
+                homeInfo = state.value.homeInfo.copy(
+                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == missionId) {
+                        state.value.homeInfo.longTermMission.copy(isExpanded = isExpanded)
                     } else {
-                        mission
+                        state.value.homeInfo.longTermMission
+                    },
+                    todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { mission ->
+                        if (mission.missionId == missionId) {
+                            mission.copy(isExpanded = isExpanded)
+                        } else {
+                            mission
+                        }
                     }
-                }
-            ))
+                ))
         }
     }
 
     private fun rollBackAllCards() {
-        reduce { copy(homeInfo = state.value.homeInfo.copy(
-            longTermMission = state.value.homeInfo.longTermMission.copy(isExpanded = false),
-            todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map { it.copy(isExpanded = false) }))
+        reduce {
+            copy(
+                homeInfo = state.value.homeInfo.copy(
+                    longTermMission = state.value.homeInfo.longTermMission.copy(isExpanded = false),
+                    todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
+                        it.copy(
+                            isExpanded = false
+                        )
+                    })
+            )
+        }
+    }
+
+    fun finishTodayMission() {
+        viewModelScope.launch {
+            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+            dhcRepository.requestFinishTodayMissions(
+                userId = userId,
+                endTodayMissionRequest = EndTodayMissionRequest(
+                    date = todayStringFormat
+                )
+            ).onSuccess {response ->
+                response ?: return@onSuccess
+                reduce { copy(todaySavedMoney = response.todaySavedMoney, homeInfo = state.value.homeInfo.copy(todayDone = true)) }
+                updateMissionSuccessDialogState(isShowDialog = true)
+
+            }.onFailure { code, message ->
+                Log.d("finishTodayMission", "onFailure:${code} message:${message} ");
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ class SplashContract {
     ) : UiState
 
     sealed interface Event : UiEvent {
-        data object SplashFinish : Event
+        data object LottieAnimationFinished : Event
     }
 
     sealed interface SideEffect : UiSideEffect

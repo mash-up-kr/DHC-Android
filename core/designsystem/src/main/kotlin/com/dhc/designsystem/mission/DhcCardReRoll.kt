@@ -48,18 +48,21 @@ fun DhcCardReRoll(
     actionContent: @Composable () -> Unit,
     modifier:Modifier = Modifier,
     actionTopPadding: Dp = 0.dp,
-    content: @Composable () -> Unit
+    canEnabled: Boolean = true,
+    content: @Composable () -> Unit,
 ) {
     val density = LocalDensity.current
     var contextMenuWidth by remember { mutableFloatStateOf(0f) }
     var offsetX by remember { mutableFloatStateOf(if (isExpanded) contextMenuWidth else 0f) }
 
     val draggableState = rememberDraggableState { delta ->
-        if (!isExpanded) {
-            offsetX = (offsetX + delta).coerceIn(0f, contextMenuWidth - (12.dp.value * density.density))
-        } else {
-            if (delta < 0) {
-                offsetX = (offsetX + delta).coerceAtLeast(0f)
+        if(canEnabled) {
+            if (!isExpanded) {
+                offsetX = (offsetX + delta).coerceIn(0f, contextMenuWidth - (12.dp.value * density.density))
+            } else {
+                if (delta < 0) {
+                    offsetX = (offsetX + delta).coerceAtLeast(0f)
+                }
             }
         }
     }
@@ -152,7 +155,6 @@ private fun PreviewSwipeTest() {
                 MoneyFortuneMissionCard(
                     isBlink = true,
                     missionMode = "Easy",
-                    isMissionEnabled = true,
                     isChecked = true,
                     missionTitle = "돈 아끼기"
                 )
