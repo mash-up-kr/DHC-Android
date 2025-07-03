@@ -1,6 +1,7 @@
 package com.dhc.home.detail
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -11,6 +12,10 @@ fun MonetaryLuckDetailRoute(
     viewModel: MonetaryLuckDetailViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.loadInitialData()
+    }
 
     MonetaryLuckDetailScreen(
         monetaryLuckInfo = state.monetaryLuckInfo

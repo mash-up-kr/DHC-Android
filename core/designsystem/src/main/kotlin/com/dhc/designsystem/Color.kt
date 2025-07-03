@@ -152,6 +152,42 @@ data object GradientColor {
             1.0f to SurfaceColor.neutral500,
         )
     )
+
+    val cardBottomGradient01 = Brush.radialGradient(
+        colorStops = arrayOf(
+            0.0f to Color(0xFF343B8C).copy(alpha = 1f),
+            0.5f to Color(0xFF343B8C).copy(alpha = 0.5f),
+            1.0f to Color(0xFF343B8C).copy(alpha = 0f),
+        ),
+    )
+
+    val fortuneFillGradient = Brush.linearGradient(
+        colorStops = arrayOf(
+            0.0f to TransparentColor.glassEffect.copy(0.15f),
+            0.100f to AccentColor.violet200.copy(0.15f),
+        ),
+    )
+
+    val fortuneGradientLow = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0.36f to Color(0XFFEEEBD8),
+            0.83f to Color(0XFF6F6F6F),
+        ),
+    )
+
+    val fortuneGradientMid = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0.36f to SurfaceColor.neutral30,
+            0.84f to AccentColor.violet200,
+        ),
+    )
+
+    val fortuneGradientTop = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0.40f to Color(0XFFE9FBFF),
+            0.82f to Color(0XFF5194FF),
+        ),
+    )
 }
 
 data object TransparentColor {

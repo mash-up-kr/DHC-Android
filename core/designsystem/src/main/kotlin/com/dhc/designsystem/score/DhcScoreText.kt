@@ -21,8 +21,23 @@ import com.dhc.designsystem.badge.model.BadgeType
 
 @Composable
 fun DhcScoreText(
-    badgeText: String,
+    badgeText: String?,
     score: Int,
+    description: String,
+    modifier: Modifier = Modifier,
+) {
+    DhcScoreText(
+        badgeText = badgeText,
+        score = stringResource(R.string.d_score, score),
+        description = description,
+        modifier = modifier,
+    )
+}
+
+@Composable
+fun DhcScoreText(
+    badgeText: String?,
+    score: String,
     description: String,
     modifier: Modifier = Modifier,
 ) {
@@ -32,12 +47,14 @@ fun DhcScoreText(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
-        DhcBadge(
-            text = badgeText,
-            type = BadgeType.Date,
-        )
+        if (badgeText != null) {
+            DhcBadge(
+                text = badgeText,
+                type = BadgeType.Date,
+            )
+        }
         Text(
-            text = stringResource(R.string.d_score, score),
+            text = score,
             style = DhcTypoTokens.TitleH0.copy(brush = GradientColor.textGradient02),
         )
         Text(

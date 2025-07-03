@@ -4,21 +4,22 @@ import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
+import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
-import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
+import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 import retrofit2.Response
-import retrofit2.http.Query
 
 interface DhcRemoteDataSource {
     suspend fun searchUserByToken(
         userToken: String,
-    ): Response<String?>
+    ): Response<SearchUserByTokenResponse>
 
     suspend fun registerUser(
         userProfile: UserProfile,
@@ -31,6 +32,7 @@ interface DhcRemoteDataSource {
     ): Response<MissionsResponse>
 
     suspend fun requestFinishTodayMissions(
+        userId: String,
         endTodayMissionRequest: EndTodayMissionRequest,
     ): Response<EndTodayMissionResponse>
 
@@ -57,4 +59,9 @@ interface DhcRemoteDataSource {
         userId: String,
         yearMonth: String,
     ): Response<CalendarViewResponse>
+
+    suspend fun getDailyFortune(
+        userId: String,
+        date: String,
+    ): Response<FortuneResponse>
 }

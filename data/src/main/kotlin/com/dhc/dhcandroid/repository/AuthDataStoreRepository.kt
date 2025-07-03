@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 interface AuthDataStoreRepository {
     suspend fun setUserId(userId: String)
     suspend fun getUserId(): Flow<String?>
+    suspend fun clearUserId()
 
     suspend fun setUserToken(token: String)
     suspend fun getUserToken(): Flow<String?>

@@ -1,6 +1,7 @@
 package com.dhc.dhcandroid.repository
 
 import com.dhc.common.DhcResult
+import com.dhc.common.FormatterUtil.dhcYearMonthDayFormat
 import com.dhc.common.FormatterUtil.dhcYearMonthFormat
 import com.dhc.common.getSuccessOrNull
 import com.dhc.dhcandroid.datasource.DhcRemoteDataSource
@@ -9,12 +10,14 @@ import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
+import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 import com.dhc.dhcandroid.util.runDhcCatching
@@ -27,7 +30,7 @@ class DhcRepositoryImpl @Inject constructor(
 
     private val cachedCalendarView = mutableMapOf<LocalDate, AnalysisMonthViewResponse>()
 
-    override suspend fun searchUserByToken(userToken: String): DhcResult<String?> =
+    override suspend fun searchUserByToken(userToken: String): DhcResult<SearchUserByTokenResponse> =
         runDhcCatching { dhcRemoteDataSource.searchUserByToken(userToken) }
 
     override suspend fun registerUser(userProfile: UserProfile): DhcResult<RegisterUserResponse> =
@@ -46,8 +49,8 @@ class DhcRepositoryImpl @Inject constructor(
             )
         }
 
-    override suspend fun requestFinishTodayMissions(endTodayMissionRequest: EndTodayMissionRequest): DhcResult<EndTodayMissionResponse> =
-        runDhcCatching { dhcRemoteDataSource.requestFinishTodayMissions(endTodayMissionRequest) }
+    override suspend fun requestFinishTodayMissions(userId: String, endTodayMissionRequest: EndTodayMissionRequest): DhcResult<EndTodayMissionResponse> =
+        runDhcCatching { dhcRemoteDataSource.requestFinishTodayMissions(userId, endTodayMissionRequest) }
 
     override suspend fun requestLogOutUser(userId: String): DhcResult<LogoutResponse> =
         runDhcCatching { dhcRemoteDataSource.requestLogOutUser(userId) }
@@ -97,5 +100,14 @@ class DhcRepositoryImpl @Inject constructor(
                 }
             }
         return result
+    }
+
+    override suspend fun getDailyFortune(
+        userId: String,
+        date: LocalDate,
+    ): DhcResult<FortuneResponse> {
+        return runDhcCatching {
+            dhcRemoteDataSource.getDailyFortune(userId, date.format(dhcYearMonthDayFormat))
+        }
     }
 }

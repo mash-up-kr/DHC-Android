@@ -72,7 +72,7 @@ fun DhcFortuneCard(
     DhcFortuneCardInternal(
         title = title,
         description = description,
-        modifier = modifier.size(143.dp, 197.dp),
+        modifier = modifier.size(144.dp, 200.dp),
         backgroundContent = {
             if (cardDrawableResId != null) {
                 Image(

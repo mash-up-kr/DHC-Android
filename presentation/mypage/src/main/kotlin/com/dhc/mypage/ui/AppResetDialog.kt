@@ -28,30 +28,23 @@ import com.dhc.mypage.R
 @Composable
 fun AppResetDialog(
     onClickAppResetButton: () -> Unit,
-    onDismissButton: () -> Unit,
+    onClickDismissButton: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val colors = LocalDhcColors.current
 
     DhcDialog(
         modifier = modifier,
-        onDismissRequest = onDismissButton,
+        onClickDismiss = onClickDismissButton,
     ) {
         Column(
             modifier = Modifier.padding(top = 12.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .fillMaxWidth()
-                    .height(100.dp)
-                    .background(color = SurfaceColor.neutral500, shape = RoundedCornerShape(12.dp))
-            )
             Text(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
-                    .padding(top = 16.dp)
+                    .padding(top = 12.dp)
                     .fillMaxWidth(),
                 text = stringResource(R.string.app_reset_dialog_title),
                 style = DhcTypoTokens.TitleH3,
@@ -76,7 +69,7 @@ fun AppResetDialog(
                 text = stringResource(R.string.app_reset_dialog_cancel),
                 buttonSize = DhcButtonSize.LARGE,
                 buttonStyle = DhcButtonStyle.Primary(true),
-                onClick = onClickAppResetButton
+                onClick = onClickDismissButton
             )
             DhcButton(
                 modifier = Modifier
@@ -98,7 +91,7 @@ private fun AppResetDialogPreview() {
     DhcTheme {
         AppResetDialog(
             onClickAppResetButton = {},
-            onDismissButton = {},
+            onClickDismissButton = {},
         )
     }
 }

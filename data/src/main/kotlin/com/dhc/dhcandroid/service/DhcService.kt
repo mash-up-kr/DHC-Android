@@ -4,12 +4,14 @@ import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
+import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 import retrofit2.Response
@@ -25,7 +27,7 @@ interface DhcService {
     @GET("/api/users")
     suspend fun searchUserByToken(
         @Query("userToken") userToken: String,
-    ): Response<String?>
+    ): Response<SearchUserByTokenResponse>
 
     @POST("/api/users/register")
     suspend fun registerUser(
@@ -41,6 +43,7 @@ interface DhcService {
 
     @POST("/api/users/{userId}/done")
     suspend fun requestFinishTodayMissions(
+        @Path("userId") userId: String,
         @Body endTodayMissionRequest: EndTodayMissionRequest,
     ): Response<EndTodayMissionResponse>
 
@@ -73,4 +76,10 @@ interface DhcService {
         @Path("userId") userId: String,
         @Query("yearMonth") yearMonth: String
     ): Response<CalendarViewResponse>
+
+    @GET("/api/users/{userId}/fortune")
+    suspend fun getDailyFortune(
+        @Path("userId") userId: String,
+        @Query("date") date: String,
+    ): Response<FortuneResponse>
 }
