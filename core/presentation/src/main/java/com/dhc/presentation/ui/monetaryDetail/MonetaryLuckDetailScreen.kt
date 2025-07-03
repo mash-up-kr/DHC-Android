@@ -41,12 +41,8 @@ import com.dhc.presentation.R
 fun MonetaryLuckDetailScreen(
     monetaryLuckInfo: MonetaryLuckInfo,
     modifier: Modifier = Modifier,
-    isShowButton: Boolean = false,
-    onClickButton: () -> Unit = {},
     scrollState: ScrollState = rememberScrollState()
 ) {
-    val colors = LocalDhcColors.current
-
     Box(modifier = modifier) {
         Column(
             modifier = Modifier
@@ -73,40 +69,9 @@ fun MonetaryLuckDetailScreen(
             MonetaryLuckDetailCard(message = monetaryLuckInfo.monetaryDetail)
             Spacer(modifier = Modifier.height(24.dp))
             TodayTip(tips = monetaryLuckInfo.todayTips)
-            Spacer(modifier = Modifier.height(45.dp))
-            if(isShowButton) Spacer(modifier = Modifier.height(52.dp))
-        }
-        if(isShowButton) {
-            Column(
-                modifier = Modifier.align(Alignment.BottomCenter)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(40.dp)
-                        .background(brush = buttonGradient)
-                )
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .background(colors.background.backgroundMain)
-                ) {
-                    DhcButton(
-                        text = stringResource(R.string.monetary_confirm_and_start),
-                        buttonSize = DhcButtonSize.XLARGE,
-                        buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
-                        onClick = { onClickButton() },
-                        modifier = Modifier
-                            .padding(20.dp)
-                            .fillMaxWidth()
-                            .align(Alignment.Center)
-                    )
-                }
-            }
+            Spacer(modifier = Modifier.height(97.dp))
         }
     }
-
 }
 
 
@@ -149,7 +114,6 @@ fun TodayTip(
 private fun PreviewMonetaryLuckDetail() {
     DhcTheme {
         MonetaryLuckDetailScreen(
-            isShowButton = true,
             monetaryLuckInfo = MonetaryLuckInfo(
                 scoreInfo = ScoreInfo(
                     date = "2025년 5월 20일",
