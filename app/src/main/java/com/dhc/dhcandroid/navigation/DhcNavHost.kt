@@ -1,14 +1,8 @@
 package com.dhc.dhcandroid.navigation
 
 import androidx.compose.animation.Crossfade
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -87,18 +81,10 @@ fun DhcNavHost(
                 )
             }
             composable(DhcRoute.INTRO_FORTUNE_DETAIL.route) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text("Intro Fortune Detail")
-                    Button(
-                        onClick = { navController.navigateTo(DhcRoute.INTRO_MISSION) },
-                    ) {
-                        Text("Go to Next")
-                    }
-                }
+                MonetaryLuckDetailRoute(
+                    isShowButton = true,
+                    navigateToMissionConfirm = { navController.navigateTo(DhcRoute.INTRO_MISSION) },
+                )
             }
             composable(DhcRoute.INTRO_MISSION.route) {
                 IntroMissionRoute(

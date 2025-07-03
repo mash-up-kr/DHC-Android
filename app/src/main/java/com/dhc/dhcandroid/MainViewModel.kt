@@ -36,12 +36,13 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             val uuid = authDataStoreRepository.getUUID().orEmpty()
             val userToken = dhcRepository.searchUserByToken(uuid).getSuccessOrNull()?.id
-            if (userToken.isNullOrEmpty()) {
-                _state.update { it.copy(startPage = DhcRoute.INTRO) }
-            } else {
-                _state.update { it.copy(startPage = DhcRoute.MAIN_HOME) }
-                authDataStoreRepository.setUserToken(userToken)
-            }
+            _state.update { it.copy(startPage = DhcRoute.INTRO) }
+//            if (userToken.isNullOrEmpty()) {
+//                _state.update { it.copy(startPage = DhcRoute.INTRO) }
+//            } else {
+//                _state.update { it.copy(startPage = DhcRoute.MAIN_HOME) }
+//                authDataStoreRepository.setUserToken(userToken)
+//            }
         }
     }
 

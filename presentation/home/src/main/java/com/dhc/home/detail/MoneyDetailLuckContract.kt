@@ -13,10 +13,11 @@ class MoneyDetailLuckContract {
 
 
     sealed interface Event: UiEvent {
+        data object ClickConfirm: Event
 
     }
 
     sealed interface SideEffect : UiSideEffect {
-
+        data object NavigateToMissionConfirm: SideEffect
     }
 }

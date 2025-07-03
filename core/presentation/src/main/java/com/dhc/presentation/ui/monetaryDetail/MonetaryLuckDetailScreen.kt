@@ -42,6 +42,7 @@ fun MonetaryLuckDetailScreen(
     monetaryLuckInfo: MonetaryLuckInfo,
     modifier: Modifier = Modifier,
     isShowButton: Boolean = false,
+    onClickButton: () -> Unit = {},
     scrollState: ScrollState = rememberScrollState()
 ) {
     val colors = LocalDhcColors.current
@@ -95,7 +96,7 @@ fun MonetaryLuckDetailScreen(
                         text = stringResource(R.string.monetary_confirm_and_start),
                         buttonSize = DhcButtonSize.XLARGE,
                         buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
-                        onClick = {  },
+                        onClick = { onClickButton() },
                         modifier = Modifier
                             .padding(20.dp)
                             .fillMaxWidth()
