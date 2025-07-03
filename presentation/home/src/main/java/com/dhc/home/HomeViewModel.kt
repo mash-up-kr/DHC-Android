@@ -296,7 +296,6 @@ class HomeViewModel @Inject constructor(
                 response ?: return@onSuccess
                 reduce { copy(todaySavedMoney = response.todaySavedMoney, homeInfo = state.value.homeInfo.copy(todayDone = true)) }
                 updateMissionSuccessDialogState(isShowDialog = true)
-
             }.onFailure { code, message ->
                 Log.d("finishTodayMission", "onFailure:${code} message:${message} ");
             }
@@ -308,7 +307,7 @@ class HomeViewModel @Inject constructor(
 
         val userId = userRepository.getUserId().firstOrNull() ?: return@launch
         repeat(POLLING_TRY_TIME) {
-            dhcRepository.getCalendarView(userId, LocalDate.now()) // Todo :: 캘린더 뷰 가져오는게 아니라 금전운 가져오는걸로 바꿔야함 ㅋㅋ
+            dhcRepository.getDailyFortune(userId, LocalDate.now())
                 .onSuccess {
                     reduce { copy(homeState = HomeContract.HomeState.FlipCard) }
                     return@launch
