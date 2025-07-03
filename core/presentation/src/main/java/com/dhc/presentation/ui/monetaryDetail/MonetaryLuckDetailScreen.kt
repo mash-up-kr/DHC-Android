@@ -1,5 +1,6 @@
 package com.dhc.presentation.ui.monetaryDetail
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,12 +18,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
+import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.GradientColor.buttonGradient
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.button.DhcButton
@@ -51,21 +54,33 @@ fun MonetaryLuckDetailScreen(
                 .padding(horizontal = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(24.dp))
             DhcScoreText(
                 badgeText = monetaryLuckInfo.scoreInfo.date,
                 score = monetaryLuckInfo.scoreInfo.score,
                 description = monetaryLuckInfo.scoreInfo.description,
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(64.dp))
             DhcFortuneCard(
                 title = monetaryLuckInfo.fortuneCard.title,
                 description = monetaryLuckInfo.fortuneCard.message,
                 modifier = Modifier
-                    .size(width = 143.dp, height = 197.dp)
-                    .padding(top = 20.dp, bottom = 53.5.dp)
+                    .size(width = 144.dp, height = 200.dp)
+                ,
             )
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(12.dp))
+            Canvas(
+                modifier = Modifier
+                    .size(width = 32.dp, height = 32.dp)
+                    .graphicsLayer { scaleX = 4f },
+            ) {
+                drawOval(
+                    brush = GradientColor.cardBottomGradient01,
+                    size = size,
+                    alpha = 0.4f,
+                )
+            }
+            Spacer(modifier = Modifier.height(24.dp))
             MonetaryLuckDetailCard(message = monetaryLuckInfo.monetaryDetail)
             Spacer(modifier = Modifier.height(24.dp))
             TodayTip(tips = monetaryLuckInfo.todayTips)

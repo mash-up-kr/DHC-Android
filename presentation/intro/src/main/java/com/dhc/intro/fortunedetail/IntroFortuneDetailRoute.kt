@@ -3,10 +3,13 @@ package com.dhc.intro.fortunedetail
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,9 +17,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.GradientColor.buttonGradient
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.button.DhcButton
@@ -42,14 +47,25 @@ fun IntroFortuneDetailRoute(
 
     Box(modifier = Modifier.fillMaxSize()) {
         val colors = LocalDhcColors.current
+        val density = LocalDensity.current
+        val topBarSize = WindowInsets.statusBars.getTop(density)
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(412.dp)
+                .offset(y = -(topBarSize.div(density.density).dp))
+                .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
+        )
 
         MonetaryLuckDetailScreen(
             monetaryLuckInfo = state.monetaryLuckInfo,
+            modifier = Modifier
+                .padding(top = 12.dp)
+                .fillMaxWidth(),
         )
 
-        Column(
-            modifier = Modifier.align(Alignment.BottomCenter)
-        ) {
+        Column(modifier = Modifier.align(Alignment.BottomCenter)) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
