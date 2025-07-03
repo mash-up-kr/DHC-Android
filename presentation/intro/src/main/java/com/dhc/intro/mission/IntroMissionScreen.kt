@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -20,6 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
+import com.dhc.designsystem.GradientColor.buttonGradient
+import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.button.DhcButton
 import com.dhc.designsystem.button.model.DhcButtonSize
@@ -29,6 +32,7 @@ import com.dhc.designsystem.mission.SpendingHabitMissionCard
 import com.dhc.designsystem.title.DhcTitle
 import com.dhc.designsystem.title.DhcTitleState
 import com.dhc.intro.R
+import com.dhc.intro.fortunedetail.IntroFortuneDetailContract
 import com.dhc.presentation.component.MissionTitle
 import com.dhc.presentation.mvi.EventHandler
 
@@ -37,6 +41,7 @@ fun IntroMissionScreen(
     eventHandler: EventHandler<IntroMissionContract.Event>,
     modifier: Modifier = Modifier,
 ) {
+    val colors = LocalDhcColors.current
     val scrollState = rememberScrollState()
     Box(modifier = modifier) {
         Column(modifier = Modifier.padding(horizontal = 20.dp)) {
@@ -84,34 +89,30 @@ fun IntroMissionScreen(
                 MoneyFortuneMissionCardList()
             }
         }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(SurfaceColor.neutral900)
-                .align(Alignment.BottomCenter),
-        ) {
+
+        Column(modifier = Modifier.align(Alignment.BottomCenter)) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(67.dp)
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                SurfaceColor.neutral900.copy(alpha = 0f),
-                                SurfaceColor.neutral900,
-                            ),
-                        ),
-                    )
+                    .height(40.dp)
+                    .background(brush = buttonGradient)
             )
-            DhcButton(
-                text = stringResource(R.string.intro_mission_button),
-                buttonSize = DhcButtonSize.XLARGE,
-                buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
-                onClick = { eventHandler(IntroMissionContract.Event.ClickNextButton) },
+            Box(
                 modifier = Modifier
-                    .padding(20.dp)
                     .fillMaxWidth()
-            )
+                    .wrapContentHeight()
+                    .background(colors.background.backgroundMain)
+            ) {
+                DhcButton(
+                    text = stringResource(R.string.intro_mission_button),
+                    buttonSize = DhcButtonSize.XLARGE,
+                    buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
+                    onClick = { eventHandler(IntroMissionContract.Event.ClickNextButton) },
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .fillMaxWidth()
+                )
+            }
         }
     }
 }
