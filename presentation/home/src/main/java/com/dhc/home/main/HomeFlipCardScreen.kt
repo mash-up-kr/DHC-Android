@@ -21,9 +21,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.common.CalendarUtil
@@ -35,6 +35,7 @@ import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.designsystem.score.DhcScoreText
 import com.dhc.home.R
+import com.dhc.presentation.component.FortuneCardBack
 import com.dhc.presentation.component.WordBalloon
 import com.dhc.presentation.mvi.EventHandler
 
@@ -63,38 +64,35 @@ fun HomeFlipCardScreen(
         } else {
             FlippedDescription()
         }
-        Box(modifier = Modifier.fillMaxWidth()) {
-            val canvasBackgroundBrush = GradientColor.backgroundGradient01(radius = 350f)
-            Canvas(modifier = Modifier.matchParentSize()) {
-                drawOval(
-                    brush = canvasBackgroundBrush,
-                    size = size,
-                    alpha = 0.6f,
+
+        FlippableBox(
+            isFlipped = isCardFlipped,
+            onFlipEnd = {
+                isCardFlipped = true
+                eventHandler(HomeContract.Event.FortuneCardFlipped)
+            },
+            frontScreen = {
+                FortuneCardBack()
+            },
+            backScreen = {
+                DhcFortuneCard(
+                    title = "최고의 날",
+                    description = "네잎클로버",
+                    cardDrawableResId = R.drawable.fortune_card_sample,
                 )
-            }
-            FlippableBox(
-                isFlipped = isCardFlipped,
-                onFlipEnd = {
-                    isCardFlipped = true
-                    eventHandler(HomeContract.Event.FortuneCardFlipped)
-                },
-                frontScreen = {
-                    DhcFortuneCard(
-                        title = "카드 뒷면",
-                        description = "임시",
-                        modifier = Modifier.size(width = 140.dp, height = 200.dp),
-                    )
-                },
-                backScreen = {
-                    DhcFortuneCard(
-                        title = "최고의 날",
-                        description = "네잎클로버",
-                        cardDrawableResId = R.drawable.fortune_card_sample,
-                        modifier = Modifier.size(width = 140.dp, height = 200.dp),
-                    )
-                },
-                modifier = Modifier.align(Alignment.Center),
-                initialRotationZ = -4f,
+            },
+            initialRotationZ = -4f,
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        Canvas(
+            modifier = Modifier
+                .size(width = 32.dp, height = 32.dp)
+                .graphicsLayer { scaleX = 4f },
+        ) {
+            drawOval(
+                brush = GradientColor.cardBottomGradient01,
+                size = size,
+                alpha = 0.4f,
             )
         }
     }
@@ -103,13 +101,15 @@ fun HomeFlipCardScreen(
 @Composable
 private fun NotFlippedDescription() {
     val colors = LocalDhcColors.current
-    Text(
-        text = stringResource(R.string.fortune_card_description),
-        style = DhcTypoTokens.TitleH3,
-        color = colors.text.textBodyPrimary,
-        textAlign = TextAlign.Center,
+    DhcScoreText(
+        badgeText = CalendarUtil.getCurrentDate().run {
+            "%d년 %d월 %d일".format(year, month.value, dayOfMonth) // Todo : 공통 Formmater 로 이동
+        },
+        score = stringResource(R.string.question_score),
+        description = stringResource(R.string.home_fortune_card_description),
+        modifier = Modifier.fillMaxWidth(),
     )
-    Spacer(modifier = Modifier.height(40.dp))
+    Spacer(modifier = Modifier.height(24.dp))
     WordBalloon(
         gradientStartColor = Color(0xFFCFD4DE),
         gradientEndColor = Color(0xFF9BA4D5),
@@ -133,7 +133,7 @@ private fun FlippedDescription() {
         score = 35,
         description = "마음이 들뜨는 날이에요,\n한템포 쉬어가요.",
     )
-    Spacer(modifier = Modifier.height(21.dp))
+    Spacer(modifier = Modifier.height(64.dp))
 }
 
 @Preview

@@ -11,6 +11,7 @@ import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 import retrofit2.Response
@@ -26,7 +27,7 @@ interface DhcService {
     @GET("/api/users")
     suspend fun searchUserByToken(
         @Query("userToken") userToken: String,
-    ): Response<String?>
+    ): Response<SearchUserByTokenResponse>
 
     @POST("/api/users/register")
     suspend fun registerUser(
@@ -42,6 +43,7 @@ interface DhcService {
 
     @POST("/api/users/{userId}/done")
     suspend fun requestFinishTodayMissions(
+        @Path("userId") userId: String,
         @Body endTodayMissionRequest: EndTodayMissionRequest,
     ): Response<EndTodayMissionResponse>
 

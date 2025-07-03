@@ -13,6 +13,7 @@ object FormatterUtil {
     val dhcYearMonthFormat = DateTimeFormatter.ofPattern("yyyy-MM")
     val dhcYearMonthDayFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     val wonFormat = NumberFormat.getNumberInstance(Locale.KOREA)
+    val todayStringFormat = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
     fun String.toDDay(date: LocalDate = LocalDate.now()): String {
         return try {
@@ -29,4 +30,3 @@ object FormatterUtil {
             "Invalid Date"
         }
     }
-}

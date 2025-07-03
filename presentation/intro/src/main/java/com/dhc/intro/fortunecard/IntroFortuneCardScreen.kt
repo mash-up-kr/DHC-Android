@@ -4,21 +4,18 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.DrawStyle
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,6 +34,7 @@ import com.dhc.designsystem.score.DhcScoreText
 import com.dhc.designsystem.title.DhcTitle
 import com.dhc.designsystem.title.DhcTitleState
 import com.dhc.intro.R
+import com.dhc.presentation.component.FortuneCardBack
 import com.dhc.presentation.component.WordBalloon
 import com.dhc.presentation.mvi.EventHandler
 
@@ -65,46 +63,43 @@ fun IntroFortuneCardScreen(
                     .fillMaxWidth()
                     .padding(top = 24.dp, start = 20.dp, end = 20.dp),
             )
-            Spacer(modifier = Modifier.height(height = 86.dp))
+            Spacer(modifier = Modifier.height(height = 44.dp))
             if (state.isCardFlipped.not()) {
                 NotFlippedDescription()
             } else {
                 FlippedDescription()
             }
-            Box(modifier = Modifier.fillMaxWidth()) {
-                val canvasBackgroundBrush = GradientColor.backgroundGradient01(radius = 350f)
-                Canvas(modifier = Modifier.matchParentSize()) {
-                    drawOval(
-                        brush = canvasBackgroundBrush,
-                        size = size,
+
+            FlippableBox(
+                isFlipped = state.isCardFlipped,
+                onFlipEnd = {
+                    eventHandler(IntroFortuneCardContract.Event.FlippedFortuneCard)
+                },
+                frontScreen = {
+                    FortuneCardBack()
+                },
+                backScreen = {
+                    DhcFortuneCard(
+                        title = "최고의 날",
+                        description = "네잎클로버",
+                        cardDrawableResId = R.drawable.fortune_card_sample,
                     )
-                }
-                FlippableBox(
-                    isFlipped = state.isCardFlipped,
-                    onFlipEnd = {
-                        eventHandler(IntroFortuneCardContract.Event.FlippedFortuneCard)
-                    },
-                    frontScreen = {
-                        // Todo : 디자인 확정되면 수정하기
-                        DhcFortuneCard(
-                            title = "카드 뒷면",
-                            description = "임시",
-                            modifier = Modifier.size(width = 143.dp, height = 197.dp),
-                        )
-                    },
-                    backScreen = {
-                        // Todo : 디자인 확정되면 수정하기
-                        DhcFortuneCard(
-                            title = "최고의 날",
-                            description = "네잎클로버",
-                            cardDrawableResId = R.drawable.fortune_card_sample,
-                            modifier = Modifier.size(width = 143.dp, height = 197.dp),
-                        )
-                    },
-                    modifier = Modifier.align(Alignment.Center),
-                    initialRotationZ = -4f,
+                },
+                initialRotationZ = -4f,
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Canvas(
+                modifier = Modifier
+                    .size(width = 32.dp, height = 32.dp)
+                    .graphicsLayer { scaleX = 4f },
+            ) {
+                drawOval(
+                    brush = GradientColor.cardBottomGradient01,
+                    size = size,
+                    alpha = if (state.isCardFlipped) 0.4f else 1f,
                 )
             }
+
         }
         if (state.isCardFlipped) {
             DhcButton(
@@ -124,13 +119,13 @@ fun IntroFortuneCardScreen(
 @Composable
 private fun NotFlippedDescription() {
     val colors = LocalDhcColors.current
-    Text(
-        text = stringResource(R.string.intro_fortune_card_description),
-        style = DhcTypoTokens.TitleH3,
-        color = colors.text.textBodyPrimary,
-        textAlign = TextAlign.Center,
+    DhcScoreText(
+        badgeText = null,
+        score = stringResource(R.string.question_score),
+        description = stringResource(R.string.intro_fortune_card_description),
+        modifier = Modifier.fillMaxWidth(),
     )
-    Spacer(modifier = Modifier.height(40.dp))
+    Spacer(modifier = Modifier.height(24.dp))
     WordBalloon(
         gradientStartColor = Color(0xFFCFD4DE),
         gradientEndColor = Color(0xFF9BA4D5),
@@ -147,13 +142,11 @@ private fun NotFlippedDescription() {
 @Composable
 private fun FlippedDescription() {
     DhcScoreText(
-        badgeText = CalendarUtil.getCurrentDate().run {
-            stringResource(R.string.m_month_d_day_finance_luck, month.value, dayOfMonth)
-        },
-        score = 35,
-        description = "마음이 들뜨는 날이에요,\n한템포 쉬어가요.",
+        badgeText = null,
+        score = 85,
+        description = stringResource(R.string.intro_flipped_fortune_card_description),
     )
-    Spacer(modifier = Modifier.height(21.dp))
+    Spacer(modifier = Modifier.height(64.dp))
 }
 
 @Preview(showBackground = true)

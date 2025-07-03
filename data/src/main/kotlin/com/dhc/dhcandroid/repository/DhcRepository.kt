@@ -12,6 +12,7 @@ import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 import java.time.LocalDate
@@ -19,7 +20,7 @@ import java.time.LocalDate
 interface DhcRepository {
     suspend fun searchUserByToken(
         userToken: String,
-    ): DhcResult<String?>
+    ): DhcResult<SearchUserByTokenResponse>
 
     suspend fun registerUser(
         userProfile: UserProfile,
@@ -32,6 +33,7 @@ interface DhcRepository {
     ): DhcResult<MissionsResponse>
 
     suspend fun requestFinishTodayMissions(
+        userId: String,
         endTodayMissionRequest: EndTodayMissionRequest,
     ): DhcResult<EndTodayMissionResponse>
 

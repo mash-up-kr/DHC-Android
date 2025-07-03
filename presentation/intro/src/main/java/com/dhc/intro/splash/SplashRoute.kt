@@ -21,6 +21,7 @@ fun SplashRoute(
     }
 
     SplashScreen(
+        eventHandler = viewModel::sendEvent,
         modifier = Modifier.fillMaxSize()
     )
 }
