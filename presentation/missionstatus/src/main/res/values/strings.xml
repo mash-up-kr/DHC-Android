@@ -11,5 +11,5 @@
     <string name="consumption_analysis_save_more_money">더 절약했어요</string>
     <string name="consumption_analysis_calendar_me">나</string>
     <string name="consumption_analysis_calendar_man_won">%d 만원</string>
-    <string name="consumption_analysis_calendar_won">%d원</string>
+    <string name="consumption_analysis_calendar_won">%s원</string>
 </resources>

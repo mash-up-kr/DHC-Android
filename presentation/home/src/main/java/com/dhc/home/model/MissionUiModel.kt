@@ -8,7 +8,7 @@ data class MissionUiModel(
     val missionId: String = "",
     val category: String = "",
     val type: MissionType = MissionType.LONG_TERM,
-    val finished: Boolean = false,
+    val isChecked: Boolean = false,
     val title: String = "",
     val endDate: String = "",
     val difficulty: String = "",
@@ -17,12 +17,11 @@ data class MissionUiModel(
     val isExpanded: Boolean = false
 ) {
     companion object {
-
         fun from(mission: Mission): MissionUiModel = MissionUiModel(
             missionId = mission.missionId,
             category = mission.category,
             type = mission.type,
-            finished = mission.finished,
+            isChecked = mission.finished,
             title = mission.title,
             switchCount = mission.switchCount,
             endDate = mission.endDate.toDDay(),
@@ -35,7 +34,7 @@ fun Mission.toUiModel() = MissionUiModel(
     missionId = missionId,
     category = category,
     type = type,
-    finished = finished,
+    isChecked = finished,
     title = title,
     endDate = endDate.toDDay(),
     difficulty = MissionDifficulty.from(difficulty),

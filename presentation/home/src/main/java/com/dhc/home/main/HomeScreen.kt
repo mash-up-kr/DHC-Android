@@ -116,6 +116,7 @@ fun HomeScreen(
             }
             SpendingHabitMission(
                 missionUiModel = state.homeInfo.longTermMission,
+                isFinishedTodayMission = state.homeInfo.todayDone,
                 onClickMissionChange = { mission -> eventHandler(HomeContract.Event.ClickMissionChange(
                     SelectChangeMission(
                         missionId = mission.missionId,
@@ -123,12 +124,14 @@ fun HomeScreen(
                         missionTitle = mission.title
                     )
                 )) },
+                onCheckChange = { isChecked, id -> eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
+                onExpandedChange = { isExpanded,id -> eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
                 onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId))},
-                onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
             )
             Spacer(modifier = Modifier.height(24.dp))
             MonetaryLuckyDailyMission(
                 dailyMissionList = state.homeInfo.todayDailyMissionList,
+                isFinishedTodayMission = state.homeInfo.todayDone,
                 onClickMissionChange = { mission -> eventHandler(HomeContract.Event.ClickMissionChange(
                     SelectChangeMission(
                         missionId = mission.missionId,
@@ -136,20 +139,23 @@ fun HomeScreen(
                         missionTitle = mission.title
                     )
                 )) },
+                onCheckChange = { isChecked, id -> eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
                 onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
                 onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId)) },
             )
             Spacer(modifier = Modifier.height(136.dp))
         }
 
-        DhcFloatingButton(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(bottom = 24.dp, end = 20.dp),
-            text = stringResource(R.string.finish_today_mission),
-            isEnabled = true,
-            onClick = { eventHandler(HomeContract.Event.ClickMissionComplete) },
-        )
+        if(!state.homeInfo.todayDone) {
+            DhcFloatingButton(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 24.dp, end = 20.dp),
+                text = stringResource(R.string.finish_today_mission),
+                isEnabled = true,
+                onClick = { eventHandler(HomeContract.Event.ClickTodayMissionFinish) },
+            )
+        }
     }
 }
 

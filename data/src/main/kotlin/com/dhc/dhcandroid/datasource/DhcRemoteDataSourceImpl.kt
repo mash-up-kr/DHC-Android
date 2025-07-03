@@ -10,6 +10,7 @@ import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 import com.dhc.dhcandroid.service.DhcService
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class DhcRemoteDataSourceImpl @Inject constructor(
     private val dhcService: DhcService,
 ): DhcRemoteDataSource {
-    override suspend fun searchUserByToken(userToken: String): Response<String?> =
+    override suspend fun searchUserByToken(userToken: String): Response<SearchUserByTokenResponse> =
         dhcService.searchUserByToken(userToken)
 
     override suspend fun registerUser(userProfile: UserProfile): Response<RegisterUserResponse> {
@@ -34,8 +35,8 @@ class DhcRemoteDataSourceImpl @Inject constructor(
         return dhcService.changeMissionStatus(userId, missionId, toggleMissionRequest)
     }
 
-    override suspend fun requestFinishTodayMissions(endTodayMissionRequest: EndTodayMissionRequest): Response<EndTodayMissionResponse> {
-        return dhcService.requestFinishTodayMissions(endTodayMissionRequest)
+    override suspend fun requestFinishTodayMissions(userId: String, endTodayMissionRequest: EndTodayMissionRequest): Response<EndTodayMissionResponse> {
+        return dhcService.requestFinishTodayMissions(userId, endTodayMissionRequest)
     }
 
     override suspend fun requestLogOutUser(userId: String): Response<LogoutResponse> {
