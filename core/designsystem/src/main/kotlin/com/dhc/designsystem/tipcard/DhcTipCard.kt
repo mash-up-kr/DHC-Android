@@ -2,7 +2,6 @@ package com.dhc.designsystem.tipcard
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,7 +28,7 @@ import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
-import com.dhc.designsystem.getImageLoader
+import com.dhc.designsystem.getSvgImageLoader
 
 
 @Composable
@@ -69,7 +68,7 @@ fun TipCardTitle(
         AsyncImage(
             model = icon,
             contentDescription = "tipCardIcon",
-            imageLoader = context.getImageLoader(),
+            imageLoader = context.getSvgImageLoader(),
             modifier = Modifier.size(20.dp),
         )
         Spacer(modifier = Modifier.width(4.dp))
