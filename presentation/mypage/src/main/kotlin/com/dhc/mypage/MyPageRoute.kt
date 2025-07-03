@@ -40,7 +40,7 @@ fun MyPageRoute(
                 onClickAppResetButton = {
                     viewModel.sendEvent(Event.ClickAppResetConfirmButton)
                 },
-                onDismissButton = {
+                onClickDismissButton = {
                     viewModel.sendEvent(Event.ClickDialogDismissButton)
                 }
             )

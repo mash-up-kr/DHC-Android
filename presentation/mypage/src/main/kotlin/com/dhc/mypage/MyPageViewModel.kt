@@ -29,7 +29,7 @@ class MyPageViewModel @Inject constructor(
         when (event) {
             is Event.ClickAppResetButton -> reduce { copy(isShowAppResetDialog = true) }
             is Event.ClickAppResetConfirmButton -> {
-                // Todo :: UUID 초기화 코드 추가
+                authRepository.clearUserId()
                 reduce { copy(isShowAppResetDialog = false) }
                 postSideEffect(SideEffect.NavigateToIntro)
             }
@@ -53,9 +53,6 @@ class MyPageViewModel @Inject constructor(
                         },
                     )
                 }
-            }
-            .onFailure { _, _ ->
-                // Todo :: 실패 처리
             }
     }
 }
