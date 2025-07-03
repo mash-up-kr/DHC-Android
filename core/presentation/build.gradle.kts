@@ -14,5 +14,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.android)
     implementation(libs.firebase.messaging.ktx)
     implementation(libs.bundles.exoplayer)
+    implementation(libs.lottie.compose)
     testImplementation(libs.junit)
 }

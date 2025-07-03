@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -24,17 +25,15 @@ import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
 import com.dhc.dhcandroid.MainViewModel
 
-// MainViewModel.init() 실행을 위해 미사용이지만 파라미터가 필요합니다
-@Suppress("UnusedParameter")
 @Composable
 fun DhcApp(
     modifier: Modifier = Modifier,
     mainViewModel: MainViewModel = hiltViewModel(),
 ) {
     val colors = LocalDhcColors.current
-    val startDestination = DhcRoute.SPLASH
     val navController = rememberNavController()
     val currentScreenConfig by currentScreenConfigAsState(navController)
+    val state by mainViewModel.state.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -62,7 +61,9 @@ fun DhcApp(
     ) { paddingValues ->
         DhcNavHost(
             navController = navController,
-            startDestination = startDestination,
+            startPage = state.startPage,
+            isShowNextPage = state.isShowNextPage,
+            triggerShowNextPage = mainViewModel::triggerShowNextPage,
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxWidth(),

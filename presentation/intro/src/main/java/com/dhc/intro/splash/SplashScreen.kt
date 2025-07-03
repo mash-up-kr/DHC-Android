@@ -1,30 +1,29 @@
 package com.dhc.intro.splash
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
+import com.dhc.presentation.component.LottieView
+import com.dhc.presentation.mvi.EventHandler
 
 @Composable
-fun SplashScreen(modifier: Modifier = Modifier) {
+fun SplashScreen(
+    eventHandler: EventHandler<SplashContract.Event>,
+    modifier: Modifier = Modifier,
+) {
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-        // TODO : Lottie 로 변경
-        Box(
-            modifier = Modifier
-                .padding(bottom = 42.dp)
-                .size(204.dp)
-                .background(Color.Cyan),
+        LottieView(
+            assetName = "splash_animation.json",
+            modifier = Modifier.fillMaxSize(),
+            iterations = 1,
+            lottieFinished = { eventHandler(SplashContract.Event.LottieAnimationFinished) }
         )
     }
 }
@@ -33,6 +32,9 @@ fun SplashScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun SplashScreenPreview() {
     DhcTheme {
-        SplashScreen(modifier = Modifier.fillMaxSize())
+        SplashScreen(
+            eventHandler = {},
+            modifier = Modifier.fillMaxSize(),
+        )
     }
 }

@@ -40,6 +40,9 @@ kotlinx-serialization = "1.8.1"
 #exoplayer
 exoplayer = "1.6.1"
 
+#lottie
+lottie = "6.6.6"
+
 # 프로젝트 설정
 targetSdk = "35"
 versionCode = "1"
@@ -109,6 +112,8 @@ kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-seria
 #exoplayer
 exoplayer-core = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "exoplayer" }
 exoplayer-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "exoplayer" }
+
+lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
 
 [bundles]
 hilt = [
