@@ -139,6 +139,7 @@ fun TodayTip(
         ),
         textAlign = TextAlign.Start,
     )
+    Spacer(modifier = Modifier.height(12.dp))
     DhcTipCardGrid(tipCards = tips)
 }
 

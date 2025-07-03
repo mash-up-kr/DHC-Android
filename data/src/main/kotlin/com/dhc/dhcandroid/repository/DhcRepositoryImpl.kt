@@ -1,6 +1,7 @@
 package com.dhc.dhcandroid.repository
 
 import com.dhc.common.DhcResult
+import com.dhc.common.FormatterUtil.dhcYearMonthDayFormat
 import com.dhc.common.FormatterUtil.dhcYearMonthFormat
 import com.dhc.common.getSuccessOrNull
 import com.dhc.dhcandroid.datasource.DhcRemoteDataSource
@@ -9,6 +10,7 @@ import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
+import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.MissionsResponse
@@ -98,5 +100,14 @@ class DhcRepositoryImpl @Inject constructor(
                 }
             }
         return result
+    }
+
+    override suspend fun getDailyFortune(
+        userId: String,
+        date: LocalDate,
+    ): DhcResult<FortuneResponse> {
+        return runDhcCatching {
+            dhcRemoteDataSource.getDailyFortune(userId, date.format(dhcYearMonthDayFormat))
+        }
     }
 }

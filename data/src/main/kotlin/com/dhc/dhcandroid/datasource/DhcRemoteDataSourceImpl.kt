@@ -4,6 +4,7 @@ import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
+import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.MissionsResponse
@@ -58,10 +59,18 @@ class DhcRemoteDataSourceImpl @Inject constructor(
     override suspend fun getMissionCategories(): Response<MissionCategoriesResponse> {
         return dhcService.getMissionCategories()
     }
+
     override suspend fun getCalendarView(
         userId: String,
         yearMonth: String
     ): Response<CalendarViewResponse> {
         return dhcService.getCalendarView(userId, yearMonth)
+    }
+
+    override suspend fun getDailyFortune(
+        userId: String,
+        date: String,
+    ): Response<FortuneResponse> {
+        return dhcService.getDailyFortune(userId, date)
     }
 }

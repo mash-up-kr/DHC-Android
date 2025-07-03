@@ -5,6 +5,7 @@ import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
+import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.MissionsResponse
@@ -59,4 +60,9 @@ interface DhcRepository {
         userId: String,
         yearMonth: LocalDate,
     ): DhcResult<CalendarViewResponse>
+
+    suspend fun getDailyFortune(
+        userId: String,
+        date: LocalDate,
+    ): DhcResult<FortuneResponse>
 }

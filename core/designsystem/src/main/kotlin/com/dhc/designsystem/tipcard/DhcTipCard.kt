@@ -2,7 +2,6 @@ package com.dhc.designsystem.tipcard
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -28,6 +28,7 @@ import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
+import com.dhc.designsystem.getSvgImageLoader
 
 
 @Composable
@@ -59,12 +60,15 @@ fun TipCardTitle(
     icon: String,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+
     Row(
         modifier = modifier.fillMaxWidth()
     ) {
         AsyncImage(
             model = icon,
             contentDescription = "tipCardIcon",
+            imageLoader = context.getSvgImageLoader(),
             modifier = Modifier.size(20.dp),
         )
         Spacer(modifier = Modifier.width(4.dp))
