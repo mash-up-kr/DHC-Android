@@ -284,7 +284,7 @@ class HomeViewModel @Inject constructor(
             val userId = userRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.requestFinishTodayMissions(
                 userId = userId,
-                EndTodayMissionRequest(
+                endTodayMissionRequest = EndTodayMissionRequest(
                     date = todayStringFormat
                 )
             ).onSuccess {response ->
