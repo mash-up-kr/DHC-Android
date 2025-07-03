@@ -153,6 +153,14 @@ data object GradientColor {
         )
     )
 
+    val cardBottomGradient01 = Brush.radialGradient(
+        colorStops = arrayOf(
+            0.0f to Color(0xFF343B8C).copy(alpha = 1f),
+            0.5f to Color(0xFF343B8C).copy(alpha = 0.5f),
+            1.0f to Color(0xFF343B8C).copy(alpha = 0f),
+        ),
+    )
+
     val fortuneFillGradient = Brush.linearGradient(
         colorStops = arrayOf(
             0.0f to TransparentColor.glassEffect.copy(0.15f),
