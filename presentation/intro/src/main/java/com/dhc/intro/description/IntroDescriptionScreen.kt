@@ -33,19 +33,22 @@ fun IntroDescriptionScreen(
 ) {
     Box(modifier = modifier) {
         Column(modifier = Modifier.fillMaxSize()) {
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(48.dp))
             DhcTitle(
                 titleState = DhcTitleState(
                     title = stringResource(R.string.intro_description_title),
                     titleStyle = DhcTypoTokens.TitleH2,
                 ),
                 textAlign = TextAlign.Center,
-                subTitleState = null,
+                subTitleState = DhcTitleState(
+                    title = stringResource(R.string.intro_description_sub_title),
+                    titleStyle = DhcTypoTokens.Body3,
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 24.dp, start = 20.dp, end = 20.dp),
             )
-            Spacer(modifier = Modifier.height(120.dp))
+            Spacer(modifier = Modifier.height(56.dp))
             Column(
                 modifier = Modifier.padding(top = 24.dp, start = 20.dp, end = 20.dp, bottom = 32.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -64,7 +67,7 @@ fun IntroDescriptionScreen(
             }
         }
         DhcButton(
-            text = stringResource(R.string.start_with_finance_luck),
+            text = stringResource(R.string.next),
             buttonSize = DhcButtonSize.XLARGE,
             buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
             onClick = { eventHandler(IntroDescriptionContract.Event.ClickNextButton) },
