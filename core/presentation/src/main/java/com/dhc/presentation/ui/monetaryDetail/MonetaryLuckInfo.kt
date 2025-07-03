@@ -1,5 +1,6 @@
 package com.dhc.presentation.ui.monetaryDetail
 
+import com.dhc.common.ImageResource
 import com.dhc.designsystem.tipcard.TipCardModel
 
 data class MonetaryLuckInfo(
@@ -18,4 +19,5 @@ data class ScoreInfo(
 data class FortuneCard(
     val title: String = "",
     val message: String = "",
+    val image: ImageResource? = null,
 )

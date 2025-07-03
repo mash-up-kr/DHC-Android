@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dhc.common.ImageResource
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
@@ -64,6 +65,7 @@ fun MonetaryLuckDetailScreen(
             DhcFortuneCard(
                 title = monetaryLuckInfo.fortuneCard.title,
                 description = monetaryLuckInfo.fortuneCard.message,
+                imageResource = monetaryLuckInfo.fortuneCard.image,
                 modifier = Modifier
                     .size(width = 144.dp, height = 200.dp)
                 ,
@@ -149,25 +151,25 @@ private fun PreviewMonetaryLuckDetail() {
                 todayTips = listOf(
                     TipCardModel(
                         title = "오늘의 추천 메뉴",
-                        icon = "https://foodish-api.com/images/pizza/pizza80.jpg",
+                        icon = ImageResource.Url("https://foodish-api.com/images/pizza/pizza80.jpg"),
                         color = null,
                         cont = "치킨이닭"
                     ),
                     TipCardModel(
                         title = "행운의 색상",
-                        icon = "https://foodish-api.com/images/pizza/pizza80.jpg",
+                        icon = ImageResource.Url("https://foodish-api.com/images/pizza/pizza80.jpg"),
                         color = "#23B169",
                         cont = "연두색"
                     ),
                     TipCardModel(
                         title = "오늘의 추천 메뉴",
-                        icon = "https://foodish-api.com/images/pizza/pizza80.jpg",
+                        icon = ImageResource.Url("https://foodish-api.com/images/pizza/pizza80.jpg"),
                         color = null,
                         cont = "치킨이닭"
                     ),
                     TipCardModel(
                         title = "행운의 색상",
-                        icon = "https://foodish-api.com/images/pizza/pizza80.jpg",
+                        icon = ImageResource.Url("https://foodish-api.com/images/pizza/pizza80.jpg"),
                         color = "#23B169",
                         cont = "연두색"
                     ),
