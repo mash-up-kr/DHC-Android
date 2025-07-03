@@ -18,4 +18,3 @@ sealed interface ContainerColor {
         override val color: Color @Composable get() = composeColor
     }
 }
-
