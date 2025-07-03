@@ -29,7 +29,7 @@ class MyPageViewModel @Inject constructor(
         when (event) {
             is Event.ClickAppResetButton -> reduce { copy(isShowAppResetDialog = true) }
             is Event.ClickAppResetConfirmButton -> {
-                authRepository.setUserId("")
+                authRepository.clearUserId()
                 reduce { copy(isShowAppResetDialog = false) }
                 postSideEffect(SideEffect.NavigateToIntro)
             }
