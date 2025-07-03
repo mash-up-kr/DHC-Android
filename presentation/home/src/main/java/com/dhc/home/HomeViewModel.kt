@@ -2,9 +2,11 @@ package com.dhc.home
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.dhc.common.FormatterUtil.todayStringFormat
 import com.dhc.common.onException
 import com.dhc.common.onFailure
 import com.dhc.common.onSuccess
+import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.Mission
 import com.dhc.dhcandroid.model.MissionType
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
@@ -13,6 +15,7 @@ import com.dhc.home.main.HomeContract
 import com.dhc.home.main.HomeContract.Event
 import com.dhc.home.main.HomeContract.SideEffect
 import com.dhc.home.main.HomeContract.State
+import com.dhc.home.model.FinishMissionToast
 import com.dhc.home.model.HomeUiModel
 import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
@@ -50,14 +53,15 @@ class HomeViewModel @Inject constructor(
                 SideEffect.NavigateToMonetaryDetailScreen
             )
 
-            is Event.ClickMissionComplete -> {
+            is Event.ClickTodayMissionFinish -> {
                 updateMissionCompleteBottomSheetState(isShowBottomSheet = true)
             }
 
             is Event.ClickMissionCompleteConfirm -> {
                 updateMissionCompleteBottomSheetState(isShowBottomSheet = false)
-                if (event.buttonType == MissionCompleteButtonType.Complete)
-                    updateMissionSuccessDialogState(isShowDialog = true)
+                if (event.buttonType == MissionCompleteButtonType.Complete) {
+                    finishTodayMission()
+                }
             }
 
             is Event.ClickMissionSuccess -> {
@@ -139,8 +143,8 @@ class HomeViewModel @Inject constructor(
 
     fun getHomeInfo() {
         viewModelScope.launch {
-            val userId = userRepository.getUUID()?.firstOrNull() ?: "" //TODO - 추후 변경
-            dhcRepository.getHomeView(userId = "685faf11de38af6c7bd9d25d") //TODO - 추후 변경
+            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+            dhcRepository.getHomeView(userId = userId)
                 .onSuccess { response ->
                     response ?: return@onSuccess
                     reduce { copy(homeInfo = HomeUiModel.from(response)) }
@@ -155,16 +159,16 @@ class HomeViewModel @Inject constructor(
         missionStatusType: MissionStatusType,
     ) {
         viewModelScope.launch {
-            val userId = userRepository.getUUID()?.firstOrNull() ?: "" //TODO - 추후 변경
+            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.changeMissionStatus(
-                userId = "685faf11de38af6c7bd9d25d", //TODO - 추후 변경
+                userId = userId,
                 missionId = missionId,
                 toggleMissionRequest = missionStatusType.toToggleMissionRequest()
             ).onSuccess { response ->
                 response ?: return@onSuccess
                 when (missionStatusType) {
                     MissionStatusType.COMPLETE, MissionStatusType.INCOMPLETE -> {
-                        updateMissionCompleteState(missionId, response.missions)
+                        updateMissionCompleteState(missionId, response.missions, missionStatusType)
                     }
 
                     MissionStatusType.CHANGE -> updateNewMissionList(
@@ -180,25 +184,32 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun updateMissionCompleteState(missionId: String, missionList: List<Mission>) {
+    private fun updateMissionCompleteState(
+        missionId: String,
+        missionList: List<Mission>,
+        missionStatusType: MissionStatusType
+    ) {
         val mission = missionList.firstOrNull { it.missionId == missionId }
         if (mission == null) return
         reduce {
             copy(
                 homeInfo = state.value.homeInfo.copy(
-                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission?.missionId) {
-                        state.value.homeInfo.longTermMission.copy(isChecked = mission.finished.not())
+                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission.missionId) {
+                        state.value.homeInfo.longTermMission.copy(isChecked = mission.finished)
                     } else {
                         state.value.homeInfo.longTermMission
                     },
                     todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
-                        if (it.missionId == mission?.missionId) {
-                            it.copy(isChecked = mission.finished.not())
+                        if (it.missionId == mission.missionId) {
+                            it.copy(isChecked = mission.finished)
                         } else {
                             it
-                        }
                     }
-                ))
+                }
+            ))
+        }
+        if (missionStatusType == MissionStatusType.COMPLETE) {
+            postSideEffect(SideEffect.ShowToast(FinishMissionToast.getRandomMessage()))
         }
     }
 
@@ -270,6 +281,25 @@ class HomeViewModel @Inject constructor(
                         )
                     })
             )
+        }
+    }
+
+    fun finishTodayMission() {
+        viewModelScope.launch {
+            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+            dhcRepository.requestFinishTodayMissions(
+                userId = userId,
+                endTodayMissionRequest = EndTodayMissionRequest(
+                    date = todayStringFormat
+                )
+            ).onSuccess {response ->
+                response ?: return@onSuccess
+                reduce { copy(todaySavedMoney = response.todaySavedMoney, homeInfo = state.value.homeInfo.copy(todayDone = true)) }
+                updateMissionSuccessDialogState(isShowDialog = true)
+
+            }.onFailure { code, message ->
+                Log.d("finishTodayMission", "onFailure:${code} message:${message} ");
+            }
         }
     }
 

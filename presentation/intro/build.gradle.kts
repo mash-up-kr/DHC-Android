@@ -8,6 +8,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.bundles.exoplayer)
     testImplementation(libs.junit)
 }

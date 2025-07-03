@@ -14,6 +14,10 @@ class AuthDataStoreRepositoryImpl @Inject constructor(
     override suspend fun getUserId(): Flow<String?> =
         authLocalDataSource.getUserId()
 
+    override suspend fun clearUserId() {
+        authLocalDataSource.setUserId("")
+    }
+
     override suspend fun setUserToken(token: String) {
         authLocalDataSource.setUserToken(token)
     }
