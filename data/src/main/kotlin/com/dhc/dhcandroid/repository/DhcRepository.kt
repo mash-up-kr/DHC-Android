@@ -32,6 +32,7 @@ interface DhcRepository {
     ): DhcResult<MissionsResponse>
 
     suspend fun requestFinishTodayMissions(
+        userId: String,
         endTodayMissionRequest: EndTodayMissionRequest,
     ): DhcResult<EndTodayMissionResponse>
 

@@ -189,7 +189,7 @@ private fun ConsumptionAnalysisContent(
                     isHighlight = false,
                     tooltipMessage = stringResource(
                         R.string.consumption_analysis_calendar_won,
-                        graphData.targetData
+                        wonFormat.format(graphData.targetData),
                     ),
                 )
             )

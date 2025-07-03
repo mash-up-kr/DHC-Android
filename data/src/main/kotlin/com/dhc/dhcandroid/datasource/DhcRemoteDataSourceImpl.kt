@@ -35,8 +35,8 @@ class DhcRemoteDataSourceImpl @Inject constructor(
         return dhcService.changeMissionStatus(userId, missionId, toggleMissionRequest)
     }
 
-    override suspend fun requestFinishTodayMissions(endTodayMissionRequest: EndTodayMissionRequest): Response<EndTodayMissionResponse> {
-        return dhcService.requestFinishTodayMissions(endTodayMissionRequest)
+    override suspend fun requestFinishTodayMissions(userId: String, endTodayMissionRequest: EndTodayMissionRequest): Response<EndTodayMissionResponse> {
+        return dhcService.requestFinishTodayMissions(userId, endTodayMissionRequest)
     }
 
     override suspend fun requestLogOutUser(userId: String): Response<LogoutResponse> {

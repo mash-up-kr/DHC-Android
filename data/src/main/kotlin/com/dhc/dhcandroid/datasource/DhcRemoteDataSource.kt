@@ -32,6 +32,7 @@ interface DhcRemoteDataSource {
     ): Response<MissionsResponse>
 
     suspend fun requestFinishTodayMissions(
+        userId: String,
         endTodayMissionRequest: EndTodayMissionRequest,
     ): Response<EndTodayMissionResponse>
 
