@@ -22,7 +22,7 @@ class HomeContract {
         val todaySavedMoney: String = "",
     ): UiState {
         val remainingMissionCount: Int
-            get() = 4 - getFinishedMissionCount()
+            get() = getMissionIdList().size - getFinishedMissionCount()
 
         fun getMissionIdList(): List<String> {
             return listOf(homeInfo.longTermMission.missionId) + homeInfo.todayDailyMissionList.map { it.missionId }

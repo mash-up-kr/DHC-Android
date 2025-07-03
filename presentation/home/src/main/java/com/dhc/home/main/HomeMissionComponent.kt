@@ -61,7 +61,7 @@ fun SpendingHabitMission(
                     isChecked = missionUiModel.isChecked,
                     isFinishedTodayMission = isFinishedTodayMission,
                     onHeightChanged = { missionChangeHeight = it },
-                    onCheckChange = { onCheckChange( missionUiModel.isChecked, missionUiModel.missionId)},
+                    onCheckChange = { onCheckChange( !missionUiModel.isChecked, missionUiModel.missionId)},
                     isBlink = missionUiModel.isBlink,
                     onBlinkEnd = { onBlinkEnd(missionUiModel.missionId) },
                 )
@@ -108,7 +108,7 @@ fun MonetaryLuckyDailyMission(
                             missionTitle = mission.title,
                             onBlinkEnd = { onBlinkEnd(mission.missionId) },
                             onHeightChanged = { missionChangeHeight = it },
-                            onCheckChange = { onCheckChange(  mission.isChecked, mission.missionId)}
+                            onCheckChange = { onCheckChange( !mission.isChecked, mission.missionId)}
                         )
                     }
                 )
