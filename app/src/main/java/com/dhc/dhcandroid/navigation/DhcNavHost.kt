@@ -60,8 +60,7 @@ fun DhcNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = DhcRoute.INTRO.route,
-//        startDestination = startDestination.route,
+        startDestination = startDestination.route,
     ) {
         navigation(
             route = DhcRoute.INTRO.route,
