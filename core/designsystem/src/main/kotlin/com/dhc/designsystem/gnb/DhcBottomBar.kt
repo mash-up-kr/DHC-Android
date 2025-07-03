@@ -15,7 +15,7 @@ fun DhcBottomBar(
     val items = DhcBottomBarState.BottomNavigation.items
     val selectedIndex = items
         .indexOfFirst { it.routeName == currentRoute }
-        .takeIf { it >= 0 } ?: 0
+        .coerceAtLeast(0)
 
     when (state) {
         is DhcBottomBarState.BottomNavigation -> {
