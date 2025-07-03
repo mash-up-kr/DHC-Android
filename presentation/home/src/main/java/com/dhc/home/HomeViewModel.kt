@@ -297,7 +297,7 @@ class HomeViewModel @Inject constructor(
                 )
             ).onSuccess {response ->
                 response ?: return@onSuccess
-                reduce { copy(todaySavedMoney = response.todaySavedMoney) }
+                reduce { copy(todaySavedMoney = response.todaySavedMoney, homeInfo = state.value.homeInfo.copy(todayDone = true)) }
                 updateMissionSuccessDialogState(isShowDialog = true)
 
             }.onFailure { code, message ->
