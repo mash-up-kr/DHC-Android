@@ -15,6 +15,7 @@ import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 import com.dhc.dhcandroid.util.runDhcCatching
@@ -27,7 +28,7 @@ class DhcRepositoryImpl @Inject constructor(
 
     private val cachedCalendarView = mutableMapOf<LocalDate, AnalysisMonthViewResponse>()
 
-    override suspend fun searchUserByToken(userToken: String): DhcResult<String?> =
+    override suspend fun searchUserByToken(userToken: String): DhcResult<SearchUserByTokenResponse> =
         runDhcCatching { dhcRemoteDataSource.searchUserByToken(userToken) }
 
     override suspend fun registerUser(userProfile: UserProfile): DhcResult<RegisterUserResponse> =
