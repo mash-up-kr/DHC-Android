@@ -7,14 +7,20 @@ import com.dhc.designsystem.gnb.model.DhcBottomBarState
 @Composable
 fun DhcBottomBar(
     state: DhcBottomBarState,
-    selectedIndex: Int,
+    currentRoute: String,
     navigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
+    val items = DhcBottomBarState.BottomNavigation.items
+    val selectedIndex = items
+        .indexOfFirst { it.routeName == currentRoute }
+        .takeIf { it >= 0 } ?: 0
+
     when (state) {
         is DhcBottomBarState.BottomNavigation -> {
             DhcGnb(
-                gnbItemList = DhcBottomBarState.BottomNavigation.items,
+                gnbItemList = items,
                 selectedIndex = selectedIndex,
                 onClickItem = { gnbItem, index ->
                     navigateToRoute(gnbItem.routeName)
