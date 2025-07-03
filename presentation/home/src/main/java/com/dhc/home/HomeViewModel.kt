@@ -2,9 +2,11 @@ package com.dhc.home
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.dhc.common.FormatterUtil.todayStringFormat
 import com.dhc.common.onException
 import com.dhc.common.onFailure
 import com.dhc.common.onSuccess
+import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.Mission
 import com.dhc.dhcandroid.model.MissionType
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
@@ -26,6 +28,7 @@ import com.dhc.home.model.toUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -53,14 +56,15 @@ class HomeViewModel @Inject constructor(
                 SideEffect.NavigateToMonetaryDetailScreen
             )
 
-            is Event.ClickMissionComplete -> {
+            is Event.ClickTodayMissionFinish -> {
                 updateMissionCompleteBottomSheetState(isShowBottomSheet = true)
             }
 
             is Event.ClickMissionCompleteConfirm -> {
                 updateMissionCompleteBottomSheetState(isShowBottomSheet = false)
-                if (event.buttonType == MissionCompleteButtonType.Complete)
-                    updateMissionSuccessDialogState(isShowDialog = true)
+                if (event.buttonType == MissionCompleteButtonType.Complete) {
+                    finishTodayMission()
+                }
             }
 
             is Event.ClickMissionSuccess -> {
@@ -142,8 +146,8 @@ class HomeViewModel @Inject constructor(
 
     fun getHomeInfo() {
         viewModelScope.launch {
-            val userId = userRepository.getUUID()?.firstOrNull() ?: "" //TODO - 추후 변경
-            dhcRepository.getHomeView(userId = "685faf11de38af6c7bd9d25d") //TODO - 추후 변경
+            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+            dhcRepository.getHomeView(userId = userId)
                 .onSuccess { response ->
                     response ?: return@onSuccess
                     reduce { copy(homeInfo = HomeUiModel.from(response)) }
@@ -158,9 +162,9 @@ class HomeViewModel @Inject constructor(
         missionStatusType: MissionStatusType,
     ) {
         viewModelScope.launch {
-            val userId = userRepository.getUUID()?.firstOrNull() ?: "" //TODO - 추후 변경
+            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.changeMissionStatus(
-                userId = "685faf11de38af6c7bd9d25d", //TODO - 추후 변경
+                userId = userId,
                 missionId = missionId,
                 toggleMissionRequest = missionStatusType.toToggleMissionRequest()
             ).onSuccess { response ->
@@ -193,16 +197,16 @@ class HomeViewModel @Inject constructor(
         reduce {
             copy(
                 homeInfo = state.value.homeInfo.copy(
-                longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission.missionId) {
-                    state.value.homeInfo.longTermMission.copy(isChecked = mission.finished)
-                } else {
-                    state.value.homeInfo.longTermMission
-                },
-                todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
-                    if (it.missionId == mission.missionId) {
-                        it.copy(isChecked = mission.finished)
+                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission.missionId) {
+                        state.value.homeInfo.longTermMission.copy(isChecked = mission.finished)
                     } else {
-                        it
+                        state.value.homeInfo.longTermMission
+                    },
+                    todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
+                        if (it.missionId == mission.missionId) {
+                            it.copy(isChecked = mission.finished)
+                        } else {
+                            it
                     }
                 }
             ))
@@ -280,6 +284,25 @@ class HomeViewModel @Inject constructor(
                         )
                     })
             )
+        }
+    }
+
+    fun finishTodayMission() {
+        viewModelScope.launch {
+            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+            dhcRepository.requestFinishTodayMissions(
+                userId = userId,
+                endTodayMissionRequest = EndTodayMissionRequest(
+                    date = todayStringFormat
+                )
+            ).onSuccess {response ->
+                response ?: return@onSuccess
+                reduce { copy(todaySavedMoney = response.todaySavedMoney) }
+                updateMissionSuccessDialogState(isShowDialog = true)
+
+            }.onFailure { code, message ->
+                Log.d("finishTodayMission", "onFailure:${code} message:${message} ");
+            }
         }
     }
 }

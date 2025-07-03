@@ -20,9 +20,19 @@ class HomeContract {
         val selectedMissionInfo: SelectChangeMission = SelectChangeMission(),
         val homeInfo: HomeUiModel = HomeUiModel(),
         val finishTodayMission: Boolean = false,
+        val todaySavedMoney: String = "",
     ): UiState {
+        val remainingMissionCount: Int
+            get() = getMissionIdList().size - getFinishedMissionCount()
+
         fun getMissionIdList(): List<String> {
             return listOf(homeInfo.longTermMission.missionId) + homeInfo.todayDailyMissionList.map { it.missionId }
+        }
+
+        fun getFinishedMissionCount(): Int {
+            val longTermFinished = if (homeInfo.longTermMission.isChecked) 1 else 0
+            val dailyFinishedCount = homeInfo.todayDailyMissionList.count { it.isChecked }
+            return longTermFinished + dailyFinishedCount
         }
     }
 
@@ -36,7 +46,7 @@ class HomeContract {
     sealed interface Event : UiEvent {
         data object ClickMoreButton : Event
         data object ClickFortuneCard: Event
-        data object ClickMissionComplete: Event
+        data object ClickTodayMissionFinish: Event
         data class ClickMissionCompleteConfirm(val buttonType: MissionCompleteButtonType): Event
         data class ClickMissionSuccess(val buttonType: MissionSuccessButtonType): Event
         data class ClickMissionChange(val selectChangeMission: SelectChangeMission): Event

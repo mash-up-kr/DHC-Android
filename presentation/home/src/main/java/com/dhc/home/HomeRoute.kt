@@ -72,13 +72,14 @@ fun HomeRoute(
         }
         if(state.isShowMissionCompleteBottomSheet) {
             MissionCompleteCheckBottomSheet(
-                missionCount = 0,
+                missionCount = state.remainingMissionCount,
                 eventHandler = viewModel::sendEvent
             )
         }
 
         if(state.isShowMissionSuccessDialog) {
             MissionSuccessDialog(
+                savedMoney = state.todaySavedMoney,
                 eventHandler = viewModel::sendEvent
             )
         }
