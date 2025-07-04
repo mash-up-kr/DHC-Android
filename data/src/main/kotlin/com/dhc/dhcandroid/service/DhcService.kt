@@ -16,6 +16,7 @@ import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -82,4 +83,9 @@ interface DhcService {
         @Path("userId") userId: String,
         @Query("date") date: String,
     ): Response<FortuneResponse>
+
+    @DELETE("/api/users/{userId}")
+    suspend fun deleteUser(
+        @Path("userId") userId: String,
+    ): Response<Unit>
 }
