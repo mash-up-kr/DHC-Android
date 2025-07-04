@@ -3,4 +3,7 @@
     <string name="monetary_luck_detail">금전운 상세보기</string>
     <string name="monetary_confirm_and_start">금전운 확인하고 시작하기</string>
     <string name="today_tip">오늘의 꿀팁</string>
+    <string name="error_title">앗, 지금은 연결이 잠시 끊겼어요.</string>
+    <string name="error_description">불편을 드려 죄송해요.\n잠시 후에 다시 시도해주세요.</string>
+    <string name="retry">다시 불러오기</string>
 </resources>

@@ -117,6 +117,10 @@ class HomeViewModel @Inject constructor(
                 delay(1000L)
                 reduce { copy(homeState = HomeContract.HomeState.Success) }
             }
+
+            is Event.ClickErrorRetryButton -> {
+                getHomeInfo()
+            }
         }
     }
 
@@ -149,7 +153,7 @@ class HomeViewModel @Inject constructor(
                     response ?: return@onSuccess
                     reduce { copy(homeInfo = HomeUiModel.from(response)) }
                 }.onFailure { _, _ ->
-                    // Todo :: 실패 처리
+                    reduce { copy(homeState = HomeContract.HomeState.Error) }
                 }
         }
     }
