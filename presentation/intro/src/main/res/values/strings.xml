@@ -6,8 +6,8 @@
     <string name="male">남성</string>
     <string name="female">여성</string>
 
-    <string name="intro_start_title">매일매일 금전운 미션을 통해\n소비습관을 개선해보세요</string>
-    <string name="intro_start_sub_title">매일매일 금전운 미션을 통해\n소비습관을 개선해보세요</string>
+    <string name="intro_start_title">매일 카드를 넘기면,\n오늘의 금전운을 볼 수 있어요.</string>
+    <string name="intro_start_sub_title">금전운에 따라 당신만의 절약 미션이 도착해요.</string>
     <string name="start_with_finance_luck">금전운 확인하고 시작하기</string>
 
     <string name="intro_description_title">Flifin 은\n이런식으로 작동해요</string>

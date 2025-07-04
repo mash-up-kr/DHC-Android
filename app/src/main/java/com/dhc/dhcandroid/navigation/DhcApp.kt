@@ -1,6 +1,6 @@
 package com.dhc.dhcandroid.navigation
 
-import androidx.compose.foundation.background
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -8,10 +8,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,8 +22,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.dhc.designsystem.LocalDhcColors
-import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
 import com.dhc.dhcandroid.MainViewModel
@@ -30,12 +31,22 @@ fun DhcApp(
     modifier: Modifier = Modifier,
     mainViewModel: MainViewModel = hiltViewModel(),
 ) {
-    val colors = LocalDhcColors.current
     val navController = rememberNavController()
     val currentScreenConfig by currentScreenConfigAsState(navController)
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route ?: DhcRoute.NONE.route
+    val containerColor = currentScreenConfig.containerColor.color
+    var currentContainerColor by remember { mutableStateOf(containerColor) }
+    val animatedColor by animateColorAsState(
+        targetValue = currentContainerColor,
+        label = "containerColor",
+    )
+
     val state by mainViewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(containerColor) {
+        currentContainerColor = containerColor
+    }
 
     Scaffold(
         topBar = {
@@ -44,8 +55,7 @@ fun DhcApp(
                 navigateUp = { navController.navigateUp() },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .statusBarsPadding()
-                    .background(SurfaceColor.neutral900), // Todo : Theme 적용 완료되면 background 제거하기
+                    .statusBarsPadding(),
             )
         },
         bottomBar = {
@@ -59,7 +69,7 @@ fun DhcApp(
                     .height(60.dp),
             )
         },
-        containerColor = colors.background.backgroundMain,
+        containerColor = animatedColor,
         modifier = modifier,
     ) { paddingValues ->
         DhcNavHost(
