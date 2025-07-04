@@ -1,15 +1,11 @@
 package com.dhc.home.main
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -18,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,11 +24,11 @@ import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.floatingButton.DhcFloatingButton
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
-import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.home.R
 import com.dhc.home.model.SelectChangeMission
 import com.dhc.presentation.component.TopGradiantBox
 import com.dhc.presentation.mvi.EventHandler
+import com.dhc.designsystem.R as DR
 
 @Composable
 fun HomeScreen(
@@ -64,44 +61,28 @@ fun HomeScreen(
                     onClickMoreButton = { eventHandler(HomeContract.Event.ClickMoreButton) }
                 )
                 Spacer(modifier = Modifier.height(12.dp))
-                Box(
+                DhcFortuneCard(
                     modifier = Modifier
-                        .padding(20.dp)
+                        .padding(top = 20.dp, bottom = 12.dp)
                         .align(Alignment.CenterHorizontally)
-                        .fillMaxWidth()
-                        .height(280.dp)
-                        .background(brush = GradientColor.backgroundGradient01)
-                        .offset(y = -(10.dp)),
+                        .graphicsLayer(rotationZ = 4f),
+                    title = "최고의 날",
+                    description = "네잎클로버",
+                    cardDrawableResId = DR.drawable.fortune_card_sample,
+                ) //TODO- 서버데이터로 변경
+                Canvas(
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .size(width = 32.dp, height = 32.dp)
+                        .graphicsLayer { scaleX = 4f },
                 ) {
-                    FlippableBox(
-                        isFlipped = false,
-                        onFlipEnd = {},
-                        frontScreen = {
-                            DhcFortuneCard(
-                                title = state.homeInfo.todayDailyFortune.fortuneTitle,
-                                description = state.homeInfo.todayDailyFortune.fortuneDetail,
-                                modifier = Modifier
-                                    .padding(top = 20.dp, bottom = 60.dp)
-                                    .size(width = 144.dp, height = 200.dp)
-                                    .align(Alignment.Center),
-                            )
-                        },
-                        backScreen = {
-                            DhcFortuneCard(
-                                title = state.homeInfo.todayDailyFortune.fortuneTitle,
-                                description = state.homeInfo.todayDailyFortune.fortuneDetail,
-                                modifier = Modifier
-                                    .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) }
-                                    .padding(top = 20.dp, bottom = 60.dp)
-                                    .size(width = 144.dp, height = 200.dp)
-                                    .align(Alignment.Center),
-                            )
-                        },
-                        modifier = Modifier.align(Alignment.Center),
-                        initialRotationZ = -4f,
+                    drawOval(
+                        brush = GradientColor.cardBottomGradient01,
+                        size = size,
+                        alpha = 0.4f,
                     )
                 }
-                Spacer(modifier = Modifier.height(13.5.dp))
+                Spacer(modifier = Modifier.height(12.dp))
             }
             SpendingHabitMission(
                 missionUiModel = state.homeInfo.longTermMission,

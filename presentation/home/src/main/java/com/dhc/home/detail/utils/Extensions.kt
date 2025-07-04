@@ -1,6 +1,7 @@
 package com.dhc.home.detail.utils
 
 import com.dhc.common.FormatterUtil
+import com.dhc.common.ImageResource
 import com.dhc.designsystem.tipcard.TipCardModel
 import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.presentation.ui.monetaryDetail.FortuneCard
@@ -22,25 +23,25 @@ internal fun FortuneResponse.toMonetaryLuckInfo() = MonetaryLuckInfo(
     todayTips = listOf(
         TipCardModel(
             title = "오늘의 추천 메뉴",
-            icon = todayMenuImageUrl,
+            icon = ImageResource.Url(todayMenuImageUrl),
             cont = todayMenu,
             color = null,
         ),
         TipCardModel(
             title = "행운의 색상",
-            icon = luckyColorImageUrl,
+            icon = ImageResource.Url(luckyColorImageUrl),
             cont = luckyColor,
             color = luckyColorHex,
         ),
         TipCardModel(
             title = "피해야 할 음식",
-            icon = jinxedMenuImageUrl,
+            icon = ImageResource.Url(jinxedMenuImageUrl),
             cont = jinxedMenu,
             color = null,
         ),
         TipCardModel(
             title = "피해야 할 색상",
-            icon = jinxedColorImageUrl,
+            icon = ImageResource.Url(jinxedColorImageUrl),
             cont = jinxedColor,
             color = jinxedColorHex,
         ),

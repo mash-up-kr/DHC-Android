@@ -24,7 +24,13 @@ class MonetaryLuckDetailViewModel @Inject constructor(
         return State()
     }
 
-    override suspend fun handleEvent(event: Event) {}
+    override suspend fun handleEvent(event: Event) {
+        when(event) {
+            is Event.ClickConfirm -> {
+                postSideEffect(SideEffect.NavigateToMissionConfirm)
+            }
+        }
+    }
 
     fun loadInitialData() = viewModelScope.launch {
         val userId = authRepository.getUserId().firstOrNull() ?: return@launch
