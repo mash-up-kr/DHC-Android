@@ -1,7 +1,5 @@
 package com.dhc.home.main
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -23,10 +21,10 @@ import androidx.compose.ui.unit.dp
 import com.dhc.common.CalendarUtil
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
-import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.home.R
+import com.dhc.presentation.component.TopGradiantBox
 import com.dhc.presentation.component.VideoView
 
 @Composable
@@ -34,14 +32,8 @@ fun HomeLoadingScreen(modifier: Modifier = Modifier) {
     val colors = LocalDhcColors.current
     val density = LocalDensity.current
     val topBarSize = WindowInsets.statusBars.getTop(density)
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(412.dp)
-            .offset(y = -(topBarSize.div(density.density).dp))
-            .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
-    )
-    Box(modifier = modifier.fillMaxSize()) {
+
+    TopGradiantBox(modifier = modifier.fillMaxSize()) {
         VideoView(
             videoResId = R.raw.loading_video,
             thumbnailResId = R.drawable.loading_video_thumbnail,
@@ -56,7 +48,8 @@ fun HomeLoadingScreen(modifier: Modifier = Modifier) {
         ) {
             Spacer(modifier = Modifier.height(84.dp))
             Text(
-                text = CalendarUtil.getCurrentDate().let { stringResource(R.string.m_month_d_day, it.month.value, it.dayOfMonth)},
+                text = CalendarUtil.getCurrentDate()
+                    .let { stringResource(R.string.m_month_d_day, it.month.value, it.dayOfMonth) },
                 color = SurfaceColor.neutral300,
                 style = DhcTypoTokens.Body3,
                 textAlign = TextAlign.Center,

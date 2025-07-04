@@ -36,6 +36,7 @@ import com.dhc.mypage.model.MissionCategoryUiModel
 import com.dhc.mypage.model.MyInfoUiModel
 import com.dhc.mypage.ui.settinglist.SettingItem
 import com.dhc.mypage.ui.settinglist.SettingList
+import com.dhc.presentation.component.TopGradiantBox
 import com.dhc.presentation.mvi.EventHandler
 import com.dhc.designsystem.R as DR
 
@@ -48,41 +49,42 @@ fun MyPageScreen(
 ) {
     val colors = LocalDhcColors.current
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .background(color = SurfaceColor.neutral800) // Todo :: 배경색 변경 필요
-            .padding(vertical = 20.dp)
-    ) {
-        Text(
+    TopGradiantBox(modifier = modifier) {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 12.dp, horizontal = 20.dp),
-            text = stringResource(R.string.mypage_screen_title),
-            style = DhcTypoTokens.TitleH2_1,
-            color = colors.text.textBodyPrimary,
-        )
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(vertical = 20.dp)
+        ) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 12.dp, horizontal = 20.dp),
+                text = stringResource(R.string.mypage_screen_title),
+                style = DhcTypoTokens.TitleH2_1,
+                color = colors.text.textBodyPrimary,
+            )
 
-        MyInfo(
-            myInfoUiModel = state.myInfo,
-            modifier = Modifier.fillMaxWidth(),
-        )
+            MyInfo(
+                myInfoUiModel = state.myInfo,
+                modifier = Modifier.fillMaxWidth(),
+            )
 
-        SelectedCategory(
-            categoryList = state.missionCategories,
-            modifier = Modifier.fillMaxWidth()
-        )
+            SelectedCategory(
+                categoryList = state.missionCategories,
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        HorizontalDivider(
-            thickness = 7.dp,
-            color = colors.background.backgroundGlassEffect,
-        )
+            HorizontalDivider(
+                thickness = 7.dp,
+                color = colors.background.backgroundGlassEffect,
+            )
 
-        Setting(
-            eventHandler = eventHandler,
-            modifier = Modifier.fillMaxWidth(),
-        )
+            Setting(
+                eventHandler = eventHandler,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
     }
 }
 

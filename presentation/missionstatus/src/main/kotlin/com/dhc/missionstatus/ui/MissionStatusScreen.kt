@@ -33,10 +33,10 @@ import com.dhc.designsystem.calendar.ui.DhcCalendar
 import com.dhc.designsystem.graph.DhcGraph
 import com.dhc.designsystem.graph.model.DhcGraphConfig
 import com.dhc.designsystem.graph.model.DhcGraphData
-import com.dhc.designsystem.info.DhcMissionInfoCard
 import com.dhc.designsystem.info.DhcMissionStatusCard
 import com.dhc.missionstatus.MissionStatusContract.State
 import com.dhc.missionstatus.R
+import com.dhc.presentation.component.TopGradiantBox
 import java.time.LocalDate
 
 @Composable
@@ -50,74 +50,76 @@ fun MissionStatusScreen(
 ) {
     val colors = LocalDhcColors.current
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(20.dp)
-    ) {
-        Text(
+    TopGradiantBox(modifier = modifier) {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 12.dp, bottom = 22.dp),
-            text = stringResource(R.string.missions_status_screen_title),
-            style = DhcTypoTokens.TitleH2_1,
-            color = colors.text.textBodyPrimary,
-        )
-
-        if (state.consumptionAnalysisUiModel != null) {
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(20.dp)
+        ) {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp),
-                text = stringResource(R.string.consumption_analysis_title),
-                style = DhcTypoTokens.Body3,
-                color = SurfaceColor.neutral30,
+                    .padding(top = 12.dp, bottom = 22.dp),
+                text = stringResource(R.string.missions_status_screen_title),
+                style = DhcTypoTokens.TitleH2_1,
+                color = colors.text.textBodyPrimary,
             )
 
-            DhcMissionStatusCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp),
-                title = stringResource(R.string.save_total_money_until_now_prefix),
-                subTitle = stringResource(
-                    R.string.save_total_money_until_now,
-                    wonFormat.format(state.consumptionAnalysisUiModel.totalSaveMoney)
-                ),
-            )
+            if (state.consumptionAnalysisUiModel != null) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp),
+                    text = stringResource(R.string.consumption_analysis_title),
+                    style = DhcTypoTokens.Body3,
+                    color = SurfaceColor.neutral30,
+                )
 
-            ConsumptionAnalysisContent(
-                weeklySaveMoney = state.consumptionAnalysisUiModel.weeklySaveMoney,
-                graphData = state.consumptionAnalysisUiModel.graphData,
-                modifier = Modifier.padding(top = 12.dp),
-            )
-        }
+                DhcMissionStatusCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 12.dp),
+                    title = stringResource(R.string.save_total_money_until_now_prefix),
+                    subTitle = stringResource(
+                        R.string.save_total_money_until_now,
+                        wonFormat.format(state.consumptionAnalysisUiModel.totalSaveMoney)
+                    ),
+                )
 
-        if (state.missionAnalysisUiModel != null) {
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 20.dp),
-                text = stringResource(R.string.mission_analysis_title),
-                style = DhcTypoTokens.Body3,
-                color = SurfaceColor.neutral30,
-            )
+                ConsumptionAnalysisContent(
+                    weeklySaveMoney = state.consumptionAnalysisUiModel.weeklySaveMoney,
+                    graphData = state.consumptionAnalysisUiModel.graphData,
+                    modifier = Modifier.padding(top = 12.dp),
+                )
+            }
 
-            DhcMissionStatusCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp),
-                title = "${state.missionAnalysisUiModel.currentMonth}월달",
-                subTitle = "미션 평균 성공률 ${state.missionAnalysisUiModel.averageSucceedProbability}%",
-            )
+            if (state.missionAnalysisUiModel != null) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp),
+                    text = stringResource(R.string.mission_analysis_title),
+                    style = DhcTypoTokens.Body3,
+                    color = SurfaceColor.neutral30,
+                )
 
-            DhcCalendar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp),
-                initialDate = LocalDate.now(),
-                controller = calendarController,
-            )
+                DhcMissionStatusCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 12.dp),
+                    title = "${state.missionAnalysisUiModel.currentMonth}월달",
+                    subTitle = "미션 평균 성공률 ${state.missionAnalysisUiModel.averageSucceedProbability}%",
+                )
+
+                DhcCalendar(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 12.dp),
+                    initialDate = LocalDate.now(),
+                    controller = calendarController,
+                )
+            }
         }
     }
 }
