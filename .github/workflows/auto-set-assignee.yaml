@@ -1,0 +1,31 @@
+name: Auto Set Assignee
+
+on: 
+  pull_request:
+    types: [opened]
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: set assignees
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo
+            const prNumber = context.payload.pull_request.number
+            const response = await github.rest.issues.get({
+              owner,
+              repo,
+              issue_number: prNumber,
+            })
+            const { assignees } = response.data
+            if (assignees.length === 0) {
+              await github.rest.issues.addAssignees({
+                owner: owner,
+                repo: repo,
+                issue_number: prNumber,
+                assignees: [context.actor]
+              })
+            }

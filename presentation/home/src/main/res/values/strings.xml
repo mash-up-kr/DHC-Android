@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spending_habit_mission">소비습관 미션</string>
+    <string name="monetary_daily_mission">금전운 기반 일일 미션</string>
+    <string name="finish_today_mission">오늘 미션 끝내기</string>
+    <string name="mission_tooltip_message">좋은 금융 습관 형성을 위해\n2주간 매일 진행하는 미션이에요!</string>
+    <string name="change_mission">미션 바꾸기</string>
+    <string name="finish_mission">네! 완료했어요</string>
+    <string name="go_back">이전으로 돌아가기</string>
+    <string name="mission_success">미션 성공</string>
+    <string name="great">대단해요!</string>
+    <string name="today_total">오늘 총</string>
+    <string name="amount">%s원</string>
+    <string name="save_description">을\n절약했어요</string>
+    <string name="confirm_statics">통계 확인하기</string>
+    <string name="already_confirm">확인했어요</string>
+    <string name="mission_change_description">미션은 하루에 4번만 변경 가능해요. (%d/4)</string>
+    <string name="mission_change_title">\'%s\'\n미션을 정말 바꾸시겠어요?</string>
+    <string name="accept_change">네, 바꿀래요</string>
+    <string name="back">돌아가기</string>
+    <string name="limit_mission_change">미션은 하루에 4번만\n변경 가능해요</string>
+    <string name="limit_mission_change_description">내일 돌아오면 새로운 미션을 받을 수 있어요!</string>
+
+    <string name="fortune_card_description">오늘의 운세 카드를\n뒤집어보세요!</string>
+    <string name="balloon_message_flip">Flip!</string>
+
+    <string name="question_score">\?점</string>
+    <string name="home_fortune_card_description">운세 카드를 뒤집고\n오늘의 금전운을 확인해보세요</string>
+    <string name="m_month_d_day">%d월 %d일</string>
+    <string name="loading_today_fortune_card">오늘의 운세를 카드에 담고 있어요..</string>
+</resources>

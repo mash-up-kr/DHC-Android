@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -13,6 +14,7 @@ pluginManagement {
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
     repositories {
         google()
         mavenCentral()
@@ -21,3 +23,12 @@ dependencyResolutionManagement {
 
 rootProject.name = "DHCAndroid"
 include(":app")
+include(":presentation:home")
+include(":data")
+include(":core:designsystem")
+include(":core:common")
+include(":core:presentation")
+
+include(":presentation:intro")
+include(":presentation:missionstatus")
+include(":presentation:mypage")

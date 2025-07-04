@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="next">다음</string>
+
+    <string name="gender">성별</string>
+    <string name="male">남성</string>
+    <string name="female">여성</string>
+
+    <string name="intro_start_title">매일 카드를 넘기면,\n오늘의 금전운을 볼 수 있어요.</string>
+    <string name="intro_start_sub_title">금전운에 따라 당신만의 절약 미션이 도착해요.</string>
+    <string name="start_with_finance_luck">금전운 확인하고 시작하기</string>
+
+    <string name="intro_description_title">Flifin 은\n이런식으로 작동해요</string>
+    <string name="intro_description_sub_title">매일매일 금전운 미션을 통해\n소비습관을 개선해보세요</string>
+    <string name="intro_description_text1">오늘의 금전운 받기</string>
+    <string name="intro_description_text2">금전운에 따른 미션 수행</string>
+    <string name="intro_description_text3">수행한 미션을 토대로 소비습관 분석</string>
+
+    <string name="intro_fortune_card_title">먼저 금전운을 하나\n받아볼까요?</string>
+    <string name="intro_fortune_card_description">운세 카드를 뒤집고\n오늘의 금전운을 확인해보세요</string>
+    <string name="intro_flipped_fortune_card_description">오늘 도착한 금전운이에요.\n함께 확인해볼까요?</string>
+    <string name="intro_fortune_card_button">금전운 상세보기</string>
+
+    <string name="m_month_d_day_finance_luck">%d월 %d일 금전운</string>
+    <string name="balloon_message_flip">Flip!</string>
+
+    <string name="intro_mission_title">금전운에 기반해서\n부여된 미션이에요</string>
+    <string name="intro_mission_sub_title">미션을 수행하면서\n소비습관을 개선해보세요</string>
+    <string name="spending_habit_mission">소비습관 미션</string>
+    <string name="finance_daily_mission">금전운 기반 일일 미션</string>
+    <string name="intro_mission_button">간편 개인정보 입력하기</string>
+
+    <string name="intro_category_title">개선하고 싶은 소비습관\n카테고리를 선택해 주세요.</string>
+    <string name="intro_category_sub_title">최소 3개이상 선택해야 해요.</string>
+    <string name="personal_info_complete">개인정보 기입완료</string>
+
+    <string name="intro_birth_time_title">태어난 시간을\n알려주세요</string>
+    <string name="intro_birth_time_sub_title">태어난 시간이 정확할수록\n더 적합한 정보를 제공해 드릴 수 있어요</string>
+    <string name="birth_time">태어난 시간</string>
+    <string name="idk">잘 모르겠어요</string>
+
+    <string name="intro_birth_day_title">생년월일을\n알려주세요</string>
+    <string name="intro_birth_day_sub_title">생년월일이 정확할수록\n더 적합한 정보를 제공해 드릴 수 있어요</string>
+    <string name="birth_day">생년월일</string>
+    <string name="calendar_solar">양력</string>
+    <string name="calendar_lunar">음력</string>
+
+    <string name="intro_gender_title">성별은\n어떻게 되시나요?</string>
+    <string name="intro_gender_sub_title">성별에 따라 대운의\n흐름이 달라져요.</string>
+
+    <string name="question_score">\?점</string>
+</resources>
