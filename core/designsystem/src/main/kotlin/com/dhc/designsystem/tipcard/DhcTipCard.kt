@@ -68,17 +68,21 @@ fun TipCardTitle(
             TipCardTitle(
                 title = title,
                 icon = icon.resId,
-                modifier = modifier
+                modifier = modifier,
             )
         }
         is ImageResource.Url -> {
             TipCardTitle(
                 title = title,
                 icon = icon.url,
-                modifier = modifier
+                modifier = modifier,
             )
         }
-        else -> Unit
+        else -> TipCardTitle(
+            title = title,
+            icon = "",
+            modifier = modifier,
+        )
     }
 }
 
