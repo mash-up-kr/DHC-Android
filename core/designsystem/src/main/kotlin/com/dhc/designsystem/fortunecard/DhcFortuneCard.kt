@@ -26,12 +26,40 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.dhc.common.ImageResource
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 
+@Composable
+fun DhcFortuneCard(
+    title: String,
+    description: String,
+    imageResource: ImageResource?,
+    modifier: Modifier = Modifier,
+) {
+    when (imageResource) {
+        is ImageResource.Drawable -> {
+            DhcFortuneCard(
+                title = title,
+                description = description,
+                cardDrawableResId = imageResource.resId,
+                modifier = modifier,
+            )
+        }
+        is ImageResource.Url -> {
+            DhcFortuneCard(
+                title = title,
+                description = description,
+                imageUrl = imageResource.url,
+                modifier = modifier,
+            )
+        }
+        else -> Unit
+    }
+}
 @Composable
 fun DhcFortuneCard(
     title: String,
