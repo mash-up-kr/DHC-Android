@@ -35,12 +35,12 @@ class MainViewModel @Inject constructor(
     private fun setUserToken() {
         viewModelScope.launch {
             val uuid = authDataStoreRepository.getUUID().orEmpty()
-            val userToken = dhcRepository.searchUserByToken(uuid).getSuccessOrNull()?.id
-            if (userToken.isNullOrEmpty()) {
+            val userId = dhcRepository.searchUserByToken(uuid).getSuccessOrNull()?.id
+            if (userId.isNullOrEmpty()) {
                 _state.update { it.copy(startPage = DhcRoute.INTRO) }
             } else {
+                authDataStoreRepository.setUserId(userId)
                 _state.update { it.copy(startPage = DhcRoute.MAIN_HOME) }
-                authDataStoreRepository.setUserToken(userToken)
             }
         }
     }

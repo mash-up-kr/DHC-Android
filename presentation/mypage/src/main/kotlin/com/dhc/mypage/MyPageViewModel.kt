@@ -21,6 +21,15 @@ class MyPageViewModel @Inject constructor(
     private val authRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
+
+    init {
+        viewModelScope.launch {
+            authRepository.getEncodedUserId().firstOrNull()?.let { userId ->
+                reduce { copy(userId = userId) }
+            }
+        }
+    }
+
     override fun createInitialState(): State {
         return State()
     }

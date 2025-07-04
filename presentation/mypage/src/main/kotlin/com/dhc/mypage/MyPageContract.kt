@@ -12,6 +12,7 @@ class MyPageContract {
         val myInfo: MyInfoUiModel = MyInfoUiModel(),
         val missionCategories: List<MissionCategoryUiModel> = emptyList(),
         val isShowAppResetDialog: Boolean = false,
+        val userId: String = ""
     ) : UiState
 
     sealed interface Event : UiEvent {
