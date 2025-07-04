@@ -1,7 +1,9 @@
 package com.dhc.dhcandroid.repository
 
+import android.util.Base64
 import com.dhc.dhcandroid.datasource.AuthLocalDataSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class AuthDataStoreRepositoryImpl @Inject constructor(
@@ -13,6 +15,11 @@ class AuthDataStoreRepositoryImpl @Inject constructor(
 
     override suspend fun getUserId(): Flow<String?> =
         authLocalDataSource.getUserId()
+
+    override suspend fun getEncodedUserId(): Flow<String?> =
+        authLocalDataSource.getUserId().map {
+            Base64.encodeToString(it?.toByteArray(), Base64.DEFAULT)
+        }
 
     override suspend fun clearUserId() {
         authLocalDataSource.setUserId("")
