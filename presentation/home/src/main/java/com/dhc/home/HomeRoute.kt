@@ -32,6 +32,7 @@ import com.dhc.home.main.HomeScreen
 import com.dhc.home.main.MissionChangeBottomSheet
 import com.dhc.home.ui.MissionCompleteCheckBottomSheet
 import com.dhc.home.ui.MissionSuccessDialog
+import com.dhc.presentation.component.TopGradiantBox
 import com.dhc.presentation.ui.ErrorScreen
 import kotlinx.coroutines.launch
 
@@ -64,14 +65,7 @@ fun HomeRoute(
     Box {
         when (state.homeState) {
             HomeContract.HomeState.Error -> {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(412.dp)
-                            .offset(y = -(topBarSize.div(density.density).dp))
-                            .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
-                    )
+                TopGradiantBox(modifier = Modifier.fillMaxSize()) {
                     ErrorScreen(
                         onClickRetry = { viewModel.sendEvent(HomeContract.Event.ClickErrorRetryButton) },
                         modifier = Modifier.fillMaxSize()
