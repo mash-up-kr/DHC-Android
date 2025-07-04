@@ -28,14 +28,19 @@ class MyPageViewModel @Inject constructor(
     override suspend fun handleEvent(event: Event) {
         when (event) {
             is Event.ClickAppResetButton -> reduce { copy(isShowAppResetDialog = true) }
-            is Event.ClickAppResetConfirmButton -> {
+            is Event.ClickAppResetConfirmButton -> resetApp()
+            is Event.ClickDialogDismissButton -> reduce { copy(isShowAppResetDialog = false) }
+        }
+    }
+
+    private suspend fun resetApp() {
+        val userId = authRepository.getUserId().firstOrNull().orEmpty()
+        dhcRepository.deleteUser(userId)
+            .onSuccess {
                 authRepository.clearUserId()
                 reduce { copy(isShowAppResetDialog = false) }
                 postSideEffect(SideEffect.NavigateToIntro)
             }
-
-            is Event.ClickDialogDismissButton -> reduce { copy(isShowAppResetDialog = false) }
-        }
     }
 
     fun loadMyPageData() = viewModelScope.launch {

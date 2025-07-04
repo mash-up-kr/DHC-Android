@@ -73,4 +73,8 @@ class DhcRemoteDataSourceImpl @Inject constructor(
     ): Response<FortuneResponse> {
         return dhcService.getDailyFortune(userId, date)
     }
+
+    override suspend fun deleteUser(userId: String): Response<Unit> {
+        return dhcService.deleteUser(userId)
+    }
 }

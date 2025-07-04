@@ -64,4 +64,8 @@ interface DhcRemoteDataSource {
         userId: String,
         date: String,
     ): Response<FortuneResponse>
+
+    suspend fun deleteUser(
+        userId: String,
+    ): Response<Unit>
 }

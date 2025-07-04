@@ -110,4 +110,10 @@ class DhcRepositoryImpl @Inject constructor(
             dhcRemoteDataSource.getDailyFortune(userId, date.format(dhcYearMonthDayFormat))
         }
     }
+
+    override suspend fun deleteUser(userId: String): DhcResult<Unit> {
+        return runDhcCatching {
+            dhcRemoteDataSource.deleteUser(userId)
+        }
+    }
 }

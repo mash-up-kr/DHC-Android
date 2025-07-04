@@ -15,6 +15,8 @@ import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
+import retrofit2.Response
+import retrofit2.http.Path
 import java.time.LocalDate
 
 interface DhcRepository {
@@ -65,4 +67,8 @@ interface DhcRepository {
         userId: String,
         date: LocalDate,
     ): DhcResult<FortuneResponse>
+
+    suspend fun deleteUser(
+        userId: String,
+    ): DhcResult<Unit>
 }
