@@ -21,6 +21,15 @@ class MyPageViewModel @Inject constructor(
     private val authRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
+
+    init {
+        viewModelScope.launch {
+            authRepository.getEncodedUserId().firstOrNull()?.let { userId ->
+                reduce { copy(userId = userId) }
+            }
+        }
+    }
+
     override fun createInitialState(): State {
         return State()
     }
@@ -28,14 +37,19 @@ class MyPageViewModel @Inject constructor(
     override suspend fun handleEvent(event: Event) {
         when (event) {
             is Event.ClickAppResetButton -> reduce { copy(isShowAppResetDialog = true) }
-            is Event.ClickAppResetConfirmButton -> {
+            is Event.ClickAppResetConfirmButton -> resetApp()
+            is Event.ClickDialogDismissButton -> reduce { copy(isShowAppResetDialog = false) }
+        }
+    }
+
+    private suspend fun resetApp() {
+        val userId = authRepository.getUserId().firstOrNull().orEmpty()
+        dhcRepository.deleteUser(userId)
+            .onSuccess {
                 authRepository.clearUserId()
                 reduce { copy(isShowAppResetDialog = false) }
                 postSideEffect(SideEffect.NavigateToIntro)
             }
-
-            is Event.ClickDialogDismissButton -> reduce { copy(isShowAppResetDialog = false) }
-        }
     }
 
     fun loadMyPageData() = viewModelScope.launch {

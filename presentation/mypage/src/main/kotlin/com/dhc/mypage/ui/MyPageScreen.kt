@@ -1,5 +1,9 @@
 package com.dhc.mypage.ui
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -81,6 +85,7 @@ fun MyPageScreen(
             )
 
             Setting(
+                state = state,
                 eventHandler = eventHandler,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -149,9 +154,11 @@ private fun SelectedCategory(
 
 @Composable
 private fun Setting(
+    state: State,
     eventHandler: EventHandler<Event>,
     modifier: Modifier = Modifier
 ) {
+    val activity = LocalActivity.current
     Column(
         modifier = modifier.padding(vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -171,6 +178,19 @@ private fun Setting(
                     text = stringResource(R.string.initial_app),
                     iconRes = DR.drawable.ico_sign_out,
                     onClick = { eventHandler(Event.ClickAppResetButton) },
+                ),
+
+                // Todo : 대충 만든 id 정보 보여주는 화면
+                SettingItem.Normal(
+                    text = "[ userId ] - 클릭하여 복사하기\n${state.userId}",
+                    iconRes = DR.drawable.ico_change,
+                    onClick = {
+                        (activity?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager)?.let { clipboard ->
+                            clipboard.setPrimaryClip(
+                                ClipData.newPlainText("label", state.userId)
+                            )
+                        }
+                    },
                 ),
             )
         )
