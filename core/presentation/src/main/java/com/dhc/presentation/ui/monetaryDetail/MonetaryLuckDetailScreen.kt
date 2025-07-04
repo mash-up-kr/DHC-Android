@@ -1,5 +1,6 @@
 package com.dhc.presentation.ui.monetaryDetail
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,12 +18,15 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dhc.common.ImageResource
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
+import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.GradientColor.buttonGradient
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.button.DhcButton
@@ -41,12 +45,8 @@ import com.dhc.presentation.R
 fun MonetaryLuckDetailScreen(
     monetaryLuckInfo: MonetaryLuckInfo,
     modifier: Modifier = Modifier,
-    isShowButton: Boolean = false,
-    onClickButton: () -> Unit = {},
     scrollState: ScrollState = rememberScrollState()
 ) {
-    val colors = LocalDhcColors.current
-
     Box(modifier = modifier) {
         Column(
             modifier = Modifier
@@ -55,58 +55,38 @@ fun MonetaryLuckDetailScreen(
                 .padding(horizontal = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(24.dp))
             DhcScoreText(
                 badgeText = monetaryLuckInfo.scoreInfo.date,
                 score = monetaryLuckInfo.scoreInfo.score,
                 description = monetaryLuckInfo.scoreInfo.description,
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(64.dp))
             DhcFortuneCard(
-                title = "오늘의 운세 카드",
+                title = monetaryLuckInfo.fortuneCard.title,
                 description = monetaryLuckInfo.fortuneCard.message,
-                modifier = Modifier
-                    .size(width = 143.dp, height = 197.dp)
-                    .padding(top = 20.dp, bottom = 53.5.dp)
+                imageResource = monetaryLuckInfo.fortuneCard.image,
+                modifier = Modifier.size(width = 144.dp, height = 200.dp),
             )
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(12.dp))
+            Canvas(
+                modifier = Modifier
+                    .size(width = 32.dp, height = 32.dp)
+                    .graphicsLayer { scaleX = 4f },
+            ) {
+                drawOval(
+                    brush = GradientColor.cardBottomGradient01,
+                    size = size,
+                    alpha = 0.4f,
+                )
+            }
+            Spacer(modifier = Modifier.height(24.dp))
             MonetaryLuckDetailCard(message = monetaryLuckInfo.monetaryDetail)
             Spacer(modifier = Modifier.height(24.dp))
             TodayTip(tips = monetaryLuckInfo.todayTips)
-            Spacer(modifier = Modifier.height(45.dp))
-            if(isShowButton) Spacer(modifier = Modifier.height(52.dp))
-        }
-        if(isShowButton) {
-            Column(
-                modifier = Modifier.align(Alignment.BottomCenter)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(40.dp)
-                        .background(brush = buttonGradient)
-                )
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .background(colors.background.backgroundMain)
-                ) {
-                    DhcButton(
-                        text = stringResource(R.string.monetary_confirm_and_start),
-                        buttonSize = DhcButtonSize.XLARGE,
-                        buttonStyle = DhcButtonStyle.Secondary(isEnabled = true),
-                        onClick = { onClickButton() },
-                        modifier = Modifier
-                            .padding(20.dp)
-                            .fillMaxWidth()
-                            .align(Alignment.Center)
-                    )
-                }
-            }
+            Spacer(modifier = Modifier.height(97.dp))
         }
     }
-
 }
 
 
@@ -149,7 +129,6 @@ fun TodayTip(
 private fun PreviewMonetaryLuckDetail() {
     DhcTheme {
         MonetaryLuckDetailScreen(
-            isShowButton = true,
             monetaryLuckInfo = MonetaryLuckInfo(
                 scoreInfo = ScoreInfo(
                     date = "2025년 5월 20일",
@@ -170,25 +149,25 @@ private fun PreviewMonetaryLuckDetail() {
                 todayTips = listOf(
                     TipCardModel(
                         title = "오늘의 추천 메뉴",
-                        icon = "https://foodish-api.com/images/pizza/pizza80.jpg",
+                        icon = ImageResource.Url("https://foodish-api.com/images/pizza/pizza80.jpg"),
                         color = null,
                         cont = "치킨이닭"
                     ),
                     TipCardModel(
                         title = "행운의 색상",
-                        icon = "https://foodish-api.com/images/pizza/pizza80.jpg",
+                        icon = ImageResource.Url("https://foodish-api.com/images/pizza/pizza80.jpg"),
                         color = "#23B169",
                         cont = "연두색"
                     ),
                     TipCardModel(
                         title = "오늘의 추천 메뉴",
-                        icon = "https://foodish-api.com/images/pizza/pizza80.jpg",
+                        icon = ImageResource.Url("https://foodish-api.com/images/pizza/pizza80.jpg"),
                         color = null,
                         cont = "치킨이닭"
                     ),
                     TipCardModel(
                         title = "행운의 색상",
-                        icon = "https://foodish-api.com/images/pizza/pizza80.jpg",
+                        icon = ImageResource.Url("https://foodish-api.com/images/pizza/pizza80.jpg"),
                         color = "#23B169",
                         cont = "연두색"
                     ),

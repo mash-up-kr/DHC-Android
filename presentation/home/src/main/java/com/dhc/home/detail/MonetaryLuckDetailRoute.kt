@@ -14,7 +14,6 @@ import com.dhc.presentation.ui.monetaryDetail.MonetaryLuckDetailScreen
 @Composable
 fun MonetaryLuckDetailRoute(
     navigateToMissionConfirm: () -> Unit = {},
-    isShowButton: Boolean = false,
     viewModel: MonetaryLuckDetailViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -32,9 +31,5 @@ fun MonetaryLuckDetailRoute(
         }
     }
 
-    MonetaryLuckDetailScreen(
-        monetaryLuckInfo = state.monetaryLuckInfo,
-        isShowButton = isShowButton,
-        onClickButton = { viewModel.sendEvent(Event.ClickConfirm) },
-    )
+    MonetaryLuckDetailScreen(monetaryLuckInfo = state.monetaryLuckInfo)
 }

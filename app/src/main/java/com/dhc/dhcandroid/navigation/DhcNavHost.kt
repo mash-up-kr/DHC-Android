@@ -16,6 +16,7 @@ import com.dhc.intro.birthtime.IntroBirthTimeRoute
 import com.dhc.intro.category.IntroCategoryRoute
 import com.dhc.intro.description.IntroDescriptionRoute
 import com.dhc.intro.fortunecard.IntroFortuneCardRoute
+import com.dhc.intro.fortunedetail.IntroFortuneDetailRoute
 import com.dhc.intro.gender.IntroGenderRoute
 import com.dhc.intro.mission.IntroMissionRoute
 import com.dhc.intro.splash.SplashRoute
@@ -81,9 +82,8 @@ fun DhcNavHost(
                 )
             }
             composable(DhcRoute.INTRO_FORTUNE_DETAIL.route) {
-                MonetaryLuckDetailRoute(
-                    isShowButton = true,
-                    navigateToMissionConfirm = { navController.navigateTo(DhcRoute.INTRO_MISSION) },
+                IntroFortuneDetailRoute(
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_MISSION) },
                 )
             }
             composable(DhcRoute.INTRO_MISSION.route) {
