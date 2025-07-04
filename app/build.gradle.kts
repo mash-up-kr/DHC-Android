@@ -16,7 +16,6 @@ dependencies {
     detektPlugins(libs.detekt.formatting)
     lintChecks(libs.compose.lint)
 
-    implementation(libs.bundles.flipper)
     implementation(project(":core:presentation"))
 
     implementation(libs.androidx.navigation)
