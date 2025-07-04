@@ -2,8 +2,6 @@ package com.dhc.dhcandroid.di
 
 import com.dhc.data.BuildConfig
 import com.dhc.dhcandroid.service.DhcService
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,22 +37,9 @@ object NetworkModule {
     @Singleton
     fun provideDhcOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        flipperOkhttpInterceptor: FlipperOkhttpInterceptor,
     ): OkHttpClient = OkHttpClient.Builder().apply {
-        addInterceptor(flipperOkhttpInterceptor)
         addInterceptor(httpLoggingInterceptor)
     }.build()
-
-    @Provides
-    @Singleton
-    fun provideFlipperOkHttpPlugin(
-        networkFlipperPlugin: NetworkFlipperPlugin
-    ): FlipperOkhttpInterceptor = FlipperOkhttpInterceptor(networkFlipperPlugin, true)
-
-    @Provides
-    @Singleton
-    fun providesNetworkFlipperPlugin(): NetworkFlipperPlugin =
-        NetworkFlipperPlugin()
 
     @Provides
     @Singleton
