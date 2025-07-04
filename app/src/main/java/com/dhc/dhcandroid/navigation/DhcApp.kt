@@ -33,12 +33,15 @@ fun DhcApp(
 ) {
     val navController = rememberNavController()
     val currentScreenConfig by currentScreenConfigAsState(navController)
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route ?: DhcRoute.NONE.route
     val containerColor = currentScreenConfig.containerColor.color
     var currentContainerColor by remember { mutableStateOf(containerColor) }
     val animatedColor by animateColorAsState(
         targetValue = currentContainerColor,
         label = "containerColor",
     )
+
     val state by mainViewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(containerColor) {
@@ -58,6 +61,7 @@ fun DhcApp(
         bottomBar = {
             DhcBottomBar(
                 state = currentScreenConfig.bottomBarState,
+                currentRoute = DhcRoute.fromRoute(currentRoute).name,
                 navigateToRoute = { navController.navigateToBottomNavigation(DhcRoute.fromName(it)) },
                 modifier = Modifier
                     .fillMaxWidth()
