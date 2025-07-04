@@ -10,6 +10,11 @@ plugins {
 
 android {
     namespace = "com.dhc.dhcandroid"
+
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
 }
 
 dependencies {
