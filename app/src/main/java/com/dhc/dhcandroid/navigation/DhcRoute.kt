@@ -1,5 +1,6 @@
 package com.dhc.dhcandroid.navigation
 
+import androidx.compose.ui.graphics.Color
 import com.dhc.designsystem.gnb.model.DhcBottomBarState
 import com.dhc.designsystem.topbar.model.DhcTopBarState
 import com.dhc.designsystem.topbar.model.TopBarPageState
@@ -27,6 +28,7 @@ enum class DhcRoute(
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.None,
             bottomBarState = DhcBottomBarState.None,
+            containerColor = ContainerColor.ComposeColor(Color(0xFF020202)),
         ),
     ),
     INTRO_DESCRIPTION(

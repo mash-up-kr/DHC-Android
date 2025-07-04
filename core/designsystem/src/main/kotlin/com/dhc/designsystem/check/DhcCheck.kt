@@ -24,7 +24,6 @@ fun DhcCheck(
     isChecked: Boolean,
     isEnabled: Boolean,
     dhcCheckStyle: DhcCheckStyle,
-    onCheckChange: () -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
     val backgroundColor = when {
@@ -40,8 +39,7 @@ fun DhcCheck(
             .background(
                 color = backgroundColor,
                 shape = CircleShape
-            )
-            .clickable { onCheckChange() },
+            ),
         contentAlignment = Alignment.Center,
     ) {
         Icon(

@@ -30,6 +30,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,11 +44,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         getHomeInfo()
-        // Todo : FlipCard 로 넘어가기 위한 임시 코드
-        viewModelScope.launch {
-            delay(2000)
-            reduce { copy(homeState = HomeContract.HomeState.FlipCard) }
-        }
+        checkCompletedLoading()
     }
 
     override suspend fun handleEvent(event: Event) {
@@ -120,6 +117,10 @@ class HomeViewModel @Inject constructor(
                 delay(1000L)
                 reduce { copy(homeState = HomeContract.HomeState.Success) }
             }
+
+            is Event.ClickErrorRetryButton -> {
+                getHomeInfo()
+            }
         }
     }
 
@@ -152,7 +153,7 @@ class HomeViewModel @Inject constructor(
                     response ?: return@onSuccess
                     reduce { copy(homeInfo = HomeUiModel.from(response)) }
                 }.onFailure { _, _ ->
-                    // Todo :: 실패 처리
+                    reduce { copy(homeState = HomeContract.HomeState.Error) }
                 }
         }
     }
@@ -299,10 +300,29 @@ class HomeViewModel @Inject constructor(
                 response ?: return@onSuccess
                 reduce { copy(todaySavedMoney = response.todaySavedMoney, homeInfo = state.value.homeInfo.copy(todayDone = true)) }
                 updateMissionSuccessDialogState(isShowDialog = true)
-
             }.onFailure { code, message ->
                 Log.d("finishTodayMission", "onFailure:${code} message:${message} ");
             }
         }
+    }
+
+    private fun checkCompletedLoading() = viewModelScope.launch {
+        if (state.value.homeState != HomeContract.HomeState.Loading) return@launch
+
+        val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+        repeat(POLLING_TRY_TIME) {
+            dhcRepository.getDailyFortune(userId, LocalDate.now())
+                .onSuccess {
+                    reduce { copy(homeState = HomeContract.HomeState.FlipCard) }
+                    return@launch
+                }
+            delay(POLLING_INTERVAL_TIME_MS)
+        }
+        reduce { copy(homeState = HomeContract.HomeState.Error) }
+    }
+
+    companion object {
+        private const val POLLING_TRY_TIME = 5
+        private const val POLLING_INTERVAL_TIME_MS = 5000L
     }
 }
