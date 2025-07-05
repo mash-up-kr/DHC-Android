@@ -45,7 +45,7 @@ lottie = "6.6.6"
 
 # 프로젝트 설정
 targetSdk = "35"
-versionCode = "2"
+versionCode = "3"
 versionName = "1.0.0"
 compileSdk = "35"
 minSdk = "26"
