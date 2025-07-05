@@ -31,7 +31,9 @@ fun MonetaryLuckInfo(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Column {
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
             Text(
                 text = fortuneDetail,
                 style = DhcTypoTokens.TitleH2_1,
@@ -56,7 +58,7 @@ fun PreviewMonetaryLuckInfo() {
         MonetaryLuckInfo(
             onClickMoreButton = {},
             fortuneScore = 35,
-            fortuneDetail = "지갑이 들뜨는 날,\n한템포 쉬어가요."
+            fortuneDetail = "지갑이 들뜨는 날,한템포 쉬어가요.지갑이 들뜨는 날,한템포 쉬어가요."
         )
     }
 }

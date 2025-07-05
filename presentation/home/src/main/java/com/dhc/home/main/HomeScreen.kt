@@ -72,7 +72,7 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 MonetaryLuckInfo(
                     fortuneScore = state.homeInfo.todayDailyFortune.score,
-                    fortuneDetail = state.homeInfo.todayDailyFortune.fortuneDetail,
+                    fortuneDetail = state.homeInfo.todayDailyFortune.fortuneTitle,
                     onClickMoreButton = { eventHandler(HomeContract.Event.ClickMoreButton) }
                 )
                 Spacer(modifier = Modifier.height(12.dp))
