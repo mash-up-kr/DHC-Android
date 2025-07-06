@@ -56,7 +56,6 @@ fun MyPageScreen(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(scrollState)
-            .background(color = SurfaceColor.neutral800) // Todo :: 배경색 변경 필요
             .padding(vertical = 20.dp)
     ) {
         Text(
