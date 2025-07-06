@@ -4,17 +4,21 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import androidx.activity.compose.LocalActivity
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -24,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,7 +53,7 @@ fun MyPageScreen(
     state: State,
     eventHandler: EventHandler<Event>,
     modifier: Modifier = Modifier,
-    scrollState: ScrollState = rememberScrollState()
+    scrollState: ScrollState = rememberScrollState(),
 ) {
     val colors = LocalDhcColors.current
 
@@ -156,7 +161,6 @@ private fun Setting(
     eventHandler: EventHandler<Event>,
     modifier: Modifier = Modifier
 ) {
-    val activity = LocalActivity.current
     Column(
         modifier = modifier.padding(vertical = 24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -177,21 +181,51 @@ private fun Setting(
                     iconRes = DR.drawable.ico_sign_out,
                     onClick = { eventHandler(Event.ClickAppResetButton) },
                 ),
-
-                // Todo : 대충 만든 id 정보 보여주는 화면
-                SettingItem.Normal(
-                    text = "[ userId ] - 클릭하여 복사하기\n${state.userId}",
-                    iconRes = DR.drawable.ico_change,
-                    onClick = {
-                        (activity?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager)?.let { clipboard ->
-                            clipboard.setPrimaryClip(
-                                ClipData.newPlainText("label", state.userId)
-                            )
-                        }
-                    },
-                ),
             )
         )
+        UserIdSection(
+            userId = state.userId,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+        )
+    }
+}
+
+@Composable
+fun UserIdSection(
+    userId: String,
+    modifier: Modifier = Modifier,
+) {
+    val activity = LocalActivity.current
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier,
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier
+                .wrapContentSize()
+                .clickable {
+                    (activity?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager)?.let { clipboard ->
+                        clipboard.setPrimaryClip(
+                            ClipData.newPlainText("label", userId)
+                        )
+                    }
+                },
+        ) {
+            Text(
+                text = stringResource(R.string.user_id_text, userId.trim()),
+                style = DhcTypoTokens.Body6,
+                color = SurfaceColor.neutral300,
+                modifier = Modifier.weight(weight = 1f, fill = false),
+            )
+            Image(
+                painter = painterResource(R.drawable.copy),
+                contentDescription = "copy",
+            )
+        }
     }
 }
 
