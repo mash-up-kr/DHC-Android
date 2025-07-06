@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -95,9 +96,12 @@ private fun MyInfo(
     myInfoUiModel: MyInfoUiModel,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier.background(brush = backgroundGradient01)
-    ) {
+    Box(modifier = modifier) {
+        Spacer(
+            modifier = Modifier
+                .matchParentSize()
+                .background(brush = backgroundGradient01),
+        )
         Column(
             modifier = Modifier
                 .padding(vertical = 20.dp)
