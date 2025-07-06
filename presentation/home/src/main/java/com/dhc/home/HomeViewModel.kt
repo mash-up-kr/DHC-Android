@@ -114,7 +114,7 @@ class HomeViewModel @Inject constructor(
             }
 
             is Event.FortuneCardFlipped -> {
-                delay(1000L)
+                delay(FLIPPED_TO_SUCCESS_DELAY_MS)
                 reduce { copy(homeState = HomeContract.HomeState.Success) }
             }
 
@@ -324,5 +324,6 @@ class HomeViewModel @Inject constructor(
     companion object {
         private const val POLLING_TRY_TIME = 5
         private const val POLLING_INTERVAL_TIME_MS = 5000L
+        private const val FLIPPED_TO_SUCCESS_DELAY_MS = 1500L
     }
 }
