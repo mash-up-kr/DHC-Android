@@ -24,6 +24,7 @@ fun DhcTopBar(
             )
         },
         contentKey = { currentState -> currentState::class.java.simpleName },
+        modifier = modifier,
     ) { currentState ->
         when (currentState) {
             is DhcTopBarState.Basic -> {
