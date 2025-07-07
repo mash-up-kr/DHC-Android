@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,10 +54,10 @@ fun MoneyFortuneMissionCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f),
+                    .weight(1f)
+                    .padding(vertical = 20.dp),
             ) {
                 DhcBadge(
-                    modifier = Modifier.height(24.dp),
                     text = missionMode,
                     type = BadgeType.Level(isEnabled = isFinishedTodayMission.not())
                 )

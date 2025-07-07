@@ -59,7 +59,7 @@ fun SpendingHabitMissionCard(
             onBlinkEnd = onBlinkEnd,
             content = {
                 Row(
-                    modifier = Modifier.fillMaxWidth().weight(1f),
+                    modifier = Modifier.fillMaxWidth().weight(1f).padding(vertical = 20.dp),
                 ) {
                     DhcBadge(
                         text = missionDday,
@@ -69,7 +69,7 @@ fun SpendingHabitMissionCard(
                     Text(
                         text = missionTitle,
                         style = DhcTypoTokens.Body3,
-                        color = missionColor
+                        color = missionColor,
                     )
                     Spacer(modifier = Modifier.width(16.dp))
                 }
