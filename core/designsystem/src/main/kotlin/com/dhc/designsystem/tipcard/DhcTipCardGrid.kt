@@ -2,8 +2,11 @@ package com.dhc.designsystem.tipcard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,20 +21,20 @@ fun DhcTipCardGrid(
     modifier: Modifier = Modifier,
     cellCount: Int = 2,
 ) {
-    Row(
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        repeat(cellCount) { columnIndex ->
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+        repeat(cellCount) { rowIndex ->
+            Row(
+                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                for (rowIndex in 0 until tipCards.size / cellCount) {
-                    val itemIndex = rowIndex * cellCount + columnIndex
-                    DhcTipCard(tipCards[itemIndex], Modifier.fillMaxWidth())
+                for (columnIndex in 0 until tipCards.size / cellCount) {
+                    val itemIndex = columnIndex * cellCount + rowIndex
+                    DhcTipCard(tipCards[itemIndex], Modifier.weight(1f).fillMaxHeight())
                 }
             }
         }
@@ -47,7 +50,7 @@ fun PreviewDhcTipCardLazyGrid() {
         DhcTipCardGrid(
             tipCards = listOf(
                 TipCardModel(
-                    title = "오늘의 추천 메뉴",
+                    title = "오늘의 추천 메뉴 추천 메뉴",
                     icon = ImageResource.Url("https://foodish-api.com/images/pizza/pizza80.jpg"),
                     color = null,
                     cont = "치킨이닭"
