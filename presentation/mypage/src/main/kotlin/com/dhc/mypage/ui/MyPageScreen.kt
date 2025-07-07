@@ -187,7 +187,7 @@ private fun Setting(
             userId = state.userId,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp),
+                .padding(horizontal = 20.dp, vertical = 8.dp),
         )
     }
 }
