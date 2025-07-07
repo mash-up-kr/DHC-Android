@@ -122,8 +122,9 @@ fun DhcNavHost(
                 navigateToInitialScreen = { navController.navigateToIntroPageWithClearStack() },
             )
         }
-        composable(DhcRoute.MAIN_HOME.route) {
+        composable(DhcRoute.MAIN_HOME.route) { navBackStackEntry ->
             HomeRoute(
+                navBackStackEntry = navBackStackEntry,
                 navigateToMission = { navController.navigateToMission() },
                 navigateToMonetaryLuckDetail = { navController.navigateTo(DhcRoute.HOME_MONETARY_DETAIL) },
             )
