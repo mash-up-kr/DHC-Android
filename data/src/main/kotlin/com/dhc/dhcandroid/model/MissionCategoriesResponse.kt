@@ -11,5 +11,5 @@ data class MissionCategoriesResponse(
 data class MissionCategoryResponse(
     val name: MissionCategory = MissionCategory.UNKNOWN,
     val displayName: String = "",
-    val imageUrl: String = "",
+    val image: String = "",
 )

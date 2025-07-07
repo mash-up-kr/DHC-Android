@@ -13,7 +13,7 @@ data class MissionCategoryUiModel(
             MissionCategoryUiModel(
                 name = missionCategoryResponse.name,
                 displayName = missionCategoryResponse.displayName,
-                imageUrl = missionCategoryResponse.imageUrl
+                imageUrl = missionCategoryResponse.image
             )
     }
 }

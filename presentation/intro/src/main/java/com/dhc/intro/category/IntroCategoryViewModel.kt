@@ -27,7 +27,7 @@ class IntroCategoryViewModel @Inject constructor(
                 CategoryItem(
                     name = it.name,
                     displayName = it.displayName,
-                    imageUrl = it.imageUrl
+                    imageUrl = it.image
                 )
             } ?: emptyList()
 
