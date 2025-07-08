@@ -23,6 +23,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
+// http://211.188.52.240:8080/swagger
 interface DhcService {
 
     @GET("/api/users")
