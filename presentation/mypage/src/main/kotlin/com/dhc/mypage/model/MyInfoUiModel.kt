@@ -13,7 +13,7 @@ data class MyInfoUiModel(
     companion object {
         fun from(myPageResponse: MyPageResponse) = MyInfoUiModel(
             sajuName = myPageResponse.animalCard.name,
-            animalImageUrl = myPageResponse.animalCard.cardImageUrl,
+            animalImageUrl = myPageResponse.animalCard.cardImage,
             birthDateTime = LocalDateTime.of(
                 LocalDate.parse(myPageResponse.birthDate?.date),
                 LocalTime.parse(myPageResponse.birthTime)
