@@ -1,5 +1,10 @@
 package com.dhc.dhcandroid.navigation
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,6 +25,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
 import com.dhc.dhcandroid.MainViewModel
@@ -33,6 +39,7 @@ fun DhcApp(
     val currentScreenConfig by currentScreenConfigAsState(navController)
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route ?: DhcRoute.NONE.route
+    val colors = LocalDhcColors.current
 
     val state by mainViewModel.state.collectAsStateWithLifecycle()
 
@@ -57,12 +64,24 @@ fun DhcApp(
                     .height(60.dp),
             )
         },
-        containerColor = Color.Transparent,
+        containerColor = colors.background.backgroundMain,
         modifier = modifier,
     ) { paddingValues ->
-        currentScreenConfig.containerBackground.Background(
+        AnimatedContent(
+            targetState = currentScreenConfig.containerBackground,
+            label = "ContainerBackground",
+            contentKey = { currentState ->
+                when (currentState) {
+                    is ContainerBackground.BackgroundWithTopRightGradientColor -> currentState.composeColor
+                    is ContainerBackground.ComposeColor -> currentState.composeColor
+                    is ContainerBackground.Default -> currentState::class.java.simpleName
+                }
+            },
+            transitionSpec = { fadeIn() togetherWith fadeOut() },
             modifier = Modifier.fillMaxSize(),
-        )
+        ) { currentState ->
+            currentState.Background(modifier = Modifier.fillMaxSize())
+        }
 
         DhcNavHost(
             navController = navController,
