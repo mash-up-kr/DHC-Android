@@ -10,4 +10,5 @@
     <string name="app_reset_dialog_sub_title">앱을 초기화하면 다시 복구할 수 없어요</string>
     <string name="app_reset_dialog_cancel">이전으로 돌아가기</string>
     <string name="app_reset_dialog_ok">초기화</string>
+    <string name="user_id_text">User ID : %s</string>
 </resources>

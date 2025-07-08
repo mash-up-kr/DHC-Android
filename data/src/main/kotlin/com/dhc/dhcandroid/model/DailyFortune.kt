@@ -14,6 +14,6 @@ data class DailyFortune(
     val luckyColor: String = "",
     val luckyColorHex: String = "",
     val luckyNumber: Int = 0,
-    val score: Int = 0,
+    val totalScore: Int = 0,
     val todayMenu: String = ""
 )

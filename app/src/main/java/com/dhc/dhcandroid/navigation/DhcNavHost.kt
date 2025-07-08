@@ -1,6 +1,8 @@
 package com.dhc.dhcandroid.navigation
 
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -66,12 +68,18 @@ fun DhcNavHost(
             route = DhcRoute.INTRO.route,
             startDestination = DhcRoute.INTRO_START.route,
         ) {
-            composable(DhcRoute.INTRO_START.route) {
+            composable(
+                route = DhcRoute.INTRO_START.route,
+                exitTransition = { ExitTransition.None },
+            ) {
                 IntroRoute(
                     navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_DESCRIPTION) },
                 )
             }
-            composable(DhcRoute.INTRO_DESCRIPTION.route) {
+            composable(
+                route = DhcRoute.INTRO_DESCRIPTION.route,
+                enterTransition = { EnterTransition.None },
+            ) {
                 IntroDescriptionRoute(
                     navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_FORTUNE_CARD) },
                 )
@@ -122,8 +130,9 @@ fun DhcNavHost(
                 navigateToInitialScreen = { navController.navigateToIntroPageWithClearStack() },
             )
         }
-        composable(DhcRoute.MAIN_HOME.route) {
+        composable(DhcRoute.MAIN_HOME.route) { navBackStackEntry ->
             HomeRoute(
+                navBackStackEntry = navBackStackEntry,
                 navigateToMission = { navController.navigateToMission() },
                 navigateToMonetaryLuckDetail = { navController.navigateTo(DhcRoute.HOME_MONETARY_DETAIL) },
             )

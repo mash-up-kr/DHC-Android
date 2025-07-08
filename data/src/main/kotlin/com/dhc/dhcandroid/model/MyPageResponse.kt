@@ -14,5 +14,5 @@ data class MyPageResponse(
 @Serializable
 data class AnimalCard(
     val name: String = "",
-    val cardImageUrl: String? = null
+    val cardImage: String? = null
 )

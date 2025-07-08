@@ -76,7 +76,7 @@ fun IntroMissionScreen(
                 )
                 SpendingHabitMissionCard(
                     missionDday = "D-12",
-                    missionTitle = "텀블러 들고 다니기",
+                    missionTitle = "도시락 싸서 점심·저녁 해결하기",
                     isChecked = true,
                 )
 
@@ -122,22 +122,27 @@ private fun MoneyFortuneMissionCardList() {
     val missionStateList = listOf(
         MoneyFortuneMissionState(
             missionMode = "Easy",
-            missionTitle = "가까운 거리 걸어다니기",
+            missionTitle = "간식은 집에서 챙겨 다니기",
             isChecked = true,
         ),
         MoneyFortuneMissionState(
             missionMode = "Easy",
-            missionTitle = "가까운 거리 걸어다니기",
+            missionTitle = "아침 집밥 챙겨먹기",
             isChecked = false,
         ),
         MoneyFortuneMissionState(
             missionMode = "Easy",
-            missionTitle = "가까운 거리 걸어다니기",
+            missionTitle = "커피는 집에서 내려 마시기",
             isChecked = false,
         ),
         MoneyFortuneMissionState(
             missionMode = "Easy",
-            missionTitle = "가까운 거리 걸어다니기",
+            missionTitle = "음료 구매할때 텀블러 할인받기",
+            isChecked = false,
+        ),
+        MoneyFortuneMissionState(
+            missionMode = "Easy",
+            missionTitle = "오늘 하루 배달앱 알림 꺼두기",
             isChecked = false,
         ),
     )
