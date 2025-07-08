@@ -4,6 +4,7 @@ import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
+import com.dhc.dhcandroid.model.ErrorResponse
 import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
@@ -64,4 +65,8 @@ interface DhcRemoteDataSource {
         userId: String,
         date: String,
     ): Response<FortuneResponse>
+
+    suspend fun deleteUser(
+        userId: String,
+    ): Response<ErrorResponse?>
 }

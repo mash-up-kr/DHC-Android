@@ -10,6 +10,7 @@ import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
+import com.dhc.dhcandroid.model.ErrorResponse
 import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.LogoutResponse
@@ -108,6 +109,12 @@ class DhcRepositoryImpl @Inject constructor(
     ): DhcResult<FortuneResponse> {
         return runDhcCatching {
             dhcRemoteDataSource.getDailyFortune(userId, date.format(dhcYearMonthDayFormat))
+        }
+    }
+
+    override suspend fun deleteUser(userId: String): DhcResult<ErrorResponse?> {
+        return runDhcCatching {
+            dhcRemoteDataSource.deleteUser(userId)
         }
     }
 }
