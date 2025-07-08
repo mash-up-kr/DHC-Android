@@ -50,6 +50,7 @@ enum class DhcRoute(
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.None,
             bottomBarState = DhcBottomBarState.None,
+            containerBackground = ContainerBackground.BackgroundWithTopRightGradientColor(),
         ),
     ),
     INTRO_MISSION(
@@ -119,6 +120,7 @@ enum class DhcRoute(
         route = "main/home",
         screenConfig = ScreenConfig(
             bottomBarState = DhcBottomBarState.BottomNavigation,
+            containerBackground = ContainerBackground.BackgroundWithTopRightGradientColor(),
         ),
     ),
     MAIN_MISSION(

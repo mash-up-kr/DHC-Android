@@ -66,19 +66,10 @@ fun HomeRoute(
     Box {
         when (state.homeState) {
             HomeContract.HomeState.Error -> {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(412.dp)
-                            .offset(y = -(topBarSize.div(density.density).dp))
-                            .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
-                    )
-                    ErrorScreen(
-                        onClickRetry = { viewModel.sendEvent(HomeContract.Event.ClickErrorRetryButton) },
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
+                ErrorScreen(
+                    onClickRetry = { viewModel.sendEvent(HomeContract.Event.ClickErrorRetryButton) },
+                    modifier = Modifier.fillMaxSize()
+                )
             }
             HomeContract.HomeState.FlipCard -> {
                 HomeFlipCardScreen(
