@@ -23,25 +23,25 @@ internal fun FortuneResponse.toMonetaryLuckInfo() = MonetaryLuckInfo(
     todayTips = listOf(
         TipCardModel(
             title = "오늘의 추천 메뉴",
-            icon = ImageResource.Url(todayMenuImageUrl),
+            icon = ImageResource.Url(todayMenuImage),
             cont = todayMenu,
             color = null,
         ),
         TipCardModel(
             title = "행운의 색상",
-            icon = ImageResource.Url(luckyColorImageUrl),
+            icon = ImageResource.Url(luckyColorImage),
             cont = luckyColor,
             color = luckyColorHex,
         ),
         TipCardModel(
             title = "피해야 할 음식",
-            icon = ImageResource.Url(jinxedMenuImageUrl),
+            icon = ImageResource.Url(jinxedMenuImage),
             cont = jinxedMenu,
             color = null,
         ),
         TipCardModel(
             title = "피해야 할 색상",
-            icon = ImageResource.Url(jinxedColorImageUrl),
+            icon = ImageResource.Url(jinxedColorImage),
             cont = jinxedColor,
             color = jinxedColorHex,
         ),

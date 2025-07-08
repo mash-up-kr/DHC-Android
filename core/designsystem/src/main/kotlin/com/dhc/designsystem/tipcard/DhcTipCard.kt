@@ -92,8 +92,6 @@ fun TipCardTitle(
     icon: String,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
-
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier.fillMaxWidth(),
@@ -101,7 +99,6 @@ fun TipCardTitle(
         AsyncImage(
             model = icon,
             contentDescription = "tipCardIcon",
-            imageLoader = context.getSvgImageLoader(),
             modifier = Modifier.size(20.dp),
         )
         Spacer(modifier = Modifier.width(4.dp))
