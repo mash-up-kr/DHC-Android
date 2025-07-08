@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavBackStackEntry
 import com.dhc.designsystem.DhcSnackBar
 import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.SnackBarContent
@@ -37,9 +38,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun HomeRoute(
+    navBackStackEntry: NavBackStackEntry,
     navigateToMission: () -> Unit,
     navigateToMonetaryLuckDetail: () -> Unit,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(navBackStackEntry)
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val snackBarHostState by remember { mutableStateOf(SnackbarHostState()) }
