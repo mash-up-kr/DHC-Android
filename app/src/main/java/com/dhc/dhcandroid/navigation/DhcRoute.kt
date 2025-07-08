@@ -28,7 +28,7 @@ enum class DhcRoute(
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.None,
             bottomBarState = DhcBottomBarState.None,
-            containerColor = ContainerColor.ComposeColor(Color(0xFF020202)),
+            containerBackground = ContainerBackground.ComposeColor(Color(0xFF020202)),
         ),
     ),
     INTRO_DESCRIPTION(
