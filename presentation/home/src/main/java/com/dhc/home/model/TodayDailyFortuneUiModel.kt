@@ -13,7 +13,7 @@ data class TodayDailyFortuneUiModel(
             date = fortune.date,
             fortuneTitle = fortune.fortuneTitle,
             fortuneDetail = fortune.fortuneDetail,
-            score = fortune.score
+            score = fortune.totalScore
         )
     }
 }
