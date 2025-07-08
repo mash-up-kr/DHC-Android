@@ -53,6 +53,12 @@ interface DhcService {
         @Path("userId") userId: String,
     ): Response<ErrorResponse?>
 
+    @GET("/api/users/{userId}/fortune")
+    suspend fun getDailyFortune(
+        @Path("userId") userId: String,
+        @Query("date") date: String,
+    ): Response<FortuneResponse>
+
     @GET("/api/mission-categories")
     suspend fun getMissionCategories(
     ): Response<MissionCategoriesResponse>
@@ -77,10 +83,4 @@ interface DhcService {
         @Path("userId") userId: String,
         @Query("yearMonth") yearMonth: String
     ): Response<CalendarViewResponse>
-
-    @GET("/api/users/{userId}/fortune")
-    suspend fun getDailyFortune(
-        @Path("userId") userId: String,
-        @Query("date") date: String,
-    ): Response<FortuneResponse>
 }
