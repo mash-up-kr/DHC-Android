@@ -1,5 +1,6 @@
 package com.dhc.home
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
@@ -64,36 +65,38 @@ fun HomeRoute(
     }
 
     Box {
-        when (state.homeState) {
-            HomeContract.HomeState.Error -> {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(412.dp)
-                            .offset(y = -(topBarSize.div(density.density).dp))
-                            .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
-                    )
-                    ErrorScreen(
-                        onClickRetry = { viewModel.sendEvent(HomeContract.Event.ClickErrorRetryButton) },
-                        modifier = Modifier.fillMaxSize()
+        Crossfade(state.homeState) { currentState ->
+            when (currentState) {
+                HomeContract.HomeState.Error -> {
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(412.dp)
+                                .offset(y = -(topBarSize.div(density.density).dp))
+                                .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
+                        )
+                        ErrorScreen(
+                            onClickRetry = { viewModel.sendEvent(HomeContract.Event.ClickErrorRetryButton) },
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
+                }
+                HomeContract.HomeState.FlipCard -> {
+                    HomeFlipCardScreen(
+                        modifier = Modifier.fillMaxSize(),
+                        eventHandler = viewModel::sendEvent,
                     )
                 }
-            }
-            HomeContract.HomeState.FlipCard -> {
-                HomeFlipCardScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    eventHandler = viewModel::sendEvent,
-                )
-            }
-            HomeContract.HomeState.Loading -> {
-                HomeLoadingScreen(modifier = Modifier.fillMaxSize())
-            }
-            HomeContract.HomeState.Success -> {
-                HomeScreen(
-                    state = state,
-                    eventHandler = viewModel::sendEvent,
-                )
+                HomeContract.HomeState.Loading -> {
+                    HomeLoadingScreen(modifier = Modifier.fillMaxSize())
+                }
+                HomeContract.HomeState.Success -> {
+                    HomeScreen(
+                        state = state,
+                        eventHandler = viewModel::sendEvent,
+                    )
+                }
             }
         }
         if(state.isShowMissionCompleteBottomSheet) {
