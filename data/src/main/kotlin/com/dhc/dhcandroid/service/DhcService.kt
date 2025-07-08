@@ -7,7 +7,6 @@ import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.ErrorResponse
 import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
-import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
@@ -49,10 +48,10 @@ interface DhcService {
         @Body endTodayMissionRequest: EndTodayMissionRequest,
     ): Response<EndTodayMissionResponse>
 
-    @POST("/api/users/{userId}/logout")
-    suspend fun requestLogOutUser(
+    @DELETE("/api/users/{userId}")
+    suspend fun deleteUser(
         @Path("userId") userId: String,
-    ): Response<LogoutResponse>
+    ): Response<ErrorResponse?>
 
     @GET("/api/mission-categories")
     suspend fun getMissionCategories(
@@ -84,9 +83,4 @@ interface DhcService {
         @Path("userId") userId: String,
         @Query("date") date: String,
     ): Response<FortuneResponse>
-
-    @DELETE("/api/users/{userId}")
-    suspend fun deleteUser(
-        @Path("userId") userId: String,
-    ): Response<ErrorResponse?>
 }
