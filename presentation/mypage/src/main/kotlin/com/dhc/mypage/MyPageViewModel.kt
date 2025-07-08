@@ -12,6 +12,9 @@ import com.dhc.mypage.model.MissionCategoryUiModel
 import com.dhc.mypage.model.MyInfoUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,9 +41,16 @@ class MyPageViewModel @Inject constructor(
         when (event) {
             is Event.ClickAppResetButton -> reduce { copy(isShowAppResetDialog = true) }
             is Event.ClickAppResetConfirmButton -> {
-                authRepository.clearUserId()
-                reduce { copy(isShowAppResetDialog = false) }
-                postSideEffect(SideEffect.NavigateToIntro)
+                coroutineScope {
+                    authRepository.getUserId().firstOrNull()?.let {
+                        listOf(
+                            async { dhcRepository.deleteUser(it) },
+                            async { authRepository.clearUserId() },
+                        ).awaitAll()
+                    }
+                    reduce { copy(isShowAppResetDialog = false) }
+                    postSideEffect(SideEffect.NavigateToIntro)
+                }
             }
 
             is Event.ClickDialogDismissButton -> reduce { copy(isShowAppResetDialog = false) }
