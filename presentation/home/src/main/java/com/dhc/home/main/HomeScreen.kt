@@ -109,7 +109,8 @@ fun HomeScreen(
                         missionTitle = mission.title
                     )
                 )) },
-                onCheckChange = { isChecked, id -> eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
+                onCheckChange = { isChecked, id ->
+                    if(!state.homeInfo.todayDone) eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
                 onExpandedChange = { isExpanded,id -> eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
                 onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId))},
             )
@@ -124,7 +125,8 @@ fun HomeScreen(
                         missionTitle = mission.title
                     )
                 )) },
-                onCheckChange = { isChecked, id -> eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
+                onCheckChange = { isChecked, id ->
+                    if(!state.homeInfo.todayDone) eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
                 onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
                 onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId)) },
             )
