@@ -35,6 +35,7 @@ import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.designsystem.score.DhcScoreText
 import com.dhc.home.R
+import com.dhc.home.model.TodayDailyFortuneUiModel
 import com.dhc.designsystem.R as DR
 import com.dhc.presentation.component.FortuneCardBack
 import com.dhc.presentation.component.WordBalloon
@@ -42,6 +43,7 @@ import com.dhc.presentation.mvi.EventHandler
 
 @Composable
 fun HomeFlipCardScreen(
+    todayFortune: TodayDailyFortuneUiModel,
     eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
 ) {
@@ -70,7 +72,7 @@ fun HomeFlipCardScreen(
                 DhcFortuneCard(
                     title = "최고의 날",
                     description = "네잎클로버",
-                    cardDrawableResId = DR.drawable.fortune_card_sample,
+                    imageUrl = todayFortune.fortuneCardImage,
                 )
             },
             initialRotationZ = -4f,
@@ -133,6 +135,7 @@ private fun FlippedDescription() {
 private fun HomeFlipCardScreenPreview() {
     DhcTheme {
         HomeFlipCardScreen(
+            todayFortune = TodayDailyFortuneUiModel(),
             eventHandler = {},
         )
     }

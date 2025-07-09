@@ -57,7 +57,7 @@ fun MonetaryLuckDetailScreen(
             DhcFortuneCard(
                 title = monetaryLuckInfo.fortuneCard.title,
                 description = monetaryLuckInfo.fortuneCard.message,
-                imageResource = monetaryLuckInfo.fortuneCard.image,
+                imageUrl = monetaryLuckInfo.fortuneCard.image,
                 modifier = Modifier.size(width = 144.dp, height = 200.dp),
             )
             Spacer(modifier = Modifier.height(12.dp))

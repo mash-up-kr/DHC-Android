@@ -7,6 +7,7 @@ data class FortuneResponse(
     val date: String = "",
     val fortuneTitle: String = "",
     val fortuneDetail: String = "",
+    val fortuneCardImage: String = "",
     val jinxedColor: String = "",
     val jinxedColorHex: String = "",
     val jinxedColorImage: String = "",

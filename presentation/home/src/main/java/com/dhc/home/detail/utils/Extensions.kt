@@ -17,7 +17,8 @@ internal fun FortuneResponse.toMonetaryLuckInfo() = MonetaryLuckInfo(
         description = this.fortuneTitle,
     ),
     fortuneCard = FortuneCard(
-        message = "" // Todo :: 카드 메세지 필요
+        image = fortuneCardImage,
+        message = "" // Todo :: 카드 메세지 필요,
     ),
     monetaryDetail = this.fortuneDetail,
     todayTips = listOf(
