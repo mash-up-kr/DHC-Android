@@ -84,7 +84,7 @@ fun HomeRoute(
                 }
                 HomeContract.HomeState.Success -> {
                     HomeScreen(
-                        state = currentState,
+                        state = state,
                         eventHandler = viewModel::sendEvent,
                     )
                 }
