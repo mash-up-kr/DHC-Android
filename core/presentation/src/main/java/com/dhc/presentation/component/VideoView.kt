@@ -35,9 +35,7 @@ fun VideoView(
 ) {
     val localContext = LocalContext.current
     var onPlayWhenReady by remember { mutableStateOf(false) }
-    val exoPlayer = remember {
-        ExoPlayer.Builder(localContext).build()
-    }
+    var exoPlayer: ExoPlayer? by remember { mutableStateOf(null) }
     val mediaItem = remember {
         MediaItem.fromUri("android.resource://${localContext.packageName}/${videoResId}")
     }
@@ -48,7 +46,7 @@ fun VideoView(
                 onPlayWhenReady = playbackState == Player.STATE_READY
             }
         }
-        with(exoPlayer) {
+        exoPlayer = ExoPlayer.Builder(localContext).build().apply {
             setMediaItem(mediaItem)
             repeatMode = Player.REPEAT_MODE_ALL
             prepare()
@@ -56,10 +54,11 @@ fun VideoView(
             addListener(listener)
         }
         onStopOrDispose {
-            with(exoPlayer) {
+            exoPlayer?.apply {
                 release()
                 removeListener(listener)
             }
+            exoPlayer = null
         }
     }
     Box(modifier = modifier) {
@@ -77,12 +76,12 @@ fun VideoView(
             factory = { context ->
                 PlayerView(context).apply {
                     useController = false
-                    player = exoPlayer
                     resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
                 }
             },
             modifier = Modifier.fillMaxSize(),
             update = { playerView ->
+                playerView.player = exoPlayer
                 playerView.visibility = if (onPlayWhenReady) {
                     View.VISIBLE
                 } else {

@@ -15,12 +15,10 @@ fun IntroRoute(
     navigateToNextScreen: () -> Unit,
     viewModel: IntroStartViewModel = hiltViewModel(),
 ) {
-    var isVideoShow by remember { mutableStateOf(true) }
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 IntroStartContract.SideEffect.NavigateToNextScreen -> {
-                    isVideoShow = false
                     navigateToNextScreen()
                 }
             }
@@ -29,7 +27,6 @@ fun IntroRoute(
 
     IntroStartScreen(
         eventHandler = viewModel::sendEvent,
-        isVideoShow = isVideoShow,
         modifier = Modifier.fillMaxSize(),
     )
 }
