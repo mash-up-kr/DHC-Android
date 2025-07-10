@@ -6,7 +6,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -17,7 +16,6 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -58,8 +56,7 @@ fun DhcApp(
                 navigateToRoute = { navController.navigateToBottomNavigation(DhcRoute.fromName(it)) },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .navigationBarsPadding()
-                    .height(60.dp),
+                    .navigationBarsPadding(),
             )
         },
         containerColor = colors.background.backgroundMain,
