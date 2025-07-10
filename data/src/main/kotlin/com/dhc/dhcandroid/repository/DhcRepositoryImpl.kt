@@ -10,7 +10,6 @@ import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
-import com.dhc.dhcandroid.model.ErrorResponse
 import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.MissionsResponse
@@ -52,7 +51,7 @@ class DhcRepositoryImpl @Inject constructor(
     override suspend fun requestFinishTodayMissions(userId: String, endTodayMissionRequest: EndTodayMissionRequest): DhcResult<EndTodayMissionResponse> =
         runDhcCatching { dhcRemoteDataSource.requestFinishTodayMissions(userId, endTodayMissionRequest) }
 
-    override suspend fun deleteUser(userId: String): DhcResult<ErrorResponse?> =
+    override suspend fun deleteUser(userId: String): DhcResult<Unit> =
         runDhcCatching { dhcRemoteDataSource.deleteUser(userId) }
 
     override suspend fun getHomeView(userId: String): DhcResult<HomeViewResponse> =

@@ -4,7 +4,6 @@ import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
-import com.dhc.dhcandroid.model.ErrorResponse
 import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.MissionsResponse
@@ -51,7 +50,7 @@ interface DhcService {
     @DELETE("/api/users/{userId}")
     suspend fun deleteUser(
         @Path("userId") userId: String,
-    ): Response<ErrorResponse?>
+    ): Response<Unit>
 
     @GET("/api/users/{userId}/fortune")
     suspend fun getDailyFortune(
