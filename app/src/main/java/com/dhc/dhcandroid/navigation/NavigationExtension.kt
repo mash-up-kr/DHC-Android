@@ -25,6 +25,8 @@ fun NavHostController.navigateToHomeFromIntro() {
 }
 
 fun NavHostController.navigateToBottomNavigation(route: DhcRoute) {
+    if (currentDestination?.route == route.route) return // 같은 route 로의 이동 방지s
+
     navigateTo(route) {
         popUpTo(graph.findStartDestination().id) {
             saveState = true
