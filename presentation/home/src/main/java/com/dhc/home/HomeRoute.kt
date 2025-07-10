@@ -45,6 +45,7 @@ fun HomeRoute(
                 is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
                 is HomeContract.SideEffect.ShowToast -> {
+                    snackBarHostState.currentSnackbarData?.dismiss()
                     scope.launch {
                         snackBarHostState.showSnackbar(message = sideEffect.msg )
                     }
