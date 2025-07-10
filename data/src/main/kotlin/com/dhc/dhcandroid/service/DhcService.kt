@@ -6,7 +6,6 @@ import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
-import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
@@ -16,6 +15,7 @@ import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -47,10 +47,16 @@ interface DhcService {
         @Body endTodayMissionRequest: EndTodayMissionRequest,
     ): Response<EndTodayMissionResponse>
 
-    @POST("/api/users/{userId}/logout")
-    suspend fun requestLogOutUser(
+    @DELETE("/api/users/{userId}")
+    suspend fun deleteUser(
         @Path("userId") userId: String,
-    ): Response<LogoutResponse>
+    ): Response<Unit>
+
+    @GET("/api/users/{userId}/fortune")
+    suspend fun getDailyFortune(
+        @Path("userId") userId: String,
+        @Query("date") date: String,
+    ): Response<FortuneResponse>
 
     @GET("/api/mission-categories")
     suspend fun getMissionCategories(
@@ -76,10 +82,4 @@ interface DhcService {
         @Path("userId") userId: String,
         @Query("yearMonth") yearMonth: String
     ): Response<CalendarViewResponse>
-
-    @GET("/api/users/{userId}/fortune")
-    suspend fun getDailyFortune(
-        @Path("userId") userId: String,
-        @Query("date") date: String,
-    ): Response<FortuneResponse>
 }

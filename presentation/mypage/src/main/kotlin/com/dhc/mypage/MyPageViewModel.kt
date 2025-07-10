@@ -1,6 +1,8 @@
 package com.dhc.mypage
 
 import androidx.lifecycle.viewModelScope
+import com.dhc.common.getSuccessOrNull
+import com.dhc.common.onException
 import com.dhc.common.onFailure
 import com.dhc.common.onSuccess
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
@@ -12,6 +14,7 @@ import com.dhc.mypage.model.MissionCategoryUiModel
 import com.dhc.mypage.model.MyInfoUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -38,9 +41,20 @@ class MyPageViewModel @Inject constructor(
         when (event) {
             is Event.ClickAppResetButton -> reduce { copy(isShowAppResetDialog = true) }
             is Event.ClickAppResetConfirmButton -> {
-                authRepository.clearUserId()
-                reduce { copy(isShowAppResetDialog = false) }
-                postSideEffect(SideEffect.NavigateToIntro)
+                coroutineScope {
+                    authRepository.getUserId().firstOrNull()?.let {
+                        dhcRepository.deleteUser(it)
+                            .onSuccess {
+                                authRepository.clearUserId()
+                                postSideEffect(SideEffect.NavigateToIntro)
+                            }
+                            .onFailure { _, _ -> postSideEffect(SideEffect.ShowToast("회원 탈퇴에 실패했습니다")) }
+                            .onException { postSideEffect(SideEffect.ShowToast("회원 탈퇴에 실패했습니다")) }
+                    } ?: run {
+                        postSideEffect(SideEffect.ShowToast("회원 탈퇴에 실패했습니다"))
+                    }
+                    reduce { copy(isShowAppResetDialog = false) }
+                }
             }
 
             is Event.ClickDialogDismissButton -> reduce { copy(isShowAppResetDialog = false) }
