@@ -3,6 +3,7 @@ package com.dhc.home.main
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -71,7 +72,8 @@ fun HomeScreen(
                     modifier = Modifier
                         .padding(top = 20.dp, bottom = 12.dp)
                         .align(Alignment.CenterHorizontally)
-                        .graphicsLayer(rotationZ = 4f),
+                        .graphicsLayer(rotationZ = 4f)
+                        .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) },
                     title = "최고의 날",
                     description = "네잎클로버",
                     cardDrawableResId = DR.drawable.fortune_card_sample,
