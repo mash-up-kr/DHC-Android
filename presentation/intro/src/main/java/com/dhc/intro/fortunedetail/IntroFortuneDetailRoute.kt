@@ -47,16 +47,6 @@ fun IntroFortuneDetailRoute(
 
     Box(modifier = Modifier.fillMaxSize()) {
         val colors = LocalDhcColors.current
-        val density = LocalDensity.current
-        val topBarSize = WindowInsets.statusBars.getTop(density)
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(412.dp)
-                .offset(y = -(topBarSize.div(density.density).dp))
-                .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
-        )
 
         MonetaryLuckDetailScreen(
             monetaryLuckInfo = state.monetaryLuckInfo,

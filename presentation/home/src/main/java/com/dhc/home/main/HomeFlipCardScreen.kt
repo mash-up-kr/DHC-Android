@@ -49,15 +49,6 @@ fun HomeFlipCardScreen(
     modifier: Modifier = Modifier,
 ) {
     var isCardFlipped by remember { mutableStateOf(false) }
-    val density = LocalDensity.current
-    val topBarSize = WindowInsets.statusBars.getTop(density)
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(412.dp)
-            .offset(y = -(topBarSize.div(density.density).dp))
-            .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
-    )
     Column(
         modifier = modifier.padding(horizontal = 28.dp),
         horizontalAlignment = Alignment.CenterHorizontally,

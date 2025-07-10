@@ -30,6 +30,7 @@ fun DhcBottomBar(
             )
         },
         contentKey = { currentState -> currentState::class.java.simpleName },
+        modifier = modifier,
     ) { currentState ->
         when (currentState) {
             is DhcBottomBarState.BottomNavigation -> {
