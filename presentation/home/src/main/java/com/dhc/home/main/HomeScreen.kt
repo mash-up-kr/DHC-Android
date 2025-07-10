@@ -76,8 +76,8 @@ fun HomeScreen(
                         .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) },
                     title = "최고의 날",
                     description = "네잎클로버",
-                    cardDrawableResId = DR.drawable.fortune_card_sample,
-                ) //TODO- 서버데이터로 변경
+                    imageUrl = state.homeInfo.todayDailyFortune.fortuneCardImage,
+                )
                 Canvas(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)

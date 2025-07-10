@@ -7,13 +7,15 @@ data class TodayDailyFortuneUiModel(
     val fortuneTitle: String = "",
     val fortuneDetail: String = "",
     val score: Int = 0,
+    val fortuneCardImage: String = ""
 ) {
     companion object {
         fun from(fortune: DailyFortune): TodayDailyFortuneUiModel = TodayDailyFortuneUiModel(
             date = fortune.date,
             fortuneTitle = fortune.fortuneTitle,
             fortuneDetail = fortune.fortuneDetail,
-            score = fortune.totalScore
+            score = fortune.totalScore,
+            fortuneCardImage = fortune.fortuneCardImage
         )
     }
 }

@@ -64,6 +64,7 @@ fun HomeRoute(
                 }
                 HomeContract.HomeState.FlipCard -> {
                     HomeFlipCardScreen(
+                        todayFortune = state.homeInfo.todayDailyFortune,
                         modifier = Modifier.fillMaxSize(),
                         eventHandler = viewModel::sendEvent,
                     )
