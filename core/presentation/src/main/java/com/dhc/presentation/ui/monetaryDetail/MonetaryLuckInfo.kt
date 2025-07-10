@@ -1,6 +1,5 @@
 package com.dhc.presentation.ui.monetaryDetail
 
-import com.dhc.common.ImageResource
 import com.dhc.designsystem.tipcard.TipCardModel
 
 data class MonetaryLuckInfo(
