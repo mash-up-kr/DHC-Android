@@ -17,7 +17,6 @@ jobs:
           grep -n "versionName" gradle/libs.versions.toml || echo "versionName not found"
           echo "=== 버전 추출 ==="
           VERSION=$(grep "versionName" gradle/libs.versions.toml | awk -F'"' '{print $2}')
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
       - name: Create release
         uses: actions/create-release@v1
         env:
