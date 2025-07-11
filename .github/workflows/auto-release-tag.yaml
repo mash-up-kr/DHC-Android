@@ -11,11 +11,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Get Version
         run: |
-          VERSION=$(grep "versionName" gradle/libs.versions.toml | awk -F'"' '{print $2}')
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "=== 파일 존재 확인 ==="
+          ls -la gradle/
+          echo "=== 파일 내용 확인 ==="
+          cat gradle/libs.versions.toml
+          echo "=== versionName 라인만 확인 ==="
+          grep -n "versionName" gradle/libs.versions.toml || echo "versionName not found"
       - name: Create release
         uses: actions/create-release@v1
         env:
