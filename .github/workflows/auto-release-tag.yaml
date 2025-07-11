@@ -1,0 +1,31 @@
+name: Release Tag
+on:
+  pull_request:
+    types: [ closed ]
+    branches:
+      - develop
+#  push:
+#    branches:
+#      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get Version
+        id: extract_version_name
+        run: |
+          grep -n "versionName" gradle/libs.versions.toml || echo "versionName not found"
+          grep -n "versionCode" gradle/libs.versions.toml || echo "versionCode not found"
+          echo "=== 버전 추출 ==="
+          VERSION=$(grep "versionName" gradle/libs.versions.toml | awk -F'"' '{print $2}')
+          VERSION_CODE=$(grep "versionCode" gradle/libs.versions.toml | awk -F'"' '{print $2}')
+          FULL_VERSION="${VERSION}(${VERSION_CODE})"
+          echo "version=$FULL_VERSION" >> $GITHUB_OUTPUT
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.extract_version_name.outputs.version }}
+          release_name: ${{ steps.extract_version_name.outputs.version }}
