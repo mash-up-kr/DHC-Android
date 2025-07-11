@@ -20,7 +20,7 @@ jobs:
           echo "=== 버전 추출 ==="
           VERSION=$(grep "versionName" gradle/libs.versions.toml | awk -F'"' '{print $2}')
           VERSION_CODE=$(grep "versionCode" gradle/libs.versions.toml | awk -F'"' '{print $2}')
-          FULL_VERSION="${VERSION_NAME}(${VERSION_CODE})"
+          FULL_VERSION="${VERSION}(${VERSION_CODE})"
           echo "version=$FULL_VERSION" >> $GITHUB_OUTPUT
       - name: Create release
         uses: actions/create-release@v1
