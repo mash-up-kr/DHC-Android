@@ -1,12 +1,8 @@
 name: Release Tag
 on:
-  pull_request:
-    types: [ closed ]
+  push:
     branches:
-      - develop
-#  push:
-#    branches:
-#      - main
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
