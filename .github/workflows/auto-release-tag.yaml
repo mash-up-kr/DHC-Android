@@ -1,0 +1,25 @@
+name: Release Tag
+on:
+  pull_request:
+    types: [ closed ]
+    branches:
+      - develop
+#  push:
+#    branches:
+#      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get Version
+        run: |
+          VERSION=$(grep "versionName" gradle/libs.versions.toml | awk -F'"' '{print $2}')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.extract_version_name.outputs.version }}
+          release_name: ${{ steps.extract_version_name.outputs.version }}
