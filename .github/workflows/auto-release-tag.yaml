@@ -14,15 +14,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Get Version
         run: |
-          echo "=== 파일 존재 확인 ==="
-          ls -la gradle/
-          echo "=== 파일 내용 확인 ==="
-          cat gradle/libs.versions.toml
-          echo "=== versionName 라인만 확인 ==="
           grep -n "versionName" gradle/libs.versions.toml || echo "versionName not found"
           echo "=== 버전 추출 ==="
           VERSION=$(grep "versionName" gradle/libs.versions.toml | awk -F'"' '{print $2}')
-          echo "추출된 버전: '$VERSION'"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
       - name: Create release
         uses: actions/create-release@v1
         env:
