@@ -4,7 +4,10 @@ import com.dhc.common.DhcResult
 import com.dhc.common.FormatterUtil.dhcYearMonthDayFormat
 import com.dhc.common.FormatterUtil.dhcYearMonthFormat
 import com.dhc.common.getSuccessOrNull
+import com.dhc.data.BuildConfig
 import com.dhc.dhcandroid.datasource.DhcRemoteDataSource
+import com.dhc.dhcandroid.di.Impl
+import com.dhc.dhcandroid.di.Mock
 import com.dhc.dhcandroid.model.AnalysisMonthViewResponse
 import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
@@ -24,16 +27,21 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 class DhcRepositoryImpl @Inject constructor(
-    private val dhcRemoteDataSource: DhcRemoteDataSource,
+    @Impl private val dhcRemoteDataSource: DhcRemoteDataSource,
+    @Mock private val mockDataSource: DhcRemoteDataSource,
 ) : DhcRepository {
-
+    private val dataSource = when (BuildConfig.FLAVOR) {
+        "real" -> dhcRemoteDataSource
+        "dev" -> mockDataSource
+        else -> dhcRemoteDataSource
+    }
     private val cachedCalendarView = mutableMapOf<LocalDate, AnalysisMonthViewResponse>()
 
     override suspend fun searchUserByToken(userToken: String): DhcResult<SearchUserByTokenResponse> =
-        runDhcCatching { dhcRemoteDataSource.searchUserByToken(userToken) }
+        runDhcCatching { dataSource.searchUserByToken(userToken) }
 
     override suspend fun registerUser(userProfile: UserProfile): DhcResult<RegisterUserResponse> =
-        runDhcCatching { dhcRemoteDataSource.registerUser(userProfile) }
+        runDhcCatching { dataSource.registerUser(userProfile) }
 
     override suspend fun changeMissionStatus(
         userId: String,
@@ -41,7 +49,7 @@ class DhcRepositoryImpl @Inject constructor(
         toggleMissionRequest: ToggleMissionRequest
     ): DhcResult<MissionsResponse> =
         runDhcCatching {
-            dhcRemoteDataSource.changeMissionStatus(
+            dataSource.changeMissionStatus(
                 userId,
                 missionId,
                 toggleMissionRequest
@@ -49,22 +57,22 @@ class DhcRepositoryImpl @Inject constructor(
         }
 
     override suspend fun requestFinishTodayMissions(userId: String, endTodayMissionRequest: EndTodayMissionRequest): DhcResult<EndTodayMissionResponse> =
-        runDhcCatching { dhcRemoteDataSource.requestFinishTodayMissions(userId, endTodayMissionRequest) }
+        runDhcCatching { dataSource.requestFinishTodayMissions(userId, endTodayMissionRequest) }
 
     override suspend fun deleteUser(userId: String): DhcResult<Unit> =
-        runDhcCatching { dhcRemoteDataSource.deleteUser(userId) }
+        runDhcCatching { dataSource.deleteUser(userId) }
 
     override suspend fun getHomeView(userId: String): DhcResult<HomeViewResponse> =
-        runDhcCatching { dhcRemoteDataSource.getHomeView(userId) }
+        runDhcCatching { dataSource.getHomeView(userId) }
 
     override suspend fun getMyPageView(userId: String): DhcResult<MyPageResponse> =
-        runDhcCatching { dhcRemoteDataSource.getMyPageView(userId) }
+        runDhcCatching { dataSource.getMyPageView(userId) }
 
     override suspend fun getAnalysisView(userId: String): DhcResult<AnalysisViewResponse> =
-        runDhcCatching { dhcRemoteDataSource.getAnalysisView(userId) }
+        runDhcCatching { dataSource.getAnalysisView(userId) }
 
     override suspend fun getMissionCategories(): DhcResult<MissionCategoriesResponse> =
-        runDhcCatching { dhcRemoteDataSource.getMissionCategories() }
+        runDhcCatching { dataSource.getMissionCategories() }
 
     override suspend fun getCalendarView(
         userId: String,
@@ -85,7 +93,7 @@ class DhcRepositoryImpl @Inject constructor(
         }
 
         val result = runDhcCatching {
-            dhcRemoteDataSource.getCalendarView(
+            dataSource.getCalendarView(
                 userId,
                 yearMonth.format(dhcYearMonthFormat)
             )
@@ -106,7 +114,7 @@ class DhcRepositoryImpl @Inject constructor(
         date: LocalDate,
     ): DhcResult<FortuneResponse> {
         return runDhcCatching {
-            dhcRemoteDataSource.getDailyFortune(userId, date.format(dhcYearMonthDayFormat))
+            dataSource.getDailyFortune(userId, date.format(dhcYearMonthDayFormat))
         }
     }
 }
