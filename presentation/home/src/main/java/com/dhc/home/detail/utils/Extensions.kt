@@ -17,9 +17,9 @@ internal fun FortuneResponse.toMonetaryLuckInfo() = MonetaryLuckInfo(
         description = this.fortuneTitle,
     ),
     fortuneCard = FortuneCard(
-        image = cardInfo.imageURL,
         title = cardInfo.title,
         message = cardInfo.subTitle,
+        image = ImageResource.Url(cardInfo.imageURL),
     ),
     monetaryDetail = this.fortuneDetail,
     todayTips = tips.map { tip ->

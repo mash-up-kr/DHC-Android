@@ -18,5 +18,5 @@ data class ScoreInfo(
 data class FortuneCard(
     val title: String = "",
     val message: String = "",
-    val image: String? = null,
+    val image: ImageResource? = null,
 )

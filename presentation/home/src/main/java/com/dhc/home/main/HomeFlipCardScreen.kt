@@ -27,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.common.CalendarUtil
+import com.dhc.common.FormatterUtil
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
@@ -56,7 +57,10 @@ fun HomeFlipCardScreen(
         if (isCardFlipped.not()) {
             NotFlippedDescription()
         } else {
-            FlippedDescription()
+            FlippedDescription(
+                score = todayFortune.score,
+                description = todayFortune.fortuneTitle
+            )
         }
 
         FlippableBox(
@@ -69,6 +73,7 @@ fun HomeFlipCardScreen(
                 FortuneCardBack()
             },
             backScreen = {
+                //TODO - 홈 카드 정보 추가되면 수정
                 DhcFortuneCard(
                     title = "최고의 날",
                     description = "네잎클로버",
@@ -118,14 +123,16 @@ private fun NotFlippedDescription() {
 }
 
 @Composable
-private fun FlippedDescription() {
-    val dateFormat = "%d년 %d월 %d일" // Todo : 공통 Formatter 로 이동
+private fun FlippedDescription(
+    score: Int,
+    description: String,
+) {
     DhcScoreText(
         badgeText = CalendarUtil.getCurrentDate().run {
-            dateFormat.format(year, month.value, dayOfMonth)
+            FormatterUtil.dhcStringDateFormat.format(year, month.value, dayOfMonth)
         },
-        score = 35,
-        description = "마음이 들뜨는 날이에요,\n한템포 쉬어가요.",
+        score = score,
+        description = description,
     )
     Spacer(modifier = Modifier.height(64.dp))
 }
