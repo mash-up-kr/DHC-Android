@@ -122,12 +122,10 @@ class HomeViewModel @Inject constructor(
                 val seenFortuneList = fortuneRepository.getSeenFortuneList().firstOrNull() ?: emptySet()
                 val currentLocalDate = LocalDate.now()
                 val currentLocalDateEpochSecond = currentLocalDate.atStartOfDay().toEpochSecond(ZoneOffset.UTC)
-                if (seenFortuneList.contains(currentLocalDateEpochSecond)) {
-                    reduce { copy(homeState = HomeContract.HomeState.Success) }
-                } else {
-                    reduce { copy(homeState = HomeContract.HomeState.FlipCard) }
+                if (seenFortuneList.contains(currentLocalDateEpochSecond).not()) {
                     fortuneRepository.addSeenFortune(currentLocalDateEpochSecond)
                 }
+                reduce { copy(homeState = HomeContract.HomeState.Success) }
             }
 
             is Event.ClickErrorRetryButton -> {
