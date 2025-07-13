@@ -74,10 +74,10 @@ fun HomeScreen(
                         .align(Alignment.CenterHorizontally)
                         .graphicsLayer(rotationZ = 4f)
                         .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) },
-                    title = "최고의 날",
-                    description = "네잎클로버",
-                    cardDrawableResId = DR.drawable.fortune_card_sample,
-                ) //TODO- 서버데이터로 변경
+                    title = state.homeInfo.todayDailyFortune.fortuneTitle,
+                    description = state.homeInfo.todayDailyFortune.fortuneCardSubTitle,
+                    imageUrl = state.homeInfo.todayDailyFortune.fortuneCardImage,
+                )
                 Canvas(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)

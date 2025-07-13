@@ -78,7 +78,7 @@ fun HomeFlipCardScreen(
                 DhcFortuneCard(
                     title = "최고의 날",
                     description = "네잎클로버",
-                    cardDrawableResId = DR.drawable.fortune_card_sample,
+                    imageUrl = todayFortune.fortuneCardImage,
                 )
             },
             initialRotationZ = -4f,
