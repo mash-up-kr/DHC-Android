@@ -18,7 +18,7 @@ class IntroBirthTimeContract {
         val birthTime: String? = if (isIdkChecked) {
             null
         } else {
-            LocalTime.of(time, minute).format(FormatterUtil.dhcTimeFormat)
+            LocalTime.of(time, minute).format(FormatterUtil.dhcTimeMinuteFormat)
         }
     }
 
