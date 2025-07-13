@@ -25,8 +25,7 @@ internal fun SettingToggleItem(
     val colors = LocalDhcColors.current
 
     Row(
-        modifier = modifier
-            .padding(vertical = 16.dp),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {

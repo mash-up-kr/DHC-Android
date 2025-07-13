@@ -25,9 +25,7 @@ internal fun SettingNormalItem(
     val colors = LocalDhcColors.current
 
     Row(
-        modifier = modifier
-            .clickable { item.onClick() }
-            .padding(vertical = 16.dp),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
