@@ -31,7 +31,7 @@ class IntroFortuneDetailViewModel @Inject constructor(
                 fortuneCard = FortuneCard(
                     title = "최고의 날",
                     message = "네잎클로버",
-                    image = "",
+                    image = ImageResource.Drawable(R.drawable.fortune_card_sample),
                 ),
                 monetaryDetail = "오늘은 지갑을 더 단단히 쥐고 계셔야겠어요.\n괜히 시선 가는 거 많고, 충동구매가 살작 걱정되는 날이에요.\n꼭 필요한 소비인지 한 번만 더 생각해보면,\n내일의 나에게 분명 고마워할 거에요.\n\n행운의 색인 연두색이 들어간 소품을 곁에 두면 조금 더 차분한 하루가 될지도 몰라요.",
                 todayTips = listOf(

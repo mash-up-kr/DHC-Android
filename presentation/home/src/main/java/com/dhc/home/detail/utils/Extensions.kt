@@ -17,7 +17,7 @@ internal fun FortuneResponse.toMonetaryLuckInfo() = MonetaryLuckInfo(
         description = this.fortuneTitle,
     ),
     fortuneCard = FortuneCard(
-        image = fortuneCardImage,
+        image = ImageResource.Url(fortuneCardImage),
         message = "" // Todo :: 카드 메세지 필요,
     ),
     monetaryDetail = this.fortuneDetail,
