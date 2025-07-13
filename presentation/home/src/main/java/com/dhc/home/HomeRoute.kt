@@ -15,8 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
-import com.dhc.designsystem.DhcSnackBar
-import com.dhc.designsystem.SnackBarContent
+import com.dhc.designsystem.snackbar.DhcSnackBar
+import com.dhc.designsystem.snackbar.SnackBarContent
+import com.dhc.designsystem.snackbar.showImmediately
 import com.dhc.home.main.FinishMissionChangeBottomSheet
 import com.dhc.home.main.HomeContract
 import com.dhc.home.main.HomeFlipCardScreen
@@ -45,8 +46,9 @@ fun HomeRoute(
                 is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
                 is HomeContract.SideEffect.ShowToast -> {
+                    snackBarHostState.currentSnackbarData?.dismiss()
                     scope.launch {
-                        snackBarHostState.showSnackbar(message = sideEffect.msg )
+                        snackBarHostState.showImmediately(sideEffect.msg)
                     }
                 }
             }

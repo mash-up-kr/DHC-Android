@@ -1,4 +1,4 @@
-package com.dhc.designsystem
+package com.dhc.designsystem.snackbar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
@@ -14,9 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dhc.designsystem.DhcTheme
+import com.dhc.designsystem.DhcTypoTokens
+import com.dhc.designsystem.LocalDhcColors
+import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.check.DhcCheck
 import com.dhc.designsystem.check.model.DhcCheckStyle
 
