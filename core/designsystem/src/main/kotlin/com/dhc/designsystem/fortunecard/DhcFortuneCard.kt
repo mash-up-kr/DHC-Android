@@ -94,8 +94,8 @@ fun DhcFortuneCard(
 fun DhcFortuneCard(
     title: String,
     description: String,
+    @DrawableRes cardDrawableResId: Int?,
     modifier: Modifier = Modifier,
-    @DrawableRes cardDrawableResId: Int? = null, // Todo : default value 빼줄 예정
 ) {
     DhcFortuneCardInternal(
         title = title,
@@ -198,6 +198,7 @@ private fun DhcFortuneCardPreview(
             title = parameter.title,
             description = parameter.description,
             modifier = Modifier.size(143.dp, 197.dp),
+            cardDrawableResId = null,
         )
     }
 }
