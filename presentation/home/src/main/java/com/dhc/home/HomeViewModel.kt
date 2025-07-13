@@ -147,11 +147,17 @@ class HomeViewModel @Inject constructor(
 
     fun getHomeInfo() {
         viewModelScope.launch {
+            reduce { copy(homeState = HomeContract.HomeState.Loading) }
             val userId = userRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.getHomeView(userId = userId)
                 .onSuccess { response ->
                     response ?: return@onSuccess
-                    reduce { copy(homeInfo = HomeUiModel.from(response)) }
+                    reduce {
+                        copy(
+                            homeInfo = HomeUiModel.from(response),
+                            homeState = HomeContract.HomeState.FlipCard,
+                        )
+                    }
                 }.onFailure { _, _ ->
                     reduce { copy(homeState = HomeContract.HomeState.Error) }
                 }
