@@ -41,6 +41,7 @@ import com.dhc.designsystem.R as DR
 import com.dhc.presentation.component.FortuneCardBack
 import com.dhc.presentation.component.WordBalloon
 import com.dhc.presentation.mvi.EventHandler
+import java.time.LocalDate
 
 @Composable
 fun HomeFlipCardScreen(
@@ -102,7 +103,7 @@ private fun NotFlippedDescription() {
     val colors = LocalDhcColors.current
     DhcScoreText(
         badgeText = CalendarUtil.getCurrentDate().run {
-            "%d년 %d월 %d일".format(year, month.value, dayOfMonth) // Todo : 공통 Formmater 로 이동
+            LocalDate.of(year, month.value, dayOfMonth).format(FormatterUtil.dhcDateFormat)
         },
         score = stringResource(R.string.question_score),
         description = stringResource(R.string.home_fortune_card_description),
@@ -129,7 +130,7 @@ private fun FlippedDescription(
 ) {
     DhcScoreText(
         badgeText = CalendarUtil.getCurrentDate().run {
-            FormatterUtil.dhcStringDateFormat.format(year, month.value, dayOfMonth)
+            LocalDate.of(year, month.value, dayOfMonth).format(FormatterUtil.dhcDateFormat)
         },
         score = score,
         description = description,

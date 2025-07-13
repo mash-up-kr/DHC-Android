@@ -1,6 +1,7 @@
 package com.dhc.intro.fortunedetail
 
 import com.dhc.common.CalendarUtil
+import com.dhc.common.FormatterUtil
 import com.dhc.common.ImageResource
 import com.dhc.designsystem.tipcard.TipCardModel
 import com.dhc.intro.R
@@ -13,6 +14,7 @@ import com.dhc.intro.fortunedetail.IntroFortuneDetailContract.SideEffect
 import com.dhc.presentation.ui.monetaryDetail.FortuneCard
 import com.dhc.presentation.ui.monetaryDetail.MonetaryLuckInfo
 import com.dhc.presentation.ui.monetaryDetail.ScoreInfo
+import java.time.LocalDate
 
 @HiltViewModel
 class IntroFortuneDetailViewModel @Inject constructor(
@@ -23,7 +25,7 @@ class IntroFortuneDetailViewModel @Inject constructor(
             monetaryLuckInfo = MonetaryLuckInfo(
                 scoreInfo = ScoreInfo(
                     date = CalendarUtil.getCurrentDate().run {
-                        "%d년 %d월 %d일".format(year, month.value, dayOfMonth) // Todo : 공통 Formmater 로 이동
+                        LocalDate.of(year, month.value, dayOfMonth).format(FormatterUtil.dhcDateFormat)
                     },
                     score = 85,
                     description = "마음이 들뜨는 날이에요,\n한템포 쉬어가요."
