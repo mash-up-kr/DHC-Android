@@ -38,7 +38,7 @@ class IntroFortuneDetailViewModel @Inject constructor(
                     TipCardModel(
                         title = "오늘의 추천 메뉴",
                         icon = ImageResource.Drawable(com.dhc.designsystem.R.drawable.ico_knife),
-                        color = "#D7E1EE",
+                        color = null,
                         cont = "카레"
                     ),
                     TipCardModel(
@@ -50,7 +50,7 @@ class IntroFortuneDetailViewModel @Inject constructor(
                     TipCardModel(
                         title = "피해야 할 음식",
                         icon = ImageResource.Drawable(com.dhc.designsystem.R.drawable.ico_green_face),
-                        color = "#D7E1EE",
+                        color = null,
                         cont = "치킨, 닭"
                     ),
                     TipCardModel(
