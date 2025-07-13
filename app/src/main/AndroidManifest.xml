@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
-    <!-- Todo :: usesCleartextTraffic 삭제 해야함 -->
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -15,7 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DHCAndroid"
-        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
