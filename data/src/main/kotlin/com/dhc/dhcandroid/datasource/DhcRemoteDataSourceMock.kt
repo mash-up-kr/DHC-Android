@@ -13,17 +13,32 @@ import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 import javax.inject.Inject
 
 class DhcRemoteDataSourceMock @Inject constructor(
-): DhcRemoteDataSource {
-    override suspend fun searchUserByToken(userToken: String): Response<SearchUserByTokenResponse> {
-        TODO("Not yet implemented")
-    }
+) : DhcRemoteDataSource {
+    private var userProfile: UserProfile? = null
+    private val userId: String? get() = userProfile?.let { profile -> "userId${profile.userToken}" }
+
+    override suspend fun searchUserByToken(userToken: String): Response<SearchUserByTokenResponse> =
+        userId?.let { userId ->
+            Response.success(SearchUserByTokenResponse(userId))
+        } ?: Response.error(
+            404,
+            """{"message":"사용자 찾을 수 없음"}""".toResponseBody("application/json".toMediaTypeOrNull())
+        )
 
     override suspend fun registerUser(userProfile: UserProfile): Response<RegisterUserResponse> {
-        TODO("Not yet implemented")
+        this.userProfile = userProfile
+        return userId?.let { id ->
+            Response.success(RegisterUserResponse(id))
+        } ?: Response.error(
+            404,
+            """{"message":"등록 실패"}""".toResponseBody("application/json".toMediaTypeOrNull())
+        )
     }
 
     override suspend fun changeMissionStatus(
