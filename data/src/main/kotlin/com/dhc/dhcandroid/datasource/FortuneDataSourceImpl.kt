@@ -21,4 +21,12 @@ class FortuneDataSourceImpl @Inject constructor(
 
     override suspend fun getSeenFortuneList(): Flow<Set<Long>> =
         userPreferences.map { it.fortuneDateSeenListList.toHashSet() }
+
+    override suspend fun clearSeenFortuneList() {
+        userProtoDataStore.updateData { pref ->
+            pref.toBuilder()
+                .clearFortuneDateSeenList()
+                .build()
+        }
+    }
 }

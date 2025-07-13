@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 interface FortuneDataSource {
     suspend fun addSeenFortune(date: Long)
     suspend fun getSeenFortuneList(): Flow<Set<Long>>
+    suspend fun clearSeenFortuneList()
 }

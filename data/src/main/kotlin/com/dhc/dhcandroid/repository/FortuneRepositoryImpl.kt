@@ -13,4 +13,8 @@ class FortuneRepositoryImpl @Inject constructor(
 
     override suspend fun getSeenFortuneList(): Flow<Set<Long>> =
         fortuneDataSource.getSeenFortuneList()
+
+    override suspend fun clearSeenFortuneList() {
+        fortuneDataSource.clearSeenFortuneList()
+    }
 }
