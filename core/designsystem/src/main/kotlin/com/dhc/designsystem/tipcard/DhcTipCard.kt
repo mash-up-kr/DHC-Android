@@ -160,7 +160,7 @@ fun TipCardContent(
         Text(
             text = content,
             style = DhcTypoTokens.TitleH3,
-            color = if(color.isNotNullOrEmpty()) hexToColor(color) else dhcColor.text.textBodyPrimary,
+            color = if (color.isNotNullOrEmpty()) hexToColor(color) else dhcColor.text.textBodyPrimary,
             textAlign = TextAlign.Center,
         )
     }
