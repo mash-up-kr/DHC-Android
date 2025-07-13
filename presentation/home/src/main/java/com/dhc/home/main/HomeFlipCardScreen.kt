@@ -36,6 +36,7 @@ import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.designsystem.score.DhcScoreText
 import com.dhc.home.R
+import com.dhc.home.model.TodayDailyFortuneUiModel
 import com.dhc.designsystem.R as DR
 import com.dhc.presentation.component.FortuneCardBack
 import com.dhc.presentation.component.WordBalloon
@@ -44,6 +45,7 @@ import java.time.LocalDate
 
 @Composable
 fun HomeFlipCardScreen(
+    todayFortune: TodayDailyFortuneUiModel,
     eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
 ) {
@@ -56,7 +58,10 @@ fun HomeFlipCardScreen(
         if (isCardFlipped.not()) {
             NotFlippedDescription()
         } else {
-            FlippedDescription()
+            FlippedDescription(
+                score = todayFortune.score,
+                description = todayFortune.fortuneTitle
+            )
         }
 
         FlippableBox(
@@ -69,6 +74,7 @@ fun HomeFlipCardScreen(
                 FortuneCardBack()
             },
             backScreen = {
+                //TODO - 홈 카드 정보 추가되면 수정
                 DhcFortuneCard(
                     title = "최고의 날",
                     description = "네잎클로버",
@@ -118,13 +124,16 @@ private fun NotFlippedDescription() {
 }
 
 @Composable
-private fun FlippedDescription() {
+private fun FlippedDescription(
+    score: Int,
+    description: String,
+) {
     DhcScoreText(
         badgeText = CalendarUtil.getCurrentDate().run {
             LocalDate.of(year, month.value, dayOfMonth).format(FormatterUtil.dhcDateFormat)
         },
-        score = 35,
-        description = "마음이 들뜨는 날이에요,\n한템포 쉬어가요.",
+        score = score,
+        description = description,
     )
     Spacer(modifier = Modifier.height(64.dp))
 }
@@ -134,6 +143,7 @@ private fun FlippedDescription() {
 private fun HomeFlipCardScreenPreview() {
     DhcTheme {
         HomeFlipCardScreen(
+            todayFortune = TodayDailyFortuneUiModel(),
             eventHandler = {},
         )
     }

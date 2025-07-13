@@ -15,8 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
-import com.dhc.designsystem.DhcSnackBar
-import com.dhc.designsystem.SnackBarContent
+import com.dhc.designsystem.snackbar.DhcSnackBar
+import com.dhc.designsystem.snackbar.SnackBarContent
+import com.dhc.designsystem.snackbar.showImmediately
 import com.dhc.home.main.FinishMissionChangeBottomSheet
 import com.dhc.home.main.HomeContract
 import com.dhc.home.main.HomeFlipCardScreen
@@ -45,8 +46,9 @@ fun HomeRoute(
                 is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
                 is HomeContract.SideEffect.ShowToast -> {
+                    snackBarHostState.currentSnackbarData?.dismiss()
                     scope.launch {
-                        snackBarHostState.showSnackbar(message = sideEffect.msg )
+                        snackBarHostState.showImmediately(sideEffect.msg)
                     }
                 }
             }
@@ -62,15 +64,19 @@ fun HomeRoute(
                         modifier = Modifier.fillMaxSize()
                     )
                 }
+
                 HomeContract.HomeState.FlipCard -> {
                     HomeFlipCardScreen(
+                        todayFortune = state.homeInfo.todayDailyFortune,
                         modifier = Modifier.fillMaxSize(),
                         eventHandler = viewModel::sendEvent,
                     )
                 }
+
                 HomeContract.HomeState.Loading -> {
                     HomeLoadingScreen(modifier = Modifier.fillMaxSize())
                 }
+
                 HomeContract.HomeState.Success -> {
                     HomeScreen(
                         state = state,
@@ -78,43 +84,44 @@ fun HomeRoute(
                     )
                 }
             }
-        }
-        if(state.isShowMissionCompleteBottomSheet) {
-            MissionCompleteCheckBottomSheet(
-                missionCount = state.remainingMissionCount,
-                eventHandler = viewModel::sendEvent
-            )
-        }
 
-        if(state.isShowMissionSuccessDialog) {
-            MissionSuccessDialog(
-                savedMoney = state.todaySavedMoney,
-                eventHandler = viewModel::sendEvent
-            )
-        }
-
-        if(state.isShowMissionChangeBottomSheet) {
-            MissionChangeBottomSheet(
-                missionTitle = state.selectedMissionInfo.missionTitle,
-                missionChangeCount = state.selectedMissionInfo.switchCount,
-                eventHandler = viewModel::sendEvent
-            )
-        }
-
-        if(state.isShowFinishMissionChangeBottomSheet) {
-            FinishMissionChangeBottomSheet(
-                eventHandler = viewModel::sendEvent
-            )
-        }
-
-        DhcSnackBar(
-            modifier = Modifier.align(Alignment.BottomCenter),
-            snackBarHostState = snackBarHostState,
-            snackBarContent = {
-                SnackBarContent(
-                    snackBarMessage = snackBarHostState.currentSnackbarData?.visuals?.message.orEmpty()
+            if (state.isShowMissionCompleteBottomSheet) {
+                MissionCompleteCheckBottomSheet(
+                    missionCount = state.remainingMissionCount,
+                    eventHandler = viewModel::sendEvent
                 )
             }
-        )
+
+            if (state.isShowMissionSuccessDialog) {
+                MissionSuccessDialog(
+                    savedMoney = state.todaySavedMoney,
+                    eventHandler = viewModel::sendEvent
+                )
+            }
+
+            if (state.isShowMissionChangeBottomSheet) {
+                MissionChangeBottomSheet(
+                    missionTitle = state.selectedMissionInfo.missionTitle,
+                    missionChangeCount = state.selectedMissionInfo.switchCount,
+                    eventHandler = viewModel::sendEvent
+                )
+            }
+
+            if (state.isShowFinishMissionChangeBottomSheet) {
+                FinishMissionChangeBottomSheet(
+                    eventHandler = viewModel::sendEvent
+                )
+            }
+
+            DhcSnackBar(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                snackBarHostState = snackBarHostState,
+                snackBarContent = {
+                    SnackBarContent(
+                        snackBarMessage = snackBarHostState.currentSnackbarData?.visuals?.message.orEmpty()
+                    )
+                }
+            )
+        }
     }
 }
