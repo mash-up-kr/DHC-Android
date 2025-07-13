@@ -1,9 +1,11 @@
 package com.dhc.intro.birthtime
 
+import com.dhc.common.FormatterUtil
 import com.dhc.designsystem.spinner.model.TimeType
 import com.dhc.presentation.mvi.UiEvent
 import com.dhc.presentation.mvi.UiSideEffect
 import com.dhc.presentation.mvi.UiState
+import java.time.LocalTime
 
 class IntroBirthTimeContract {
 
@@ -13,8 +15,11 @@ class IntroBirthTimeContract {
         val time: Int = 1,
         val minute: Int = 0,
     ) : UiState {
-        private val timeFormat = "%02d:%02d" // Todo : 공통 Formatter 로 이동
-        val birthTime: String? = if (isIdkChecked) null else timeFormat.format(time, minute)
+        val birthTime: String? = if (isIdkChecked) {
+            null
+        } else {
+            LocalTime.of(time, minute).format(FormatterUtil.dhcTimeFormat)
+        }
     }
 
     sealed interface Event : UiEvent {
