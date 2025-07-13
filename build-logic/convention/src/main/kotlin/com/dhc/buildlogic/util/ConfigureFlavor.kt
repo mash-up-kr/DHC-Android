@@ -22,6 +22,6 @@ internal fun Project.configureFlavor(
 }
 
 private enum class Flavor(val flavor: String, val dimen: String) {
-    DEV("dev", "server"),
-    PROD("real", "server")
+    PROD("real", "server"),
+    DEV("dev", "server")
 }
