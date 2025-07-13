@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 data class HomeViewResponse(
     val longTermMission: Mission = Mission(),
     val todayDailyMissionList: List<Mission> = emptyList(),
-    val todayDailyFortune: DailyFortune = DailyFortune(),
+    val todayDailyFortune: DailyFortuneResponse = DailyFortuneResponse(),
     val todayDone: Boolean = false
 )

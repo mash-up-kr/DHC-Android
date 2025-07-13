@@ -74,8 +74,8 @@ fun HomeScreen(
                         .align(Alignment.CenterHorizontally)
                         .graphicsLayer(rotationZ = 4f)
                         .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) },
-                    title = "최고의 날",
-                    description = "네잎클로버",
+                    title = state.homeInfo.todayDailyFortune.fortuneTitle,
+                    description = state.homeInfo.todayDailyFortune.fortuneCardSubTitle,
                     imageUrl = state.homeInfo.todayDailyFortune.fortuneCardImage,
                 )
                 Canvas(
