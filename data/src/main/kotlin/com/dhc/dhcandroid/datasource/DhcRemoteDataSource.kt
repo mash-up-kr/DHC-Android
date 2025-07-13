@@ -6,7 +6,6 @@ import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
-import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MyPageResponse
@@ -36,9 +35,9 @@ interface DhcRemoteDataSource {
         endTodayMissionRequest: EndTodayMissionRequest,
     ): Response<EndTodayMissionResponse>
 
-    suspend fun requestLogOutUser(
+    suspend fun deleteUser(
         userId: String,
-    ): Response<LogoutResponse>
+    ): Response<Unit>
 
     suspend fun getHomeView(
         userId: String,
