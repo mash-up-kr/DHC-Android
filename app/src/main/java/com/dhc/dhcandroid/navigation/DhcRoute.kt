@@ -127,6 +127,7 @@ enum class DhcRoute(
         route = "main/mission",
         screenConfig = ScreenConfig(
             bottomBarState = DhcBottomBarState.BottomNavigation,
+            containerBackground = ContainerBackground.BackgroundWithTopRightGradientColor(),
         ),
     ),
     MAIN_MY(
