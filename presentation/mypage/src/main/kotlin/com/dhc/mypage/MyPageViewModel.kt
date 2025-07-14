@@ -46,6 +46,7 @@ class MyPageViewModel @Inject constructor(
                         dhcRepository.deleteUser(it)
                             .onSuccess {
                                 authRepository.clearUserId()
+                                dhcRepository.resetCachedCalendarView()
                                 postSideEffect(SideEffect.NavigateToIntro)
                             }
                             .onFailure { _, _ -> postSideEffect(SideEffect.ShowToast("회원 탈퇴에 실패했습니다")) }

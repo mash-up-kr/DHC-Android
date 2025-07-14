@@ -101,6 +101,10 @@ class DhcRepositoryImpl @Inject constructor(
         return result
     }
 
+    override fun resetCachedCalendarView() {
+        cachedCalendarView.clear()
+    }
+
     override suspend fun getDailyFortune(
         userId: String,
         date: LocalDate,
