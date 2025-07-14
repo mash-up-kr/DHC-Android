@@ -288,7 +288,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun finishTodayMission() {
+    private fun finishTodayMission() {
         viewModelScope.launch {
             val userId = userRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.requestFinishTodayMissions(
@@ -300,6 +300,7 @@ class HomeViewModel @Inject constructor(
                 response ?: return@onSuccess
                 reduce { copy(todaySavedMoney = response.todaySavedMoney, homeInfo = state.value.homeInfo.copy(todayDone = true)) }
                 updateMissionSuccessDialogState(isShowDialog = true)
+                dhcRepository.resetCachedCalendarView()
             }.onFailure { code, message ->
                 Log.d("finishTodayMission", "onFailure:${code} message:${message} ");
             }
