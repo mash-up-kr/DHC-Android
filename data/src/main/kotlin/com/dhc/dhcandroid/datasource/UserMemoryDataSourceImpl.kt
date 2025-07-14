@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class UserMemoryDataSourceImpl @Inject constructor(
 ) : UserMemoryDataSource {
-    private val _userProfileState: MutableStateFlow<UserProfile> = MutableStateFlow(UserProfile.Empty)
+    private val _userProfileState: MutableStateFlow<UserProfile> = MutableStateFlow(UserProfile())
     override val userProfileState: StateFlow<UserProfile> = _userProfileState.asStateFlow()
 
     override fun updateGender(gender: Gender) {

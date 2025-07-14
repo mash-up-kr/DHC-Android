@@ -4,24 +4,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserProfile(
-    val id: String,
-    val userToken: String,
-    val gender: Gender,
-    val birthDate: BirthDate?,
-    val birthTime: String?,
-    val preferredMissionCategoryList: List<MissionCategory>,
-) {
-    companion object {
-        val Empty = UserProfile(
-            id = "",
-            userToken = "",
-            gender = Gender.UNKNOWN,
-            birthDate = null,
-            birthTime = null,
-            preferredMissionCategoryList = emptyList(),
-        )
-    }
-}
+    val id: String = "",
+    val userToken: String = "",
+    val gender: Gender = Gender.UNKNOWN,
+    val birthDate: BirthDate? = null,
+    val birthTime: String? = null,
+    val preferredMissionCategoryList: List<MissionCategory> = emptyList(),
+)
 
 @Serializable
 enum class Gender {
