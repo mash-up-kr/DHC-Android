@@ -154,13 +154,13 @@ fun DhcFortuneCardInternal(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = title,
+                text = description,
                 style = DhcTypoTokens.TitleH8.copy(brush = GradientColor.textGradient02),
                 textAlign = TextAlign.Center,
             )
             Text(
                 modifier = Modifier.padding(bottom = 8.dp),
-                text = description,
+                text = title,
                 style = DhcTypoTokens.TitleH6,
                 textAlign = TextAlign.Center,
                 color = colors.text.textBodyPrimary,
@@ -172,8 +172,8 @@ fun DhcFortuneCardInternal(
 private class DhcFortuneCardPreviewProvider : PreviewParameterProvider<DhcFortuneCardPreviewProvider.Parameter> {
     override val values = sequenceOf(
         Parameter(
-            title = "최고의 날",
-            description = "네잎클로버",
+            title = "네잎클로버",
+            description = "최고의 날",
         ),
         Parameter(
             title = "카드 뒷면",
