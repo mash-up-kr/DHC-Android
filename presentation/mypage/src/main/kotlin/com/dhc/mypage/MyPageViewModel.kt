@@ -1,7 +1,6 @@
 package com.dhc.mypage
 
 import androidx.lifecycle.viewModelScope
-import com.dhc.common.getSuccessOrNull
 import com.dhc.common.onException
 import com.dhc.common.onFailure
 import com.dhc.common.onSuccess
@@ -48,6 +47,7 @@ class MyPageViewModel @Inject constructor(
                         dhcRepository.deleteUser(it)
                             .onSuccess {
                                 authRepository.clearUserId()
+                                dhcRepository.clearCachedCalendarView()
                                 fortuneRepository.clearSeenFortuneList()
                                 postSideEffect(SideEffect.NavigateToIntro)
                             }

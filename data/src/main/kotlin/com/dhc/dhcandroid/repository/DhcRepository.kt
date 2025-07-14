@@ -60,6 +60,8 @@ interface DhcRepository {
         yearMonth: LocalDate,
     ): DhcResult<CalendarViewResponse>
 
+    fun clearCachedCalendarView()
+
     suspend fun getDailyFortune(
         userId: String,
         date: LocalDate,
