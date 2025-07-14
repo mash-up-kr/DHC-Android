@@ -19,13 +19,13 @@ internal fun FortuneResponse.toMonetaryLuckInfo() = MonetaryLuckInfo(
     fortuneCard = FortuneCard(
         title = cardInfo.title,
         message = cardInfo.subTitle,
-        image = ImageResource.Url(cardInfo.imageURL),
+        image = ImageResource.Url(cardInfo.image),
     ),
     monetaryDetail = this.fortuneDetail,
     todayTips = tips.map { tip ->
         TipCardModel(
             title = tip.title,
-            icon = ImageResource.Url(tip.imageURL),
+            icon = ImageResource.Url(tip.image),
             cont = tip.description,
             color = tip.hexColor,
         )

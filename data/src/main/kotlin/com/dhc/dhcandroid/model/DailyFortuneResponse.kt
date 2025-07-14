@@ -9,7 +9,5 @@ data class DailyFortuneResponse(
     val totalScore: Int = 0,
     val positiveScore: Int = 0,
     val negativeScore: Int = 0,
-    val fortuneCardImage: String = "",
-    val fortuneCardTitle: String = "",
-    val fortuneCardSubTitle: String = ""
+    val cardInfo: FortuneCardInfo = FortuneCardInfo(),
 )
