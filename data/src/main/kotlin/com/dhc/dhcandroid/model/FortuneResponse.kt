@@ -20,14 +20,14 @@ enum class FortuneColor {
 
 @Serializable
 data class FortuneCardInfo(
-    val imageURL: String = "",
+    val image: String = "",
     val title: String = "",
     val subTitle: String = "",
 )
 
 @Serializable
 data class FortuneTips(
-    val imageURL: String = "",
+    val image: String = "",
     val title: String = "",
     val description: String = "",
     val hexColor: String? = null
