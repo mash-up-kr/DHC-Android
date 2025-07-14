@@ -7,6 +7,7 @@ import com.dhc.common.onFailure
 import com.dhc.common.onSuccess
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
+import com.dhc.dhcandroid.repository.FortuneRepository
 import com.dhc.mypage.MyPageContract.Event
 import com.dhc.mypage.MyPageContract.SideEffect
 import com.dhc.mypage.MyPageContract.State
@@ -23,6 +24,7 @@ import javax.inject.Inject
 class MyPageViewModel @Inject constructor(
     private val authRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
+    private val fortuneRepository: FortuneRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
 
     init {
@@ -46,6 +48,7 @@ class MyPageViewModel @Inject constructor(
                         dhcRepository.deleteUser(it)
                             .onSuccess {
                                 authRepository.clearUserId()
+                                fortuneRepository.clearSeenFortuneList()
                                 postSideEffect(SideEffect.NavigateToIntro)
                             }
                             .onFailure { _, _ -> postSideEffect(SideEffect.ShowToast("회원 탈퇴에 실패했습니다")) }
