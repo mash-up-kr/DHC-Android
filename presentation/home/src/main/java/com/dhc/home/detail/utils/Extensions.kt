@@ -17,33 +17,17 @@ internal fun FortuneResponse.toMonetaryLuckInfo() = MonetaryLuckInfo(
         description = this.fortuneTitle,
     ),
     fortuneCard = FortuneCard(
-        message = "" // Todo :: 카드 메세지 필요
+        title = cardInfo.title,
+        message = cardInfo.subTitle,
+        image = ImageResource.Url(cardInfo.image),
     ),
     monetaryDetail = this.fortuneDetail,
-    todayTips = listOf(
+    todayTips = tips.map { tip ->
         TipCardModel(
-            title = "오늘의 추천 메뉴",
-            icon = ImageResource.Url(todayMenuImage),
-            cont = todayMenu,
-            color = null,
-        ),
-        TipCardModel(
-            title = "행운의 색상",
-            icon = ImageResource.Url(luckyColorImage),
-            cont = luckyColor,
-            color = luckyColorHex,
-        ),
-        TipCardModel(
-            title = "피해야 할 음식",
-            icon = ImageResource.Url(jinxedMenuImage),
-            cont = jinxedMenu,
-            color = null,
-        ),
-        TipCardModel(
-            title = "피해야 할 색상",
-            icon = ImageResource.Url(jinxedColorImage),
-            cont = jinxedColor,
-            color = jinxedColorHex,
-        ),
-    )
+            title = tip.title,
+            icon = ImageResource.Url(tip.image),
+            cont = tip.description,
+            color = tip.hexColor,
+        )
+    }
 )

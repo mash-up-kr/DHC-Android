@@ -1,6 +1,7 @@
 package com.dhc.mypage.ui.settinglist
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,17 +24,26 @@ internal fun SettingList(
     val colors = LocalDhcColors.current
 
     Column(
-        modifier = modifier
-            .background(color = SurfaceColor.neutral700, shape = RoundedCornerShape(12.dp))
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+        modifier = modifier.background(color = SurfaceColor.neutral700, shape = RoundedCornerShape(12.dp)),
     ) {
         settingItems.forEachIndexed { index, settingItem ->
             when (settingItem) {
                 is SettingItem.Normal -> {
-                    SettingNormalItem(item = settingItem)
+                    SettingNormalItem(
+                        item = settingItem,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { settingItem.onClick() }
+                            .padding(all = 16.dp),
+                    )
                 }
                 is SettingItem.Toggle -> {
-                    SettingToggleItem(item = settingItem)
+                    SettingToggleItem(
+                        item = settingItem,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(all = 16.dp),
+                    )
                 }
             }
             if (index < settingItems.lastIndex) {

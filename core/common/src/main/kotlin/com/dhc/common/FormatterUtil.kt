@@ -12,8 +12,10 @@ object FormatterUtil {
     val dhcTimeFormat = DateTimeFormatter.ofPattern("a h시 m분", Locale.KOREAN)
     val dhcYearMonthFormat = DateTimeFormatter.ofPattern("yyyy-MM")
     val dhcYearMonthDayFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val dhcTimeMinuteFormat = DateTimeFormatter.ofPattern("hh:mm", Locale.KOREAN)
     val wonFormat = NumberFormat.getNumberInstance(Locale.KOREA)
     val todayStringFormat = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+    val dhcStringDateFormat = "%d년 %d월 %d일"
 
     fun String.toDDay(date: LocalDate = LocalDate.now()): String {
         return try {

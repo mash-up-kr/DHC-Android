@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.dhc.common.ImageResource
 import com.dhc.common.hexToColor
+import com.dhc.common.isNotNullOrEmpty
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
@@ -146,7 +147,7 @@ fun TipCardContent(
         modifier = modifier.wrapContentSize(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        color?.let {
+        if (color.isNotNullOrEmpty()) {
             Canvas(modifier = Modifier.size(8.dp)) {
                 drawCircle(
                     color = hexToColor(color),
@@ -155,10 +156,11 @@ fun TipCardContent(
             }
             Spacer(modifier = Modifier.width(8.dp))
         }
+
         Text(
             text = content,
             style = DhcTypoTokens.TitleH3,
-            color = if(color != null) hexToColor(color) else dhcColor.text.textBodyPrimary,
+            color = if (color.isNotNullOrEmpty()) hexToColor(color) else dhcColor.text.textBodyPrimary,
             textAlign = TextAlign.Center,
         )
     }

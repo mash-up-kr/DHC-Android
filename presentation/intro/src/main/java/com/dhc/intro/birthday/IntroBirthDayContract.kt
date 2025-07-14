@@ -1,9 +1,11 @@
 package com.dhc.intro.birthday
 
+import com.dhc.common.FormatterUtil
 import com.dhc.intro.model.CalendarType
 import com.dhc.presentation.mvi.UiEvent
 import com.dhc.presentation.mvi.UiSideEffect
 import com.dhc.presentation.mvi.UiState
+import java.time.LocalDate
 
 class IntroBirthDayContract {
 
@@ -13,7 +15,8 @@ class IntroBirthDayContract {
         val month: Int = 1,
         val day: Int = 1,
     ) : UiState {
-        private val dateFormat = "%04d-%02d-%02d" // Todo : 공통 Formatter 로 이동
+        private val dateFormat =
+            LocalDate.of(year, month, day).format(FormatterUtil.dhcYearMonthDayFormat)
         val date: String = dateFormat.format(year, month, day)
     }
 

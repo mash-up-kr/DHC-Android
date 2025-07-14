@@ -28,6 +28,7 @@ protobuf-javalite = "3.25.5"
 
 #firebase
 firebase-gms = "4.4.2"
+firebase-crashlytics = "3.0.4"
 firebase-bom = "33.14.0"
 firebase = "24.1.1"
 
@@ -45,8 +46,8 @@ lottie = "6.6.6"
 
 # 프로젝트 설정
 targetSdk = "35"
-versionCode = "4"
-versionName = "1.0.1"
+versionCode = "5"
+versionName = "1.0.2"
 compileSdk = "35"
 minSdk = "26"
 
@@ -101,6 +102,8 @@ protobuf-javalite = { group = "com.google.protobuf", name = "protobuf-javalite",
 #firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx", version.ref = "firebase" }
+firebase-crashlytics-ndk = { module = "com.google.firebase:firebase-crashlytics-ndk" }
+firebase-crashlytics-analytics = { module = "com.google.firebase:firebase-analytics" }
 
 #coil
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
@@ -166,6 +169,13 @@ exoplayer = [
     "exoplayer-ui",
 ]
 
+firebase = [
+    "firebase-bom",
+    "firebase-messaging-ktx",
+    "firebase-crashlytics-ndk",
+    "firebase-crashlytics-analytics",
+]
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -178,3 +188,4 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
 google-gms = { id = "com.google.gms.google-services", version.ref = "firebase-gms" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }

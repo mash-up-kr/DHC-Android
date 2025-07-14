@@ -7,4 +7,5 @@ message UserPreferences {
   string userToken = 1;
   string fcmToken = 2;
   string userId = 3;
+  repeated sint64 fortuneDateSeenList = 4;
 }

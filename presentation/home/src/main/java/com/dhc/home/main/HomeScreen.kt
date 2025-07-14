@@ -2,18 +2,14 @@ package com.dhc.home.main
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
@@ -21,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,7 +27,6 @@ import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.floatingButton.DhcFloatingButton
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.home.R
-import com.dhc.designsystem.R as DR
 import com.dhc.home.model.SelectChangeMission
 import com.dhc.presentation.mvi.EventHandler
 
@@ -46,15 +40,6 @@ fun HomeScreen(
     Box(
         modifier = modifier.fillMaxSize()
     ) {
-        val density = LocalDensity.current
-        val topBarSize = WindowInsets.statusBars.getTop(density)
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(412.dp)
-                .offset(y = -(topBarSize.div(density.density).dp))
-                .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
-        )
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -80,11 +65,12 @@ fun HomeScreen(
                     modifier = Modifier
                         .padding(top = 20.dp, bottom = 12.dp)
                         .align(Alignment.CenterHorizontally)
-                        .graphicsLayer(rotationZ = 4f),
-                    title = "최고의 날",
-                    description = "네잎클로버",
-                    cardDrawableResId = DR.drawable.fortune_card_sample,
-                ) //TODO- 서버데이터로 변경
+                        .graphicsLayer(rotationZ = 4f)
+                        .clickable { eventHandler(HomeContract.Event.ClickFortuneCard) },
+                    title = state.homeInfo.todayDailyFortune.fortuneCardTitle,
+                    description = state.homeInfo.todayDailyFortune.fortuneCardSubTitle,
+                    imageUrl = state.homeInfo.todayDailyFortune.fortuneCardImage,
+                )
                 Canvas(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
@@ -109,7 +95,8 @@ fun HomeScreen(
                         missionTitle = mission.title
                     )
                 )) },
-                onCheckChange = { isChecked, id -> eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
+                onCheckChange = { isChecked, id ->
+                    if(!state.homeInfo.todayDone) eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
                 onExpandedChange = { isExpanded,id -> eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
                 onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId))},
             )
@@ -124,7 +111,8 @@ fun HomeScreen(
                         missionTitle = mission.title
                     )
                 )) },
-                onCheckChange = { isChecked, id -> eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
+                onCheckChange = { isChecked, id ->
+                    if(!state.homeInfo.todayDone) eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
                 onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
                 onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId)) },
             )

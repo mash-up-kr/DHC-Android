@@ -38,7 +38,7 @@ internal fun SajuCard(
                 brush = borderGradient01,
                 shape = RoundedCornerShape(12.dp),
             )
-            .padding(vertical = 14.dp),
+            .padding(vertical = 14.dp, horizontal = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         AsyncImage(

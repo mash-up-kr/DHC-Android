@@ -7,7 +7,6 @@ import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
-import com.dhc.dhcandroid.model.LogoutResponse
 import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
@@ -37,9 +36,9 @@ interface DhcRepository {
         endTodayMissionRequest: EndTodayMissionRequest,
     ): DhcResult<EndTodayMissionResponse>
 
-    suspend fun requestLogOutUser(
+    suspend fun deleteUser(
         userId: String,
-    ): DhcResult<LogoutResponse>
+    ): DhcResult<Unit>
 
     suspend fun getHomeView(
         userId: String,
@@ -60,6 +59,8 @@ interface DhcRepository {
         userId: String,
         yearMonth: LocalDate,
     ): DhcResult<CalendarViewResponse>
+
+    fun clearCachedCalendarView()
 
     suspend fun getDailyFortune(
         userId: String,

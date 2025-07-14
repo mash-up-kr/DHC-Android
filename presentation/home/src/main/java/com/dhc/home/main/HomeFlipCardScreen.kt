@@ -27,6 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.common.CalendarUtil
+import com.dhc.common.FormatterUtil
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
@@ -35,26 +36,20 @@ import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.designsystem.score.DhcScoreText
 import com.dhc.home.R
+import com.dhc.home.model.TodayDailyFortuneUiModel
 import com.dhc.designsystem.R as DR
 import com.dhc.presentation.component.FortuneCardBack
 import com.dhc.presentation.component.WordBalloon
 import com.dhc.presentation.mvi.EventHandler
+import java.time.LocalDate
 
 @Composable
 fun HomeFlipCardScreen(
+    todayFortune: TodayDailyFortuneUiModel,
     eventHandler: EventHandler<HomeContract.Event>,
     modifier: Modifier = Modifier,
 ) {
     var isCardFlipped by remember { mutableStateOf(false) }
-    val density = LocalDensity.current
-    val topBarSize = WindowInsets.statusBars.getTop(density)
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(412.dp)
-            .offset(y = -(topBarSize.div(density.density).dp))
-            .background(brush = GradientColor.backgroundGradient02Alpha(0.6f))
-    )
     Column(
         modifier = modifier.padding(horizontal = 28.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -63,7 +58,10 @@ fun HomeFlipCardScreen(
         if (isCardFlipped.not()) {
             NotFlippedDescription()
         } else {
-            FlippedDescription()
+            FlippedDescription(
+                score = todayFortune.score,
+                description = todayFortune.fortuneTitle
+            )
         }
 
         FlippableBox(
@@ -76,10 +74,11 @@ fun HomeFlipCardScreen(
                 FortuneCardBack()
             },
             backScreen = {
+                //TODO - 홈 카드 정보 추가되면 수정
                 DhcFortuneCard(
                     title = "최고의 날",
                     description = "네잎클로버",
-                    cardDrawableResId = DR.drawable.fortune_card_sample,
+                    imageUrl = todayFortune.fortuneCardImage,
                 )
             },
             initialRotationZ = -4f,
@@ -104,7 +103,7 @@ private fun NotFlippedDescription() {
     val colors = LocalDhcColors.current
     DhcScoreText(
         badgeText = CalendarUtil.getCurrentDate().run {
-            "%d년 %d월 %d일".format(year, month.value, dayOfMonth) // Todo : 공통 Formmater 로 이동
+            LocalDate.of(year, month.value, dayOfMonth).format(FormatterUtil.dhcDateFormat)
         },
         score = stringResource(R.string.question_score),
         description = stringResource(R.string.home_fortune_card_description),
@@ -125,14 +124,16 @@ private fun NotFlippedDescription() {
 }
 
 @Composable
-private fun FlippedDescription() {
-    val dateFormat = "%d년 %d월 %d일" // Todo : 공통 Formatter 로 이동
+private fun FlippedDescription(
+    score: Int,
+    description: String,
+) {
     DhcScoreText(
         badgeText = CalendarUtil.getCurrentDate().run {
-            dateFormat.format(year, month.value, dayOfMonth)
+            LocalDate.of(year, month.value, dayOfMonth).format(FormatterUtil.dhcDateFormat)
         },
-        score = 35,
-        description = "마음이 들뜨는 날이에요,\n한템포 쉬어가요.",
+        score = score,
+        description = description,
     )
     Spacer(modifier = Modifier.height(64.dp))
 }
@@ -142,6 +143,7 @@ private fun FlippedDescription() {
 private fun HomeFlipCardScreenPreview() {
     DhcTheme {
         HomeFlipCardScreen(
+            todayFortune = TodayDailyFortuneUiModel(),
             eventHandler = {},
         )
     }

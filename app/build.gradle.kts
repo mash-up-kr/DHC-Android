@@ -6,6 +6,7 @@ plugins {
     id("dhc.hilt")
     alias(libs.plugins.detekt)
     alias(libs.plugins.google.gms)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 android {
@@ -30,7 +31,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.messaging.ktx)
+    implementation(libs.bundles.firebase)
 }
 
 detekt {

@@ -55,6 +55,7 @@ fun DhcCalendarDate(
         columns = GridCells.Fixed(DayOfWeek.entries.size),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
+        userScrollEnabled = false,
     ) {
         items(days.size) { index ->
             DhcCalendarDay(
