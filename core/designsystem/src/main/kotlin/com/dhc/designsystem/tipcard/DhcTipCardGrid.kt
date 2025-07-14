@@ -22,9 +22,7 @@ fun DhcTipCardGrid(
     cellCount: Int = 2,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(8.dp),
+        modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         repeat(cellCount) { rowIndex ->

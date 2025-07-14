@@ -15,9 +15,9 @@ data class TodayDailyFortuneUiModel(
             date = fortune.date,
             fortuneTitle = fortune.fortuneTitle,
             score = fortune.totalScore,
-            fortuneCardImage = fortune.fortuneCardImage,
-            fortuneCardTitle = fortune.fortuneCardTitle,
-            fortuneCardSubTitle = fortune.fortuneCardSubTitle
+            fortuneCardImage = fortune.cardInfo.image,
+            fortuneCardTitle = fortune.cardInfo.title,
+            fortuneCardSubTitle = fortune.cardInfo.subTitle,
         )
     }
 }
