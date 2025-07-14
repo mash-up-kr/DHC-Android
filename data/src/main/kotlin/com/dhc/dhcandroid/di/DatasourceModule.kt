@@ -6,6 +6,8 @@ import com.dhc.dhcandroid.datasource.UserMemoryDataSource
 import com.dhc.dhcandroid.datasource.UserMemoryDataSourceImpl
 import com.dhc.dhcandroid.datasource.DhcRemoteDataSource
 import com.dhc.dhcandroid.datasource.DhcRemoteDataSourceImpl
+import com.dhc.dhcandroid.datasource.FortuneDataSource
+import com.dhc.dhcandroid.datasource.FortuneDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -34,4 +36,10 @@ abstract class DataSourceModule {
     abstract fun bindsDhcRemoteDataSource(
         dhcRemoteDataSourceImpl: DhcRemoteDataSourceImpl
     ): DhcRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsFortuneDataSource(
+        fortuneDataSourceImpl: FortuneDataSourceImpl
+    ): FortuneDataSource
 }

@@ -11,6 +11,7 @@ import com.dhc.dhcandroid.model.Mission
 import com.dhc.dhcandroid.model.MissionType
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
+import com.dhc.dhcandroid.repository.FortuneRepository
 import com.dhc.home.main.HomeContract
 import com.dhc.home.main.HomeContract.Event
 import com.dhc.home.main.HomeContract.SideEffect
@@ -27,16 +28,19 @@ import com.dhc.home.model.toToggleMissionRequest
 import com.dhc.home.model.toUiModel
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.ZoneOffset
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val userRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
+    private val fortuneRepository: FortuneRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
     override fun createInitialState(): State {
         return State()
@@ -115,6 +119,12 @@ class HomeViewModel @Inject constructor(
 
             is Event.FortuneCardFlipped -> {
                 delay(FLIPPED_TO_SUCCESS_DELAY_MS)
+                val seenFortuneList = fortuneRepository.getSeenFortuneList().firstOrNull() ?: emptySet()
+                val currentLocalDate = LocalDate.now()
+                val currentLocalDateEpochSecond = currentLocalDate.atStartOfDay().toEpochSecond(ZoneOffset.UTC)
+                if (seenFortuneList.contains(currentLocalDateEpochSecond).not()) {
+                    fortuneRepository.addSeenFortune(currentLocalDateEpochSecond)
+                }
                 reduce { copy(homeState = HomeContract.HomeState.Success) }
             }
 
@@ -145,22 +155,36 @@ class HomeViewModel @Inject constructor(
     }
 
 
-    fun getHomeInfo() {
+    private fun getHomeInfo() {
         viewModelScope.launch {
             reduce { copy(homeState = HomeContract.HomeState.Loading) }
-            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
-            dhcRepository.getHomeView(userId = userId)
-                .onSuccess { response ->
-                    response ?: return@onSuccess
-                    reduce {
-                        copy(
-                            homeInfo = HomeUiModel.from(response),
-                            homeState = HomeContract.HomeState.FlipCard,
-                        )
+            val userIdDeferred = async { userRepository.getUserId().firstOrNull() }
+            val seenFortuneListDeferred = async { fortuneRepository.getSeenFortuneList().firstOrNull() }
+
+            val currentLocalDate = LocalDate.now()
+            val currentLocalDateEpochSecond = currentLocalDate.atStartOfDay().toEpochSecond(ZoneOffset.UTC)
+            val userId = userIdDeferred.await()
+            val seenFortuneList = seenFortuneListDeferred.await() ?: emptySet()
+            if (userId != null) {
+                dhcRepository.getHomeView(userId = userId)
+                    .onSuccess { response ->
+                        response ?: return@onSuccess
+                        reduce {
+                            copy(
+                                homeInfo = HomeUiModel.from(response),
+                                homeState = if (seenFortuneList.contains(currentLocalDateEpochSecond)) {
+                                    HomeContract.HomeState.Success
+                                } else {
+                                    HomeContract.HomeState.FlipCard
+                                },
+                            )
+                        }
+                    }.onFailure { _, _ ->
+                        reduce { copy(homeState = HomeContract.HomeState.Error) }
                     }
-                }.onFailure { _, _ ->
-                    reduce { copy(homeState = HomeContract.HomeState.Error) }
-                }
+            } else {
+                reduce { copy(homeState = HomeContract.HomeState.Error) }
+            }
         }
     }
 
@@ -315,16 +339,33 @@ class HomeViewModel @Inject constructor(
     private fun checkCompletedLoading() = viewModelScope.launch {
         if (state.value.homeState != HomeContract.HomeState.Loading) return@launch
 
-        val userId = userRepository.getUserId().firstOrNull() ?: return@launch
-        repeat(POLLING_TRY_TIME) {
-            dhcRepository.getDailyFortune(userId, LocalDate.now())
-                .onSuccess {
-                    reduce { copy(homeState = HomeContract.HomeState.FlipCard) }
-                    return@launch
-                }
-            delay(POLLING_INTERVAL_TIME_MS)
+        val userIdDeferred = async { userRepository.getUserId().firstOrNull() }
+        val seenFortuneListDeferred = async { fortuneRepository.getSeenFortuneList().firstOrNull() }
+
+        val currentLocalDate = LocalDate.now()
+        val currentLocalDateEpochSecond = currentLocalDate.atStartOfDay().toEpochSecond(ZoneOffset.UTC)
+        val userId = userIdDeferred.await()
+        val seenFortuneList = seenFortuneListDeferred.await() ?: emptySet()
+        if (userId != null) {
+            repeat(POLLING_TRY_TIME) {
+                dhcRepository.getDailyFortune(userId, currentLocalDate)
+                    .onSuccess {
+                        reduce {
+                            copy(
+                                homeState = if (seenFortuneList.contains(currentLocalDateEpochSecond)) {
+                                    HomeContract.HomeState.Success
+                                } else {
+                                    HomeContract.HomeState.FlipCard
+                                },
+                            )
+                        }
+                        return@launch
+                    }
+                delay(POLLING_INTERVAL_TIME_MS)
+            }
+        } else {
+            reduce { copy(homeState = HomeContract.HomeState.Error) }
         }
-        reduce { copy(homeState = HomeContract.HomeState.Error) }
     }
 
     companion object {
