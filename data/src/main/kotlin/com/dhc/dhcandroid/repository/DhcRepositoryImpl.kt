@@ -101,7 +101,7 @@ class DhcRepositoryImpl @Inject constructor(
         return result
     }
 
-    override fun resetCachedCalendarView() {
+    override fun clearCachedCalendarView() {
         cachedCalendarView.clear()
     }
 

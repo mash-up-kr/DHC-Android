@@ -1,7 +1,6 @@
 package com.dhc.mypage
 
 import androidx.lifecycle.viewModelScope
-import com.dhc.common.getSuccessOrNull
 import com.dhc.common.onException
 import com.dhc.common.onFailure
 import com.dhc.common.onSuccess
@@ -46,7 +45,7 @@ class MyPageViewModel @Inject constructor(
                         dhcRepository.deleteUser(it)
                             .onSuccess {
                                 authRepository.clearUserId()
-                                dhcRepository.resetCachedCalendarView()
+                                dhcRepository.clearCachedCalendarView()
                                 postSideEffect(SideEffect.NavigateToIntro)
                             }
                             .onFailure { _, _ -> postSideEffect(SideEffect.ShowToast("회원 탈퇴에 실패했습니다")) }

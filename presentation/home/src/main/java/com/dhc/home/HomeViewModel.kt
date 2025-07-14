@@ -300,7 +300,7 @@ class HomeViewModel @Inject constructor(
                 response ?: return@onSuccess
                 reduce { copy(todaySavedMoney = response.todaySavedMoney, homeInfo = state.value.homeInfo.copy(todayDone = true)) }
                 updateMissionSuccessDialogState(isShowDialog = true)
-                dhcRepository.resetCachedCalendarView()
+                dhcRepository.clearCachedCalendarView()
             }.onFailure { code, message ->
                 Log.d("finishTodayMission", "onFailure:${code} message:${message} ");
             }
