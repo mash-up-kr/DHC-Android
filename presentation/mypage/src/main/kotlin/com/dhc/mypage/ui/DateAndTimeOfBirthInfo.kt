@@ -18,12 +18,14 @@ import com.dhc.common.FullRoundedCornerShape
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
-import java.time.LocalDateTime
+import java.time.LocalDate
+import java.time.LocalTime
 
 @Composable
 fun DateAndTimeOfBirthInfo(
-    birthDateTime: LocalDateTime?,
-    modifier: Modifier = Modifier
+    birthDate: LocalDate?,
+    birthTime: LocalTime?,
+    modifier: Modifier = Modifier,
 ) {
     val colors = LocalDhcColors.current
 
@@ -36,24 +38,30 @@ fun DateAndTimeOfBirthInfo(
             .padding(vertical = 4.dp, horizontal = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text (
-            text = birthDateTime?.format(dhcDateFormat).orEmpty(),
-            textAlign = TextAlign.End,
-            style = DhcTypoTokens.Body6,
-            color = colors.text.textBodyPrimary,
-        )
-        Box(
-            modifier = Modifier
-                .padding(horizontal = 12.dp)
-                .size(width = 1.dp, height = 12.dp)
-                .background(colors.background.backgroundGlassEffect),
-        )
-        Text (
-            text = birthDateTime?.format(dhcTimeFormat).orEmpty(),
-            textAlign = TextAlign.Start,
-            style = DhcTypoTokens.Body6,
-            color = colors.text.textBodyPrimary,
-        )
+        if (birthDate != null) {
+            Text(
+                text = birthDate.format(dhcDateFormat).orEmpty(),
+                textAlign = TextAlign.End,
+                style = DhcTypoTokens.Body6,
+                color = colors.text.textBodyPrimary,
+            )
+        }
+        if (birthDate != null && birthTime != null) {
+            Box(
+                modifier = Modifier
+                    .padding(horizontal = 12.dp)
+                    .size(width = 1.dp, height = 12.dp)
+                    .background(colors.background.backgroundGlassEffect),
+            )
+        }
+        if (birthTime != null) {
+            Text(
+                text = birthTime.format(dhcTimeFormat).orEmpty(),
+                textAlign = TextAlign.Start,
+                style = DhcTypoTokens.Body6,
+                color = colors.text.textBodyPrimary,
+            )
+        }
     }
 }
 
@@ -62,7 +70,8 @@ fun DateAndTimeOfBirthInfo(
 private fun DateAndTimeOfBirthInfoPreview() {
     DhcTheme {
         DateAndTimeOfBirthInfo(
-            birthDateTime = LocalDateTime.of(2023, 10, 1, 12, 30)
+            birthDate = LocalDate.of(2023, 10, 1),
+            birthTime = LocalTime.of(12, 30),
         )
     }
 }
