@@ -2,7 +2,7 @@ package com.dhc.home.model
 
 enum class MissionDifficulty(val difficultyNo: Int, val displayName: String) {
     EASY(1, "Easy"),
-    MEDIUM(2, "Medium"),
+    MEDIUM(2, "Mid"),
     HARD(3, "Hard");
 
     companion object {
