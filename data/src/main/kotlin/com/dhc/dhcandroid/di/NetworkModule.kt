@@ -21,6 +21,7 @@ object NetworkModule {
     private val json = Json {
         coerceInputValues = true
         ignoreUnknownKeys = true
+        encodeDefaults = true
     }
 
     @Provides
