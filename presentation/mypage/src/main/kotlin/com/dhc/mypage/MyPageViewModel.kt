@@ -43,6 +43,7 @@ class MyPageViewModel @Inject constructor(
             is Event.ClickAppResetButton -> reduce { copy(isShowAppResetDialog = true) }
             is Event.ClickAppResetConfirmButton -> {
                 coroutineScope {
+                    reduce { copy(isShowAppResetDialog = false) }
                     authRepository.getUserId().firstOrNull()?.let {
                         dhcRepository.deleteUser(it)
                             .onSuccess {
@@ -56,7 +57,6 @@ class MyPageViewModel @Inject constructor(
                     } ?: run {
                         postSideEffect(SideEffect.ShowToast("회원 탈퇴에 실패했습니다"))
                     }
-                    reduce { copy(isShowAppResetDialog = false) }
                 }
             }
 
