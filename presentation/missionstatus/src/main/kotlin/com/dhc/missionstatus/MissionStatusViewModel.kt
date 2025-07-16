@@ -36,7 +36,7 @@ class MissionStatusViewModel @Inject constructor(
                 val birthDay = state.value.missionAnalysisUiModel?.easterEggBirthDay ?: return
                 val clickedDate = event.date
 
-                if (clickedDate.dayOfYear == birthDay.dayOfYear) {
+                if (clickedDate.monthValue == birthDay.monthValue && clickedDate.dayOfMonth == birthDay.dayOfMonth) {
                     val userId = authRepository.getUserId().firstOrNull() ?: return
                     dhcRepository.updateEasterEggHistory(userId).getSuccessOrNull() ?: return
                     dhcRepository.clearCachedCalendarView()
