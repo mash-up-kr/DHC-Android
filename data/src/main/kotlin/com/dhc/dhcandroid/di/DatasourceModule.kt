@@ -6,6 +6,8 @@ import com.dhc.dhcandroid.datasource.UserMemoryDataSource
 import com.dhc.dhcandroid.datasource.UserMemoryDataSourceImpl
 import com.dhc.dhcandroid.datasource.DhcRemoteDataSource
 import com.dhc.dhcandroid.datasource.DhcRemoteDataSourceImpl
+import com.dhc.dhcandroid.datasource.EasterEggDataSource
+import com.dhc.dhcandroid.datasource.EasterEggDataSourceImpl
 import com.dhc.dhcandroid.datasource.FortuneDataSource
 import com.dhc.dhcandroid.datasource.FortuneDataSourceImpl
 import dagger.Binds
@@ -42,4 +44,10 @@ abstract class DataSourceModule {
     abstract fun bindsFortuneDataSource(
         fortuneDataSourceImpl: FortuneDataSourceImpl
     ): FortuneDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsEasterEggDataSource(
+        easterEggDataSourceImpl: EasterEggDataSourceImpl
+    ): EasterEggDataSource
 }
