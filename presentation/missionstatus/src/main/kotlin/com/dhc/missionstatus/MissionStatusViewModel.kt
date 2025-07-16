@@ -7,6 +7,7 @@ import com.dhc.designsystem.calendar.model.DhcCalendarDayData
 import com.dhc.designsystem.calendar.model.DhcCalendarMonthData
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
+import com.dhc.dhcandroid.repository.EasterEggRepository
 import com.dhc.missionstatus.MissionStatusContract.Event
 import com.dhc.missionstatus.MissionStatusContract.SideEffect
 import com.dhc.missionstatus.MissionStatusContract.State
@@ -23,6 +24,7 @@ import javax.inject.Inject
 class MissionStatusViewModel @Inject constructor(
     private val authRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
+    private val easterEggRepository: EasterEggRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
     override fun createInitialState(): State {
         return State()
@@ -56,8 +58,15 @@ class MissionStatusViewModel @Inject constructor(
 
         val userId = authRepository.getUserId().firstOrNull() ?: return emptyMap()
         val result = dhcRepository.getCalendarView(userId, yearMonth).getSuccessOrNull()
+        val easterEggBirthDay = easterEggRepository.getBirthDay()
 
-        reduce { copy(missionAnalysisUiModel = MissionAnalysisUiModel.from(result?.threeMonthViewResponse?.firstOrNull { it.month == yearMonth.monthValue })) }
+        reduce {
+            copy(
+                missionAnalysisUiModel = MissionAnalysisUiModel
+                    .from(result?.threeMonthViewResponse?.firstOrNull { it.month == yearMonth.monthValue })
+                    ?.copy(easterEggBirthDay = easterEggBirthDay)
+            )
+        }
 
         return result?.threeMonthViewResponse
             ?.mapIndexed { index, data ->
@@ -73,6 +82,5 @@ class MissionStatusViewModel @Inject constructor(
             }
             ?.toMap()
             .orEmpty()
-
     }
 }
