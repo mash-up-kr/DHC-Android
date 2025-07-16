@@ -10,8 +10,8 @@ fun String.toIntOrZero(): Int = toIntOrNull() ?: 0
 fun ServerGender.getGenderString(): String {
     return when (this) {
         ServerGender.UNKNOWN -> ""
-        ServerGender.MALE -> "남자"
-        ServerGender.FEMALE -> "여자"
+        ServerGender.MALE -> "남성"
+        ServerGender.FEMALE -> "여성"
         ServerGender.UNKNOWN -> ""
     }
 }

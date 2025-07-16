@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class AnalysisViewResponse(
     val totalSavedMoney: String = "0",
     val weeklySavedMoney: String = "0",
+    val weeklySpendMoney: String = "0",
     val generationMoneyViewResponse: GenerationMoneyViewResponse = GenerationMoneyViewResponse(),
 )
 
