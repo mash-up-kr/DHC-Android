@@ -82,4 +82,9 @@ interface DhcService {
         @Path("userId") userId: String,
         @Query("yearMonth") yearMonth: String
     ): Response<CalendarViewResponse>
+
+    @POST("/api/users/{userId}/add-july-history")
+    suspend fun updateEasterEggHistory(
+        @Path("userId") userId: String,
+    ): Response<Unit>
 }

@@ -2,9 +2,7 @@ package com.dhc.missionstatus.ui
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,7 +13,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -33,7 +30,6 @@ import com.dhc.designsystem.calendar.ui.DhcCalendar
 import com.dhc.designsystem.graph.DhcGraph
 import com.dhc.designsystem.graph.model.DhcGraphConfig
 import com.dhc.designsystem.graph.model.DhcGraphData
-import com.dhc.designsystem.info.DhcMissionInfoCard
 import com.dhc.designsystem.info.DhcMissionStatusCard
 import com.dhc.missionstatus.MissionStatusContract.State
 import com.dhc.missionstatus.R

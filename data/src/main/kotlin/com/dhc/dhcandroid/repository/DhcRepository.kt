@@ -66,4 +66,8 @@ interface DhcRepository {
         userId: String,
         date: LocalDate,
     ): DhcResult<FortuneResponse>
+
+    suspend fun updateEasterEggHistory(
+        userId: String,
+    ): DhcResult<Unit>
 }

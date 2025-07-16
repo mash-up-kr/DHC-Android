@@ -31,7 +31,17 @@ class MissionStatusViewModel @Inject constructor(
     }
 
     override suspend fun handleEvent(event: Event) {
-        // Todo - 구현 필요
+        when (event) {
+            is Event.ClickCalendarDate -> {
+                val birthDay = state.value.missionAnalysisUiModel?.easterEggBirthDay ?: return
+                val clickedDate = event.date
+
+                if (clickedDate.dayOfYear == birthDay.dayOfYear) {
+                    val userId = authRepository.getUserId().firstOrNull() ?: return
+                    dhcRepository.updateEasterEggHistory(userId)
+                }
+            }
+        }
     }
 
     fun loadAnalysisUiData() = viewModelScope.launch {

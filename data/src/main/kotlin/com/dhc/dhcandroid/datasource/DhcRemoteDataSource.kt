@@ -63,4 +63,8 @@ interface DhcRemoteDataSource {
         userId: String,
         date: String,
     ): Response<FortuneResponse>
+
+    suspend fun updateEasterEggHistory(
+        userId: String,
+    ): Response<Unit>
 }
