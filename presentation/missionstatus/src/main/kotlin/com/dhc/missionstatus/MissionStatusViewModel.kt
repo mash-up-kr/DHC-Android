@@ -38,7 +38,9 @@ class MissionStatusViewModel @Inject constructor(
 
                 if (clickedDate.dayOfYear == birthDay.dayOfYear) {
                     val userId = authRepository.getUserId().firstOrNull() ?: return
-                    dhcRepository.updateEasterEggHistory(userId)
+                    dhcRepository.updateEasterEggHistory(userId).getSuccessOrNull() ?: return
+                    dhcRepository.clearCachedCalendarView()
+                    loadAnalysisUiData()
                 }
             }
         }
