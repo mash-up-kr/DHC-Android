@@ -6,16 +6,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
-import com.dhc.designsystem.GradientColor
+import com.dhc.designsystem.GradientColor.fortuneGradientMid
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.R
-import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.badge.DhcBadge
 import com.dhc.designsystem.badge.model.BadgeType
 
@@ -25,12 +25,15 @@ fun DhcScoreText(
     score: Int,
     description: String,
     modifier: Modifier = Modifier,
+    scoreTextColor: Brush = fortuneGradientMid
 ) {
+
     DhcScoreText(
         badgeText = badgeText,
         score = stringResource(R.string.d_score, score),
         description = description,
         modifier = modifier,
+        scoreTextColor = scoreTextColor,
     )
 }
 
@@ -40,8 +43,10 @@ fun DhcScoreText(
     score: String,
     description: String,
     modifier: Modifier = Modifier,
+    scoreTextColor: Brush = fortuneGradientMid,
 ) {
     val colors = LocalDhcColors.current
+
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -55,7 +60,7 @@ fun DhcScoreText(
         }
         Text(
             text = score,
-            style = DhcTypoTokens.TitleH0.copy(brush = GradientColor.textGradient02),
+            style = DhcTypoTokens.TitleH0.copy(brush = scoreTextColor),
         )
         Text(
             text = description,
