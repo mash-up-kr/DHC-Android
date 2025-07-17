@@ -9,7 +9,7 @@
     <string name="consumption_analysis_target">%s 대비</string>
     <string name="consumption_analysis_money">%s원\u00A0</string>
     <string name="consumption_analysis_save_more_money">더 절약했어요</string>
-    <string name="consumption_analysis_waste_more_money">더 절약했어요</string>
+    <string name="consumption_analysis_waste_more_money">더 낭비했어요</string>
     <string name="consumption_analysis_calendar_me">내 소비</string>
     <string name="consumption_analysis_calendar_man_won">%d 만원</string>
     <string name="consumption_analysis_calendar_won">%s원</string>
