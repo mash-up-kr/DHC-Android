@@ -6,19 +6,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
-import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.GradientColor.fortuneGradientLow
 import com.dhc.designsystem.GradientColor.fortuneGradientMid
 import com.dhc.designsystem.GradientColor.fortuneGradientTop
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.R
-import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.badge.DhcBadge
 import com.dhc.designsystem.badge.model.BadgeType
 
@@ -28,14 +27,38 @@ fun DhcScoreText(
     score: Int,
     description: String,
     modifier: Modifier = Modifier,
+    isDefaultColor: Boolean = false
+) {
+    val textGradientColor =
+        if (isDefaultColor) fortuneGradientMid
+        else {
+            when (score) {
+                in 0 until 41 -> fortuneGradientLow
+                in 41 until 71 -> fortuneGradientMid
+                in 71..100 -> fortuneGradientTop
+                else -> fortuneGradientMid
+            }
+        }
+
+    DhcScoreText(
+        badgeText = badgeText,
+        score = stringResource(R.string.d_score, score),
+        description = description,
+        modifier = modifier,
+        textGradientColor = textGradientColor,
+    )
+}
+
+@Composable
+fun DhcScoreText(
+    badgeText: String?,
+    score: String,
+    description: String,
+    modifier: Modifier = Modifier,
+    textGradientColor: Brush = fortuneGradientMid,
 ) {
     val colors = LocalDhcColors.current
-    val textGradientColor = when (score) {
-        in 0 until 41 -> fortuneGradientLow
-        in 41 until 71 -> fortuneGradientMid
-        in 71..100 -> fortuneGradientTop
-        else -> fortuneGradientMid
-    }
+
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -48,7 +71,7 @@ fun DhcScoreText(
             )
         }
         Text(
-            text = stringResource(R.string.d_score, score),
+            text = score,
             style = DhcTypoTokens.TitleH0.copy(brush = textGradientColor),
         )
         Text(
