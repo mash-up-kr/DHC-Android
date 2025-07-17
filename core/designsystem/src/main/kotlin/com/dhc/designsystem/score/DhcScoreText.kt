@@ -13,6 +13,9 @@ import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
+import com.dhc.designsystem.GradientColor.fortuneGradientLow
+import com.dhc.designsystem.GradientColor.fortuneGradientMid
+import com.dhc.designsystem.GradientColor.fortuneGradientTop
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
@@ -26,22 +29,13 @@ fun DhcScoreText(
     description: String,
     modifier: Modifier = Modifier,
 ) {
-    DhcScoreText(
-        badgeText = badgeText,
-        score = stringResource(R.string.d_score, score),
-        description = description,
-        modifier = modifier,
-    )
-}
-
-@Composable
-fun DhcScoreText(
-    badgeText: String?,
-    score: String,
-    description: String,
-    modifier: Modifier = Modifier,
-) {
     val colors = LocalDhcColors.current
+    val textGradientColor = when (score) {
+        in 0 until 41 -> fortuneGradientLow
+        in 41 until 71 -> fortuneGradientMid
+        in 71..100 -> fortuneGradientTop
+        else -> fortuneGradientMid
+    }
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -54,8 +48,8 @@ fun DhcScoreText(
             )
         }
         Text(
-            text = score,
-            style = DhcTypoTokens.TitleH0.copy(brush = GradientColor.textGradient02),
+            text = stringResource(R.string.d_score, score),
+            style = DhcTypoTokens.TitleH0.copy(brush = textGradientColor),
         )
         Text(
             text = description,
