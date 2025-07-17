@@ -29,6 +29,7 @@ import com.dhc.designsystem.SurfaceColor
 fun DhcMissionStatusCard(
     title: String,
     subTitle: String,
+    @DrawableRes icon: Int,
     modifier: Modifier = Modifier,
     backgroundColor: Color = SurfaceColor.neutral700
 ) {
@@ -39,7 +40,7 @@ fun DhcMissionStatusCard(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         DhcInfoCardIcon(
-            iconRes = R.drawable.ico_fly_money,
+            iconRes = icon,
             modifier = Modifier.size(54.dp)
         )
         DhcInfoCardText(
@@ -75,12 +76,12 @@ private fun DhcInfoCardText(
     Column(modifier = modifier) {
         Text(
             text = title,
-            style = DhcTypoTokens.Body3,
+            style = DhcTypoTokens.Body5,
             color = colors.text.textBodyPrimary,
         )
         Text(
             text = subTitle,
-            style = DhcTypoTokens.TitleH3,
+            style = DhcTypoTokens.TitleH4,
             color = colors.text.textMain,
         )
     }
@@ -94,6 +95,7 @@ private fun DhcMoneyInfoCardPreview() {
             modifier = Modifier.fillMaxWidth(),
             title = "텍스트",
             subTitle = "텍스트",
+            icon = R.drawable.ico_fly_money
         )
     }
 }
