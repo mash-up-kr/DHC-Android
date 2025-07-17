@@ -27,6 +27,7 @@ import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.messagecard.DhcMessageCard
 import com.dhc.designsystem.score.DhcScoreText
+import com.dhc.designsystem.score.toGradientScoreColor
 import com.dhc.designsystem.tipcard.DhcTipCardGrid
 import com.dhc.designsystem.tipcard.TipCardModel
 import com.dhc.designsystem.title.DhcTitle
@@ -52,6 +53,7 @@ fun MonetaryLuckDetailScreen(
                 badgeText = monetaryLuckInfo.scoreInfo.date,
                 score = monetaryLuckInfo.scoreInfo.score,
                 description = monetaryLuckInfo.scoreInfo.description,
+                scoreTextColor = monetaryLuckInfo.scoreInfo.score.toGradientScoreColor()
             )
             Spacer(modifier = Modifier.height(64.dp))
             DhcFortuneCard(
@@ -89,7 +91,7 @@ fun MonetaryLuckDetailCard(
     DhcTitle(
         titleState = DhcTitleState(
             title = stringResource(R.string.monetary_luck_detail),
-            titleStyle = DhcTypoTokens.TitleH4_1,
+            titleStyle = DhcTypoTokens.TitleH5_1,
         ),
         textAlign = TextAlign.Start,
     )
@@ -108,7 +110,7 @@ fun TodayTip(
     DhcTitle(
         titleState = DhcTitleState(
             title = stringResource(R.string.today_tip),
-            titleStyle = DhcTypoTokens.TitleH4_1,
+            titleStyle = DhcTypoTokens.TitleH5_1,
         ),
         textAlign = TextAlign.Start,
     )

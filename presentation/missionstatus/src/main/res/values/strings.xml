@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="missions_status_screen_title">통계</string>
+    <string name="missions_status_screen_title">리포트</string>
     <string name="consumption_analysis_title">소비 분석</string>
     <string name="mission_analysis_title">미션 분석</string>
     <string name="save_total_money_until_now_prefix">지금까지 총</string>
     <string name="save_total_money_until_now">%s원 더 아꼈어요</string>
     <string name="consumption_analysis_this_week">이번주에\u00A0\u00A0</string>
-    <string name="consumption_analysis_target">%s대비</string>
+    <string name="consumption_analysis_target">%s 대비</string>
     <string name="consumption_analysis_money">%s원\u00A0</string>
     <string name="consumption_analysis_save_more_money">더 절약했어요</string>
-    <string name="consumption_analysis_calendar_me">나</string>
+    <string name="consumption_analysis_waste_more_money">더 낭비했어요</string>
+    <string name="consumption_analysis_calendar_me">내 소비</string>
     <string name="consumption_analysis_calendar_man_won">%d 만원</string>
     <string name="consumption_analysis_calendar_won">%s원</string>
 </resources>

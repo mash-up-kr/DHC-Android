@@ -25,6 +25,7 @@ import com.dhc.designsystem.GradientColor.fortuneGradientMid
 import com.dhc.designsystem.GradientColor.fortuneGradientTop
 import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
+import com.dhc.designsystem.score.toGradientScoreColor
 
 @Composable
 fun FortuneCore(
@@ -32,12 +33,6 @@ fun FortuneCore(
     modifier: Modifier = Modifier,
 ) {
 
-    val textGradientColor = when (fortuneScore) {
-        in 0 until 41 -> fortuneGradientLow
-        in 41 until 71 -> fortuneGradientMid
-        in 71..100 -> fortuneGradientTop
-        else -> fortuneGradientMid
-    }
     Column(
         modifier = modifier
             .background(shape = CircleShape, color = Color.Transparent)
@@ -59,7 +54,7 @@ fun FortuneCore(
         Text(
             text = stringResource(R.string.d_score, fortuneScore),
             style = DhcTypoTokens.TitleH3.copy(
-                brush = textGradientColor
+                brush = fortuneScore.toGradientScoreColor()
             ),
             textAlign = TextAlign.Center,
         )

@@ -7,14 +7,14 @@ import com.dhc.missionstatus.utils.toIntOrZero
 
 data class ConsumptionAnalysisUiModel(
     val totalSaveMoney: Int = 0,
-    val weeklySaveMoney: Int = 0,
+    val weeklySpendMoney: Int = 0,
     val graphData: AnalysisGraphUiModel = AnalysisGraphUiModel(),
 ) {
     companion object {
         fun from(analysisViewResponse: AnalysisViewResponse) =
             ConsumptionAnalysisUiModel(
                 totalSaveMoney = analysisViewResponse.totalSavedMoney.toIntOrZero(),
-                weeklySaveMoney = analysisViewResponse.weeklySavedMoney.toIntOrZero(),
+                weeklySpendMoney = analysisViewResponse.weeklySpendMoney.toIntOrZero(),
                 graphData = AnalysisGraphUiModel.from(analysisViewResponse.generationMoneyViewResponse)
             )
     }

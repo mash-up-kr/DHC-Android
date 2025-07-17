@@ -1,17 +1,12 @@
 package com.dhc.home.main
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,7 +31,6 @@ import com.dhc.designsystem.fortunecard.FlippableBox
 import com.dhc.designsystem.score.DhcScoreText
 import com.dhc.home.R
 import com.dhc.home.model.TodayDailyFortuneUiModel
-import com.dhc.designsystem.R as DR
 import com.dhc.presentation.component.FortuneCardBack
 import com.dhc.presentation.component.WordBalloon
 import com.dhc.presentation.mvi.EventHandler
@@ -74,10 +67,9 @@ fun HomeFlipCardScreen(
                 FortuneCardBack()
             },
             backScreen = {
-                //TODO - 홈 카드 정보 추가되면 수정
                 DhcFortuneCard(
-                    title = "최고의 날",
-                    description = "네잎클로버",
+                    title = todayFortune.fortuneCardTitle,
+                    description = todayFortune.fortuneCardSubTitle,
                     imageUrl = todayFortune.fortuneCardImage,
                 )
             },

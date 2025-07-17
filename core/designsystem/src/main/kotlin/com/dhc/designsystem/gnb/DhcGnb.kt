@@ -38,7 +38,7 @@ fun DhcGnb(
                 onClick = { onClickItem(gnbItem, index) },
                 icon = {
                     Icon(
-                        modifier = Modifier.size(24.dp),
+                        modifier = Modifier.size(20.dp),
                         painter = painterResource(gnbItem.iconResource),
                         contentDescription = stringResource(gnbItem.iconText),
                     )

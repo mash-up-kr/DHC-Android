@@ -5,8 +5,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import com.dhc.data.UserPreferences
+import com.dhc.dhcandroid.datastore.PreferencesEggSerializer
 import com.dhc.dhcandroid.datastore.PreferencesName
 import com.dhc.dhcandroid.datastore.PreferencesUserSerializer
+import com.example.datastore.EggPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,6 +26,12 @@ internal object DatastoreModule {
         return PreferencesUserSerializer()
     }
 
+    @Provides
+    @Singleton
+    fun provideEggPreferencesSerializer(): PreferencesEggSerializer {
+        return PreferencesEggSerializer()
+    }
+
 
     @Provides
     @Singleton
@@ -34,5 +42,17 @@ internal object DatastoreModule {
         DataStoreFactory.create(
             serializer = serializer,
             produceFile = { context.dataStoreFile("${PreferencesName.USER}.pb") },
+        )
+
+
+    @Provides
+    @Singleton
+    fun provideEggDatastore(
+        @ApplicationContext context: Context,
+        serializer: PreferencesEggSerializer,
+    ): DataStore<EggPreferences> =
+        DataStoreFactory.create(
+            serializer = serializer,
+            produceFile = { context.dataStoreFile("${PreferencesName.EGG}.pb") },
         )
 }

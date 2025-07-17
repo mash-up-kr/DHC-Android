@@ -31,6 +31,7 @@ import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.LocalDhcColors
+import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
 
 @Composable
@@ -77,6 +78,7 @@ fun DhcFortuneCard(
                     model = imageUrl,
                     contentDescription = "운세카드 이미지",
                     contentScale = ContentScale.Crop,
+                    placeholder = painterResource(id = R.drawable.fortune_card_placeholder),
                     modifier = Modifier.fillMaxSize(),
                 )
             } else {

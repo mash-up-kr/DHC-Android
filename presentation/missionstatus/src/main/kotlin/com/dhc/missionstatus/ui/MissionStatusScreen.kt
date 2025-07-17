@@ -2,9 +2,7 @@ package com.dhc.missionstatus.ui
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,7 +13,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -33,11 +30,12 @@ import com.dhc.designsystem.calendar.ui.DhcCalendar
 import com.dhc.designsystem.graph.DhcGraph
 import com.dhc.designsystem.graph.model.DhcGraphConfig
 import com.dhc.designsystem.graph.model.DhcGraphData
-import com.dhc.designsystem.info.DhcMissionInfoCard
 import com.dhc.designsystem.info.DhcMissionStatusCard
 import com.dhc.missionstatus.MissionStatusContract.State
 import com.dhc.missionstatus.R
 import java.time.LocalDate
+import kotlin.math.abs
+import com.dhc.designsystem.R as DR
 
 @Composable
 fun MissionStatusScreen(
@@ -84,10 +82,11 @@ fun MissionStatusScreen(
                     R.string.save_total_money_until_now,
                     wonFormat.format(state.consumptionAnalysisUiModel.totalSaveMoney)
                 ),
+                icon = DR.drawable.ico_fly_money,
             )
 
             ConsumptionAnalysisContent(
-                weeklySaveMoney = state.consumptionAnalysisUiModel.weeklySaveMoney,
+                weeklySpendMoney = state.consumptionAnalysisUiModel.weeklySpendMoney,
                 graphData = state.consumptionAnalysisUiModel.graphData,
                 modifier = Modifier.padding(top = 12.dp),
             )
@@ -109,6 +108,7 @@ fun MissionStatusScreen(
                     .padding(top = 12.dp),
                 title = "${state.missionAnalysisUiModel.currentMonth}월달",
                 subTitle = "미션 평균 성공률 ${state.missionAnalysisUiModel.averageSucceedProbability}%",
+                icon = DR.drawable.ico_hit_target,
             )
 
             DhcCalendar(
@@ -124,7 +124,7 @@ fun MissionStatusScreen(
 
 @Composable
 private fun ConsumptionAnalysisContent(
-    weeklySaveMoney: Int,
+    weeklySpendMoney: Int,
     graphData: AnalysisGraphUiModel,
     modifier: Modifier = Modifier
 ) {
@@ -143,7 +143,7 @@ private fun ConsumptionAnalysisContent(
                 }
                 append(stringResource(R.string.consumption_analysis_target, graphData.target))
             },
-            style = DhcTypoTokens.TitleH3,
+            style = DhcTypoTokens.TitleH4,
             color = colors.text.textMain,
         )
         Text(
@@ -154,14 +154,18 @@ private fun ConsumptionAnalysisContent(
                 append(
                     stringResource(
                         R.string.consumption_analysis_money,
-                        wonFormat.format(weeklySaveMoney)
+                        wonFormat.format(abs(weeklySpendMoney - graphData.targetData))
                     )
                 )
                 withStyle(style = SpanStyle(color = colors.text.textHighLightsSecondary)) {
-                    append(stringResource(R.string.consumption_analysis_save_more_money))
+                    if (weeklySpendMoney > graphData.targetData) {
+                        append(stringResource(R.string.consumption_analysis_waste_more_money))
+                    } else {
+                        append(stringResource(R.string.consumption_analysis_save_more_money))
+                    }
                 }
             },
-            style = DhcTypoTokens.TitleH3,
+            style = DhcTypoTokens.TitleH4,
             color = colors.text.textMain,
         )
         DhcGraph(
@@ -176,15 +180,15 @@ private fun ConsumptionAnalysisContent(
             graphData = listOf(
                 DhcGraphData(
                     label = stringResource(R.string.consumption_analysis_calendar_me),
-                    value = weeklySaveMoney,
+                    value = weeklySpendMoney,
                     isHighlight = true,
                     tooltipMessage = stringResource(
                         R.string.consumption_analysis_calendar_won,
-                        weeklySaveMoney
+                        wonFormat.format(weeklySpendMoney),
                     ),
                 ),
                 DhcGraphData(
-                    label = graphData.target,
+                    label = "${graphData.target} 소비",
                     value = graphData.targetData,
                     isHighlight = false,
                     tooltipMessage = stringResource(

@@ -72,4 +72,8 @@ class DhcRemoteDataSourceImpl @Inject constructor(
     ): Response<FortuneResponse> {
         return dhcService.getDailyFortune(userId, date)
     }
+
+    override suspend fun updateEasterEggHistory(userId: String): Response<Unit> {
+        return dhcService.updateEasterEggHistory(userId)
+    }
 }

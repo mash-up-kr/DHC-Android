@@ -1,5 +1,6 @@
 package com.dhc.designsystem.calendar.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -38,6 +39,9 @@ fun DhcCalendarDateSwiper(
             day = date,
             monthData = controller.calendarMonthState[date]
                 ?: DhcCalendarMonthData(yearMonth = date),
+            onClickDate = { selectedDate ->
+                controller.onClickDate(selectedDate)
+            },
         )
     }
 }
@@ -45,6 +49,7 @@ fun DhcCalendarDateSwiper(
 @Composable
 fun DhcCalendarDate(
     day: LocalDate,
+    onClickDate: (LocalDate) -> Unit,
     modifier: Modifier = Modifier,
     monthData: DhcCalendarMonthData = DhcCalendarMonthData(),
 ) {
@@ -60,7 +65,9 @@ fun DhcCalendarDate(
         items(days.size) { index ->
             DhcCalendarDay(
                 day = days[index].dayOfMonth,
-                modifier = Modifier.height(36.dp),
+                modifier = Modifier
+                    .height(36.dp)
+                    .clickable { onClickDate(days[index]) },
                 uiModel = DhcCalendarDayUiModel.from(
                     day = days[index],
                     monthData = monthData,
@@ -84,7 +91,8 @@ private fun DhcCalendarDatePreview() {
                     3 to DhcCalendarDayData(2),
                     4 to DhcCalendarDayData(3),
                 )
-            )
+            ),
+            onClickDate = {},
         )
     }
 }
