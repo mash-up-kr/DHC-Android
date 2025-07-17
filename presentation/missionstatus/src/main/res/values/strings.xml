@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="missions_status_screen_title">통계</string>
+    <string name="missions_status_screen_title">리포트</string>
     <string name="consumption_analysis_title">소비 분석</string>
     <string name="mission_analysis_title">미션 분석</string>
     <string name="save_total_money_until_now_prefix">지금까지 총</string>
