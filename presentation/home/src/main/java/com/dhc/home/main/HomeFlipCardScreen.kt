@@ -74,10 +74,9 @@ fun HomeFlipCardScreen(
                 FortuneCardBack()
             },
             backScreen = {
-                //TODO - 홈 카드 정보 추가되면 수정
                 DhcFortuneCard(
-                    title = "최고의 날",
-                    description = "네잎클로버",
+                    title = todayFortune.fortuneCardTitle,
+                    description = todayFortune.fortuneCardSubTitle,
                     imageUrl = todayFortune.fortuneCardImage,
                 )
             },
