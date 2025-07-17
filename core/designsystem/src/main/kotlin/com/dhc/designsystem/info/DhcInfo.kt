@@ -49,7 +49,7 @@ fun DhcInfo(
         Text(
             text = text,
             color = colors.text.textBodyPrimary,
-            style = DhcTypoTokens.TitleH4_1,
+            style = DhcTypoTokens.TitleH5,
         )
     }
 }

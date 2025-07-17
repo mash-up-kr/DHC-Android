@@ -4,8 +4,10 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.gnb.model.DhcBottomBarState
 
 @Composable
@@ -40,7 +42,7 @@ fun DhcBottomBar(
                     onClickItem = { gnbItem, _ ->
                         navigateToRoute(gnbItem.routeName)
                     },
-                    modifier = modifier,
+                    modifier = Modifier.height(56.dp),
                 )
             }
 
