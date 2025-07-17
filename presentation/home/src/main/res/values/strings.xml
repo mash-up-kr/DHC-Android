@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="spending_habit_mission">소비습관 미션</string>
-    <string name="monetary_daily_mission">금전운 기반 일일 미션</string>
+    <string name="monetary_daily_mission">금전운 일일 미션</string>
     <string name="finish_today_mission">오늘 미션 끝내기</string>
     <string name="mission_tooltip_message">좋은 금융 습관 형성을 위해\n2주간 매일 진행하는 미션이에요!</string>
     <string name="change_mission">미션 바꾸기</string>

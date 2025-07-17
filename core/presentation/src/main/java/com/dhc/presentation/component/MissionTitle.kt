@@ -50,7 +50,7 @@ fun MissionTitle(
         Text(
             text = title,
             color = colors.text.textBodyPrimary,
-            style = DhcTypoTokens.TitleH4_1,
+            style = DhcTypoTokens.TitleH5_1,
         )
         if (isInfoIconVisible) {
             Spacer(modifier = Modifier.width(8.dp))

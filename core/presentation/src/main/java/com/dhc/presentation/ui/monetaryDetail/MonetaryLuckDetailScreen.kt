@@ -89,7 +89,7 @@ fun MonetaryLuckDetailCard(
     DhcTitle(
         titleState = DhcTitleState(
             title = stringResource(R.string.monetary_luck_detail),
-            titleStyle = DhcTypoTokens.TitleH4_1,
+            titleStyle = DhcTypoTokens.TitleH5_1,
         ),
         textAlign = TextAlign.Start,
     )
@@ -108,7 +108,7 @@ fun TodayTip(
     DhcTitle(
         titleState = DhcTitleState(
             title = stringResource(R.string.today_tip),
-            titleStyle = DhcTypoTokens.TitleH4_1,
+            titleStyle = DhcTypoTokens.TitleH5_1,
         ),
         textAlign = TextAlign.Start,
     )
