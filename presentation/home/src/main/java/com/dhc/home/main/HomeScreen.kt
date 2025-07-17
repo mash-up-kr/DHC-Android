@@ -48,7 +48,7 @@ fun HomeScreen(
             Column(
                 modifier = Modifier.padding(horizontal = 20.dp)
             ) {
-                Spacer(modifier = Modifier.height(13.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = state.homeInfo.todayDailyFortune.date,
                     style = DhcTypoTokens.Body3,
