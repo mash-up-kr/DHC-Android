@@ -54,7 +54,7 @@ internal fun SajuCard(
         )
         Text(
             text = sajuName,
-            style = DhcTypoTokens.TitleH2.copy(brush = textGradient02),
+            style = DhcTypoTokens.TitleH3.copy(brush = textGradient02),
         )
     }
 }
