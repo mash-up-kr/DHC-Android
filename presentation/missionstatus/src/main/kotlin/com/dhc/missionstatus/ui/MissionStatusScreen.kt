@@ -34,6 +34,7 @@ import com.dhc.designsystem.info.DhcMissionStatusCard
 import com.dhc.missionstatus.MissionStatusContract.State
 import com.dhc.missionstatus.R
 import java.time.LocalDate
+import kotlin.math.abs
 
 @Composable
 fun MissionStatusScreen(
@@ -83,7 +84,7 @@ fun MissionStatusScreen(
             )
 
             ConsumptionAnalysisContent(
-                weeklySaveMoney = state.consumptionAnalysisUiModel.weeklySaveMoney,
+                weeklySpendMoney = state.consumptionAnalysisUiModel.weeklySpendMoney,
                 graphData = state.consumptionAnalysisUiModel.graphData,
                 modifier = Modifier.padding(top = 12.dp),
             )
@@ -120,7 +121,7 @@ fun MissionStatusScreen(
 
 @Composable
 private fun ConsumptionAnalysisContent(
-    weeklySaveMoney: Int,
+    weeklySpendMoney: Int,
     graphData: AnalysisGraphUiModel,
     modifier: Modifier = Modifier
 ) {
@@ -150,11 +151,15 @@ private fun ConsumptionAnalysisContent(
                 append(
                     stringResource(
                         R.string.consumption_analysis_money,
-                        wonFormat.format(weeklySaveMoney)
+                        wonFormat.format(abs(weeklySpendMoney - graphData.targetData))
                     )
                 )
                 withStyle(style = SpanStyle(color = colors.text.textHighLightsSecondary)) {
-                    append(stringResource(R.string.consumption_analysis_save_more_money))
+                    if (weeklySpendMoney > graphData.targetData) {
+                        append(stringResource(R.string.consumption_analysis_waste_more_money))
+                    } else {
+                        append(stringResource(R.string.consumption_analysis_save_more_money))
+                    }
                 }
             },
             style = DhcTypoTokens.TitleH3,
@@ -172,15 +177,15 @@ private fun ConsumptionAnalysisContent(
             graphData = listOf(
                 DhcGraphData(
                     label = stringResource(R.string.consumption_analysis_calendar_me),
-                    value = weeklySaveMoney,
+                    value = weeklySpendMoney,
                     isHighlight = true,
                     tooltipMessage = stringResource(
                         R.string.consumption_analysis_calendar_won,
-                        weeklySaveMoney
+                        wonFormat.format(weeklySpendMoney),
                     ),
                 ),
                 DhcGraphData(
-                    label = graphData.target,
+                    label = "${graphData.target} 소비",
                     value = graphData.targetData,
                     isHighlight = false,
                     tooltipMessage = stringResource(
