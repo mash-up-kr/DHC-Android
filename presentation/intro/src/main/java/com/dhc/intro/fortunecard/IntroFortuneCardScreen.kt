@@ -145,7 +145,6 @@ private fun FlippedDescription() {
         badgeText = null,
         score = 85,
         description = stringResource(R.string.intro_flipped_fortune_card_description),
-        isDefaultColor = true
     )
     Spacer(modifier = Modifier.height(64.dp))
 }

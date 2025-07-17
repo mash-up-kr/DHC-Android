@@ -126,7 +126,6 @@ private fun FlippedDescription(
         },
         score = score,
         description = description,
-        isDefaultColor = true
     )
     Spacer(modifier = Modifier.height(64.dp))
 }
