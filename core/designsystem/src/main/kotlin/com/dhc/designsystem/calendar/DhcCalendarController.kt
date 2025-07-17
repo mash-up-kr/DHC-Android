@@ -19,11 +19,21 @@ class DhcCalendarController(
 
     val calendarMonthState = mutableStateMapOf<LocalDate, DhcCalendarMonthData>()
 
+    var calendarClickListener: (LocalDate) -> Unit = {}
+
     fun getDateByPage(page: Int): LocalDate =
         initialData.initialDate.plusMonths(page.toLong() - initialData.initialPage).withDayOfMonth(1)
 
     fun onChangePage(page: Int) {
         currentDate = getDateByPage(page)
+    }
+
+    fun setOnClickDateListener(listener: (LocalDate) -> Unit) {
+        calendarClickListener = listener
+    }
+
+    fun onClickDate(date: LocalDate) {
+        calendarClickListener(date)
     }
 
     fun updateCalendarMonthData(

@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.dhc.common.getSuccessOrNull
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
+import com.dhc.dhcandroid.repository.EasterEggRepository
 import com.dhc.dhcandroid.repository.UserRepository
 import com.dhc.presentation.mvi.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,12 +14,14 @@ import com.dhc.intro.category.IntroCategoryContract.Event
 import com.dhc.intro.category.IntroCategoryContract.SideEffect
 import com.dhc.intro.category.model.CategoryItem
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 @HiltViewModel
 class IntroCategoryViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val authDataStoreRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
+    private val easterEggRepository: EasterEggRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
 
     init {
@@ -50,8 +53,8 @@ class IntroCategoryViewModel @Inject constructor(
                     userProfile = userRepository.getUserProfile().copy(userToken = userToken)
                 ).getSuccessOrNull()?.id?.let { userId ->
                     authDataStoreRepository.setUserId(userId)
+                    updateEasterEggBirthDay()
                 }
-
                 postSideEffect(SideEffect.NavigateToNextScreen)
             }
             is Event.ClickCategoryItem -> reduce {
@@ -64,5 +67,11 @@ class IntroCategoryViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    private suspend fun updateEasterEggBirthDay() {
+        val birthDayString = userRepository.getUserProfile().birthDate?.date ?: return
+        val birthDay = LocalDate.parse(birthDayString)
+        easterEggRepository.setBirthDay(birthDay)
     }
 }

@@ -4,6 +4,8 @@ import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.AuthDataStoreRepositoryImpl
 import com.dhc.dhcandroid.repository.DhcRepository
 import com.dhc.dhcandroid.repository.DhcRepositoryImpl
+import com.dhc.dhcandroid.repository.EasterEggRepository
+import com.dhc.dhcandroid.repository.EasterEggRepositoryImpl
 import com.dhc.dhcandroid.repository.FortuneRepository
 import com.dhc.dhcandroid.repository.FortuneRepositoryImpl
 import com.dhc.dhcandroid.repository.UserRepository
@@ -41,4 +43,10 @@ abstract class RepositoryModule {
     abstract fun bindFortuneRepository(
         fortuneRepository: FortuneRepositoryImpl
     ): FortuneRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindEasterEggRepository(
+        easterEggRepository: EasterEggRepositoryImpl
+    ): EasterEggRepository
 }

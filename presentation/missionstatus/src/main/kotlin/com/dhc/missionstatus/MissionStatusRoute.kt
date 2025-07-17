@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dhc.designsystem.calendar.rememberDhcCalendarController
 import com.dhc.missionstatus.ui.MissionStatusScreen
+import com.dhc.missionstatus.MissionStatusContract.Event
 
 @Composable
 fun MissionStatusRoute(
@@ -19,6 +20,10 @@ fun MissionStatusRoute(
 
     LaunchedEffect(Unit) {
         viewModel.loadAnalysisUiData()
+
+        calendarController.setOnClickDateListener { date ->
+            viewModel.sendEvent(Event.ClickCalendarDate(date))
+        }
     }
 
     LaunchedEffect(calendarController.currentDate) {

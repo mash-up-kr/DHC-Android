@@ -113,4 +113,10 @@ class DhcRepositoryImpl @Inject constructor(
             dhcRemoteDataSource.getDailyFortune(userId, date.format(dhcYearMonthDayFormat))
         }
     }
+
+    override suspend fun updateEasterEggHistory(userId: String): DhcResult<Unit> {
+        return runDhcCatching {
+            dhcRemoteDataSource.updateEasterEggHistory(userId)
+        }
+    }
 }
