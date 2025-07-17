@@ -35,6 +35,7 @@ import com.dhc.missionstatus.MissionStatusContract.State
 import com.dhc.missionstatus.R
 import java.time.LocalDate
 import kotlin.math.abs
+import com.dhc.designsystem.R as DR
 
 @Composable
 fun MissionStatusScreen(
@@ -81,6 +82,7 @@ fun MissionStatusScreen(
                     R.string.save_total_money_until_now,
                     wonFormat.format(state.consumptionAnalysisUiModel.totalSaveMoney)
                 ),
+                icon = DR.drawable.ico_fly_money,
             )
 
             ConsumptionAnalysisContent(
@@ -106,6 +108,7 @@ fun MissionStatusScreen(
                     .padding(top = 12.dp),
                 title = "${state.missionAnalysisUiModel.currentMonth}월달",
                 subTitle = "미션 평균 성공률 ${state.missionAnalysisUiModel.averageSucceedProbability}%",
+                icon = DR.drawable.ico_hit_target,
             )
 
             DhcCalendar(
@@ -140,7 +143,7 @@ private fun ConsumptionAnalysisContent(
                 }
                 append(stringResource(R.string.consumption_analysis_target, graphData.target))
             },
-            style = DhcTypoTokens.TitleH3,
+            style = DhcTypoTokens.TitleH4,
             color = colors.text.textMain,
         )
         Text(
@@ -162,7 +165,7 @@ private fun ConsumptionAnalysisContent(
                     }
                 }
             },
-            style = DhcTypoTokens.TitleH3,
+            style = DhcTypoTokens.TitleH4,
             color = colors.text.textMain,
         )
         DhcGraph(
