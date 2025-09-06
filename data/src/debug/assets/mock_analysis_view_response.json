@@ -1,0 +1,10 @@
+{
+  "totalSavedMoney": "500000",
+  "weeklySavedMoney": "50000",
+  "weeklySpendMoney": "30000",
+  "generationMoneyViewResponse": {
+    "generation": "1980s",
+    "gender": "MALE",
+    "averageSpendMoney": "40000"
+  }
+}
