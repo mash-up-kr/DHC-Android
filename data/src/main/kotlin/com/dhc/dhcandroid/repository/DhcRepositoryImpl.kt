@@ -4,10 +4,7 @@ import com.dhc.common.DhcResult
 import com.dhc.common.FormatterUtil.dhcYearMonthDayFormat
 import com.dhc.common.FormatterUtil.dhcYearMonthFormat
 import com.dhc.common.getSuccessOrNull
-import com.dhc.data.BuildConfig
 import com.dhc.dhcandroid.datasource.DhcRemoteDataSource
-import com.dhc.dhcandroid.di.MockDataSource
-import com.dhc.dhcandroid.di.RemoteDataSource
 import com.dhc.dhcandroid.model.AnalysisMonthViewResponse
 import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
@@ -27,14 +24,8 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 class DhcRepositoryImpl @Inject constructor(
-    @RemoteDataSource private val dhcRemoteDataSource: DhcRemoteDataSource,
-    @MockDataSource private val dhcMockDataSource: DhcRemoteDataSource,
+    private val dhcDataSource: DhcRemoteDataSource,
 ) : DhcRepository {
-
-    private val dhcDataSource = when (BuildConfig.FLAVOR) {
-        "mock" -> dhcMockDataSource
-        else -> dhcRemoteDataSource
-    }
     private val cachedCalendarView = mutableMapOf<LocalDate, AnalysisMonthViewResponse>()
 
     override suspend fun searchUserByToken(userToken: String): DhcResult<SearchUserByTokenResponse> =
