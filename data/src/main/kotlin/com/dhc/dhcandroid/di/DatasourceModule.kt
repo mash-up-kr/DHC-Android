@@ -2,6 +2,7 @@ package com.dhc.dhcandroid.di
 
 import com.dhc.dhcandroid.datasource.AuthLocalDataSource
 import com.dhc.dhcandroid.datasource.AuthLocalDataSourceImpl
+import com.dhc.dhcandroid.datasource.DhcMockDataSourceImpl
 import com.dhc.dhcandroid.datasource.UserMemoryDataSource
 import com.dhc.dhcandroid.datasource.UserMemoryDataSourceImpl
 import com.dhc.dhcandroid.datasource.DhcRemoteDataSource
@@ -35,8 +36,16 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
+    @RemoteDataSource
     abstract fun bindsDhcRemoteDataSource(
         dhcRemoteDataSourceImpl: DhcRemoteDataSourceImpl
+    ): DhcRemoteDataSource
+
+    @Binds
+    @Singleton
+    @MockDataSource
+    abstract fun bindsDhcMockDataSource(
+        dhcRemoteDataSourceImpl: DhcMockDataSourceImpl
     ): DhcRemoteDataSource
 
     @Binds
