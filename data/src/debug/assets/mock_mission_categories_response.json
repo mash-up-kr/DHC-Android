@@ -1,0 +1,19 @@
+{
+  "categories": [
+    {
+      "name": "WORK",
+      "displayName": "업무",
+      "image": "work.png"
+    },
+    {
+      "name": "HOBBY",
+      "displayName": "취미",
+      "image": "hobby.png"
+    },
+    {
+      "name": "UNKNOWN",
+      "displayName": "기타",
+      "image": "unknown.png"
+    }
+  ]
+}

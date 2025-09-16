@@ -24,16 +24,15 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 class DhcRepositoryImpl @Inject constructor(
-    private val dhcRemoteDataSource: DhcRemoteDataSource,
+    private val dhcDataSource: DhcRemoteDataSource,
 ) : DhcRepository {
-
     private val cachedCalendarView = mutableMapOf<LocalDate, AnalysisMonthViewResponse>()
 
     override suspend fun searchUserByToken(userToken: String): DhcResult<SearchUserByTokenResponse> =
-        runDhcCatching { dhcRemoteDataSource.searchUserByToken(userToken) }
+        runDhcCatching { dhcDataSource.searchUserByToken(userToken) }
 
     override suspend fun registerUser(userProfile: UserProfile): DhcResult<RegisterUserResponse> =
-        runDhcCatching { dhcRemoteDataSource.registerUser(userProfile) }
+        runDhcCatching { dhcDataSource.registerUser(userProfile) }
 
     override suspend fun changeMissionStatus(
         userId: String,
@@ -41,7 +40,7 @@ class DhcRepositoryImpl @Inject constructor(
         toggleMissionRequest: ToggleMissionRequest
     ): DhcResult<MissionsResponse> =
         runDhcCatching {
-            dhcRemoteDataSource.changeMissionStatus(
+            dhcDataSource.changeMissionStatus(
                 userId,
                 missionId,
                 toggleMissionRequest
@@ -49,22 +48,22 @@ class DhcRepositoryImpl @Inject constructor(
         }
 
     override suspend fun requestFinishTodayMissions(userId: String, endTodayMissionRequest: EndTodayMissionRequest): DhcResult<EndTodayMissionResponse> =
-        runDhcCatching { dhcRemoteDataSource.requestFinishTodayMissions(userId, endTodayMissionRequest) }
+        runDhcCatching { dhcDataSource.requestFinishTodayMissions(userId, endTodayMissionRequest) }
 
     override suspend fun deleteUser(userId: String): DhcResult<Unit> =
-        runDhcCatching { dhcRemoteDataSource.deleteUser(userId) }
+        runDhcCatching { dhcDataSource.deleteUser(userId) }
 
     override suspend fun getHomeView(userId: String): DhcResult<HomeViewResponse> =
-        runDhcCatching { dhcRemoteDataSource.getHomeView(userId) }
+        runDhcCatching { dhcDataSource.getHomeView(userId) }
 
     override suspend fun getMyPageView(userId: String): DhcResult<MyPageResponse> =
-        runDhcCatching { dhcRemoteDataSource.getMyPageView(userId) }
+        runDhcCatching { dhcDataSource.getMyPageView(userId) }
 
     override suspend fun getAnalysisView(userId: String): DhcResult<AnalysisViewResponse> =
-        runDhcCatching { dhcRemoteDataSource.getAnalysisView(userId) }
+        runDhcCatching { dhcDataSource.getAnalysisView(userId) }
 
     override suspend fun getMissionCategories(): DhcResult<MissionCategoriesResponse> =
-        runDhcCatching { dhcRemoteDataSource.getMissionCategories() }
+        runDhcCatching { dhcDataSource.getMissionCategories() }
 
     override suspend fun getCalendarView(
         userId: String,
@@ -85,7 +84,7 @@ class DhcRepositoryImpl @Inject constructor(
         }
 
         val result = runDhcCatching {
-            dhcRemoteDataSource.getCalendarView(
+            dhcDataSource.getCalendarView(
                 userId,
                 yearMonth.format(dhcYearMonthFormat)
             )
@@ -110,13 +109,13 @@ class DhcRepositoryImpl @Inject constructor(
         date: LocalDate,
     ): DhcResult<FortuneResponse> {
         return runDhcCatching {
-            dhcRemoteDataSource.getDailyFortune(userId, date.format(dhcYearMonthDayFormat))
+            dhcDataSource.getDailyFortune(userId, date.format(dhcYearMonthDayFormat))
         }
     }
 
     override suspend fun updateEasterEggHistory(userId: String): DhcResult<Unit> {
         return runDhcCatching {
-            dhcRemoteDataSource.updateEasterEggHistory(userId)
+            dhcDataSource.updateEasterEggHistory(userId)
         }
     }
 }
