@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -35,7 +34,6 @@ fun SpendingHabitMissionCard(
     isFinishedTodayMission: Boolean = false,
     isBlink: Boolean = false,
     onBlinkEnd: () -> Unit = {},
-    onHeightChanged: (Int) -> Unit = {},
     onCheckChange: () -> Unit = {}
 ) {
     val colors = LocalDhcColors.current
@@ -50,7 +48,6 @@ fun SpendingHabitMissionCard(
             .fillMaxWidth()
     ) {
         MissionItemBackGround(
-            modifier = Modifier.onSizeChanged{ onHeightChanged(it.height) },
             isChecked = isChecked,
             isEnabled = isFinishedTodayMission.not(),
             onCheckChange = onCheckChange,

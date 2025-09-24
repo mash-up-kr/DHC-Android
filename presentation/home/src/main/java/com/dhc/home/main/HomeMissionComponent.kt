@@ -6,10 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,8 +28,6 @@ fun SpendingHabitMission(
     modifier: Modifier = Modifier,
     isFinishedTodayMission: Boolean = false,
 ) {
-    var missionChangeHeight by remember { mutableIntStateOf(0) }
-
     Column(
         modifier = modifier
     ) {
@@ -49,7 +43,6 @@ fun SpendingHabitMission(
         MissionCardReRoll(
             type = MissionType.LONG_TERM,
             modifier = Modifier.padding(top = 12.dp),
-            missionChangeHeight = missionChangeHeight,
             missionUiModel = missionUiModel,
             onClickMissionChange = { onClickMissionChange(missionUiModel) },
             onExpandedChange = { onExpandedChange(it, missionUiModel.missionId)},
@@ -60,7 +53,6 @@ fun SpendingHabitMission(
                     missionTitle = missionUiModel.title,
                     isChecked = missionUiModel.isChecked,
                     isFinishedTodayMission = isFinishedTodayMission,
-                    onHeightChanged = { missionChangeHeight = it },
                     onCheckChange = { onCheckChange( !missionUiModel.isChecked, missionUiModel.missionId)},
                     isBlink = missionUiModel.isBlink,
                     onBlinkEnd = { onBlinkEnd(missionUiModel.missionId) },
@@ -91,10 +83,8 @@ fun MonetaryLuckyDailyMission(
         Spacer(modifier = Modifier.height(16.dp))
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             dailyMissionList.forEach { mission ->
-                var missionChangeHeight by remember { mutableIntStateOf(0) }
                 MissionCardReRoll(
                     type = MissionType.DAILY,
-                    missionChangeHeight = missionChangeHeight,
                     missionUiModel = mission,
                     onClickMissionChange = { onClickMissionChange(mission) },
                     onExpandedChange = { onExpandedChange(it, mission.missionId)},
@@ -107,7 +97,6 @@ fun MonetaryLuckyDailyMission(
                             isFinishedTodayMission = isFinishedTodayMission,
                             missionTitle = mission.title,
                             onBlinkEnd = { onBlinkEnd(mission.missionId) },
-                            onHeightChanged = { missionChangeHeight = it },
                             onCheckChange = { onCheckChange( !mission.isChecked, mission.missionId)}
                         )
                     }
