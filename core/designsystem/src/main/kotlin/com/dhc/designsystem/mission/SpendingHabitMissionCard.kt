@@ -27,7 +27,6 @@ import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.badge.DhcBadge
 import com.dhc.designsystem.badge.model.BadgeType
 
-
 @Composable
 fun SpendingHabitMissionCard(
     missionDday: String,
