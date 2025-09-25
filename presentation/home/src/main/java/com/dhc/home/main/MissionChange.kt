@@ -48,6 +48,7 @@ fun MissionCardReRoll(
     onClickMissionChange: () -> Unit,
     modifier: Modifier = Modifier,
     onExpandedChange: (Boolean) -> Unit,
+    subComposeMaximumRetry: Int = 2,
     content: @Composable () -> Unit,
 ) {
     var isExpanded by remember { mutableStateOf(missionUiModel.isExpanded) }
@@ -95,7 +96,8 @@ fun MissionCardReRoll(
                     content = content
                 )
             }.map { it.measure(constraints) }
-        } while (placeableList.maxOf { it.height } != contentMaxHeight)
+            // offset 등으로 실제 placeable height 과 content height 값이 다르면 다시 subCompose 시도
+        } while (placeableList.maxOf { it.height } != contentMaxHeight && number <= subComposeMaximumRetry)
 
         // 레이아웃 배치
         val placeableMaxSize = placeableList.fold(IntSize.Zero) { maxSize, placeable ->
