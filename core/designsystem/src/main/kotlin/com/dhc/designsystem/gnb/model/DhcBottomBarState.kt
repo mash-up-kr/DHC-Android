@@ -6,4 +6,5 @@ sealed interface DhcBottomBarState {
 
     data class BottomNavigation(
         val items: List<GnbItem>,
-    ) : DhcBottomBarState}
+    ) : DhcBottomBarState
+}
