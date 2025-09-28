@@ -17,11 +17,6 @@ fun DhcBottomBar(
     navigateToRoute: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val items = DhcBottomBarState.BottomNavigation.items
-    val selectedIndex = items
-        .indexOfFirst { it.routeName == currentRoute }
-        .coerceAtLeast(0)
-
     AnimatedContent(
         targetState = state,
         transitionSpec = {
@@ -37,8 +32,10 @@ fun DhcBottomBar(
         when (currentState) {
             is DhcBottomBarState.BottomNavigation -> {
                 DhcGnb(
-                    gnbItemList = items,
-                    selectedIndex = selectedIndex,
+                    gnbItemList = currentState.items,
+                    selectedIndex = currentState.items
+                        .indexOfFirst { it.routeName == currentRoute }
+                        .coerceAtLeast(0),
                     onClickItem = { gnbItem, _ ->
                         navigateToRoute(gnbItem.routeName)
                     },

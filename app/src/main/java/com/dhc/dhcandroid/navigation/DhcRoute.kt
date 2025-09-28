@@ -119,21 +119,21 @@ enum class DhcRoute(
     MAIN_HOME(
         route = "main/home",
         screenConfig = ScreenConfig(
-            bottomBarState = DhcBottomBarState.BottomNavigation,
+            bottomBarState = NavigationItemConst.mainGnbItemList,
             containerBackground = ContainerBackground.BackgroundWithTopRightGradientColor(),
         ),
     ),
     MAIN_MISSION(
         route = "main/mission",
         screenConfig = ScreenConfig(
-            bottomBarState = DhcBottomBarState.BottomNavigation,
+            bottomBarState = NavigationItemConst.mainGnbItemList,
             containerBackground = ContainerBackground.BackgroundWithTopRightGradientColor(),
         ),
     ),
     MAIN_MY(
         route = "main/my",
         screenConfig = ScreenConfig(
-            bottomBarState = DhcBottomBarState.BottomNavigation,
+            bottomBarState = NavigationItemConst.mainGnbItemList,
         ),
     ),
     HOME_MONETARY_DETAIL(
