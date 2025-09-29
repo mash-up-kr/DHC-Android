@@ -22,6 +22,6 @@ object NavigationItemConst {
                 iconText = R.string.btn_bottom_my_page,
                 routeName = DhcRouteConst.MAIN_MY,
             ),
-        )
+        ),
     )
 }
