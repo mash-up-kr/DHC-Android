@@ -52,8 +52,8 @@ fun DhcApp(
         bottomBar = {
             DhcBottomBar(
                 state = currentScreenConfig.bottomBarState,
-                currentRoute = DhcRoute.fromRoute(currentRoute).name,
-                navigateToRoute = { navController.navigateToBottomNavigation(DhcRoute.fromName(it)) },
+                currentRoute = DhcRoute.fromRoute(currentRoute).route,
+                navigateToRoute = { navController.navigateToBottomNavigation(DhcRoute.fromRoute(it)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .navigationBarsPadding(),

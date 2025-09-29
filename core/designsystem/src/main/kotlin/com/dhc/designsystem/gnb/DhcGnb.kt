@@ -73,17 +73,17 @@ private fun DhcGnbPreview() {
                 GnbItem(
                     iconResource = R.drawable.ico_home,
                     iconText = R.string.btn_bottom_home,
-                    routeName = "MAIN_HOME",
+                    routeName = "main/home",
                 ),
                 GnbItem(
                     iconResource = R.drawable.ico_chart,
                     iconText = R.string.btn_bottom_mission,
-                    routeName = "MAIN_MISSION",
+                    routeName = "main/mission",
                 ),
                 GnbItem(
                     iconResource = R.drawable.ico_mypage,
                     iconText = R.string.btn_bottom_my_page,
-                    routeName = "MAIN_MY",
+                    routeName = "main/my",
                 ),
             ),
             selectedIndex = 0,
