@@ -20,8 +20,8 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun TodayMissionCompleteTimer(
-    remainingTimeMillis: Long,
     modifier: Modifier = Modifier,
+    remainingTimeMillis: Long = 0L,
 ) {
     val colors = LocalDhcColors.current
 

@@ -25,6 +25,7 @@ import com.dhc.intro.splash.SplashRoute
 import com.dhc.intro.start.IntroRoute
 import com.dhc.missionstatus.MissionStatusRoute
 import com.dhc.mypage.MyPageRoute
+import com.dhc.reward.RewardRoute
 
 @Composable
 fun DhcNavHost(
@@ -123,6 +124,10 @@ fun DhcNavHost(
 
         composable(DhcRoute.MAIN_MISSION.route) {
             MissionStatusRoute()
+        }
+
+        composable(DhcRoute.MAIN_REWARD.route) {
+            RewardRoute()
         }
 
         composable(DhcRoute.MAIN_MY.route) {

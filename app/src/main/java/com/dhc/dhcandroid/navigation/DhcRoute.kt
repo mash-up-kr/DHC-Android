@@ -130,6 +130,17 @@ enum class DhcRoute(
             containerBackground = ContainerBackground.BackgroundWithTopRightGradientColor(),
         ),
     ),
+    MAIN_REWARD(
+        route = DhcRouteConst.MAIN_REWARD,
+        screenConfig = ScreenConfig(
+            topBarState = DhcTopBarState.Basic(
+                title = "리워드",
+                isShowBackButton = false,
+            ),
+            bottomBarState = NavigationItemConst.mainGnbItemList,
+            containerBackground = ContainerBackground.BackgroundWithTopRightGradientColor(),
+        ),
+    ),
     MAIN_MY(
         route = DhcRouteConst.MAIN_MY,
         screenConfig = ScreenConfig(

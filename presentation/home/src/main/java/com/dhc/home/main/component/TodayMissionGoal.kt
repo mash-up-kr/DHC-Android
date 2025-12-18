@@ -35,6 +35,7 @@ import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.TransparentColor
+import com.dhc.designsystem.reward.RewardProgressBar
 
 @Composable
 fun TodayMissionGoal(
@@ -127,90 +128,13 @@ fun TodayMissionGoal(
                     )
                 }
             }
-
-            MissionProgressBar(
-                currentStep = animatedStep,
-                modifier = Modifier.fillMaxWidth()
+            RewardProgressBar(
+                currentStep = animatedStep
             )
         }
     }
 }
 
-@Composable
-private fun MissionProgressBar(
-    currentStep: Int,
-    modifier: Modifier = Modifier,
-) {
-    val colors = LocalDhcColors.current
-    val steps = listOf("시작", "1개", "2개", "Goal")
-    
-    val progressWidthByStep = listOf(0.094f, 0.37f, 0.66f, 1.0f)
-
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(12.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(TransparentColor.badgePrimary)
-        ) {
-            val progressWidth = progressWidthByStep.getOrElse(currentStep) { 0.08f }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth(progressWidth)
-                    .height(12.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(colors.text.textHighLightsPrimary)
-            )
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(12.dp)
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                steps.forEachIndexed { index, _ ->
-                    val isFilled = index <= currentStep
-                    Box(
-                        modifier = Modifier
-                            .size(6.dp)
-                            .background(
-                                color = if (isFilled) colors.text.textHighLightsPrimary else colors.text.textHighLightsPrimary,
-                                shape = CircleShape
-                            )
-                    )
-                }
-            }
-        }
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            steps.forEachIndexed { index, label ->
-                val isCompleted = index <= currentStep
-                val isGoal = index == steps.lastIndex
-
-                val textColor = when {
-                    isGoal -> colors.text.textMain
-                    isCompleted -> colors.text.textHighLightsPrimary
-                    else -> SurfaceColor.neutral500
-                }
-
-                Text(
-                    text = label,
-                    style = DhcTypoTokens.TitleH7,
-                    color = textColor,
-                )
-            }
-        }
-    }
-}
 
 private class TodayMissionGoalPreviewProvider : PreviewParameterProvider<TodayMissionGoalPreviewProvider.Parameter> {
     override val values = sequenceOf(

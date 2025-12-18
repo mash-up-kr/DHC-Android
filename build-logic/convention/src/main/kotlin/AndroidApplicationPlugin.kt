@@ -38,6 +38,7 @@ class AndroidApplicationPlugin : Plugin<Project> {
                 implementation(project(":presentation:home"))
                 implementation(project(":presentation:missionstatus"))
                 implementation(project(":presentation:mypage"))
+                implementation(project(":presentation:reward"))
                 implementation(project(":data"))
                 implementation(project(":core:designsystem"))
                 implementation(project(":core:presentation"))

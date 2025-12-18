@@ -14,6 +14,7 @@ object DhcRouteConst {
     const val INTRO_CATEGORY = "intro/category"
     const val MAIN_HOME = "main/home"
     const val MAIN_MISSION = "main/mission"
+    const val MAIN_REWARD = "main/reward"
     const val MAIN_MY = "main/my"
     const val HOME_MONETARY_DETAIL = "home/monetaryDetail"
     const val NONE = "none"
