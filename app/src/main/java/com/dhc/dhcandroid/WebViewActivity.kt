@@ -1,0 +1,82 @@
+package com.dhc.dhcandroid
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.os.Bundle
+import android.util.Log
+import android.webkit.JavascriptInterface
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.AndroidView
+import com.dhc.designsystem.DhcTheme
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class WebViewActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            DhcTheme {
+                Scaffold { paddingValues ->
+                    WebViewScreen(modifier = Modifier.fillMaxSize().padding(paddingValues))
+                }
+            }
+        }
+    }
+
+    companion object {
+        fun start(context: Context) {
+            context.startActivity(
+                Intent(context, WebViewActivity::class.java)
+            )
+        }
+    }
+}
+
+@SuppressLint("SetJavaScriptEnabled")
+@Composable
+fun WebViewScreen(modifier: Modifier = Modifier) {
+    AndroidView(
+        factory = { context ->
+            Log.e("zemic", "hello world")
+            WebView(context).apply {
+                settings.javaScriptEnabled = true // 뒤로가기 등의 액션 받기 위함
+                settings.domStorageEnabled = true // 클라이언트 사이드 라우팅 동작을 위함
+                setBackgroundColor(Color.BLACK) // 웹 페이지 배경색과 맞춤
+                loadUrl("https://dhc-web.vercel.app/")
+                addJavascriptInterface(WebAppInterface(context), "DHCJavascriptInterface")
+//                webViewClient = DhcWebViewClient()
+            }
+        },
+        modifier = modifier,
+    )
+}
+
+class WebAppInterface(private val context: Context) {
+
+    /** Show a toast from the web page.  */
+    @JavascriptInterface
+    fun showToast(toast: String) {
+        Toast.makeText(context, toast, Toast.LENGTH_SHORT).show()
+    }
+}
+
+class DhcWebViewClient: WebViewClient() {
+    override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+        Log.e("zemic", "${request?.url}")
+        return super.shouldOverrideUrlLoading(view, request)
+    }
+}
