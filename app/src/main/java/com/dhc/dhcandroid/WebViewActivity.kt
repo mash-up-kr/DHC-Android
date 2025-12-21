@@ -1,6 +1,7 @@
 package com.dhc.dhcandroid
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -12,6 +13,8 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
@@ -49,6 +52,7 @@ class WebViewActivity : ComponentActivity() {
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun WebViewScreen(modifier: Modifier = Modifier) {
+    val activity = LocalActivity.current
     AndroidView(
         factory = { context ->
             Log.e("zemic", "hello world")
@@ -57,26 +61,18 @@ fun WebViewScreen(modifier: Modifier = Modifier) {
                 settings.domStorageEnabled = true // 클라이언트 사이드 라우팅 동작을 위함
                 setBackgroundColor(Color.BLACK) // 웹 페이지 배경색과 맞춤
                 loadUrl("https://dhc-web.vercel.app/")
-                addJavascriptInterface(WebAppInterface(context), "DHCJavascriptInterface")
-//                webViewClient = DhcWebViewClient()
+                addJavascriptInterface(WebAppInterface(activity), "DHCJavascriptInterface")
             }
         },
         modifier = modifier,
     )
 }
 
-class WebAppInterface(private val context: Context) {
+class WebAppInterface(private val activity: Activity?) {
 
     /** Show a toast from the web page.  */
     @JavascriptInterface
-    fun showToast(toast: String) {
-        Toast.makeText(context, toast, Toast.LENGTH_SHORT).show()
-    }
-}
-
-class DhcWebViewClient: WebViewClient() {
-    override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-        Log.e("zemic", "${request?.url}")
-        return super.shouldOverrideUrlLoading(view, request)
+    fun close() {
+        activity?.finish()
     }
 }
