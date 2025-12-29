@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MyPageRoute(
     navigateToInitialScreen: () -> Unit,
+    navigateToFortuneTest: () -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -31,6 +32,7 @@ fun MyPageRoute(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 is SideEffect.NavigateToIntro -> navigateToInitialScreen()
+                is SideEffect.NavigateToFortuneTest -> navigateToFortuneTest()
                 is SideEffect.ShowToast -> {
                     coroutineScope.launch {
                         snackBarState.showSnackbar(
