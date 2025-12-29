@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -187,12 +188,9 @@ private fun Setting(
     eventHandler: EventHandler<Event>,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier.padding(vertical = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
+    Column(modifier = modifier) {
         Text(
-            modifier = Modifier.padding(start = 20.dp),
+            modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 12.dp, end = 20.dp),
             text = stringResource(R.string.setting),
             style = DhcTypoTokens.Body3,
             color = SurfaceColor.neutral30,
@@ -209,12 +207,14 @@ private fun Setting(
                 ),
             )
         )
+        Spacer(modifier = Modifier.height(20.dp))
         UserIdSection(
             userId = state.userId,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 8.dp),
         )
+        Spacer(modifier = Modifier.height(40.dp))
     }
 }
 
