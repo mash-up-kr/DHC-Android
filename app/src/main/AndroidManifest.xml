@@ -27,21 +27,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".WebViewActivity"
-            android:exported="true"
-            android:theme="@style/Theme.DHCAndroid">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="https" />
-                <data android:host="dhc-web.vercel.app" />
-                <data android:path="/*" />
-            </intent-filter>
-        </activity>
-
         <service
             android:name=".DhcFirebaseMessagingService"
             android:exported="false">
