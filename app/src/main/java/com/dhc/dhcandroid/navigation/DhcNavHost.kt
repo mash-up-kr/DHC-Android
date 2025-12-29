@@ -144,7 +144,10 @@ fun DhcNavHost(
             MonetaryLuckDetailRoute()
         }
         composable(DhcRoute.FORTUNE_TEST.route) {
-            SurveyRoute()
+            SurveyRoute(
+                navigateToHome = { navController.navigateToHome() },
+                navigateToPrevScreen = { navController.navigateUp() },
+            )
         }
     }
 }
