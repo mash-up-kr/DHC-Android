@@ -19,6 +19,7 @@ class MyPageContract {
         data object ClickAppResetButton : Event
         data object ClickAppResetConfirmButton : Event
         data object ClickDialogDismissButton : Event
+        data object ClickFortuneTestButton : Event
     }
 
     sealed interface SideEffect : UiSideEffect {
