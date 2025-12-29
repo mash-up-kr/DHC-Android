@@ -16,6 +16,6 @@ object DhcRouteConst {
     const val MAIN_MISSION = "main/mission"
     const val MAIN_MY = "main/my"
     const val HOME_MONETARY_DETAIL = "home/monetaryDetail"
-    const val FORTUNE_TEST = "fortuneTest"
+    const val FORTUNE_SURVEY = "fortuneSurvey"
     const val NONE = "none"
 }

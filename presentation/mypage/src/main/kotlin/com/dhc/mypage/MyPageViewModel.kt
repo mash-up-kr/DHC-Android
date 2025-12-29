@@ -61,7 +61,7 @@ class MyPageViewModel @Inject constructor(
             }
 
             is Event.ClickDialogDismissButton -> reduce { copy(isShowAppResetDialog = false) }
-            is Event.ClickFortuneTestButton -> { postSideEffect(SideEffect.NavigateToFortuneTest) }
+            is Event.ClickFortuneSurveyButton -> { postSideEffect(SideEffect.NavigateToFortuneSurvey) }
         }
     }
 
