@@ -1,6 +1,7 @@
 package com.example.survey
 
 import android.annotation.SuppressLint
+import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
@@ -23,6 +24,10 @@ fun SurveyScreen(
     AndroidView(
         factory = { context ->
             WebView(context).apply {
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                )
                 settings.javaScriptEnabled = true
                 settings.domStorageEnabled = true // 클라이언트 사이드 라우팅 동작을 위함
                 settings.userAgentString = buildString {
