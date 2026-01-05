@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,7 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -38,7 +38,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
-import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.GradientColor.backgroundGradient01
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
@@ -187,12 +186,29 @@ private fun Setting(
     eventHandler: EventHandler<Event>,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier.padding(vertical = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
+    Column(modifier = modifier) {
         Text(
-            modifier = Modifier.padding(start = 20.dp),
+            modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 12.dp, end = 20.dp),
+            text = stringResource(R.string.fortune_test),
+            style = DhcTypoTokens.Body3,
+            color = SurfaceColor.neutral30,
+        )
+        SettingList(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            settingItems = listOf(
+                SettingItem.Normal(
+                    text = stringResource(R.string.check_fortune_test),
+                    iconRes = DR.drawable.ico_couple,
+                    onClick = { eventHandler(Event.ClickFortuneSurveyButton) },
+                    isArrowVisible = true,
+                ),
+            )
+        )
+
+        Text(
+            modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 12.dp, end = 20.dp),
             text = stringResource(R.string.setting),
             style = DhcTypoTokens.Body3,
             color = SurfaceColor.neutral30,
@@ -206,15 +222,21 @@ private fun Setting(
                     text = stringResource(R.string.initial_app),
                     iconRes = DR.drawable.ico_sign_out,
                     onClick = { eventHandler(Event.ClickAppResetButton) },
+                    isArrowVisible = false,
                 ),
             )
         )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
         UserIdSection(
             userId = state.userId,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 8.dp),
         )
+
+        Spacer(modifier = Modifier.height(40.dp))
     }
 }
 
