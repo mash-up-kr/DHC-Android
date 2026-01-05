@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,6 +27,7 @@ import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.floatingButton.DhcFloatingButton
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
+import com.dhc.designsystem.modal.DhcModal
 import com.dhc.home.R
 import com.dhc.home.model.SelectChangeMission
 import com.dhc.presentation.mvi.EventHandler
@@ -116,6 +118,15 @@ fun HomeScreen(
                 onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
                 onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId)) },
             )
+            if (state.isFortuneSurveyVisible) {
+                DhcModal(
+                    onClickClose = { eventHandler(HomeContract.Event.ClickFortuneSurveyClose) },
+                    onClickSubmit = { eventHandler(HomeContract.Event.ClickFortuneSurveySubmit) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp, vertical = 24.dp),
+                )
+            }
             Spacer(modifier = Modifier.height(136.dp))
         }
 

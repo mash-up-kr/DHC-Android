@@ -131,6 +131,15 @@ class HomeViewModel @Inject constructor(
             is Event.ClickErrorRetryButton -> {
                 getHomeInfo()
             }
+
+            is Event.ClickFortuneSurveyClose -> {
+                reduce { copy(isFortuneSurveyVisible = false) }
+            }
+
+            is Event.ClickFortuneSurveySubmit -> {
+                reduce { copy(isFortuneSurveyVisible = false) }
+                postSideEffect(SideEffect.NavigateToFortuneSurvey)
+            }
         }
     }
 
