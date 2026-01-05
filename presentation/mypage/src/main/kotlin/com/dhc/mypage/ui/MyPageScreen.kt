@@ -191,6 +191,26 @@ private fun Setting(
     Column(modifier = modifier) {
         Text(
             modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 12.dp, end = 20.dp),
+            text = stringResource(R.string.fortune_test),
+            style = DhcTypoTokens.Body3,
+            color = SurfaceColor.neutral30,
+        )
+        SettingList(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            settingItems = listOf(
+                SettingItem.Normal(
+                    text = stringResource(R.string.check_fortune_test),
+                    iconRes = DR.drawable.ico_couple,
+                    onClick = { eventHandler(Event.ClickFortuneTestButton) },
+                    isArrowVisible = true,
+                ),
+            )
+        )
+
+        Text(
+            modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 12.dp, end = 20.dp),
             text = stringResource(R.string.setting),
             style = DhcTypoTokens.Body3,
             color = SurfaceColor.neutral30,
@@ -204,16 +224,20 @@ private fun Setting(
                     text = stringResource(R.string.initial_app),
                     iconRes = DR.drawable.ico_sign_out,
                     onClick = { eventHandler(Event.ClickAppResetButton) },
+                    isArrowVisible = false,
                 ),
             )
         )
+
         Spacer(modifier = Modifier.height(20.dp))
+
         UserIdSection(
             userId = state.userId,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp, vertical = 8.dp),
         )
+
         Spacer(modifier = Modifier.height(40.dp))
     }
 }

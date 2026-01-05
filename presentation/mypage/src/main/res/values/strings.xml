@@ -11,4 +11,6 @@
     <string name="app_reset_dialog_cancel">이전으로 돌아가기</string>
     <string name="app_reset_dialog_ok">초기화</string>
     <string name="user_id_text">User ID : %s</string>
+    <string name="fortune_test">운세 테스트</string>
+    <string name="check_fortune_test">내 썸녀와 잘될 수 있을까?</string>
 </resources>

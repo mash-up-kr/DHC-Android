@@ -10,6 +10,7 @@ internal sealed interface SettingItem {
     data class Normal(
         override val text: String,
         @DrawableRes override val iconRes: Int,
+        val isArrowVisible: Boolean,
         val onClick: () -> Unit = {},
     ): SettingItem
 
