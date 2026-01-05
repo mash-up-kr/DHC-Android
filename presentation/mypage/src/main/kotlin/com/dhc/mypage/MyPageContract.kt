@@ -24,6 +24,7 @@ class MyPageContract {
 
     sealed interface SideEffect : UiSideEffect {
         data object NavigateToIntro : SideEffect
+        data object NavigateToFortuneTest : SideEffect
         data class ShowToast(val message: String) : SideEffect
     }
 }

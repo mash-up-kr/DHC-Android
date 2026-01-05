@@ -133,6 +133,7 @@ fun DhcNavHost(
         composable(DhcRoute.MAIN_MY.route) {
             MyPageRoute(
                 navigateToInitialScreen = { navController.navigateToIntroPageWithClearStack() },
+                navigateToFortuneTest = { navController.navigateTo(DhcRoute.FORTUNE_TEST) }
             )
         }
         composable(DhcRoute.MAIN_HOME.route) { navBackStackEntry ->
@@ -145,6 +146,9 @@ fun DhcNavHost(
 
         composable(DhcRoute.HOME_MONETARY_DETAIL.route) {
             MonetaryLuckDetailRoute()
+        }
+        composable(DhcRoute.FORTUNE_TEST.route) {
+            FortuneTestRoute()
         }
     }
 }
