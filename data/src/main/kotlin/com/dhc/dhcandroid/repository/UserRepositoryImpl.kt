@@ -6,7 +6,7 @@ import com.dhc.dhcandroid.model.BirthDate
 import com.dhc.dhcandroid.model.Gender
 import com.dhc.dhcandroid.model.MissionCategory
 import com.dhc.dhcandroid.model.UserProfile
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -32,6 +32,10 @@ class UserRepositoryImpl @Inject constructor(
     override fun getUserProfile(): UserProfile =
         userMemoryDataSource.userProfileState.value
 
-    override fun getIsShownFortunePopupFlow(): Flow<Boolean> =
-        userLocalDataSource.isShownFortunePopup
+    override suspend fun getIsShownFortunePopup(): Boolean =
+        userLocalDataSource.isShownFortunePopup.firstOrNull() ?: true
+
+    override suspend fun updateIsShownFortunePopup(shown: Boolean) {
+        userLocalDataSource.setShownFortunePopup(shown)
+    }
 }

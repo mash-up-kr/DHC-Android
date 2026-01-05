@@ -12,6 +12,7 @@ import com.dhc.dhcandroid.model.MissionType
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
 import com.dhc.dhcandroid.repository.FortuneRepository
+import com.dhc.dhcandroid.repository.UserRepository
 import com.dhc.home.main.HomeContract
 import com.dhc.home.main.HomeContract.Event
 import com.dhc.home.main.HomeContract.SideEffect
@@ -39,6 +40,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val authRepository: AuthDataStoreRepository,
+    private val userRepository: UserRepository,
     private val dhcRepository: DhcRepository,
     private val fortuneRepository: FortuneRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
@@ -135,10 +137,12 @@ class HomeViewModel @Inject constructor(
 
             is Event.ClickFortuneSurveyClose -> {
                 reduce { copy(isFortuneSurveyVisible = false) }
+                userRepository.updateIsShownFortunePopup(true)
             }
 
             is Event.ClickFortuneSurveySubmit -> {
                 reduce { copy(isFortuneSurveyVisible = false) }
+                userRepository.updateIsShownFortunePopup(true)
                 postSideEffect(SideEffect.NavigateToFortuneSurvey)
             }
         }
@@ -380,7 +384,10 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getIsFortuneSurveyVisible() {
-
+        viewModelScope.launch {
+            val isShown = userRepository.getIsShownFortunePopup()
+            reduce { copy(isFortuneSurveyVisible = isShown.not()) }
+        }
     }
 
     companion object {
