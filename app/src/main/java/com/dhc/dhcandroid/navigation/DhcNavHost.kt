@@ -6,13 +6,11 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import com.dhc.dhcandroid.WebViewActivity
 import com.dhc.home.HomeRoute
 import com.dhc.home.detail.MonetaryLuckDetailRoute
 import com.dhc.intro.birthday.IntroBirthDayRoute
@@ -62,7 +60,6 @@ fun DhcNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
-    val context = LocalContext.current
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -77,9 +74,7 @@ fun DhcNavHost(
                 exitTransition = { ExitTransition.None },
             ) {
                 IntroRoute(
-                    navigateToNextScreen = {
-                        WebViewActivity.start(context)
-                    },
+                    navigateToNextScreen = { navController.navigateTo(DhcRoute.INTRO_DESCRIPTION) },
                 )
             }
             composable(
