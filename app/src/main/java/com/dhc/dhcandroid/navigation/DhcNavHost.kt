@@ -142,6 +142,7 @@ fun DhcNavHost(
                 navBackStackEntry = navBackStackEntry,
                 navigateToMission = { navController.navigateToMission() },
                 navigateToMonetaryLuckDetail = { navController.navigateTo(DhcRoute.HOME_MONETARY_DETAIL) },
+                navigateToReward = { navController.navigateToReward() },
             )
         }
 

@@ -39,6 +39,8 @@ import com.dhc.designsystem.reward.RewardProgressBar
 
 @Composable
 fun TodayMissionGoal(
+    title: String,
+    subtitle: String,
     completedCount: Int,
     totalCount: Int,
     onClickRewardButton: () -> Unit,
@@ -51,12 +53,6 @@ fun TodayMissionGoal(
         animationSpec = tween(durationMillis = 500),
         label = "step"
     )
-
-    val subtitle = when (completedCount) {
-        0 -> "단 ${totalCount}개만 도전해 보세요"
-        totalCount -> "리워드를 받아 보세요!"
-        else -> "리워드까지 ${totalCount - completedCount}개 남았어요!"
-    }
 
     Box(
         modifier = modifier
@@ -96,7 +92,7 @@ fun TodayMissionGoal(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = "오늘의 미션",
+                        text = title,
                         style = DhcTypoTokens.TitleH5,
                         color = colors.text.textMain,
                     )
@@ -138,13 +134,35 @@ fun TodayMissionGoal(
 
 private class TodayMissionGoalPreviewProvider : PreviewParameterProvider<TodayMissionGoalPreviewProvider.Parameter> {
     override val values = sequenceOf(
-        Parameter(completedCount = 0, totalCount = 3),
-        Parameter(completedCount = 1, totalCount = 3),
-        Parameter(completedCount = 2, totalCount = 3),
-        Parameter(completedCount = 3, totalCount = 3),
+        Parameter(
+            title = "리워드 2배 이벤트",
+            subtitle = "단 3개만 도전해 보세요",
+            completedCount = 0,
+            totalCount = 3
+        ),
+        Parameter(
+            title = "리워드 2배 이벤트",
+            subtitle = "리워드까지 2개 남았어요!",
+            completedCount = 1,
+            totalCount = 3
+        ),
+        Parameter(
+            title = "리워드 2배 이벤트",
+            subtitle = "리워드까지 1개 남았어요!",
+            completedCount = 2,
+            totalCount = 3
+        ),
+        Parameter(
+            title = "웰컴백 이벤트",
+            subtitle = "리워드를 받아 보세요!",
+            completedCount = 3,
+            totalCount = 3
+        ),
     )
 
     data class Parameter(
+        val title: String,
+        val subtitle: String,
         val completedCount: Int,
         val totalCount: Int,
     )
@@ -158,6 +176,8 @@ private fun TodayMissionGoalPreview(
 ) {
     DhcTheme {
         TodayMissionGoal(
+            title = parameter.title,
+            subtitle = parameter.subtitle,
             completedCount = parameter.completedCount,
             totalCount = parameter.totalCount,
             onClickRewardButton = {},

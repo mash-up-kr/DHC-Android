@@ -57,6 +57,10 @@ class HomeViewModel @Inject constructor(
                 SideEffect.NavigateToMonetaryDetailScreen
             )
 
+            Event.ClickRewardButton -> postSideEffect(
+                SideEffect.NavigateToReward
+            )
+
             is Event.ClickTodayMissionFinish -> {
                 updateMissionCompleteBottomSheetState(isShowBottomSheet = true)
             }

@@ -34,6 +34,7 @@ fun HomeRoute(
     navBackStackEntry: NavBackStackEntry,
     navigateToMission: () -> Unit,
     navigateToMonetaryLuckDetail: () -> Unit,
+    navigateToReward: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(navBackStackEntry)
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -45,6 +46,7 @@ fun HomeRoute(
             when (sideEffect) {
                 is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
+                is HomeContract.SideEffect.NavigateToReward -> navigateToReward()
                 is HomeContract.SideEffect.ShowToast -> {
                     scope.launch {
                         snackBarHostState.showImmediately(sideEffect.msg)

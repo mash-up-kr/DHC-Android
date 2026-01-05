@@ -56,11 +56,13 @@ class HomeContract {
         data class ClickMissionCheck(val isChecked: Boolean, val missionId: String): Event
         data object FortuneCardFlipped: Event
         data object ClickErrorRetryButton: Event
+        data object ClickRewardButton: Event
     }
 
     sealed interface SideEffect : UiSideEffect {
         data object NavigateToMonetaryDetailScreen: SideEffect
         data class ShowToast(val msg: String): SideEffect
         data object NavigateToMission: SideEffect
+        data object NavigateToReward: SideEffect
     }
 }
