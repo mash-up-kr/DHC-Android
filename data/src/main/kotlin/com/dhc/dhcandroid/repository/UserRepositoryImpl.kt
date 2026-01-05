@@ -38,4 +38,9 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun updateIsShownFortunePopup(shown: Boolean) {
         userLocalDataSource.setShownFortunePopup(shown)
     }
+
+    override suspend fun clear() {
+        userMemoryDataSource.clear()
+        userLocalDataSource.clear()
+    }
 }

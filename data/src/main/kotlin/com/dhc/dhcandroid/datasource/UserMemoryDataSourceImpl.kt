@@ -30,4 +30,8 @@ class UserMemoryDataSourceImpl @Inject constructor(
     override fun updateCategory(categoryList: List<MissionCategory>) {
         _userProfileState.update { it.copy(preferredMissionCategoryList = categoryList) }
     }
+
+    override fun clear() {
+        _userProfileState.update { UserProfile() }
+    }
 }
