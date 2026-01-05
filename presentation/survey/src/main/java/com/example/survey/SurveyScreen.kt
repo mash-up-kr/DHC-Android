@@ -21,7 +21,7 @@ fun SurveyScreen(
 ) {
     val activity = LocalActivity.current
     val colors = LocalDhcColors.current
-    AndroidView(
+    AndroidView(.
         factory = { context ->
             WebView(context).apply {
                 layoutParams = ViewGroup.LayoutParams(
