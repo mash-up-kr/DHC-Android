@@ -89,7 +89,7 @@ fun HomeScreen(
             }
 
             TodayMissionCompleteTimer(
-                remainingTimeMillis = state.homeInfo.remainingMissionTimer
+                timerText = state.missionTimerText
             )
             Spacer(modifier = Modifier.height(24.dp))
             TodayMissionGoal(

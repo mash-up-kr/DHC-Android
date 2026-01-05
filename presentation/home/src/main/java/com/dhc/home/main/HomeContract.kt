@@ -20,6 +20,7 @@ class HomeContract {
         val selectedMissionInfo: SelectChangeMission = SelectChangeMission(),
         val homeInfo: HomeUiModel = HomeUiModel(),
         val todaySavedMoney: String = "",
+        val missionTimerText: String = "00 : 00 : 00 남음",
     ): UiState {
         val remainingMissionCount: Int
             get() = getMissionIdList().size - getFinishedMissionCount()
