@@ -38,7 +38,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val userRepository: AuthDataStoreRepository,
+    private val authRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
     private val fortuneRepository: FortuneRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
@@ -168,7 +168,7 @@ class HomeViewModel @Inject constructor(
     private fun getHomeInfo() {
         viewModelScope.launch {
             reduce { copy(homeState = HomeContract.HomeState.Loading) }
-            val userIdDeferred = async { userRepository.getUserId().firstOrNull() }
+            val userIdDeferred = async { authRepository.getUserId().firstOrNull() }
             val seenFortuneListDeferred = async { fortuneRepository.getSeenFortuneList().firstOrNull() }
 
             val currentLocalDate = LocalDate.now()
@@ -203,7 +203,7 @@ class HomeViewModel @Inject constructor(
         missionStatusType: MissionStatusType,
     ) {
         viewModelScope.launch {
-            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+            val userId = authRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.changeMissionStatus(
                 userId = userId,
                 missionId = missionId,
@@ -330,7 +330,7 @@ class HomeViewModel @Inject constructor(
 
     private fun finishTodayMission() {
         viewModelScope.launch {
-            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+            val userId = authRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.requestFinishTodayMissions(
                 userId = userId,
                 endTodayMissionRequest = EndTodayMissionRequest(
@@ -350,7 +350,7 @@ class HomeViewModel @Inject constructor(
     private fun checkCompletedLoading() = viewModelScope.launch {
         if (state.value.homeState != HomeContract.HomeState.Loading) return@launch
 
-        val userIdDeferred = async { userRepository.getUserId().firstOrNull() }
+        val userIdDeferred = async { authRepository.getUserId().firstOrNull() }
         val seenFortuneListDeferred = async { fortuneRepository.getSeenFortuneList().firstOrNull() }
 
         val currentLocalDate = LocalDate.now()
