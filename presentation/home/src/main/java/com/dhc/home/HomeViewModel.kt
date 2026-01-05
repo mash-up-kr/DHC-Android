@@ -49,6 +49,7 @@ class HomeViewModel @Inject constructor(
     init {
         getHomeInfo()
         checkCompletedLoading()
+        getIsFortuneSurveyVisible()
     }
 
     override suspend fun handleEvent(event: Event) {
@@ -376,6 +377,10 @@ class HomeViewModel @Inject constructor(
         } else {
             reduce { copy(homeState = HomeContract.HomeState.Error) }
         }
+    }
+
+    private fun getIsFortuneSurveyVisible() {
+
     }
 
     companion object {

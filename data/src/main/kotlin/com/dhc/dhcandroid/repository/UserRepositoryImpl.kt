@@ -1,14 +1,17 @@
 package com.dhc.dhcandroid.repository
 
+import com.dhc.dhcandroid.datasource.UserLocalDataSource
 import com.dhc.dhcandroid.datasource.UserMemoryDataSource
 import com.dhc.dhcandroid.model.BirthDate
 import com.dhc.dhcandroid.model.Gender
 import com.dhc.dhcandroid.model.MissionCategory
 import com.dhc.dhcandroid.model.UserProfile
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private val userMemoryDataSource: UserMemoryDataSource,
+    private val userLocalDataSource: UserLocalDataSource,
 ) : UserRepository {
     override fun updateGender(gender: Gender) {
         userMemoryDataSource.updateGender(gender)
@@ -28,4 +31,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override fun getUserProfile(): UserProfile =
         userMemoryDataSource.userProfileState.value
+
+    override fun getIsShownFortunePopupFlow(): Flow<Boolean> =
+        userLocalDataSource.isShownFortunePopup
 }

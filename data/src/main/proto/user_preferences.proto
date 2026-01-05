@@ -8,4 +8,5 @@ message UserPreferences {
   string fcmToken = 2;
   string userId = 3;
   repeated sint64 fortuneDateSeenList = 4;
+  bool isShownFortunePopup = 5;
 }
