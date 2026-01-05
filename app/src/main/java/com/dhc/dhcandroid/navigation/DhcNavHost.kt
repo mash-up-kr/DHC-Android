@@ -27,6 +27,7 @@ import com.dhc.intro.splash.SplashRoute
 import com.dhc.intro.start.IntroRoute
 import com.dhc.missionstatus.MissionStatusRoute
 import com.dhc.mypage.MyPageRoute
+import com.example.survey.SurveyRoute
 
 @Composable
 fun DhcNavHost(
@@ -148,7 +149,7 @@ fun DhcNavHost(
             MonetaryLuckDetailRoute()
         }
         composable(DhcRoute.FORTUNE_TEST.route) {
-            FortuneTestRoute()
+            SurveyRoute()
         }
     }
 }
