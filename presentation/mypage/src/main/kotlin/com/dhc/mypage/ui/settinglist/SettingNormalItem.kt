@@ -50,6 +50,7 @@ private fun SettingNormalItemPreview() {
             item = SettingItem.Normal(
                 text = "로그아웃",
                 iconRes = DR.drawable.ico_sign_out,
+                isArrowVisible = false,
             ),
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
         )

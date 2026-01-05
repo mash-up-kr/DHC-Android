@@ -63,11 +63,11 @@ private fun SettingListPreview() {
     DhcTheme {
         SettingList(
             settingItems = listOf(
-                SettingItem.Normal(text = "내 정보", iconRes = DR.drawable.ico_sign_out),
+                SettingItem.Normal(text = "내 정보", iconRes = DR.drawable.ico_sign_out, isArrowVisible = false),
                 SettingItem.Toggle(text = "알림 설정", iconRes = DR.drawable.ico_sign_out, isOn = true),
-                SettingItem.Normal(text = "고객센터", iconRes = DR.drawable.ico_sign_out),
-                SettingItem.Normal(text = "약관 및 정책", iconRes = DR.drawable.ico_sign_out),
-                SettingItem.Normal(text = "로그아웃", iconRes = DR.drawable.ico_sign_out),
+                SettingItem.Normal(text = "고객센터", iconRes = DR.drawable.ico_sign_out, isArrowVisible = false),
+                SettingItem.Normal(text = "약관 및 정책", iconRes = DR.drawable.ico_sign_out, isArrowVisible = true),
+                SettingItem.Normal(text = "로그아웃", iconRes = DR.drawable.ico_sign_out, isArrowVisible = false),
             )
         )
     }
