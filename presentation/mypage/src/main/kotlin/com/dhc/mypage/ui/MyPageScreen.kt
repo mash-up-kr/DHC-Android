@@ -31,7 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -39,7 +38,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
-import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.GradientColor.backgroundGradient01
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
@@ -203,7 +201,7 @@ private fun Setting(
                 SettingItem.Normal(
                     text = stringResource(R.string.check_fortune_test),
                     iconRes = DR.drawable.ico_couple,
-                    onClick = { eventHandler(Event.ClickFortuneTestButton) },
+                    onClick = { eventHandler(Event.ClickFortuneSurveyButton) },
                     isArrowVisible = true,
                 ),
             )

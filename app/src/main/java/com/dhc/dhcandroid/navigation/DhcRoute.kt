@@ -147,7 +147,7 @@ enum class DhcRoute(
         ),
     ),
     FORTUNE_TEST(
-        route = DhcRouteConst.FORTUNE_TEST,
+        route = DhcRouteConst.FORTUNE_SURVEY,
         screenConfig = ScreenConfig(),
     ),
     NONE(
