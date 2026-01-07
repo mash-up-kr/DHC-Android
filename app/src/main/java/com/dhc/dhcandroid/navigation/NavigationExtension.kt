@@ -48,6 +48,10 @@ fun NavHostController.navigateToMy() {
     navigateToBottomNavigation(DhcRoute.MAIN_MY)
 }
 
+fun NavHostController.navigateToReward() {
+    navigateToBottomNavigation(DhcRoute.MAIN_REWARD)
+}
+
 fun NavHostController.navigateToIntroPageWithClearStack() {
     navigate(DhcRoute.INTRO.route) {
         popUpTo(graph.id) { inclusive = true }

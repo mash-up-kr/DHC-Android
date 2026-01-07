@@ -25,6 +25,7 @@ import com.dhc.intro.splash.SplashRoute
 import com.dhc.intro.start.IntroRoute
 import com.dhc.missionstatus.MissionStatusRoute
 import com.dhc.mypage.MyPageRoute
+import com.dhc.reward.RewardRoute
 import com.example.survey.SurveyRoute
 
 @Composable
@@ -126,6 +127,10 @@ fun DhcNavHost(
             MissionStatusRoute()
         }
 
+        composable(DhcRoute.MAIN_REWARD.route) {
+            RewardRoute()
+        }
+
         composable(DhcRoute.MAIN_MY.route) {
             MyPageRoute(
                 navigateToInitialScreen = { navController.navigateToIntroPageWithClearStack() },
@@ -137,6 +142,7 @@ fun DhcNavHost(
                 navBackStackEntry = navBackStackEntry,
                 navigateToMission = { navController.navigateToMission() },
                 navigateToMonetaryLuckDetail = { navController.navigateTo(DhcRoute.HOME_MONETARY_DETAIL) },
+                navigateToReward = { navController.navigateToReward() },
             )
         }
 

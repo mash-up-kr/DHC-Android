@@ -18,6 +18,11 @@ object NavigationItemConst {
                 routeName = DhcRouteConst.MAIN_MISSION,
             ),
             GnbItem(
+                iconResource = R.drawable.ico_reward,
+                iconText = R.string.btn_bottom_reward,
+                routeName = DhcRouteConst.MAIN_REWARD,
+            ),
+            GnbItem(
                 iconResource = R.drawable.ico_mypage,
                 iconText = R.string.btn_bottom_my_page,
                 routeName = DhcRouteConst.MAIN_MY,

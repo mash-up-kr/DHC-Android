@@ -20,6 +20,7 @@ class HomeContract {
         val selectedMissionInfo: SelectChangeMission = SelectChangeMission(),
         val homeInfo: HomeUiModel = HomeUiModel(),
         val todaySavedMoney: String = "",
+        val missionTimerText: String = "00 : 00 : 00 남음",
     ): UiState {
         val remainingMissionCount: Int
             get() = getMissionIdList().size - getFinishedMissionCount()
@@ -56,11 +57,13 @@ class HomeContract {
         data class ClickMissionCheck(val isChecked: Boolean, val missionId: String): Event
         data object FortuneCardFlipped: Event
         data object ClickErrorRetryButton: Event
+        data object ClickRewardButton: Event
     }
 
     sealed interface SideEffect : UiSideEffect {
         data object NavigateToMonetaryDetailScreen: SideEffect
         data class ShowToast(val msg: String): SideEffect
         data object NavigateToMission: SideEffect
+        data object NavigateToReward: SideEffect
     }
 }

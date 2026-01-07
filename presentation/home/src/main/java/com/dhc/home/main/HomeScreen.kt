@@ -27,6 +27,8 @@ import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.floatingButton.DhcFloatingButton
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.home.R
+import com.dhc.home.main.component.TodayMissionCompleteTimer
+import com.dhc.home.main.component.TodayMissionGoal
 import com.dhc.home.model.SelectChangeMission
 import com.dhc.presentation.mvi.EventHandler
 
@@ -85,6 +87,20 @@ fun HomeScreen(
                 }
                 Spacer(modifier = Modifier.height(12.dp))
             }
+
+            TodayMissionCompleteTimer(
+                timerText = state.missionTimerText
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+            TodayMissionGoal(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                title = state.homeInfo.rewardEventTitle,
+                subtitle = state.homeInfo.rewardEventSubtitle,
+                completedCount = state.homeInfo.rewardCompletedCount,
+                totalCount = state.homeInfo.rewardTotalCount,
+                onClickRewardButton = { eventHandler(HomeContract.Event.ClickRewardButton) }
+            )
+            Spacer(modifier = Modifier.height(40.dp))
             SpendingHabitMission(
                 missionUiModel = state.homeInfo.longTermMission,
                 isFinishedTodayMission = state.homeInfo.todayDone,
