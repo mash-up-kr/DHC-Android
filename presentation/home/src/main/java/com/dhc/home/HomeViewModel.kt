@@ -33,6 +33,16 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import com.dhc.common.DateUtil
+import com.dhc.common.DateUtil.formatSecondsToTime
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.isActive
 import java.time.LocalDate
 import java.time.ZoneOffset
 import javax.inject.Inject
@@ -52,12 +62,17 @@ class HomeViewModel @Inject constructor(
         getHomeInfo()
         checkCompletedLoading()
         getIsFortuneSurveyVisible()
+        startMissionTimer()
     }
 
     override suspend fun handleEvent(event: Event) {
         when (event) {
             Event.ClickMoreButton, Event.ClickFortuneCard -> postSideEffect(
                 SideEffect.NavigateToMonetaryDetailScreen
+            )
+
+            Event.ClickRewardButton -> postSideEffect(
+                SideEffect.NavigateToReward
             )
 
             is Event.ClickTodayMissionFinish -> {
@@ -183,9 +198,10 @@ class HomeViewModel @Inject constructor(
                 dhcRepository.getHomeView(userId = userId)
                     .onSuccess { response ->
                         response ?: return@onSuccess
+                        val newHomeInfo = HomeUiModel.from(response)
                         reduce {
                             copy(
-                                homeInfo = HomeUiModel.from(response),
+                                homeInfo = newHomeInfo,
                                 homeState = if (seenFortuneList.contains(currentLocalDateEpochSecond)) {
                                     HomeContract.HomeState.Success
                                 } else {
@@ -388,6 +404,40 @@ class HomeViewModel @Inject constructor(
             val isShown = userRepository.getIsShownFortunePopup()
             reduce { copy(isFortuneSurveyVisible = isShown.not()) }
         }
+    }
+
+    private fun midnightTimerFlow() = flow {
+        while (currentCoroutineContext().isActive) {
+            val remainingSeconds = DateUtil.getTimeUntilMidnight()
+            emit(remainingSeconds)
+
+            if (remainingSeconds <= 0) break
+            delay(1_000L)
+        }
+    }
+
+    private var missionTimerJob: Job? = null
+
+    private fun startMissionTimer() {
+        missionTimerJob?.cancel()
+
+        missionTimerJob = midnightTimerFlow()
+            .map { it.coerceAtLeast(0) }
+            .distinctUntilChanged()
+            .onEach { seconds ->
+                reduce {
+                    copy(missionTimerText = formatSecondsToTime(seconds))
+                }
+            }.launchIn(viewModelScope)
+    }
+
+    private fun stopMissionTimer() {
+        missionTimerJob?.cancel()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        stopMissionTimer()
     }
 
     companion object {

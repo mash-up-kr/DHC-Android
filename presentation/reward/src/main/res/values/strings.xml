@@ -1,0 +1,14 @@
+<resources>
+    <string name="reward_title">리워드</string>
+    <string name="reward_level_badge">Lv.%d</string>
+    <string name="reward_lucky_bag">동 복주머니</string>
+    <string name="reward_earned">지금까지 얻은 리워드</string>
+    <string name="reward_points">%dpt</string>
+    <string name="reward_next_level">다음 레벨까지 %dpt 남았어요</string>
+    <string name="reward_mission_desc">좋은 금융 습관 형성을 위해\n2주간 매일 진행하는 미션이에요!</string>
+    <string name="reward_premium_fortune">프리미엄 운세</string>
+    <string name="reward_goal_desc">Goal에 도달하면 프리미엄 운세를 볼 수 있어요</string>
+    <string name="reward_premium_fortune_button">프리미엄 운세 열기</string>
+    <string name="reward_graphic_placeholder">그래픽 (변경예정)</string>
+</resources>
+
