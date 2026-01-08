@@ -1,5 +1,8 @@
 package com.dhc.home.main
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
@@ -131,10 +134,15 @@ fun HomeScreen(
                 )) },
                 onCheckChange = { isChecked, id ->
                     if(!state.homeInfo.todayDone) eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
-                onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
+                onExpandedChange = { isExpanded, id -> eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
                 onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId)) },
             )
-            if (state.isFortuneSurveyVisible) {
+            AnimatedVisibility(
+                visible = state.isFortuneSurveyVisible,
+                enter = expandVertically(),
+                exit = shrinkVertically(),
+                label = "FortuneSurveyVisibleAnimation",
+            ) {
                 DhcModal(
                     onClickClose = { eventHandler(HomeContract.Event.ClickFortuneSurveyClose) },
                     onClickSubmit = { eventHandler(HomeContract.Event.ClickFortuneSurveySubmit) },
