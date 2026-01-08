@@ -11,4 +11,9 @@ interface UserRepository {
     fun updateBirthTime(birthTime: String?)
     fun updateCategory(categoryList: List<MissionCategory>)
     fun getUserProfile(): UserProfile
+
+    suspend fun getIsShownFortunePopup(): Boolean
+    suspend fun updateIsShownFortunePopup(shown: Boolean)
+
+    suspend fun clear()
 }

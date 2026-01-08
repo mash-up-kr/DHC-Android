@@ -157,7 +157,7 @@ enum class DhcRoute(
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
-    FORTUNE_TEST(
+    FORTUNE_SURVEY(
         route = DhcRouteConst.FORTUNE_SURVEY,
         screenConfig = ScreenConfig(),
     ),

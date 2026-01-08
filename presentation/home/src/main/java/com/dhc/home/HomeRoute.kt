@@ -34,6 +34,7 @@ fun HomeRoute(
     navBackStackEntry: NavBackStackEntry,
     navigateToMission: () -> Unit,
     navigateToMonetaryLuckDetail: () -> Unit,
+    navigateToFortuneSurvey: () -> Unit,
     navigateToReward: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(navBackStackEntry)
 ) {
@@ -52,6 +53,7 @@ fun HomeRoute(
                         snackBarHostState.showImmediately(sideEffect.msg)
                     }
                 }
+                is HomeContract.SideEffect.NavigateToFortuneSurvey -> navigateToFortuneSurvey()
             }
         }
     }

@@ -12,6 +12,7 @@ import com.dhc.dhcandroid.model.MissionType
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
 import com.dhc.dhcandroid.repository.FortuneRepository
+import com.dhc.dhcandroid.repository.UserRepository
 import com.dhc.home.main.HomeContract
 import com.dhc.home.main.HomeContract.Event
 import com.dhc.home.main.HomeContract.SideEffect
@@ -48,7 +49,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val userRepository: AuthDataStoreRepository,
+    private val authRepository: AuthDataStoreRepository,
+    private val userRepository: UserRepository,
     private val dhcRepository: DhcRepository,
     private val fortuneRepository: FortuneRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
@@ -59,6 +61,7 @@ class HomeViewModel @Inject constructor(
     init {
         getHomeInfo()
         checkCompletedLoading()
+        getIsFortuneSurveyVisible()
         startMissionTimer()
     }
 
@@ -146,6 +149,17 @@ class HomeViewModel @Inject constructor(
             is Event.ClickErrorRetryButton -> {
                 getHomeInfo()
             }
+
+            is Event.ClickFortuneSurveyClose -> {
+                reduce { copy(isFortuneSurveyVisible = false) }
+                userRepository.updateIsShownFortunePopup(true)
+            }
+
+            is Event.ClickFortuneSurveySubmit -> {
+                reduce { copy(isFortuneSurveyVisible = false) }
+                userRepository.updateIsShownFortunePopup(true)
+                postSideEffect(SideEffect.NavigateToFortuneSurvey)
+            }
         }
     }
 
@@ -173,7 +187,7 @@ class HomeViewModel @Inject constructor(
     private fun getHomeInfo() {
         viewModelScope.launch {
             reduce { copy(homeState = HomeContract.HomeState.Loading) }
-            val userIdDeferred = async { userRepository.getUserId().firstOrNull() }
+            val userIdDeferred = async { authRepository.getUserId().firstOrNull() }
             val seenFortuneListDeferred = async { fortuneRepository.getSeenFortuneList().firstOrNull() }
 
             val currentLocalDate = LocalDate.now()
@@ -209,7 +223,7 @@ class HomeViewModel @Inject constructor(
         missionStatusType: MissionStatusType,
     ) {
         viewModelScope.launch {
-            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+            val userId = authRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.changeMissionStatus(
                 userId = userId,
                 missionId = missionId,
@@ -336,7 +350,7 @@ class HomeViewModel @Inject constructor(
 
     private fun finishTodayMission() {
         viewModelScope.launch {
-            val userId = userRepository.getUserId().firstOrNull() ?: return@launch
+            val userId = authRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.requestFinishTodayMissions(
                 userId = userId,
                 endTodayMissionRequest = EndTodayMissionRequest(
@@ -356,7 +370,7 @@ class HomeViewModel @Inject constructor(
     private fun checkCompletedLoading() = viewModelScope.launch {
         if (state.value.homeState != HomeContract.HomeState.Loading) return@launch
 
-        val userIdDeferred = async { userRepository.getUserId().firstOrNull() }
+        val userIdDeferred = async { authRepository.getUserId().firstOrNull() }
         val seenFortuneListDeferred = async { fortuneRepository.getSeenFortuneList().firstOrNull() }
 
         val currentLocalDate = LocalDate.now()
@@ -382,6 +396,13 @@ class HomeViewModel @Inject constructor(
             }
         } else {
             reduce { copy(homeState = HomeContract.HomeState.Error) }
+        }
+    }
+
+    private fun getIsFortuneSurveyVisible() {
+        viewModelScope.launch {
+            val isShown = userRepository.getIsShownFortunePopup()
+            reduce { copy(isFortuneSurveyVisible = isShown.not()) }
         }
     }
 

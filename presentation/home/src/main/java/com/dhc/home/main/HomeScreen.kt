@@ -1,5 +1,8 @@
 package com.dhc.home.main
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
@@ -7,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,6 +30,7 @@ import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.floatingButton.DhcFloatingButton
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
+import com.dhc.designsystem.modal.DhcModal
 import com.dhc.home.R
 import com.dhc.home.main.component.TodayMissionCompleteTimer
 import com.dhc.home.main.component.TodayMissionGoal
@@ -129,9 +134,23 @@ fun HomeScreen(
                 )) },
                 onCheckChange = { isChecked, id ->
                     if(!state.homeInfo.todayDone) eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
-                onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
+                onExpandedChange = { isExpanded, id -> eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
                 onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId)) },
             )
+            AnimatedVisibility(
+                visible = state.isFortuneSurveyVisible,
+                enter = expandVertically(),
+                exit = shrinkVertically(),
+                label = "FortuneSurveyVisibleAnimation",
+            ) {
+                DhcModal(
+                    onClickClose = { eventHandler(HomeContract.Event.ClickFortuneSurveyClose) },
+                    onClickSubmit = { eventHandler(HomeContract.Event.ClickFortuneSurveySubmit) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp, vertical = 24.dp),
+                )
+            }
             Spacer(modifier = Modifier.height(136.dp))
         }
 
