@@ -83,6 +83,8 @@ class HomeViewModel @Inject constructor(
                 updateMissionCompleteBottomSheetState(isShowBottomSheet = false)
                 if (event.buttonType == MissionCompleteButtonType.Complete) {
                     finishTodayMission()
+                } else {
+                    updateMissionFailDialogState(isShowDialog = true)
                 }
             }
 
@@ -160,6 +162,10 @@ class HomeViewModel @Inject constructor(
                 userRepository.updateIsShownFortunePopup(true)
                 postSideEffect(SideEffect.NavigateToFortuneSurvey)
             }
+            
+            is Event.ClickMissionFailConfirmButton -> {
+                updateMissionFailDialogState(isShowDialog = false)
+            }
         }
     }
 
@@ -169,6 +175,10 @@ class HomeViewModel @Inject constructor(
 
     private fun updateMissionSuccessDialogState(isShowDialog: Boolean) {
         reduce { copy(isShowMissionSuccessDialog = isShowDialog) }
+    }
+
+    private fun updateMissionFailDialogState(isShowDialog: Boolean) {
+        reduce { copy(isShowMissionFailDialog = isShowDialog) }
     }
 
     private fun updateMissionChangeConfirmBottomSheetState(isShowBottomSheet: Boolean) {

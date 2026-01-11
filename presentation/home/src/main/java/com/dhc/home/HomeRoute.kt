@@ -24,6 +24,8 @@ import com.dhc.home.main.HomeFlipCardScreen
 import com.dhc.home.main.HomeLoadingScreen
 import com.dhc.home.main.HomeScreen
 import com.dhc.home.main.MissionChangeBottomSheet
+import com.dhc.home.main.MissionFailDialog
+import com.dhc.home.model.MissionFailType
 import com.dhc.home.ui.MissionCompleteCheckBottomSheet
 import com.dhc.home.ui.MissionSuccessDialog
 import com.dhc.presentation.ui.ErrorScreen
@@ -112,6 +114,13 @@ fun HomeRoute(
 
             if (state.isShowFinishMissionChangeBottomSheet) {
                 FinishMissionChangeBottomSheet(
+                    eventHandler = viewModel::sendEvent
+                )
+            }
+
+            if (state.isShowMissionFailDialog) {
+                MissionFailDialog(
+                    missionFailType = MissionFailType.LONG_ABSENCE,
                     eventHandler = viewModel::sendEvent
                 )
             }
