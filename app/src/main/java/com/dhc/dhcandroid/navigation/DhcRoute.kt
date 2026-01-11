@@ -161,6 +161,16 @@ enum class DhcRoute(
         route = DhcRouteConst.FORTUNE_SURVEY,
         screenConfig = ScreenConfig(),
     ),
+    YEAR_FORTUNE(
+        route = DhcRouteConst.YEAR_FORTUNE,
+        screenConfig = ScreenConfig(
+            topBarState = DhcTopBarState.Basic(
+                title = "1년 운세",
+                isShowBackButton = true,
+            ),
+            bottomBarState = DhcBottomBarState.None,
+        ),
+    ),
     NONE(
         route = DhcRouteConst.NONE,
         screenConfig = ScreenConfig(),

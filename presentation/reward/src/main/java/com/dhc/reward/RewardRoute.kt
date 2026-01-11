@@ -6,7 +6,11 @@ import androidx.compose.ui.Modifier
 @Composable
 fun RewardRoute(
     modifier: Modifier = Modifier,
+    navigateToYearFortune: () -> Unit = {},
 ) {
-    RewardScreen(modifier = modifier)
+    RewardScreen(
+        modifier = modifier,
+        navigateToYearFortune = navigateToYearFortune
+    )
 }
 

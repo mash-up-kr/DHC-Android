@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -57,6 +56,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun RewardScreen(
     modifier: Modifier = Modifier,
+    navigateToYearFortune: () -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
     val scrollState = rememberScrollState()
@@ -182,7 +182,9 @@ fun RewardScreen(
             )
 
             // 리워드 리스트
-            ReceivedRewardsList()
+            ReceivedRewardsList(
+                onClickItem = { navigateToYearFortune() }
+            )
         }
 
         Spacer(modifier = Modifier.height(40.dp))
@@ -371,7 +373,8 @@ private fun ReceivedRewardsList(
         ReceivedReward("9", "1년 운세"),
         ReceivedReward("10", "전반적 사주"),
         ReceivedReward("11", "복합 사주"),
-    )
+    ),
+    onClickItem: (ReceivedReward) -> Unit,
 ) {
     val itemsPerRow = 4
     Column(
@@ -385,7 +388,8 @@ private fun ReceivedRewardsList(
                 rowItems.forEach { reward ->
                     ReceivedRewardItem(
                         reward = reward,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        onClickItem = {onClickItem(reward)}
                     )
                 }
                 // 마지막 행에서 빈 공간 채우기
@@ -400,12 +404,13 @@ private fun ReceivedRewardsList(
 @Composable
 private fun ReceivedRewardItem(
     reward: ReceivedReward,
+    onClickItem: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val colors = LocalDhcColors.current
 
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().clickable { onClickItem() },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // 카드 (아이콘만 포함)
@@ -505,7 +510,9 @@ private fun ReceivedRewardsListPreview() {
                 color = LocalDhcColors.current.text.textMain,
                 modifier = Modifier.padding(horizontal = 4.dp)
             )
-            ReceivedRewardsList()
+            ReceivedRewardsList(
+                onClickItem = {}
+            )
         }
     }
 }
