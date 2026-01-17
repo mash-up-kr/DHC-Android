@@ -21,9 +21,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dhc.common.ImageResource
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
@@ -144,6 +146,8 @@ fun HomeScreen(
                 label = "FortuneSurveyVisibleAnimation",
             ) {
                 DhcModal(
+                    imageResource = ImageResource.Drawable(resId = R.drawable.fortune_survey_thumbnail),
+                    contentScale = ContentScale.FillWidth,
                     onClickClose = { eventHandler(HomeContract.Event.ClickFortuneSurveyClose) },
                     onClickSubmit = { eventHandler(HomeContract.Event.ClickFortuneSurveySubmit) },
                     modifier = Modifier
