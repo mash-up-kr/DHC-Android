@@ -130,7 +130,7 @@ fun DhcNavHost(
 
         composable(DhcRoute.MAIN_REWARD.route) {
             RewardRoute(
-                navigateToYearFortune = { navController.navigateTo(DhcRoute.YEAR_FORTUNE) }
+                navigateToYearFortune = { navController.navigateTo(DhcRoute.YEAR_FORTUNE) },
             )
         }
 
