@@ -21,6 +21,7 @@ import com.dhc.home.model.FinishMissionToast
 import com.dhc.home.model.HomeUiModel
 import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
+import com.dhc.home.model.MissionFailType
 import com.dhc.home.model.MissionStatusType
 import com.dhc.home.model.MissionSuccessButtonType
 import com.dhc.home.model.MissionUiModel
@@ -160,6 +161,10 @@ class HomeViewModel @Inject constructor(
                 userRepository.updateIsShownFortunePopup(true)
                 postSideEffect(SideEffect.NavigateToFortuneSurvey)
             }
+
+            is Event.ClickMissionFailConfirmButton -> {
+                updateMissionFailDialogState(isShowDialog = false)
+            }
         }
     }
 
@@ -169,6 +174,42 @@ class HomeViewModel @Inject constructor(
 
     private fun updateMissionSuccessDialogState(isShowDialog: Boolean) {
         reduce { copy(isShowMissionSuccessDialog = isShowDialog) }
+    }
+
+    private fun updateMissionFailDialogState(isShowDialog: Boolean, missionFailType: MissionFailType = MissionFailType.NORMAL) {
+        reduce { copy(isShowMissionFailDialog = isShowDialog, missionFailType = missionFailType) }
+        if (isShowDialog) {
+            updateRewardText(missionFailType)
+        }
+    }
+
+    private fun updateRewardText(missionFailType: MissionFailType) {
+        reduce {
+            copy(
+                homeInfo = homeInfo.copy(
+                    rewardEvent = homeInfo.rewardEvent.copy(
+                        rewardEventTitle = missionFailType.mainMessage,
+                        rewardEventSubtitle = missionFailType.subMessage
+                    )
+                )
+            )
+        }
+    }
+
+    private fun determineMissionFailType(todayDone: Boolean): MissionFailType {
+        val homeInfo = state.value.homeInfo.copy(todayDone = todayDone)
+        val finishedCount = state.value.getFinishedMissionCount()
+        
+        return when {
+            // 오늘 미션 완료했지만 실패 (finishedCount != 3)
+            homeInfo.todayDone && finishedCount == 0 -> MissionFailType.NORMAL
+            // 2일 이상 미접속
+            !homeInfo.todayDone && homeInfo.longAbsence -> MissionFailType.LONG_ABSENCE
+            // 어제 미션 실패
+            !homeInfo.todayDone && !homeInfo.yesterdayMissionSuccess -> MissionFailType.NEXT_DAY_REENTRY
+            // 기본값
+            else -> MissionFailType.NORMAL
+        }
     }
 
     private fun updateMissionChangeConfirmBottomSheetState(isShowBottomSheet: Boolean) {
@@ -349,6 +390,11 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun finishTodayMission() {
+        if(state.value.getFinishedMissionCount() == 0 ) {
+            val missionFailType = determineMissionFailType(todayDone = true)
+            updateMissionFailDialogState(isShowDialog = true, missionFailType = missionFailType)
+            return
+        }
         viewModelScope.launch {
             val userId = authRepository.getUserId().firstOrNull() ?: return@launch
             dhcRepository.requestFinishTodayMissions(

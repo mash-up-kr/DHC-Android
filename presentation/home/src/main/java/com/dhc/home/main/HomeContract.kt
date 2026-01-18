@@ -3,6 +3,7 @@ package com.dhc.home.main
 import com.dhc.home.model.HomeUiModel
 import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
+import com.dhc.home.model.MissionFailType
 import com.dhc.home.model.MissionSuccessButtonType
 import com.dhc.home.model.SelectChangeMission
 import com.dhc.presentation.mvi.UiEvent
@@ -15,6 +16,8 @@ class HomeContract {
         val homeState: HomeState = HomeState.Loading,
         val isShowMissionCompleteBottomSheet: Boolean = false,
         val isShowMissionSuccessDialog: Boolean = false,
+        val isShowMissionFailDialog: Boolean = false,
+        val missionFailType: MissionFailType = MissionFailType.NORMAL,
         val isShowMissionChangeBottomSheet: Boolean = false,
         val isShowFinishMissionChangeBottomSheet: Boolean = false,
         val selectedMissionInfo: SelectChangeMission = SelectChangeMission(),
@@ -61,6 +64,7 @@ class HomeContract {
         data object ClickFortuneSurveyClose: Event
         data object ClickFortuneSurveySubmit: Event
         data object ClickRewardButton: Event
+        data object ClickMissionFailConfirmButton: Event
     }
 
     sealed interface SideEffect : UiSideEffect {
