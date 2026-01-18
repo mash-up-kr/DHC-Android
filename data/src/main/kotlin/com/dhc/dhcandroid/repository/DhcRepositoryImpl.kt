@@ -16,6 +16,7 @@ import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
@@ -116,6 +117,12 @@ class DhcRepositoryImpl @Inject constructor(
     override suspend fun updateEasterEggHistory(userId: String): DhcResult<Unit> {
         return runDhcCatching {
             dhcDataSource.updateEasterEggHistory(userId)
+        }
+    }
+
+    override suspend fun getRewardProgress(userId: String): DhcResult<RewardProgressResponse> {
+        return runDhcCatching {
+            dhcDataSource.getRewardProgress(userId)
         }
     }
 }

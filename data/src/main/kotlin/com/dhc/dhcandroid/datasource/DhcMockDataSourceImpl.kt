@@ -11,6 +11,7 @@ import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
@@ -73,6 +74,9 @@ class DhcMockDataSourceImpl @Inject constructor(
 
     override suspend fun updateEasterEggHistory(userId: String): Response<Unit> =
         Response.success(Unit)
+
+    override suspend fun getRewardProgress(userId: String): Response<RewardProgressResponse> =
+        createResponseFromAsset<RewardProgressResponse>("mock_reward_progress_response.json")
 
     private inline fun <reified T> createResponseFromAsset(fileName: String): Response<T> = Response.success(
         json.decodeFromString<T>(

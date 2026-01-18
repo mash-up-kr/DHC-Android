@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.res.painterResource
@@ -39,7 +40,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.times
+import coil3.compose.AsyncImage
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
@@ -56,6 +57,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun RewardScreen(
     modifier: Modifier = Modifier,
+    state: RewardContract.State = RewardContract.State(),
+    onEvent: (RewardContract.Event) -> Unit = {},
     navigateToYearFortune: () -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
@@ -70,24 +73,21 @@ fun RewardScreen(
             .padding(top = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // 그래픽 영역 (변경예정)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(164.dp)
-                .background(SurfaceColor.neutral800),
+                .height(164.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = stringResource(R.string.reward_graphic_placeholder),
-                color = colors.text.textMain.copy(alpha = 0.4f),
-                textAlign = TextAlign.Center
+            AsyncImage(
+                model = state.rewardInfo.user.rewardImageUrl,
+                contentDescription = "level_image",
+                modifier = Modifier.size(36.dp),
             )
         }
 
         Spacer(modifier = Modifier.height(25.dp))
 
-        // Lv.3 동 복주머니 타이틀
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -103,7 +103,7 @@ fun RewardScreen(
                     .padding(horizontal = 12.dp, vertical = 4.dp)
             ) {
                 Text(
-                    text = stringResource(R.string.reward_level_badge, 3),
+                    text = state.rewardInfo.user.rewardLevel,
                     style = DhcTypoTokens.TitleH8,
                     color = colors.text.textBodyPrimary
                 )
@@ -111,7 +111,6 @@ fun RewardScreen(
 
             Spacer(modifier = Modifier.size(8.dp))
 
-            // 동 복주머니 타이틀
             Text(
                 text = buildAnnotatedString {
                     withStyle(
@@ -126,7 +125,8 @@ fun RewardScreen(
                             )
                         )
                     ) {
-                        append(stringResource(R.string.reward_lucky_bag))
+                        // 서버 변경 후 수정 필요
+                        append(state.rewardInfo.user.rewardLevel)
                     }
                 },
                 style = DhcTypoTokens.TitleH1
@@ -161,7 +161,18 @@ fun RewardScreen(
                 .padding(horizontal = 20.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            RewardCard()
+            // 레벨별 필요 포인트 (레벨 1~8)
+            val levelThresholds = listOf(0, 100, 200, 400, 600, 900, 1200, 1600, 2000)
+            val currentPoints = state.rewardInfo.user.totalExp
+            val currentStep = levelThresholds.indexOfLast { it <= currentPoints }.coerceAtLeast(0)
+
+            RewardCard(
+                currentPoints = currentPoints,
+                currentStep = currentStep,
+                onClickOpenReward = {
+                    onEvent(RewardContract.Event.ClickOpenRewardButton)
+                }
+            )
         }
 
         Spacer(modifier = Modifier.height(40.dp))
@@ -170,20 +181,32 @@ fun RewardScreen(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp),
+                .padding(horizontal = 20.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(SurfaceColor.neutral700)
+                .padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // 섹션 타이틀
             Text(
                 text = stringResource(R.string.reward_received_rewards_title),
                 style = DhcTypoTokens.TitleH6,
-                color = colors.text.textMain,
-                modifier = Modifier.padding(horizontal = 4.dp)
+                color = colors.text.textMain
             )
 
             // 리워드 리스트
             ReceivedRewardsList(
-                onClickItem = { navigateToYearFortune() }
+                rewards = state.rewardInfo.rewardList.map {
+                    ReceivedReward(
+                        id = it.id.toString(),
+                        name = it.title,
+                        isLocked = true
+                    )
+                },
+                onClickItem = { reward ->
+                    onEvent(RewardContract.Event.ClickRewardItem(reward.id.toIntOrNull() ?: 0))
+                    navigateToYearFortune()
+                }
             )
         }
 
@@ -195,17 +218,14 @@ fun RewardScreen(
 private fun RewardCard(
     currentPoints: Int = 400,
     currentStep: Int = 1,
+    onClickOpenReward: () -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
 
-    // 레벨별 필요 포인트 (예시)
-    val levelThresholds = listOf(0, 100, 500, 900, 1600)
+    // 레벨별 필요 포인트 (레벨 1~8)
+    val levelThresholds = listOf(0, 100, 200, 400, 600, 900, 1200, 1600, 2000)
     val nextLevelPoints = levelThresholds.getOrNull(currentStep + 1) ?: levelThresholds.last()
     val remainingPoints = nextLevelPoints - currentPoints
-
-    // 툴팁 위치 계산 (0.0 ~ 1.0)
-    val progressWidthByStep = listOf(0.094f, 0.37f, 0.66f, 1.0f)
-    val currentProgress = progressWidthByStep.getOrElse(currentStep) { 0.094f }
 
     Column(
         modifier = Modifier
@@ -247,97 +267,83 @@ private fun RewardCard(
                 .background(TransparentColor.glassEffect)
         )
 
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(48.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // 툴팁의 삼각형이 가리킬 X 위치 계산 (프로그레스 바의 실제 너비 고려)
-            val progressBarWidth = 298.dp // 실제 프로그레스 바 너비 (fillMaxWidth - padding 20dp * 2)
-            val tooltipWidth = 200.dp // 툴팁 고정 너비
-            val targetX = currentProgress * progressBarWidth
-            val tooltipX = (targetX - (tooltipWidth / 2))
-                .coerceIn(0.dp, progressBarWidth - tooltipWidth)
-
-            Column(
+            // 툴팁 박스
+            Box(
                 modifier = Modifier
-                    .size(width = tooltipWidth, height = 48.dp)
-                    .align(Alignment.TopStart)
-                    .offset(x = tooltipX),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                // 툴팁 박스
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    SurfaceColor.neutral30,
-                                    colors.text.textHighLightsSecondary
-                                ),
-                                startY = 0f,
-                                endY = 200f
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                SurfaceColor.neutral30,
+                                colors.text.textHighLightsSecondary
                             ),
-                            alpha = 0.88f
-                        )
-                        .padding(horizontal = 10.dp, vertical = 10.dp)
-                ) {
-                    Text(
-                        text = if (currentStep >= 3) {
-                            "Goal에 도달했어요!"
-                        } else {
-                            stringResource(R.string.reward_next_level, remainingPoints)
-                        },
-                        style = DhcTypoTokens.TitleH7,
-                        color = colors.text.textHighLightsPrimary,
-                        textAlign = TextAlign.Center,
-                        maxLines = 1
+                            startY = 0f,
+                            endY = 200f
+                        ),
+                        alpha = 0.88f
                     )
-                }
-
-                // 삼각형 화살표 (툴팁 중앙에서 목표 위치로 offset)
-                val triangleOffset = targetX - tooltipX - (tooltipWidth / 2)
-                Box(
-                    modifier = Modifier
-                        .size(12.dp, 8.dp)
-                        .offset(x = triangleOffset, y = (-1).dp)
-                        .drawBehind {
-                            val trianglePath = Path().apply {
-                                moveTo(size.width / 2, size.height)
-                                lineTo(0f, 0f)
-                                lineTo(size.width, 0f)
-                                close()
-                            }
-
-                            drawPath(
-                                path = trianglePath,
-                                brush = Brush.verticalGradient(
-                                    colors = listOf(
-                                        SurfaceColor.neutral30.copy(alpha = 0.88f),
-                                        colors.text.textHighLightsSecondary.copy(alpha = 0.88f)
-                                    ),
-                                    startY = 0f,
-                                    endY = size.height
-                                )
-                            )
-                        }
+                    .padding(horizontal = 10.dp, vertical = 10.dp)
+            ) {
+                Text(
+                    text = if (currentStep >= 7) {
+                        "Goal에 도달했어요!"
+                    } else {
+                        stringResource(R.string.reward_next_level, remainingPoints)
+                    },
+                    style = DhcTypoTokens.TitleH7,
+                    color = colors.text.textHighLightsPrimary,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    maxLines = 1
                 )
             }
+
+            // 삼각형 화살표 (가운데 고정)
+            Box(
+                modifier = Modifier
+                    .size(12.dp, 8.dp)
+                    .offset(y = (-1).dp)
+                    .drawBehind {
+                        val trianglePath = Path().apply {
+                            moveTo(size.width / 2, size.height)
+                            lineTo(0f, 0f)
+                            lineTo(size.width, 0f)
+                            close()
+                        }
+
+                        drawPath(
+                            path = trianglePath,
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    SurfaceColor.neutral30.copy(alpha = 0.88f),
+                                    colors.text.textHighLightsSecondary.copy(alpha = 0.88f)
+                                ),
+                                startY = 0f,
+                                endY = size.height
+                            )
+                        )
+                    }
+            )
         }
 
         // 프로그레스 바
         RewardProgressBar(
             currentStep = currentStep,
             modifier = Modifier.fillMaxWidth(),
-            totalStepList = listOf("lv.1", "lv.4", "lv.8", "Goal")
+            totalStepList = listOf("lv.1", "lv.2", "lv.3", "lv.4", "lv.5", "lv.6", "lv.7", "lv.8")
         )
         DhcButton(
             text = stringResource(R.string.reward_open_reward_button),
             buttonSize = DhcButtonSize.LARGE,
             buttonStyle = DhcButtonStyle.Secondary(false),
-            onClick = { },
+            onClick = onClickOpenReward,
             modifier = Modifier.fillMaxWidth()
         )
         Text(
@@ -378,7 +384,9 @@ private fun ReceivedRewardsList(
 ) {
     val itemsPerRow = 4
     Column(
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
     ) {
         rewards.chunked(itemsPerRow).forEach { rowItems ->
             Row(
@@ -419,14 +427,13 @@ private fun ReceivedRewardItem(
                 .fillMaxWidth()
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(8.dp))
-                .background(SurfaceColor.neutral700)
+                .background(colors.background.backgroundGlassEffect)
                 .padding(10.dp),
             contentAlignment = Alignment.Center
         ) {
             Image(
                 painter = painterResource(com.dhc.designsystem.R.drawable.ico_lock),
                 contentDescription = "lock icon",
-                colorFilter = ColorFilter.tint(SurfaceColor.neutral400),
                 modifier = Modifier.size(28.dp)
             )
         }
@@ -450,46 +457,46 @@ private fun RewardScreenPreview() {
     }
 }
 
-@Preview(name = "레벨 1 - 100pt", showBackground = true, backgroundColor = 0xFF0F1114)
+@Preview(name = "레벨 1 - 50pt", showBackground = true, backgroundColor = 0xFF0F1114)
 @Composable
 private fun RewardCardLevel1Preview() {
     DhcTheme {
         RewardCard(
-            currentPoints = 100,
+            currentPoints = 50,
             currentStep = 0
         )
     }
 }
 
-@Preview(name = "레벨 2 - 400pt", showBackground = true, backgroundColor = 0xFF0F1114)
-@Composable
-private fun RewardCardLevel2Preview() {
-    DhcTheme {
-        RewardCard(
-            currentPoints = 400,
-            currentStep = 1
-        )
-    }
-}
-
-@Preview(name = "레벨 3 - 700pt", showBackground = true, backgroundColor = 0xFF0F1114)
+@Preview(name = "레벨 3 - 300pt", showBackground = true, backgroundColor = 0xFF0F1114)
 @Composable
 private fun RewardCardLevel3Preview() {
     DhcTheme {
         RewardCard(
-            currentPoints = 700,
+            currentPoints = 300,
             currentStep = 2
         )
     }
 }
 
-@Preview(name = "레벨 4 - Goal 1600pt", showBackground = true, backgroundColor = 0xFF0F1114)
+@Preview(name = "레벨 5 - 700pt", showBackground = true, backgroundColor = 0xFF0F1114)
 @Composable
-private fun RewardCardLevel4Preview() {
+private fun RewardCardLevel5Preview() {
     DhcTheme {
         RewardCard(
-            currentPoints = 1600,
-            currentStep = 3
+            currentPoints = 700,
+            currentStep = 4
+        )
+    }
+}
+
+@Preview(name = "레벨 8 - Goal 2000pt", showBackground = true, backgroundColor = 0xFF0F1114)
+@Composable
+private fun RewardCardLevel8Preview() {
+    DhcTheme {
+        RewardCard(
+            currentPoints = 2000,
+            currentStep = 7
         )
     }
 }

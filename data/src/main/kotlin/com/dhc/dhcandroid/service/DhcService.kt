@@ -10,6 +10,7 @@ import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
@@ -87,4 +88,9 @@ interface DhcService {
     suspend fun updateEasterEggHistory(
         @Path("userId") userId: String,
     ): Response<Unit>
+
+    @GET("/view/users/{userId}/reward-progress")
+    suspend fun getRewardProgress(
+        @Path("userId") userId: String,
+    ): Response<RewardProgressResponse>
 }

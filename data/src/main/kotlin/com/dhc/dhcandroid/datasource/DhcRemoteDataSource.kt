@@ -10,6 +10,7 @@ import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
@@ -67,4 +68,8 @@ interface DhcRemoteDataSource {
     suspend fun updateEasterEggHistory(
         userId: String,
     ): Response<Unit>
+
+    suspend fun getRewardProgress(
+        userId: String,
+    ): Response<RewardProgressResponse>
 }
