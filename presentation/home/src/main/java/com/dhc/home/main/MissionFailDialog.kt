@@ -43,7 +43,7 @@ fun MissionFailDialog(
     val colors = LocalDhcColors.current
     DhcDialog(
         modifier = modifier,
-        onClickDismiss = { eventHandler(HomeContract.Event.ClickMissionSuccess(MissionSuccessButtonType.Confirm)) },
+        onClickDismiss = { eventHandler(HomeContract.Event.ClickMissionFailConfirmButton)},
         dialogContent = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
