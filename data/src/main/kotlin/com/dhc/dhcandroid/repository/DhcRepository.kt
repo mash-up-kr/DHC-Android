@@ -9,6 +9,7 @@ import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
+import com.dhc.dhcandroid.model.CreateShareTokenResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
@@ -70,4 +71,8 @@ interface DhcRepository {
     suspend fun updateEasterEggHistory(
         userId: String,
     ): DhcResult<Unit>
+
+    suspend fun createShareToken(
+        userId: String,
+    ): DhcResult<CreateShareTokenResponse>
 }

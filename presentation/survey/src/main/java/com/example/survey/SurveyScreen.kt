@@ -2,6 +2,7 @@ package com.example.survey
 
 import android.annotation.SuppressLint
 import android.view.ViewGroup
+import android.webkit.CookieManager
 import android.webkit.WebView
 import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
@@ -15,6 +16,7 @@ private const val DhcWebUrl = "https://dhc-web.vercel.app/"
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun SurveyScreen(
+    state: SurveyContract.State,
     navigateToHome: () -> Unit,
     navigateToPrevScreen: () -> Unit,
     modifier: Modifier = Modifier,
@@ -23,6 +25,13 @@ fun SurveyScreen(
     val colors = LocalDhcColors.current
     AndroidView(
         factory = { context ->
+            state.shareToken?.let {
+                val cookieManager = CookieManager.getInstance()
+                cookieManager.setAcceptCookie(true)
+                cookieManager.setCookie(DhcWebUrl, "shareToken=${state.shareToken}")
+                cookieManager.flush()
+            }
+
             WebView(context).apply {
                 layoutParams = ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -35,7 +44,6 @@ fun SurveyScreen(
                     append(" DHCApp")
                 }
                 setBackgroundColor(colors.background.backgroundMain.toArgb())
-                loadUrl(DhcWebUrl)
                 addJavascriptInterface(
                     SurveyJsInterface(
                         activity,
@@ -44,6 +52,7 @@ fun SurveyScreen(
                     ),
                     "DHCJavascriptInterface",
                 )
+                loadUrl(DhcWebUrl)
             }
         },
         modifier = modifier,
