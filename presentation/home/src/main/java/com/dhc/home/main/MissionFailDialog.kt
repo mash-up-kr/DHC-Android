@@ -86,9 +86,9 @@ fun MissionFailDialog(
                 DhcButton(
                     text = stringResource(R.string.confirm),
                     buttonSize = DhcButtonSize.LARGE,
-                    buttonStyle = DhcButtonStyle.Teritary,
+                    buttonStyle = DhcButtonStyle.Primary(isEnabled = true),
                     onClick = { eventHandler(HomeContract.Event.ClickMissionFailConfirmButton) },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
                 )
             }
         }

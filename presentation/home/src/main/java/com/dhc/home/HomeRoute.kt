@@ -120,7 +120,7 @@ fun HomeRoute(
 
             if (state.isShowMissionFailDialog) {
                 MissionFailDialog(
-                    missionFailType = MissionFailType.LONG_ABSENCE,
+                    missionFailType = state.missionFailType,
                     eventHandler = viewModel::sendEvent
                 )
             }

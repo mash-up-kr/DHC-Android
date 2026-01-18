@@ -5,7 +5,7 @@ enum class MissionFailType(
     val subMessage: String
 ) {
     NORMAL(
-        mainMessage = "아쉽게 미션을 실패했네요...",
+        mainMessage = "아쉽게 미션을 실패했어요",
         subMessage = "하지만 내일 미션을 성공하면 리워드가 두배에요!"
     ),
     NEXT_DAY_REENTRY(

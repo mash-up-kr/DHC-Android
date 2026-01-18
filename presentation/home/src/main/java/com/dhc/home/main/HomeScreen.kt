@@ -99,10 +99,10 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(24.dp))
             TodayMissionGoal(
                 modifier = Modifier.padding(horizontal = 20.dp),
-                title = state.homeInfo.rewardEventTitle,
-                subtitle = state.homeInfo.rewardEventSubtitle,
-                completedCount = state.homeInfo.rewardCompletedCount,
-                totalCount = state.homeInfo.rewardTotalCount,
+                title = state.homeInfo.rewardEvent.rewardEventTitle,
+                subtitle = state.homeInfo.rewardEvent.rewardEventSubtitle,
+                completedCount = state.homeInfo.rewardEvent.rewardCompletedCount,
+                totalCount = state.homeInfo.rewardEvent.rewardTotalCount,
                 onClickRewardButton = { eventHandler(HomeContract.Event.ClickRewardButton) }
             )
             Spacer(modifier = Modifier.height(40.dp))
