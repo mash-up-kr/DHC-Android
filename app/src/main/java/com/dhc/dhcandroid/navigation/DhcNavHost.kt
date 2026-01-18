@@ -26,6 +26,7 @@ import com.dhc.intro.start.IntroRoute
 import com.dhc.missionstatus.MissionStatusRoute
 import com.dhc.mypage.MyPageRoute
 import com.dhc.reward.RewardRoute
+import com.dhc.reward.yearfortune.YearFortuneRoute
 import com.example.survey.SurveyRoute
 
 @Composable
@@ -128,7 +129,9 @@ fun DhcNavHost(
         }
 
         composable(DhcRoute.MAIN_REWARD.route) {
-            RewardRoute()
+            RewardRoute(
+                navigateToYearFortune = { navController.navigateTo(DhcRoute.YEAR_FORTUNE) },
+            )
         }
 
         composable(DhcRoute.MAIN_MY.route) {
@@ -157,6 +160,9 @@ fun DhcNavHost(
                 navigateToHome = { navController.navigateToHome() },
                 navigateToPrevScreen = { navController.navigateUp() },
             )
+        }
+        composable(DhcRoute.YEAR_FORTUNE.route) {
+            YearFortuneRoute()
         }
     }
 }
