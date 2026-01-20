@@ -3,6 +3,7 @@ package com.dhc.dhcandroid.datasource
 import android.content.Context
 import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
+import com.dhc.dhcandroid.model.CreateShareTokenResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.FortuneResponse
@@ -73,6 +74,9 @@ class DhcMockDataSourceImpl @Inject constructor(
 
     override suspend fun updateEasterEggHistory(userId: String): Response<Unit> =
         Response.success(Unit)
+
+    override suspend fun createShareToken(userId: String): Response<CreateShareTokenResponse> =
+        createResponseFromAsset<CreateShareTokenResponse>("mock_create_share_token.json")
 
     private inline fun <reified T> createResponseFromAsset(fileName: String): Response<T> = Response.success(
         json.decodeFromString<T>(
