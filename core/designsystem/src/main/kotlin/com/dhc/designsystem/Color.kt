@@ -37,14 +37,14 @@ data object SurfaceColor {
 }
 
 data object AccentColor {
-    val violet50: Color = Color(0xFFE6E8FF)
-    val violet100: Color = Color(0xFFCDD1F2)
-    val violet200: Color = Color(0xFFB5BAEB)
-    val violet300: Color = Color(0xFF939BE2)
-    val violet400: Color = Color(0xFF5E69D4)
-    val violet500: Color = Color(0xFF5660C1)
-    val violet600: Color = Color(0xFF414BAE)
-    val violet700: Color = Color(0xFF343FA6)
+    val violet50: Color = Color(0xFFF4F4FF)
+    val violet100: Color = Color(0xFFEFEAFF)
+    val violet200: Color = Color(0xFFE6DFFF)
+    val violet300: Color = Color(0xFFE0D6FF)
+    val violet400: Color = Color(0xFFD9CEFF)
+    val violet500: Color = Color(0xFF8D83E8)
+    val violet600: Color = Color(0xFF6F66B5)
+    val violet700: Color = Color(0xFF564F8C)
 }
 
 data object GradientColor {
@@ -62,21 +62,21 @@ data object GradientColor {
     )
     val backgroundGradient01 = Brush.radialGradient(
         colorStops = arrayOf(
-            0.23f to AccentColor.violet400,
-            0.51f to AccentColor.violet400.copy(alpha = 0.3f),
-            0.75f to AccentColor.violet400.copy(alpha = 0.1f),
-            0.88f to AccentColor.violet400.copy(alpha = 0.05f),
-            1.0f to AccentColor.violet400.copy(alpha = 0f),
+            0.23f to AccentColor.violet700,
+            0.51f to AccentColor.violet700.copy(alpha = 0.3f),
+            0.75f to AccentColor.violet700.copy(alpha = 0.1f),
+            0.88f to AccentColor.violet700.copy(alpha = 0.05f),
+            1.0f to AccentColor.violet700.copy(alpha = 0f),
         ),
     )
     @Composable
     fun backgroundGradient01(radius: Float): Brush = Brush.radialGradient(
         colorStops = arrayOf(
-            0.23f to AccentColor.violet400.copy(alpha = 1f),
-            0.51f to AccentColor.violet400.copy(alpha = 0.3f),
-            0.75f to AccentColor.violet400.copy(alpha = 0.1f),
-            0.88f to AccentColor.violet400.copy(alpha = 0.05f),
-            1.0f to AccentColor.violet400.copy(alpha = 0f),
+            0.23f to AccentColor.violet700.copy(alpha = 1f),
+            0.51f to AccentColor.violet700.copy(alpha = 0.3f),
+            0.75f to AccentColor.violet700.copy(alpha = 0.1f),
+            0.88f to AccentColor.violet700.copy(alpha = 0.05f),
+            1.0f to AccentColor.violet700.copy(alpha = 0f),
         ),
         radius = radius,
     )
@@ -155,9 +155,9 @@ data object GradientColor {
 
     val cardBottomGradient01 = Brush.radialGradient(
         colorStops = arrayOf(
-            0.0f to Color(0xFF343B8C).copy(alpha = 1f),
-            0.5f to Color(0xFF343B8C).copy(alpha = 0.5f),
-            1.0f to Color(0xFF343B8C).copy(alpha = 0f),
+            0.0f to Color(0xFFFFDAFC).copy(alpha = 0.3f),
+            0.5f to Color(0xFFFFDAFC).copy(alpha = 0.1f),
+            1.0f to Color(0xFFFFDAFC).copy(alpha = 0f),
         ),
     )
 
