@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -22,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -96,7 +98,8 @@ fun HomeScreen(
             }
 
             TodayMissionCompleteTimer(
-                timerText = state.missionTimerText
+                timerText = state.missionTimerText,
+                isUnderFourHours = state.isTimerUnderFourHours
             )
             Spacer(modifier = Modifier.height(24.dp))
             TodayMissionGoal(
@@ -159,14 +162,22 @@ fun HomeScreen(
         }
 
         if(!state.homeInfo.todayDone) {
-            DhcFloatingButton(
+            Image(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(bottom = 24.dp, end = 20.dp),
-                text = stringResource(R.string.finish_today_mission),
-                isEnabled = true,
-                onClick = { eventHandler(HomeContract.Event.ClickTodayMissionFinish) },
+                    .padding(bottom = 24.dp, end = 20.dp)
+                    .clickable{ eventHandler(HomeContract.Event.ClickTodayMissionFinish) },
+                painter = painterResource(R.drawable.mission_clear_floating),
+                contentDescription = "mission_clear_button"
             )
+//            DhcFloatingButton(
+//                modifier = Modifier
+//                    .align(Alignment.BottomEnd)
+//                    .padding(bottom = 24.dp, end = 20.dp),
+//                text = stringResource(R.string.finish_today_mission),
+//                isEnabled = true,
+//                onClick = { eventHandler(HomeContract.Event.ClickTodayMissionFinish) },
+//            )
         }
     }
 }

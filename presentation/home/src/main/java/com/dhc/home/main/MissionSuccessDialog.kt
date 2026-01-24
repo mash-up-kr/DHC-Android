@@ -84,7 +84,8 @@ fun MissionSuccessDialog(
                 Image(
                     painter = painterResource(R.drawable.mission_success),
                     contentDescription = "missionSuccess",
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().height(138.dp),
+
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Column(

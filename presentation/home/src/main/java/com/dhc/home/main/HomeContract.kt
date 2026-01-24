@@ -25,6 +25,7 @@ class HomeContract {
         val todaySavedMoney: String = "",
         val isFortuneSurveyVisible: Boolean = false,
         val missionTimerText: String = "00 : 00 : 00 남음",
+        val isTimerUnderFourHours: Boolean = false,
     ): UiState {
         val remainingMissionCount: Int
             get() = getMissionIdList().size - getFinishedMissionCount()

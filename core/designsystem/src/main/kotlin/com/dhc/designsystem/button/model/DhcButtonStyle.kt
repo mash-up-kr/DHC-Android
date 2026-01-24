@@ -19,7 +19,7 @@ sealed interface DhcButtonStyle {
             }
         override val textColor: Color
             @Composable get() = if (isEnabled) {
-                LocalDhcColors.current.text.textMain
+                LocalDhcColors.current.background.backgroundMain
             } else {
                 SurfaceColor.neutral200
             }

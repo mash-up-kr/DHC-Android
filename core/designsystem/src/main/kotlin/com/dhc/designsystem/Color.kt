@@ -34,6 +34,8 @@ data object SurfaceColor {
     val neutral700: Color = Color(0xFF1F2127)
     val neutral800: Color = Color(0xFF17191F)
     val neutral900: Color = Color(0xFF0F1114)
+
+    val primaryRed: Color = Color(0xFFFF6F6F)
 }
 
 data object AccentColor {
