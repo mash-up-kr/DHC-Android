@@ -8,6 +8,7 @@ import com.dhc.dhcandroid.datasource.DhcRemoteDataSource
 import com.dhc.dhcandroid.model.AnalysisMonthViewResponse
 import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
+import com.dhc.dhcandroid.model.CreateShareTokenResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.FortuneResponse
@@ -123,6 +124,10 @@ class DhcRepositoryImpl @Inject constructor(
     override suspend fun getRewardProgress(userId: String): DhcResult<RewardProgressResponse> {
         return runDhcCatching {
             dhcDataSource.getRewardProgress(userId)
+
+    override suspend fun createShareToken(userId: String): DhcResult<CreateShareTokenResponse> {
+        return runDhcCatching {
+            dhcDataSource.createShareToken(userId)
         }
     }
 }

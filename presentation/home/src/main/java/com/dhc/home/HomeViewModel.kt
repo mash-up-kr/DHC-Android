@@ -471,8 +471,12 @@ class HomeViewModel @Inject constructor(
             .map { it.coerceAtLeast(0) }
             .distinctUntilChanged()
             .onEach { seconds ->
+                val fourHoursInSeconds = 4 * 60 * 60
                 reduce {
-                    copy(missionTimerText = formatSecondsToTime(seconds))
+                    copy(
+                        missionTimerText = formatSecondsToTime(seconds),
+                        isTimerUnderFourHours = seconds in 1..fourHoursInSeconds
+                    )
                 }
             }.launchIn(viewModelScope)
     }

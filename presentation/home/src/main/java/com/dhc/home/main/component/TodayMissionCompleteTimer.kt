@@ -15,7 +15,8 @@ import com.dhc.designsystem.LocalDhcColors
 @Composable
 fun TodayMissionCompleteTimer(
     modifier: Modifier = Modifier,
-    timerText: String = "00 : 00 : 00 남음",
+    timerText: String = "00 : 00 : 00",
+    isUnderFourHours: Boolean = false,
 ) {
     val colors = LocalDhcColors.current
 
@@ -32,7 +33,7 @@ fun TodayMissionCompleteTimer(
         Text(
             text = "$timerText 남음",
             style = DhcTypoTokens.TitleH2_1,
-            color = colors.text.textMain,
+            color = if (isUnderFourHours) colors.surface.primaryRed else colors.text.textMain,
             textAlign = TextAlign.Center,
         )
     }
@@ -42,8 +43,15 @@ fun TodayMissionCompleteTimer(
 @Composable
 private fun TodayMissionCompleteTimerPreview() {
     DhcTheme {
-        TodayMissionCompleteTimer(
-            timerText = "20 : 08 : 50 남음"
-        )
+        Column {
+            TodayMissionCompleteTimer(
+                timerText = "20 : 08 : 50 남음"
+            )
+
+            TodayMissionCompleteTimer(
+                timerText = "00 : 03 : 50 남음",
+                isUnderFourHours = true
+            )
+        }
     }
 }

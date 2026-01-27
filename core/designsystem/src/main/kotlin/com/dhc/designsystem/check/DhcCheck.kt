@@ -31,7 +31,8 @@ fun DhcCheck(
         isChecked -> colors.text.textHighLightsPrimary
         else -> SurfaceColor.neutral400
     }
-    val iconTint = if (isEnabled) colors.text.textMain else SurfaceColor.neutral400
+    val iconTint = if (isEnabled) colors.background.backgroundMain
+        else SurfaceColor.neutral400
 
     Box(
         modifier = Modifier

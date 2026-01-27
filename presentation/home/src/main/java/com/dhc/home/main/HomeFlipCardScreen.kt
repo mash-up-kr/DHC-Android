@@ -109,7 +109,7 @@ private fun NotFlippedDescription() {
         Text(
             text = stringResource(R.string.balloon_message_flip),
             style = DhcTypoTokens.TitleH7,
-            color = colors.text.textHighLightsPrimary,
+            color = colors.background.backgroundMain,
         )
     }
     Spacer(modifier = Modifier.height(23.dp))

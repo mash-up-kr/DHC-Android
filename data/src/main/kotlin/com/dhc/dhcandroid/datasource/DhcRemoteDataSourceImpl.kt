@@ -2,6 +2,7 @@ package com.dhc.dhcandroid.datasource
 
 import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
+import com.dhc.dhcandroid.model.CreateShareTokenResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.FortuneResponse
@@ -78,7 +79,11 @@ class DhcRemoteDataSourceImpl @Inject constructor(
         return dhcService.updateEasterEggHistory(userId)
     }
 
+
     override suspend fun getRewardProgress(userId: String): Response<RewardProgressResponse> {
         return dhcService.getRewardProgress(userId)
+
+    override suspend fun createShareToken(userId: String): Response<CreateShareTokenResponse> {
+        return dhcService.createShareToken(userId)
     }
 }

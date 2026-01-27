@@ -2,6 +2,7 @@ package com.dhc.dhcandroid.datasource
 
 import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
+import com.dhc.dhcandroid.model.CreateShareTokenResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.FortuneResponse
@@ -69,7 +70,13 @@ interface DhcRemoteDataSource {
         userId: String,
     ): Response<Unit>
 
+
     suspend fun getRewardProgress(
         userId: String,
     ): Response<RewardProgressResponse>
+
+    suspend fun createShareToken(
+        userId: String,
+    ): Response<CreateShareTokenResponse>
+
 }

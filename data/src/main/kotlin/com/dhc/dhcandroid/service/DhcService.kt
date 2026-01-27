@@ -2,6 +2,7 @@ package com.dhc.dhcandroid.service
 
 import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
+import com.dhc.dhcandroid.model.CreateShareTokenResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.FortuneResponse
@@ -88,9 +89,15 @@ interface DhcService {
     suspend fun updateEasterEggHistory(
         @Path("userId") userId: String,
     ): Response<Unit>
-
+    
     @GET("/view/users/{userId}/reward-progress")
     suspend fun getRewardProgress(
         @Path("userId") userId: String,
     ): Response<RewardProgressResponse>
+
+    @POST("/api/users/{userId}/share")
+    suspend fun createShareToken(
+        @Path("userId") userId: String,
+    ): Response<CreateShareTokenResponse>
+
 }
