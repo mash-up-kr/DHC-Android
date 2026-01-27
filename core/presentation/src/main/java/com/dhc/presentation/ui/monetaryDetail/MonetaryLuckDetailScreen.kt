@@ -126,7 +126,7 @@ private fun PreviewMonetaryLuckDetail() {
             monetaryLuckInfo = MonetaryLuckInfo(
                 scoreInfo = ScoreInfo(
                     date = "2025년 5월 20일",
-                    score = 35,
+                    score = 85,
                     description = "마음이 들뜨는 날이에요,\n한템포 쉬어가요."
                 ),
                 fortuneCard = FortuneCard(

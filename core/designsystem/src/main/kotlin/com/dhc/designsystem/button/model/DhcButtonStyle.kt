@@ -57,6 +57,6 @@ sealed interface DhcButtonStyle {
                 LocalDhcColors.current.background.backgroundGlassEffect
             }
         override val textColor: Color
-            @Composable get() = LocalDhcColors.current.text.textBodyPrimary
+            @Composable get() = LocalDhcColors.current.background.backgroundMain
     }
 }
