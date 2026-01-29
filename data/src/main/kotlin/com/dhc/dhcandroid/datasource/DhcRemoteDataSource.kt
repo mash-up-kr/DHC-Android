@@ -15,6 +15,7 @@ import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
+import com.dhc.dhcandroid.model.YearlyFortuneResponse
 import retrofit2.Response
 
 interface DhcRemoteDataSource {
@@ -78,5 +79,9 @@ interface DhcRemoteDataSource {
     suspend fun createShareToken(
         userId: String,
     ): Response<CreateShareTokenResponse>
+
+    suspend fun getYearlyFortune(
+        userId: String,
+    ): Response<YearlyFortuneResponse>
 
 }

@@ -1,5 +1,6 @@
 package com.dhc.designsystem.reward
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -16,9 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
+import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.TransparentColor
 
@@ -36,42 +40,52 @@ fun RewardProgressBar(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(12.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(TransparentColor.badgePrimary)
-        ) {
-            val progressWidth = progressWidthByStep.getOrElse(currentStep) { 0.08f }
+        Box() {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth(progressWidth)
-                    .height(12.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(colors.text.textHighLightsPrimary)
-            )
-
-            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(12.dp)
-                    .padding(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(TransparentColor.badgePrimary)
             ) {
-                totalStepList.forEachIndexed { index, _ ->
-                    val isFilled = index <= currentStep
-                    Box(
-                        modifier = Modifier
-                            .size(6.dp)
-                            .background(
-                                color = if (isFilled) colors.text.textHighLightsPrimary else colors.text.textHighLightsPrimary,
-                                shape = CircleShape
-                            )
-                    )
+                val progressWidth = progressWidthByStep.getOrElse(currentStep) { 0.08f }
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(progressWidth)
+                        .height(12.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(colors.text.textHighLightsPrimary)
+                )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(12.dp)
+                        .padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    totalStepList.forEachIndexed { index, _ ->
+                        val isFilled = index <= currentStep
+                        Box(
+                            modifier = Modifier
+                                .size(6.dp)
+                                .background(
+                                    color = if (isFilled) colors.text.textHighLightsPrimary else colors.text.textHighLightsPrimary,
+                                    shape = CircleShape
+                                )
+                        )
+                    }
                 }
             }
+            Image(
+                painter = painterResource(id = R.drawable.ico_present),
+                contentDescription = "Goal Icon",
+                modifier = Modifier
+                    .size(24.dp)
+                    .align(Alignment.TopEnd)
+                    .offset(x = (-4).dp, y = (-7).dp)
+            )
         }
 
         Row(

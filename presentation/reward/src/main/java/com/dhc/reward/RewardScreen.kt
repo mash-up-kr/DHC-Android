@@ -43,6 +43,8 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
+import com.dhc.designsystem.GradientColor.fortuneBorderGradientLow
+import com.dhc.designsystem.GradientColor.fortuneGradientLow
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.TransparentColor
@@ -82,7 +84,7 @@ fun RewardScreen(
             AsyncImage(
                 model = state.rewardInfo.user.rewardImageUrl,
                 contentDescription = "level_image",
-                modifier = Modifier.size(36.dp),
+                modifier = Modifier.size(132.dp, 145.dp).align(Alignment.BottomCenter),
             )
         }
 
@@ -279,15 +281,7 @@ private fun RewardCard(
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(8.dp))
                     .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                SurfaceColor.neutral30,
-                                colors.text.textHighLightsSecondary
-                            ),
-                            startY = 0f,
-                            endY = 200f
-                        ),
-                        alpha = 0.88f
+                        brush = fortuneBorderGradientLow
                     )
                     .padding(horizontal = 10.dp, vertical = 10.dp)
             ) {
@@ -298,7 +292,7 @@ private fun RewardCard(
                         stringResource(R.string.reward_next_level, remainingPoints)
                     },
                     style = DhcTypoTokens.TitleH7,
-                    color = colors.text.textHighLightsPrimary,
+                    color = colors.background.backgroundMain,
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     maxLines = 1
@@ -320,14 +314,7 @@ private fun RewardCard(
 
                         drawPath(
                             path = trianglePath,
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    SurfaceColor.neutral30.copy(alpha = 0.88f),
-                                    colors.text.textHighLightsSecondary.copy(alpha = 0.88f)
-                                ),
-                                startY = 0f,
-                                endY = size.height
-                            )
+                            brush = fortuneBorderGradientLow
                         )
                     }
             )
@@ -337,7 +324,7 @@ private fun RewardCard(
         RewardProgressBar(
             currentStep = currentStep,
             modifier = Modifier.fillMaxWidth(),
-            totalStepList = listOf("lv.1", "lv.2", "lv.3", "lv.4", "lv.5", "lv.6", "lv.7", "lv.8")
+            totalStepList = listOf("1", "2", "3", "4", "5", "6", "7", "8")
         )
         DhcButton(
             text = stringResource(R.string.reward_open_reward_button),
@@ -391,7 +378,7 @@ private fun ReceivedRewardsList(
         rewards.chunked(itemsPerRow).forEach { rowItems ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 rowItems.forEach { reward ->
                     ReceivedRewardItem(
@@ -418,13 +405,13 @@ private fun ReceivedRewardItem(
     val colors = LocalDhcColors.current
 
     Column(
-        modifier = modifier.fillMaxWidth().clickable { onClickItem() },
+        modifier = modifier.fillMaxSize().clickable { onClickItem() },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // 카드 (아이콘만 포함)
         Box(
             modifier = Modifier
-                .fillMaxWidth()
+                .size(52.dp)
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(8.dp))
                 .background(colors.background.backgroundGlassEffect)

@@ -190,6 +190,13 @@ data object GradientColor {
             0.82f to Color(0XFF5194FF),
         ),
     )
+
+    val fortuneBorderGradientLow = Brush.linearGradient(
+        colorStops = arrayOf(
+            0.0f to SurfaceColor.neutral200,
+            0.28f to SurfaceColor.neutral400,
+        ),
+    )
 }
 
 data object TransparentColor {

@@ -15,6 +15,7 @@ import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
+import com.dhc.dhcandroid.model.YearlyFortuneResponse
 import com.dhc.dhcandroid.service.DhcService
 import retrofit2.Response
 import javax.inject.Inject
@@ -82,8 +83,13 @@ class DhcRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getRewardProgress(userId: String): Response<RewardProgressResponse> {
         return dhcService.getRewardProgress(userId)
+    }
 
     override suspend fun createShareToken(userId: String): Response<CreateShareTokenResponse> {
         return dhcService.createShareToken(userId)
+    }
+
+    override suspend fun getYearlyFortune(userId: String): Response<YearlyFortuneResponse> {
+        return dhcService.getYearlyFortune(userId)
     }
 }

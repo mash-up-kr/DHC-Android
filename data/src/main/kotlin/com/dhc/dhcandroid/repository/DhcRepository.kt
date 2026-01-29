@@ -16,6 +16,7 @@ import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
+import com.dhc.dhcandroid.model.YearlyFortuneResponse
 import java.time.LocalDate
 
 interface DhcRepository {
@@ -81,5 +82,9 @@ interface DhcRepository {
     suspend fun createShareToken(
         userId: String,
     ): DhcResult<CreateShareTokenResponse>
+
+    suspend fun getYearlyFortune(
+        userId: String,
+    ): DhcResult<YearlyFortuneResponse>
 
 }
