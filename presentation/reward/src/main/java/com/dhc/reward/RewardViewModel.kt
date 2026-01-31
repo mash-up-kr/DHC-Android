@@ -38,8 +38,11 @@ class RewardViewModel @Inject constructor(
             }
 
             is RewardContract.Event.ClickRewardItem -> {
-                // TODO: 리워드 아이템 클릭 처리
-                postSideEffect(RewardContract.SideEffect.NavigateToYearFortune)
+                postSideEffect(RewardContract.SideEffect.NavigateToYearFortune(isSampleData = false))
+            }
+
+            RewardContract.Event.ClickRewardExplainButton -> {
+                postSideEffect(RewardContract.SideEffect.NavigateToYearFortune(isSampleData = true))
             }
         }
     }

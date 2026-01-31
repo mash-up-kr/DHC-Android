@@ -22,10 +22,11 @@ class RewardContract {
         data object ClickOpenRewardButton : Event
         data object ClickErrorRetryButton : Event
         data class ClickRewardItem(val itemId: Int) : Event
+        data object ClickRewardExplainButton : Event
     }
 
     sealed interface SideEffect : UiSideEffect {
-        data object NavigateToYearFortune : SideEffect
+        data class NavigateToYearFortune(val isSampleData: Boolean) : SideEffect
         data class ShowToast(val msg: String) : SideEffect
     }
 }

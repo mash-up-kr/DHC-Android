@@ -34,13 +34,15 @@ data class RewardUserUiModel(
 
 data class RewardItemUiModel(
     val id: Int = 0,
-    val title: String = ""
+    val title: String = "",
+    val isUnlocked: Boolean = false,
 ) {
     companion object {
         fun from(rewardItem: com.dhc.dhcandroid.model.RewardItem): RewardItemUiModel {
             return RewardItemUiModel(
                 id = rewardItem.id,
-                title = rewardItem.title
+                title = rewardItem.title,
+                isUnlocked = rewardItem.isUnlocked
             )
         }
     }

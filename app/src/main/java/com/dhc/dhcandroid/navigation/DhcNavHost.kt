@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.dhc.home.HomeRoute
 import com.dhc.home.detail.MonetaryLuckDetailRoute
@@ -130,7 +132,9 @@ fun DhcNavHost(
 
         composable(DhcRoute.MAIN_REWARD.route) {
             RewardRoute(
-                navigateToYearFortune = { navController.navigateTo(DhcRoute.YEAR_FORTUNE) },
+                navigateToYearFortune = { isSampleData ->
+                    navController.navigate("reward/yearFortune?isSampleData=$isSampleData")
+                },
             )
         }
 
@@ -161,7 +165,15 @@ fun DhcNavHost(
                 navigateToPrevScreen = { navController.navigateUp() },
             )
         }
-        composable(DhcRoute.YEAR_FORTUNE.route) {
+        composable(
+            route = DhcRoute.YEAR_FORTUNE.route,
+            arguments = listOf(
+                navArgument("isSampleData") {
+                    type = NavType.BoolType
+                    defaultValue = false
+                }
+            )
+        ) {
             YearFortuneRoute()
         }
     }

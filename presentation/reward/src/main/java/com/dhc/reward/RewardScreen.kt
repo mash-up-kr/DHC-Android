@@ -127,7 +127,6 @@ fun RewardScreen(
                             )
                         )
                     ) {
-                        // 서버 변경 후 수정 필요
                         append(state.rewardInfo.user.rewardLevel)
                     }
                 },
@@ -173,6 +172,9 @@ fun RewardScreen(
                 currentStep = currentStep,
                 onClickOpenReward = {
                     onEvent(RewardContract.Event.ClickOpenRewardButton)
+                },
+                onClickRewardExplainButton = {
+                    onEvent(RewardContract.Event.ClickRewardExplainButton)
                 }
             )
         }
@@ -202,7 +204,7 @@ fun RewardScreen(
                     ReceivedReward(
                         id = it.id.toString(),
                         name = it.title,
-                        isLocked = true
+                        isUnlocked = it.isUnlocked
                     )
                 },
                 onClickItem = { reward ->
@@ -221,6 +223,7 @@ private fun RewardCard(
     currentPoints: Int = 400,
     currentStep: Int = 1,
     onClickOpenReward: () -> Unit = {},
+    onClickRewardExplainButton: () -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
 
@@ -291,8 +294,8 @@ private fun RewardCard(
                     } else {
                         stringResource(R.string.reward_next_level, remainingPoints)
                     },
-                    style = DhcTypoTokens.TitleH7,
-                    color = colors.background.backgroundMain,
+                    style = DhcTypoTokens.Body5,
+                    color = colors.text.textHighLightsPrimary,
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     maxLines = 1
@@ -329,12 +332,16 @@ private fun RewardCard(
         DhcButton(
             text = stringResource(R.string.reward_open_reward_button),
             buttonSize = DhcButtonSize.LARGE,
-            buttonStyle = DhcButtonStyle.Secondary(false),
+            buttonStyle = DhcButtonStyle.Secondary(currentStep == 8),
             onClick = onClickOpenReward,
             modifier = Modifier.fillMaxWidth()
         )
         Text(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    onClickRewardExplainButton()
+                },
             text = stringResource(R.string.reward_explain_text_button),
             style = DhcTypoTokens.Body5,
             textDecoration = TextDecoration.Underline,
@@ -349,7 +356,7 @@ private fun RewardCard(
 private data class ReceivedReward(
     val id: String,
     val name: String,
-    val isLocked: Boolean = true
+    val isUnlocked: Boolean = false
 )
 
 @Composable
@@ -405,7 +412,7 @@ private fun ReceivedRewardItem(
     val colors = LocalDhcColors.current
 
     Column(
-        modifier = modifier.fillMaxSize().clickable { onClickItem() },
+        modifier = modifier.fillMaxSize().clickable { if(reward.isUnlocked) onClickItem() },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // 카드 (아이콘만 포함)
@@ -418,11 +425,19 @@ private fun ReceivedRewardItem(
                 .padding(10.dp),
             contentAlignment = Alignment.Center
         ) {
-            Image(
-                painter = painterResource(com.dhc.designsystem.R.drawable.ico_lock),
-                contentDescription = "lock icon",
-                modifier = Modifier.size(28.dp)
-            )
+            if(reward.isUnlocked){
+                Image(
+                    painter = painterResource(com.dhc.designsystem.R.drawable.ico_gold_medal),
+                    contentDescription = "lock icon",
+                    modifier = Modifier.size(28.dp)
+                )
+            } else {
+                Image(
+                    painter = painterResource(com.dhc.designsystem.R.drawable.ico_lock),
+                    contentDescription = "lock icon",
+                    modifier = Modifier.size(28.dp)
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(8.dp))

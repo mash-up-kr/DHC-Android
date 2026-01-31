@@ -89,7 +89,9 @@ fun RewardProgressBar(
         }
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             totalStepList.forEachIndexed { index, label ->

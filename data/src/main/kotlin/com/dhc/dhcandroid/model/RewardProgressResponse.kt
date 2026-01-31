@@ -18,5 +18,6 @@ data class RewardUser(
 @Serializable
 data class RewardItem(
     val id: Int = 0,
-    val title: String = ""
+    val title: String = "",
+    val isUnlocked: Boolean = false,
 )
