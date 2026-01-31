@@ -171,8 +171,8 @@ fun DhcNavHost(
                 navArgument("isSampleData") {
                     type = NavType.BoolType
                     defaultValue = false
-                }
-            )
+                },
+            ),
         ) {
             YearFortuneRoute()
         }
