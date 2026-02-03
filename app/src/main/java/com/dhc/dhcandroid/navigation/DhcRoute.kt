@@ -1,6 +1,5 @@
 package com.dhc.dhcandroid.navigation
 
-import androidx.compose.ui.graphics.Color
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.gnb.model.DhcBottomBarState
 import com.dhc.designsystem.topbar.model.DhcTopBarState
