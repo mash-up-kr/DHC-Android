@@ -79,6 +79,7 @@ fun DhcFortuneCard(
                     contentDescription = "운세카드 이미지",
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(id = R.drawable.fortune_card_placeholder),
+                    error = painterResource(id = R.drawable.fortune_card_placeholder),
                     modifier = Modifier.fillMaxSize(),
                 )
             } else {
