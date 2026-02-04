@@ -4,8 +4,13 @@ import android.annotation.SuppressLint
 import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.WebView
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.viewinterop.AndroidView
@@ -23,6 +28,14 @@ fun SurveyScreen(
 ) {
     val activity = LocalActivity.current
     val colors = LocalDhcColors.current
+
+    var canGoBack: Boolean by remember { mutableStateOf(false) }
+    var webView: WebView? by remember { mutableStateOf(null) }
+
+    BackHandler(enabled = canGoBack) {
+        webView?.goBack()
+    }
+
     AndroidView(
         factory = { context ->
             state.shareToken?.let {
@@ -52,7 +65,14 @@ fun SurveyScreen(
                     ),
                     "DHCJavascriptInterface",
                 )
+                webViewClient = SurveyWebViewClient(
+                    canGoBackChanged = { updatedCanGoBack ->
+                        canGoBack = updatedCanGoBack
+                    },
+                )
                 loadUrl(DhcWebUrl)
+            }.also {
+                webView = it
             }
         },
         modifier = modifier,
