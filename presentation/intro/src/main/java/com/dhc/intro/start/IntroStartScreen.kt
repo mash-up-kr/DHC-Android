@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -42,7 +43,10 @@ fun IntroStartScreen(
         VideoView(
             videoResId = R.raw.intro_start_video,
             thumbnailResId = R.drawable.intro_start_video_thumbnail,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+                .align(Alignment.Center),
         )
         Column(
             modifier = Modifier
