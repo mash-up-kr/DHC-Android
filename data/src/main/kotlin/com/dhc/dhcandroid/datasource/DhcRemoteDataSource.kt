@@ -84,4 +84,8 @@ interface DhcRemoteDataSource {
         userId: String,
     ): Response<YearlyFortuneResponse>
 
+    suspend fun unlockYearlyFortune(
+        userId: String,
+    ): Response<Unit>
+
 }

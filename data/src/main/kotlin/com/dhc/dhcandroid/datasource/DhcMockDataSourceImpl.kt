@@ -86,6 +86,9 @@ class DhcMockDataSourceImpl @Inject constructor(
     override suspend fun getYearlyFortune(userId: String): Response<YearlyFortuneResponse> =
         createResponseFromAsset<YearlyFortuneResponse>("mock_yearly_fortune_response.json")
 
+    override suspend fun unlockYearlyFortune(userId: String): Response<Unit> =
+        Response.success(Unit)
+
     private inline fun <reified T> createResponseFromAsset(fileName: String): Response<T> = Response.success(
         json.decodeFromString<T>(
             context.assets.open(fileName).bufferedReader().use { it.readText() }

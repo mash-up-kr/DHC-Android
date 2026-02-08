@@ -106,4 +106,9 @@ interface DhcService {
         @Path("userId") userId: String,
     ): Response<YearlyFortuneResponse>
 
+    @POST("/api/users/{userId}/yearly-fortune")
+    suspend fun unlockYearlyFortune(
+        @Path("userId") userId: String,
+    ): Response<Unit>
+
 }

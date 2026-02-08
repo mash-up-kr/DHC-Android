@@ -1,5 +1,7 @@
 package com.dhc.reward.yearfortune
 
+import com.dhc.common.ImageResource
+import com.dhc.designsystem.R
 import com.dhc.designsystem.tipcard.TipCardModel
 import com.dhc.dhcandroid.model.YearlyFortuneResponse
 import com.dhc.presentation.ui.monetaryDetail.FortuneCard
@@ -10,12 +12,13 @@ internal fun YearlyFortuneResponse.toYearFortuneInfo(): YearFortuneInfo {
         scoreInfo = ScoreInfo(
             date = "${year}년 운세 총평",
             score = totalScore,
-            description = summaryDetail
+            description = summaryTitle
         ),
         fortuneCard = FortuneCard(
             title = summaryTitle,
             message = "",
-            image = null
+            image = summaryImageUrl.takeIf { it.isNotEmpty() }?.let { ImageResource.Url(it) }
+                ?: ImageResource.Drawable(R.drawable.fortune_card_sample)
         ),
         overallFortune = summaryDetail,
         quickViewFortune = listOfNotNull(
@@ -23,21 +26,21 @@ internal fun YearlyFortuneResponse.toYearFortuneInfo(): YearFortuneInfo {
                 QuickViewFortuneItem(
                     title = it.title,
                     content = it.description,
-                    icon = null
+                    icon = ImageResource.Drawable(R.drawable.ico_money_pocket)
                 )
             },
             fortuneOverview.love.takeIf { it.title.isNotEmpty() }?.let {
                 QuickViewFortuneItem(
                     title = it.title,
                     content = it.description,
-                    icon = null
+                    icon = ImageResource.Drawable(R.drawable.ico_heart_target)
                 )
             },
             fortuneOverview.study.takeIf { it.title.isNotEmpty() }?.let {
                 QuickViewFortuneItem(
                     title = it.title,
                     content = it.description,
-                    icon = null
+                    icon = ImageResource.Drawable(R.drawable.ico_study)
                 )
             }
         ),
@@ -76,7 +79,7 @@ internal fun YearlyFortuneResponse.toYearFortuneInfo(): YearFortuneInfo {
             tips.luckyMenu.takeIf { it.isNotEmpty() }?.let {
                 TipCardModel(
                     title = "추천메뉴",
-                    icon = null,
+                    icon = ImageResource.Drawable(R.drawable.ico_knife),
                     color = null,
                     cont = it
                 )
@@ -84,7 +87,7 @@ internal fun YearlyFortuneResponse.toYearFortuneInfo(): YearFortuneInfo {
             tips.luckyColor.takeIf { it.isNotEmpty() }?.let {
                 TipCardModel(
                     title = "행운의 색상",
-                    icon = null,
+                    icon = ImageResource.Drawable(R.drawable.ico_clover),
                     color = tips.luckyColorHex.takeIf { hex -> hex.isNotEmpty() },
                     cont = it
                 )
@@ -92,7 +95,7 @@ internal fun YearlyFortuneResponse.toYearFortuneInfo(): YearFortuneInfo {
             tips.unluckyMenu.takeIf { it.isNotEmpty() }?.let {
                 TipCardModel(
                     title = "피해야 할 음식",
-                    icon = null,
+                    icon = ImageResource.Drawable(R.drawable.ico_green_face),
                     color = null,
                     cont = it
                 )
@@ -100,7 +103,7 @@ internal fun YearlyFortuneResponse.toYearFortuneInfo(): YearFortuneInfo {
             tips.unluckyColor.takeIf { it.isNotEmpty() }?.let {
                 TipCardModel(
                     title = "피해야 할 색상",
-                    icon = null,
+                    icon = ImageResource.Drawable(R.drawable.ico_red_face),
                     color = tips.unluckyColorHex.takeIf { hex -> hex.isNotEmpty() },
                     cont = it
                 )

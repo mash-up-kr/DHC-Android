@@ -1,5 +1,7 @@
 package com.dhc.reward
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -84,7 +86,9 @@ fun RewardScreen(
             AsyncImage(
                 model = state.rewardInfo.user.rewardImageUrl,
                 contentDescription = "level_image",
-                modifier = Modifier.size(132.dp, 145.dp).align(Alignment.BottomCenter),
+                modifier = Modifier
+                    .size(132.dp, 145.dp)
+                    .align(Alignment.BottomCenter),
             )
         }
 
@@ -162,14 +166,14 @@ fun RewardScreen(
                 .padding(horizontal = 20.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // 레벨별 필요 포인트 (레벨 1~8)
-            val levelThresholds = listOf(0, 100, 200, 400, 600, 900, 1200, 1600, 2000)
-            val currentPoints = state.rewardInfo.user.totalExp
-            val currentStep = levelThresholds.indexOfLast { it <= currentPoints }.coerceAtLeast(0)
+            val hasUnusedReward = state.rewardInfo.rewardList.any { !it.isUsed }
 
             RewardCard(
-                currentPoints = currentPoints,
-                currentStep = currentStep,
+                totalPoints = state.rewardInfo.user.totalPoint,
+                currentLevelPoints = state.rewardInfo.user.currentLevelPoint,
+                nextLevelRequiredPoints = state.rewardInfo.user.nextLevelRequiredPoint,
+                rewardLevel = state.rewardInfo.user.rewardLevel,
+                hasUnusedReward = hasUnusedReward,
                 onClickOpenReward = {
                     onEvent(RewardContract.Event.ClickOpenRewardButton)
                 },
@@ -204,7 +208,8 @@ fun RewardScreen(
                     ReceivedReward(
                         id = it.id.toString(),
                         name = it.title,
-                        isUnlocked = it.isUnlocked
+                        isUnlocked = it.isUnlocked,
+                        isUsed = it.isUsed
                     )
                 },
                 onClickItem = { reward ->
@@ -220,17 +225,21 @@ fun RewardScreen(
 
 @Composable
 private fun RewardCard(
-    currentPoints: Int = 400,
-    currentStep: Int = 1,
+    totalPoints: Int = 0,
+    currentLevelPoints: Int = 0,
+    nextLevelRequiredPoints: Int = 400,
+    rewardLevel: String = "LV1",
+    hasUnusedReward: Boolean = false,
     onClickOpenReward: () -> Unit = {},
     onClickRewardExplainButton: () -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
 
-    // 레벨별 필요 포인트 (레벨 1~8)
-    val levelThresholds = listOf(0, 100, 200, 400, 600, 900, 1200, 1600, 2000)
-    val nextLevelPoints = levelThresholds.getOrNull(currentStep + 1) ?: levelThresholds.last()
-    val remainingPoints = nextLevelPoints - currentPoints
+    val currentLevelNumber = rewardLevel.removePrefix("LV").toIntOrNull() ?: 1
+    Log.d(TAG, "RewardCard: $currentLevelNumber")
+    val isMaxLevel = currentLevelNumber >= 8
+    val canOpenReward = isMaxLevel && hasUnusedReward
+    val remainingPoints = if (isMaxLevel) 0 else nextLevelRequiredPoints - currentLevelPoints
 
     Column(
         modifier = Modifier
@@ -254,7 +263,7 @@ private fun RewardCard(
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = currentPoints.toString(),
+                    text = totalPoints.toString(),
                     style = DhcTypoTokens.TitleH1,
                     color = colors.text.textMain
                 )
@@ -289,7 +298,7 @@ private fun RewardCard(
                     .padding(horizontal = 10.dp, vertical = 10.dp)
             ) {
                 Text(
-                    text = if (currentStep >= 7) {
+                    text = if (isMaxLevel) {
                         "Goal에 도달했어요!"
                     } else {
                         stringResource(R.string.reward_next_level, remainingPoints)
@@ -325,14 +334,14 @@ private fun RewardCard(
 
         // 프로그레스 바
         RewardProgressBar(
-            currentStep = currentStep,
+            currentStep = currentLevelNumber - 1,
             modifier = Modifier.fillMaxWidth(),
             totalStepList = listOf("1", "2", "3", "4", "5", "6", "7", "8")
         )
         DhcButton(
             text = stringResource(R.string.reward_open_reward_button),
             buttonSize = DhcButtonSize.LARGE,
-            buttonStyle = DhcButtonStyle.Secondary(currentStep == 8),
+            buttonStyle = DhcButtonStyle.Primary(canOpenReward),
             onClick = onClickOpenReward,
             modifier = Modifier.fillMaxWidth()
         )
@@ -356,7 +365,8 @@ private fun RewardCard(
 private data class ReceivedReward(
     val id: String,
     val name: String,
-    val isUnlocked: Boolean = false
+    val isUnlocked: Boolean = false,
+    val isUsed: Boolean = false
 )
 
 @Composable
@@ -379,7 +389,8 @@ private fun ReceivedRewardsList(
     val itemsPerRow = 4
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
     ) {
         rewards.chunked(itemsPerRow).forEach { rowItems ->
@@ -412,7 +423,9 @@ private fun ReceivedRewardItem(
     val colors = LocalDhcColors.current
 
     Column(
-        modifier = modifier.fillMaxSize().clickable { if(reward.isUnlocked) onClickItem() },
+        modifier = modifier
+            .fillMaxSize()
+            .clickable { if (reward.isUnlocked) onClickItem() },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // 카드 (아이콘만 포함)
@@ -464,8 +477,11 @@ private fun RewardScreenPreview() {
 private fun RewardCardLevel1Preview() {
     DhcTheme {
         RewardCard(
-            currentPoints = 50,
-            currentStep = 0
+            totalPoints = 50,
+            currentLevelPoints = 50,
+            nextLevelRequiredPoints = 100,
+            rewardLevel = "LV1",
+            hasUnusedReward = false
         )
     }
 }
@@ -475,8 +491,11 @@ private fun RewardCardLevel1Preview() {
 private fun RewardCardLevel3Preview() {
     DhcTheme {
         RewardCard(
-            currentPoints = 300,
-            currentStep = 2
+            totalPoints = 300,
+            currentLevelPoints = 100,
+            nextLevelRequiredPoints = 200,
+            rewardLevel = "LV3",
+            hasUnusedReward = false
         )
     }
 }
@@ -486,8 +505,11 @@ private fun RewardCardLevel3Preview() {
 private fun RewardCardLevel5Preview() {
     DhcTheme {
         RewardCard(
-            currentPoints = 700,
-            currentStep = 4
+            totalPoints = 700,
+            currentLevelPoints = 100,
+            nextLevelRequiredPoints = 300,
+            rewardLevel = "LV5",
+            hasUnusedReward = false
         )
     }
 }
@@ -497,8 +519,11 @@ private fun RewardCardLevel5Preview() {
 private fun RewardCardLevel8Preview() {
     DhcTheme {
         RewardCard(
-            currentPoints = 2000,
-            currentStep = 7
+            totalPoints = 2000,
+            currentLevelPoints = 400,
+            nextLevelRequiredPoints = 400,
+            rewardLevel = "LV8",
+            hasUnusedReward = true
         )
     }
 }

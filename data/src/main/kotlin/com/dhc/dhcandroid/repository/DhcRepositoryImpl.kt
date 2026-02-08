@@ -139,4 +139,10 @@ class DhcRepositoryImpl @Inject constructor(
             dhcDataSource.getYearlyFortune(userId)
         }
     }
+
+    override suspend fun unlockYearlyFortune(userId: String): DhcResult<Unit> {
+        return runDhcCatching {
+            dhcDataSource.unlockYearlyFortune(userId)
+        }
+    }
 }

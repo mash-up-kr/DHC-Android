@@ -19,14 +19,18 @@ data class RewardUiModel(
 data class RewardUserUiModel(
     val rewardImageUrl: String = "",
     val rewardLevel: String = "",
-    val totalExp: Int = 0
+    val totalPoint: Int = 0,
+    val currentLevelPoint: Int = 0,
+    val nextLevelRequiredPoint: Int = 0
 ) {
     companion object {
         fun from(rewardUser: com.dhc.dhcandroid.model.RewardUser): RewardUserUiModel {
             return RewardUserUiModel(
                 rewardImageUrl = rewardUser.rewardImageUrl,
                 rewardLevel = rewardUser.rewardLevel,
-                totalExp = rewardUser.totalExp
+                totalPoint = rewardUser.totalPoint,
+                currentLevelPoint = rewardUser.currentLevelPoint,
+                nextLevelRequiredPoint = rewardUser.nextLevelRequiredPoint
             )
         }
     }
@@ -36,13 +40,15 @@ data class RewardItemUiModel(
     val id: Int = 0,
     val title: String = "",
     val isUnlocked: Boolean = false,
+    val isUsed: Boolean = false,
 ) {
     companion object {
         fun from(rewardItem: com.dhc.dhcandroid.model.RewardItem): RewardItemUiModel {
             return RewardItemUiModel(
                 id = rewardItem.id,
                 title = rewardItem.title,
-                isUnlocked = rewardItem.isUnlocked
+                isUnlocked = rewardItem.isUnlocked,
+                isUsed = rewardItem.isUsed
             )
         }
     }

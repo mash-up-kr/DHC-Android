@@ -92,4 +92,8 @@ class DhcRemoteDataSourceImpl @Inject constructor(
     override suspend fun getYearlyFortune(userId: String): Response<YearlyFortuneResponse> {
         return dhcService.getYearlyFortune(userId)
     }
+
+    override suspend fun unlockYearlyFortune(userId: String): Response<Unit> {
+        return dhcService.unlockYearlyFortune(userId)
+    }
 }

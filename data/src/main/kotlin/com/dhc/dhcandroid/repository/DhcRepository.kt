@@ -87,4 +87,8 @@ interface DhcRepository {
         userId: String,
     ): DhcResult<YearlyFortuneResponse>
 
+    suspend fun unlockYearlyFortune(
+        userId: String,
+    ): DhcResult<Unit>
+
 }

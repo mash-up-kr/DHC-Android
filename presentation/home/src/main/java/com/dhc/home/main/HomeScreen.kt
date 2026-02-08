@@ -170,14 +170,6 @@ fun HomeScreen(
                 painter = painterResource(R.drawable.mission_clear_floating),
                 contentDescription = "mission_clear_button"
             )
-//            DhcFloatingButton(
-//                modifier = Modifier
-//                    .align(Alignment.BottomEnd)
-//                    .padding(bottom = 24.dp, end = 20.dp),
-//                text = stringResource(R.string.finish_today_mission),
-//                isEnabled = true,
-//                onClick = { eventHandler(HomeContract.Event.ClickTodayMissionFinish) },
-//            )
         }
     }
 }

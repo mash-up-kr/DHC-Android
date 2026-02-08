@@ -9,6 +9,7 @@ data class YearlyFortuneResponse(
     val totalScore: Int = 0,
     val summaryTitle: String = "",
     val summaryDetail: String = "",
+    val summaryImageUrl: String = "",
     val fortuneOverview: FortuneOverview = FortuneOverview(),
     val fiveElements: FiveElements = FiveElements(),
     val yearlyEnergyTitle: String = "",

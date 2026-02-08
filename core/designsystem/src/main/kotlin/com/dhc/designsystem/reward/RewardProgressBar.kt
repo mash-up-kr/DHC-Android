@@ -1,5 +1,7 @@
 package com.dhc.designsystem.reward
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -71,7 +73,7 @@ fun RewardProgressBar(
                             modifier = Modifier
                                 .size(6.dp)
                                 .background(
-                                    color = if (isFilled) colors.text.textHighLightsPrimary else colors.text.textHighLightsPrimary,
+                                    color = if (isFilled) colors.text.textHighLightsPrimary else TransparentColor.badgePrimary,
                                     shape = CircleShape
                                 )
                         )
@@ -96,6 +98,7 @@ fun RewardProgressBar(
         ) {
             totalStepList.forEachIndexed { index, label ->
                 val isCompleted = index <= currentStep
+                Log.d(TAG, "isCompleted: $isCompleted :: $index :: $currentStep")
                 val isGoal = index == totalStepList.lastIndex
 
                 val textColor = when {

@@ -30,7 +30,7 @@ class RewardViewModel @Inject constructor(
     override suspend fun handleEvent(event: RewardContract.Event) {
         when (event) {
             RewardContract.Event.ClickOpenRewardButton -> {
-                // TODO: 리워드 오픈 로직
+                unlockYearlyFortune()
             }
 
             RewardContract.Event.ClickErrorRetryButton -> {
@@ -69,6 +69,30 @@ class RewardViewModel @Inject constructor(
                     }
             } else {
                 reduce { copy(rewardState = RewardContract.RewardState.Error) }
+            }
+        }
+    }
+
+    private fun unlockYearlyFortune() {
+        viewModelScope.launch {
+            val hasUnusedReward = state.value.rewardInfo.rewardList.any { !it.isUsed }
+            if (!hasUnusedReward) {
+                postSideEffect(RewardContract.SideEffect.ShowToast("이미 모든 리워드가 사용되었습니다."))
+                return@launch
+            }
+
+            val userId = authRepository.getUserId().firstOrNull()
+            if (userId != null) {
+                dhcRepository.unlockYearlyFortune(userId)
+                    .onSuccess {
+                        postSideEffect(RewardContract.SideEffect.ShowToast("리워드가 활성화되었습니다!"))
+                        getRewardProgress()
+                    }.onFailure { code, message ->
+                        Log.d("unlockYearlyFortune", "onFailure: code=$code, message=$message")
+                        postSideEffect(RewardContract.SideEffect.ShowToast("리워드 활성화에 실패했습니다."))
+                    }
+            } else {
+                postSideEffect(RewardContract.SideEffect.ShowToast("사용자 정보를 찾을 수 없습니다."))
             }
         }
     }
