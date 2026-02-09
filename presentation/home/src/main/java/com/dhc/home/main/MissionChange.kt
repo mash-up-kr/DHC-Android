@@ -132,14 +132,14 @@ fun MissionChange(
     ) {
         Icon(
             painter = painterResource(DR.drawable.ico_change),
-            tint = SurfaceColor.neutral30,
+            tint = colors.background.backgroundMain,
             contentDescription = "change",
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = stringResource(R.string.change_mission),
             style = DhcTypoTokens.Body5,
-            color = colors.text.textMain,
+            color = colors.background.backgroundMain,
             textAlign = TextAlign.Center,
         )
     }
