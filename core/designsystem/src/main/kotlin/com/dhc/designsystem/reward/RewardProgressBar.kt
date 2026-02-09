@@ -69,6 +69,7 @@ fun RewardProgressBar(
                 ) {
                     totalStepList.forEachIndexed { index, _ ->
                         val isFilled = index <= currentStep
+                        Log.d(TAG, "RewardProgressBar: isFilled$isFilled $currentStep")
                         Box(
                             modifier = Modifier
                                 .size(6.dp)

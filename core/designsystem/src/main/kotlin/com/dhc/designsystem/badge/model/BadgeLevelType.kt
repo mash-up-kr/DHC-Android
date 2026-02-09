@@ -6,5 +6,6 @@ import com.dhc.designsystem.AccentColor
 enum class BadgeLevelType(val color: Color) {
     EASY(Color(0xFF70A2FF)),
     MEDIUM(AccentColor.violet300),
-    HARD(Color(0xFFE293A4))
+    HARD (Color(0xFFE293A4)),
+    LOVE(AccentColor.violet200),
 }

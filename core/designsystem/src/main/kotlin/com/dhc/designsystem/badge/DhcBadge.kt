@@ -52,6 +52,10 @@ private class BadgePreviewProvider : PreviewParameterProvider<BadgePreviewProvid
             type = BadgeType.Level(isEnabled = false),
         ),
         Parameter(
+            text = "Love",
+            type = BadgeType.Level(isEnabled = true, level = BadgeLevelType.LOVE),
+        ),
+        Parameter(
             text = "커피값 절약",
             type = BadgeType.SpendType,
         ),

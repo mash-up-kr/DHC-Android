@@ -320,7 +320,7 @@ class HomeViewModel @Inject constructor(
 
     private fun updateNewMissionList(missionList: List<Mission>, existIdList: List<String>) {
         val longTermMission = missionList.filter { it.type == MissionType.LONG_TERM }
-        val todayDailyMissionList = missionList.filter { it.type == MissionType.DAILY }
+        val todayDailyMissionList = missionList.filter { it.type == MissionType.DAILY || it.type == MissionType.LOVE }
         val missionIdList = missionList.map { it.missionId }
         val newIds = missionIdList.firstOrNull { it !in existIdList }
         reduce {
