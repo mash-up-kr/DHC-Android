@@ -39,6 +39,13 @@ class UserRepositoryImpl @Inject constructor(
         userLocalDataSource.setShownFortunePopup(shown)
     }
 
+    override suspend fun getHasSeenLoveMission(): Boolean =
+        userLocalDataSource.hasSeenLoveMission.firstOrNull() ?: false
+
+    override suspend fun updateHasSeenLoveMission(seen: Boolean) {
+        userLocalDataSource.setHasSeenLoveMission(seen)
+    }
+
     override suspend fun clear() {
         userMemoryDataSource.clear()
         userLocalDataSource.clear()

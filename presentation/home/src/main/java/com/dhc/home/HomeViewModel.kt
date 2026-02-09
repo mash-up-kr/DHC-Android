@@ -230,15 +230,22 @@ class HomeViewModel @Inject constructor(
             reduce { copy(homeState = HomeContract.HomeState.Loading) }
             val userIdDeferred = async { authRepository.getUserId().firstOrNull() }
             val seenFortuneListDeferred = async { fortuneRepository.getSeenFortuneList().firstOrNull() }
+            val hasSeenLoveMissionDeferred = async { userRepository.getHasSeenLoveMission() }
 
             val currentLocalDate = LocalDate.now()
             val currentLocalDateEpochSecond = currentLocalDate.atStartOfDay().toEpochSecond(ZoneOffset.UTC)
             val userId = userIdDeferred.await()
             val seenFortuneList = seenFortuneListDeferred.await() ?: emptySet()
+            val hasSeenLoveMission = hasSeenLoveMissionDeferred.await()
+
             if (userId != null) {
                 dhcRepository.getHomeView(userId = userId)
                     .onSuccess { response ->
                         response ?: return@onSuccess
+
+                        // LOVE 미션 상태 관리 (플래그 저장/리셋)
+                        handleLoveMissionState(response, hasSeenLoveMission)
+
                         val newHomeInfo = HomeUiModel.from(response)
                         reduce {
                             copy(
@@ -250,6 +257,9 @@ class HomeViewModel @Inject constructor(
                                 },
                             )
                         }
+
+                        // LOVE 미션 최초 등장 시 깜빡임 적용
+                        applyLoveMissionBlinkIfNeeded(response, hasSeenLoveMission)
                     }.onFailure { _, _ ->
                         reduce { copy(homeState = HomeContract.HomeState.Error) }
                     }
@@ -483,6 +493,42 @@ class HomeViewModel @Inject constructor(
 
     private fun stopMissionTimer() {
         missionTimerJob?.cancel()
+    }
+
+    /**
+     * LOVE 미션 상태 관리
+     * - LOVE 미션이 있으면 hasSeenLoveMission = true 저장
+     * - LOVE 미션이 없으면 hasSeenLoveMission = false로 리셋
+     */
+    private fun handleLoveMissionState(response: com.dhc.dhcandroid.model.HomeViewResponse, currentHasSeenLoveMission: Boolean) {
+        viewModelScope.launch {
+            val hasLoveMission = response.todayDailyMissionList.any { it.type == MissionType.LOVE }
+
+            if (hasLoveMission && !currentHasSeenLoveMission) {
+                // LOVE 미션 최초 등장 → true 저장
+                userRepository.updateHasSeenLoveMission(true)
+            } else if (!hasLoveMission && currentHasSeenLoveMission) {
+                // LOVE 미션 사라짐 → false로 리셋
+                userRepository.updateHasSeenLoveMission(false)
+            }
+        }
+    }
+
+    /**
+     * LOVE 미션 최초 등장 시 깜빡임 효과 적용
+     */
+    private fun applyLoveMissionBlinkIfNeeded(response: com.dhc.dhcandroid.model.HomeViewResponse, hasSeenLoveMission: Boolean) {
+        if (hasSeenLoveMission) {
+            // 이미 본 적 있으면 깜빡임 없음
+            return
+        }
+
+        // LOVE 미션 찾기
+        val loveMission = response.todayDailyMissionList.firstOrNull { it.type == MissionType.LOVE }
+        if (loveMission != null) {
+            // 최초 등장 시 깜빡임 적용 (기존 updateMissionBlinkState 재사용)
+            updateMissionBlinkState(missionId = loveMission.missionId, isBlink = true)
+        }
     }
 
     override fun onCleared() {
