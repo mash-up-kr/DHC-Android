@@ -18,6 +18,7 @@ import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.badge.DhcBadge
+import com.dhc.designsystem.badge.model.BadgeLevelType
 import com.dhc.designsystem.badge.model.BadgeType
 
 
@@ -29,6 +30,7 @@ fun MoneyFortuneMissionCard(
     modifier: Modifier = Modifier,
     isBlink: Boolean = false,
     isFinishedTodayMission: Boolean = false,
+    badgeLevelType: BadgeLevelType = BadgeLevelType.EASY,
     onBlinkEnd: () -> Unit = {},
     onCheckChange: () -> Unit = {},
 ) {
@@ -54,7 +56,10 @@ fun MoneyFortuneMissionCard(
             ) {
                 DhcBadge(
                     text = missionMode,
-                    type = BadgeType.Level(isEnabled = isFinishedTodayMission.not())
+                    type = BadgeType.Level(
+                        isEnabled = isFinishedTodayMission.not(),
+                        level = badgeLevelType
+                    )
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
@@ -80,7 +85,8 @@ private fun PreviewMoneyFortuneMissionCard(
             isChecked = parameter.isChecked,
             missionTitle = parameter.missionTitle,
             isBlink = false,
-            isFinishedTodayMission = false
+            isFinishedTodayMission = false,
+            badgeLevelType = BadgeLevelType.EASY
         )
     }
 }

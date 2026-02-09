@@ -36,7 +36,18 @@ fun RewardProgressBar(
 ) {
     val colors = LocalDhcColors.current
 
-    val progressWidthByStep = listOf(0.094f, 0.37f, 0.66f, 1.0f)
+    val progressWidthByStep = buildList {
+        val totalSteps = totalStepList.size
+        if (totalSteps <= 1) {
+            add(1.0f)
+        } else {
+            val startWidth = 0.094f
+            val stepIncrement = (1.0f - startWidth) / (totalSteps - 1)
+            for (i in 0 until totalSteps) {
+                add(startWidth + (stepIncrement * i))
+            }
+        }
+    }
 
     Column(
         modifier = modifier,

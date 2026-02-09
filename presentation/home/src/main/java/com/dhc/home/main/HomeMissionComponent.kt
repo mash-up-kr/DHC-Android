@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
+import com.dhc.designsystem.badge.model.BadgeLevelType
 import com.dhc.designsystem.mission.MoneyFortuneMissionCard
 import com.dhc.designsystem.mission.SpendingHabitMissionCard
 import com.dhc.dhcandroid.model.MissionType
@@ -83,6 +84,16 @@ fun MonetaryLuckyDailyMission(
         Spacer(modifier = Modifier.height(16.dp))
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             dailyMissionList.forEach { mission ->
+                val badgeLevelType = when {
+                    mission.type == MissionType.LOVE -> BadgeLevelType.LOVE
+                    mission.difficulty == "Easy" -> BadgeLevelType.EASY
+                    mission.difficulty == "Mid" -> BadgeLevelType.MEDIUM
+                    mission.difficulty == "Hard" -> BadgeLevelType.HARD
+                    else -> BadgeLevelType.EASY
+                }
+
+                val missionMode = if (mission.type == MissionType.LOVE) "Love" else mission.difficulty
+
                 MissionCardReRoll(
                     type = MissionType.DAILY,
                     missionUiModel = mission,
@@ -92,10 +103,11 @@ fun MonetaryLuckyDailyMission(
                     content = {
                         MoneyFortuneMissionCard(
                             isBlink = mission.isBlink,
-                            missionMode = mission.difficulty,
+                            missionMode = missionMode,
                             isChecked = mission.isChecked,
                             isFinishedTodayMission = isFinishedTodayMission,
                             missionTitle = mission.title,
+                            badgeLevelType = badgeLevelType,
                             onBlinkEnd = { onBlinkEnd(mission.missionId) },
                             onCheckChange = { onCheckChange( !mission.isChecked, mission.missionId)}
                         )
