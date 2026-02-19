@@ -12,9 +12,18 @@ class UserLocalDataSourceImpl @Inject constructor(
     override val isShownFortunePopup: Flow<Boolean> =
         userProtoDataStore.data.map { it.isShownFortunePopup }
 
+    override val hasSeenLoveMission: Flow<Boolean> =
+        userProtoDataStore.data.map { it.hasSeenLoveMission }
+
     override suspend fun setShownFortunePopup(shown: Boolean) {
         userProtoDataStore.updateData { pref ->
             pref.toBuilder().setIsShownFortunePopup(shown).build()
+        }
+    }
+
+    override suspend fun setHasSeenLoveMission(seen: Boolean) {
+        userProtoDataStore.updateData { pref ->
+            pref.toBuilder().setHasSeenLoveMission(seen).build()
         }
     }
 

@@ -1,16 +1,45 @@
 package com.dhc.reward.yearfortune
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun YearFortuneRoute(
     modifier: Modifier = Modifier,
+    viewModel: YearFortuneViewModel = hiltViewModel(),
 ) {
-    // TODO: 실제 데이터를 가져오는 로직이 필요하면 ViewModel을 통해 가져와야 함
-    // 현재는 Preview에서 사용하는 샘플 데이터를 사용
-    YearFortuneScreen(
-        yearFortuneInfo = YearFortuneInfo(),
-        modifier = modifier
-    )
+    val state by viewModel.state.collectAsState()
+
+    when (state.yearFortuneState) {
+        YearFortuneContract.YearFortuneState.Loading -> {
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+        YearFortuneContract.YearFortuneState.Success -> {
+            YearFortuneScreen(
+                yearFortuneInfo = state.yearFortuneInfo,
+                modifier = modifier
+            )
+        }
+        YearFortuneContract.YearFortuneState.Error -> {
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = "오류가 발생했습니다.")
+            }
+        }
+    }
 }

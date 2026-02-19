@@ -15,5 +15,8 @@ interface UserRepository {
     suspend fun getIsShownFortunePopup(): Boolean
     suspend fun updateIsShownFortunePopup(shown: Boolean)
 
+    suspend fun getHasSeenLoveMission(): Boolean
+    suspend fun updateHasSeenLoveMission(seen: Boolean)
+
     suspend fun clear()
 }

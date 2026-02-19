@@ -9,4 +9,5 @@ message UserPreferences {
   string userId = 3;
   repeated sint64 fortuneDateSeenList = 4;
   bool isShownFortunePopup = 5;
+  bool hasSeenLoveMission = 6;
 }

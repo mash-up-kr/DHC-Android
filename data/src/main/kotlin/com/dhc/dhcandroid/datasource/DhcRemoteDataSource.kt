@@ -11,9 +11,11 @@ import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
+import com.dhc.dhcandroid.model.YearlyFortuneResponse
 import retrofit2.Response
 
 interface DhcRemoteDataSource {
@@ -69,7 +71,21 @@ interface DhcRemoteDataSource {
         userId: String,
     ): Response<Unit>
 
+
+    suspend fun getRewardProgress(
+        userId: String,
+    ): Response<RewardProgressResponse>
+
     suspend fun createShareToken(
         userId: String,
     ): Response<CreateShareTokenResponse>
+
+    suspend fun getYearlyFortune(
+        userId: String,
+    ): Response<YearlyFortuneResponse>
+
+    suspend fun unlockYearlyFortune(
+        userId: String,
+    ): Response<Unit>
+
 }

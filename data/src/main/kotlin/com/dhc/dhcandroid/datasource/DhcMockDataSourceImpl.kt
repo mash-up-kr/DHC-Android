@@ -12,9 +12,11 @@ import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
+import com.dhc.dhcandroid.model.YearlyFortuneResponse
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.json.Json
 import retrofit2.Response
@@ -75,8 +77,17 @@ class DhcMockDataSourceImpl @Inject constructor(
     override suspend fun updateEasterEggHistory(userId: String): Response<Unit> =
         Response.success(Unit)
 
+    override suspend fun getRewardProgress(userId: String): Response<RewardProgressResponse> =
+        createResponseFromAsset<RewardProgressResponse>("mock_reward_progress_response.json")
+
     override suspend fun createShareToken(userId: String): Response<CreateShareTokenResponse> =
         createResponseFromAsset<CreateShareTokenResponse>("mock_create_share_token.json")
+
+    override suspend fun getYearlyFortune(userId: String): Response<YearlyFortuneResponse> =
+        createResponseFromAsset<YearlyFortuneResponse>("mock_yearly_fortune_response.json")
+
+    override suspend fun unlockYearlyFortune(userId: String): Response<Unit> =
+        Response.success(Unit)
 
     private inline fun <reified T> createResponseFromAsset(fileName: String): Response<T> = Response.success(
         json.decodeFromString<T>(

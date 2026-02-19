@@ -11,9 +11,11 @@ import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
+import com.dhc.dhcandroid.model.YearlyFortuneResponse
 import com.dhc.dhcandroid.service.DhcService
 import retrofit2.Response
 import javax.inject.Inject
@@ -78,7 +80,20 @@ class DhcRemoteDataSourceImpl @Inject constructor(
         return dhcService.updateEasterEggHistory(userId)
     }
 
+
+    override suspend fun getRewardProgress(userId: String): Response<RewardProgressResponse> {
+        return dhcService.getRewardProgress(userId)
+    }
+
     override suspend fun createShareToken(userId: String): Response<CreateShareTokenResponse> {
         return dhcService.createShareToken(userId)
+    }
+
+    override suspend fun getYearlyFortune(userId: String): Response<YearlyFortuneResponse> {
+        return dhcService.getYearlyFortune(userId)
+    }
+
+    override suspend fun unlockYearlyFortune(userId: String): Response<Unit> {
+        return dhcService.unlockYearlyFortune(userId)
     }
 }

@@ -17,9 +17,11 @@ import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
+import com.dhc.dhcandroid.model.YearlyFortuneResponse
 import com.dhc.dhcandroid.util.runDhcCatching
 import java.time.LocalDate
 import javax.inject.Inject
@@ -120,9 +122,27 @@ class DhcRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getRewardProgress(userId: String): DhcResult<RewardProgressResponse> {
+        return runDhcCatching {
+            dhcDataSource.getRewardProgress(userId)
+        }
+    }
+
     override suspend fun createShareToken(userId: String): DhcResult<CreateShareTokenResponse> {
         return runDhcCatching {
             dhcDataSource.createShareToken(userId)
+        }
+    }
+
+    override suspend fun getYearlyFortune(userId: String): DhcResult<YearlyFortuneResponse> {
+        return runDhcCatching {
+            dhcDataSource.getYearlyFortune(userId)
+        }
+    }
+
+    override suspend fun unlockYearlyFortune(userId: String): DhcResult<Unit> {
+        return runDhcCatching {
+            dhcDataSource.unlockYearlyFortune(userId)
         }
     }
 }

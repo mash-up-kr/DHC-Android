@@ -124,8 +124,15 @@ fun TodayMissionGoal(
                     )
                 }
             }
+
+            val totalStepList = buildList {
+                add("시작")
+                repeat(totalCount - 1) { add("${it + 1}개") }
+                add("Goal")
+            }
             RewardProgressBar(
-                currentStep = animatedStep
+                currentStep = animatedStep,
+                totalStepList = totalStepList
             )
         }
     }

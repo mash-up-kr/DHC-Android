@@ -178,8 +178,13 @@ enum class DhcRoute(
 
     companion object {
         fun fromRoute(route: String): DhcRoute {
-            return entries.find { it.route.replace("{id}", "[^/]+").toRegex().matches(route) }
-                ?: NONE
+            return entries.find {
+                it.route
+                    .replace("{id}", "[^/]+")
+                    .replace("{isSampleData}", "[^&]+")
+                    .toRegex()
+                    .matches(route)
+            } ?: NONE
         }
     }
 }

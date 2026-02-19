@@ -1,0 +1,56 @@
+{
+  "year": 2025,
+  "generatedDate": "2025-01-15",
+  "totalScore": 79,
+  "summaryTitle": "도약의 해",
+  "summaryDetail": "올해는 새로운 시작과 도전이 가득한 한 해가 될 것입니다. 당신의 열정과 노력이 빛을 발하는 시기입니다.",
+  "summaryImageUrl": "",
+  "fortuneOverview": {
+    "money": {
+      "title": "금전운",
+      "description": "재물 운이 상승하는 시기입니다. 투자나 새로운 사업 기회를 잡기 좋은 해입니다."
+    },
+    "love": {
+      "title": "연애운",
+      "description": "좋은 인연을 만날 수 있는 해입니다. 기존 관계도 더욱 깊어질 수 있어요."
+    },
+    "study": {
+      "title": "학업운",
+      "description": "집중력이 높아지는 시기입니다. 새로운 것을 배우기에 좋은 때입니다."
+    }
+  },
+  "fiveElements": {
+    "dominantElement": "화",
+    "dominantWarning": "화기운이 강하니 급한 마음을 다스리세요",
+    "wood": {
+      "percentage": 15,
+      "status": "부족"
+    },
+    "fire": {
+      "percentage": 35,
+      "status": "과다"
+    },
+    "earth": {
+      "percentage": 20,
+      "status": "적정"
+    },
+    "metal": {
+      "percentage": 15,
+      "status": "부족"
+    },
+    "water": {
+      "percentage": 15,
+      "status": "부족"
+    }
+  },
+  "yearlyEnergyTitle": "상반기 집중",
+  "yearlyEnergyDetail": "상반기에 에너지가 집중되니 중요한 일은 상반기에 진행하세요.\n\n특히 1월부터 6월까지는 새로운 시작을 하기에 매우 좋은 시기입니다.\n하반기는 상반기에 시작한 일들을 마무리하고 정리하는 시간으로 활용하세요.",
+  "tips": {
+    "luckyMenu": "삼계탕",
+    "luckyColor": "파란색",
+    "luckyColorHex": "#0066CC",
+    "unluckyMenu": "매운 음식",
+    "unluckyColor": "빨간색",
+    "unluckyColorHex": "#FF0000"
+  }
+}
