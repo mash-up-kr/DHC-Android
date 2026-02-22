@@ -90,7 +90,7 @@ class HomeViewModel @Inject constructor(
             is Event.ClickMissionSuccess -> {
                 updateMissionSuccessDialogState(isShowDialog = false)
                 if (event.buttonType == MissionSuccessButtonType.StaticConfirm)
-                    postSideEffect(SideEffect.NavigateToMission)
+                    postSideEffect(SideEffect.NavigateToReward)
             }
 
             is Event.ClickMissionChange -> {
@@ -306,22 +306,35 @@ class HomeViewModel @Inject constructor(
     ) {
         val mission = missionList.firstOrNull { it.missionId == missionId }
         if (mission == null) return
+
+        val updatedLongTermMission = if (state.value.homeInfo.longTermMission.missionId == mission.missionId) {
+            state.value.homeInfo.longTermMission.copy(isChecked = mission.finished)
+        } else {
+            state.value.homeInfo.longTermMission
+        }
+
+        val updatedDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
+            if (it.missionId == mission.missionId) {
+                it.copy(isChecked = mission.finished)
+            } else {
+                it
+            }
+        }
+
+        // rewardCompletedCount 계산
+        val finishedCount = (if (updatedLongTermMission.isChecked) 1 else 0) +
+            updatedDailyMissionList.count { it.isChecked }
+
         reduce {
             copy(
                 homeInfo = state.value.homeInfo.copy(
-                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission.missionId) {
-                        state.value.homeInfo.longTermMission.copy(isChecked = mission.finished)
-                    } else {
-                        state.value.homeInfo.longTermMission
-                    },
-                    todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
-                        if (it.missionId == mission.missionId) {
-                            it.copy(isChecked = mission.finished)
-                        } else {
-                            it
-                    }
-                }
-            ))
+                    longTermMission = updatedLongTermMission,
+                    todayDailyMissionList = updatedDailyMissionList,
+                    rewardEvent = state.value.homeInfo.rewardEvent.copy(
+                        rewardCompletedCount = finishedCount
+                    )
+                )
+            )
         }
         if (missionStatusType == MissionStatusType.COMPLETE) {
             postSideEffect(SideEffect.ShowToast(FinishMissionToast.getRandomMessage()))
@@ -414,7 +427,7 @@ class HomeViewModel @Inject constructor(
                 )
             ).onSuccess {response ->
                 response ?: return@onSuccess
-                reduce { copy(todaySavedMoney = response.todaySavedMoney, homeInfo = state.value.homeInfo.copy(todayDone = true)) }
+                reduce { copy(todaySavedMoney = response.todaySavedMoney, earnedPoint = response.earnedPoint, homeInfo = state.value.homeInfo.copy(todayDone = true)) }
                 updateMissionSuccessDialogState(isShowDialog = true)
                 dhcRepository.clearCachedCalendarView()
             }.onFailure { code, message ->

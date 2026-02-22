@@ -132,7 +132,8 @@ fun TodayMissionGoal(
             }
             RewardProgressBar(
                 currentStep = animatedStep,
-                totalStepList = totalStepList
+                totalStepList = totalStepList,
+                isVisiblePresent = false
             )
         }
     }

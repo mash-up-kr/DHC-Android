@@ -32,6 +32,7 @@ import com.dhc.designsystem.TransparentColor
 fun RewardProgressBar(
     currentStep: Int,
     modifier: Modifier = Modifier,
+    isVisiblePresent: Boolean = true,
     totalStepList: List<String> = listOf("시작", "1개", "2개", "Goal"),
 ) {
     val colors = LocalDhcColors.current
@@ -92,14 +93,16 @@ fun RewardProgressBar(
                     }
                 }
             }
-            Image(
-                painter = painterResource(id = R.drawable.ico_present),
-                contentDescription = "Goal Icon",
-                modifier = Modifier
-                    .size(24.dp)
-                    .align(Alignment.TopEnd)
-                    .offset(x = (-4).dp, y = (-7).dp)
-            )
+            if(isVisiblePresent) {
+                Image(
+                    painter = painterResource(id = R.drawable.ico_present),
+                    contentDescription = "Goal Icon",
+                    modifier = Modifier
+                        .size(24.dp)
+                        .align(Alignment.TopEnd)
+                        .offset(x = (-4).dp, y = (-7).dp)
+                )
+            }
         }
 
         Row(

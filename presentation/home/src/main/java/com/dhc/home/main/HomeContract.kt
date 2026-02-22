@@ -23,6 +23,7 @@ class HomeContract {
         val selectedMissionInfo: SelectChangeMission = SelectChangeMission(),
         val homeInfo: HomeUiModel = HomeUiModel(),
         val todaySavedMoney: String = "",
+        val earnedPoint: Int = 0,
         val isFortuneSurveyVisible: Boolean = false,
         val missionTimerText: String = "00 : 00 : 00 남음",
         val isTimerUnderFourHours: Boolean = false,

@@ -24,6 +24,7 @@ import com.dhc.common.CalendarUtil
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
+import com.dhc.designsystem.GradientColor.textGradient01
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.button.DhcButton
 import com.dhc.designsystem.button.model.DhcButtonSize
@@ -124,6 +125,7 @@ private fun NotFlippedDescription() {
         score = stringResource(R.string.question_score),
         description = stringResource(R.string.intro_fortune_card_description),
         modifier = Modifier.fillMaxWidth(),
+        scoreTextColor = textGradient01
     )
     Spacer(modifier = Modifier.height(24.dp))
     WordBalloon(
@@ -145,6 +147,7 @@ private fun FlippedDescription() {
         badgeText = null,
         score = 85,
         description = stringResource(R.string.intro_flipped_fortune_card_description),
+        scoreTextColor = textGradient01
     )
     Spacer(modifier = Modifier.height(64.dp))
 }
