@@ -17,15 +17,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntRect
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
@@ -43,6 +54,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.dhc.common.drawBalloonTail
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor.fortuneBorderGradientLow
@@ -54,7 +66,6 @@ import com.dhc.designsystem.button.DhcButton
 import com.dhc.designsystem.button.model.DhcButtonSize
 import com.dhc.designsystem.button.model.DhcButtonStyle
 import com.dhc.designsystem.reward.RewardProgressBar
-import com.dhc.designsystem.tooltip.DhcTooltip
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -69,6 +80,23 @@ fun RewardScreen(
     val scrollState = rememberScrollState()
     val tooltipState = rememberTooltipState(isPersistent = true)
     val coroutineScope = rememberCoroutineScope()
+    val configuration = LocalConfiguration.current
+    val density = LocalDensity.current
+    val tooltipWidth = (configuration.screenWidthDp - 40).dp
+    val centeredTooltipPositionProvider = remember(density) {
+        object : PopupPositionProvider {
+            override fun calculatePosition(
+                anchorBounds: IntRect,
+                windowSize: IntSize,
+                layoutDirection: LayoutDirection,
+                popupContentSize: IntSize,
+            ): IntOffset {
+                val x = (windowSize.width - popupContentSize.width) / 2
+                val y = anchorBounds.top - popupContentSize.height - with(density) { 10.dp.roundToPx() }
+                return IntOffset(x, y)
+            }
+        }
+    }
 
     Column(
         modifier = modifier
@@ -140,22 +168,41 @@ fun RewardScreen(
             Spacer(modifier = Modifier.size(8.dp))
 
             // 정보 아이콘
-            DhcTooltip(
-                tooltipState = tooltipState,
-                tooltipText = "tooltip test",
-                content = {
-                    Image(
-                        modifier = Modifier.clickable {
-                            coroutineScope.launch {
-                                tooltipState.show()
-                            }
-                        },
-                        painter = painterResource(com.dhc.designsystem.R.drawable.ico_info_circle),
-                        contentDescription = "information",
-                        colorFilter = ColorFilter.tint(SurfaceColor.neutral400)
+            TooltipBox(
+                positionProvider = centeredTooltipPositionProvider,
+                tooltip = {
+                    Text(
+                        modifier = Modifier
+                            .width(tooltipWidth)
+                            .drawBalloonTail(
+                                brush = fortuneBorderGradientLow,
+                                cornerWidth = 12.dp,
+                                cornerHeight = 7.dp,
+                            )
+                            .background(
+                                brush = fortuneBorderGradientLow,
+                                shape = RoundedCornerShape(8.dp)
+                            )
+                            .padding(horizontal = 10.dp, vertical = 10.dp),
+                        text = stringResource(R.string.reward_level_tooltip),
+                        color = colors.text.textHighLightsPrimary,
+                        style = DhcTypoTokens.Body5,
+                        textAlign = TextAlign.Center,
                     )
-                }
-            )
+                },
+                state = tooltipState,
+            ) {
+                Image(
+                    modifier = Modifier.clickable {
+                        coroutineScope.launch {
+                            tooltipState.show()
+                        }
+                    },
+                    painter = painterResource(com.dhc.designsystem.R.drawable.ico_info_circle),
+                    contentDescription = "information",
+                    colorFilter = ColorFilter.tint(SurfaceColor.neutral400)
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(40.dp))
@@ -209,12 +256,16 @@ fun RewardScreen(
                         id = it.id.toString(),
                         name = it.title,
                         isUnlocked = it.isUnlocked,
-                        isUsed = it.isUsed
+                        isUsed = it.isUsed,
+                        message = it.message,
                     )
                 },
                 onClickItem = { reward ->
                     onEvent(RewardContract.Event.ClickRewardItem(reward.id.toIntOrNull() ?: 0))
                     navigateToYearFortune()
+                },
+                onClickLockedItem = { reward ->
+                    onEvent(RewardContract.Event.ClickLockedRewardItem(reward.message))
                 }
             )
         }
@@ -366,7 +417,8 @@ private data class ReceivedReward(
     val id: String,
     val name: String,
     val isUnlocked: Boolean = false,
-    val isUsed: Boolean = false
+    val isUsed: Boolean = false,
+    val message: String = "",
 )
 
 @Composable
@@ -385,6 +437,7 @@ private fun ReceivedRewardsList(
         ReceivedReward("11", "복합 사주"),
     ),
     onClickItem: (ReceivedReward) -> Unit,
+    onClickLockedItem: (ReceivedReward) -> Unit = {},
 ) {
     val itemsPerRow = 4
     Column(
@@ -402,7 +455,8 @@ private fun ReceivedRewardsList(
                     ReceivedRewardItem(
                         reward = reward,
                         modifier = Modifier.weight(1f),
-                        onClickItem = {onClickItem(reward)}
+                        onClickItem = { onClickItem(reward) },
+                        onClickLockedItem = { onClickLockedItem(reward) }
                     )
                 }
                 // 마지막 행에서 빈 공간 채우기
@@ -418,6 +472,7 @@ private fun ReceivedRewardsList(
 private fun ReceivedRewardItem(
     reward: ReceivedReward,
     onClickItem: () -> Unit,
+    onClickLockedItem: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val colors = LocalDhcColors.current
@@ -425,7 +480,10 @@ private fun ReceivedRewardItem(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .clickable { if (reward.isUnlocked) onClickItem() },
+            .clickable {
+                if (reward.isUnlocked && reward.isUsed) onClickItem()
+                else onClickLockedItem()
+            },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // 카드 (아이콘만 포함)
@@ -438,7 +496,7 @@ private fun ReceivedRewardItem(
                 .padding(10.dp),
             contentAlignment = Alignment.Center
         ) {
-            if(reward.isUnlocked){
+            if(reward.isUnlocked && reward.isUsed){
                 Image(
                     painter = painterResource(com.dhc.designsystem.R.drawable.ico_gold_medal),
                     contentDescription = "lock icon",

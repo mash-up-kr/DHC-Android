@@ -41,6 +41,10 @@ class RewardViewModel @Inject constructor(
                 postSideEffect(RewardContract.SideEffect.NavigateToYearFortune(isSampleData = false))
             }
 
+            is RewardContract.Event.ClickLockedRewardItem -> {
+                postSideEffect(RewardContract.SideEffect.ShowToast(event.message))
+            }
+
             RewardContract.Event.ClickRewardExplainButton -> {
                 postSideEffect(RewardContract.SideEffect.NavigateToYearFortune(isSampleData = true))
             }

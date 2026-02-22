@@ -1,5 +1,6 @@
 package com.dhc.home
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.dhc.common.FormatterUtil.todayStringFormat
@@ -199,7 +200,9 @@ class HomeViewModel @Inject constructor(
     private fun determineMissionFailType(todayDone: Boolean): MissionFailType {
         val homeInfo = state.value.homeInfo.copy(todayDone = todayDone)
         val finishedCount = state.value.getFinishedMissionCount()
-        
+        Log.d(TAG, "determineMissionFailType: finishCount$finishedCount")
+        Log.d(TAG, "determineMissionFailType: homeInfo$homeInfo")
+
         return when {
             // 오늘 미션 완료했지만 실패 (finishedCount != 3)
             homeInfo.todayDone && finishedCount == 0 -> MissionFailType.NORMAL
@@ -415,6 +418,7 @@ class HomeViewModel @Inject constructor(
     private fun finishTodayMission() {
         if(state.value.getFinishedMissionCount() == 0 ) {
             val missionFailType = determineMissionFailType(todayDone = true)
+            reduce { copy(homeInfo = homeInfo.copy(todayDone = true)) }
             updateMissionFailDialogState(isShowDialog = true, missionFailType = missionFailType)
             return
         }
