@@ -146,6 +146,8 @@ class HomeViewModel @Inject constructor(
                     fortuneRepository.addSeenFortune(currentLocalDateEpochSecond)
                 }
                 reduce { copy(homeState = HomeContract.HomeState.Success) }
+                // 플립 완료 후 Success 전환 시점에 팝업 체크
+                showReEntryPopupIfNeeded()
             }
 
             is Event.ClickErrorRetryButton -> {
@@ -197,21 +199,17 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun determineMissionFailType(todayDone: Boolean): MissionFailType {
-        val homeInfo = state.value.homeInfo.copy(todayDone = todayDone)
-        val finishedCount = state.value.getFinishedMissionCount()
-        Log.d(TAG, "determineMissionFailType: finishCount$finishedCount")
-        Log.d(TAG, "determineMissionFailType: homeInfo$homeInfo")
-
+    private fun determineMissionFailType(): MissionFailType? {
+        val homeInfo = state.value.homeInfo
         return when {
-            // 오늘 미션 완료했지만 실패 (finishedCount != 3)
-            homeInfo.todayDone && finishedCount == 0 -> MissionFailType.NORMAL
-            // 2일 이상 미접속
-            !homeInfo.todayDone && homeInfo.longAbsence -> MissionFailType.LONG_ABSENCE
-            // 어제 미션 실패
-            !homeInfo.todayDone && !homeInfo.yesterdayMissionSuccess -> MissionFailType.NEXT_DAY_REENTRY
-            // 기본값
-            else -> MissionFailType.NORMAL
+            // C: 가입 첫날 → 팝업 스킵
+            homeInfo.isFirstAccess -> null
+            // B: 2일 이상 미접속
+            homeInfo.longAbsence -> MissionFailType.LONG_ABSENCE
+            // A: 어제 미션 실패
+            !homeInfo.yesterdayMissionSuccess -> MissionFailType.NEXT_DAY_REENTRY
+            // A: 어제 미션 성공 → 팝업 없음
+            else -> null
         }
     }
 
@@ -250,10 +248,11 @@ class HomeViewModel @Inject constructor(
                         handleLoveMissionState(response, hasSeenLoveMission)
 
                         val newHomeInfo = HomeUiModel.from(response)
+                        val isFortuneAlreadySeen = seenFortuneList.contains(currentLocalDateEpochSecond)
                         reduce {
                             copy(
                                 homeInfo = newHomeInfo,
-                                homeState = if (seenFortuneList.contains(currentLocalDateEpochSecond)) {
+                                homeState = if (isFortuneAlreadySeen) {
                                     HomeContract.HomeState.Success
                                 } else {
                                     HomeContract.HomeState.FlipCard
@@ -263,6 +262,12 @@ class HomeViewModel @Inject constructor(
 
                         // LOVE 미션 최초 등장 시 깜빡임 적용
                         applyLoveMissionBlinkIfNeeded(response, hasSeenLoveMission)
+
+                        // 포춘 이미 본 경우: Success 상태이므로 바로 팝업 체크
+                        // FlipCard 상태인 경우: FortuneCardFlipped 이벤트에서 처리
+                        if (isFortuneAlreadySeen) {
+                            viewModelScope.launch { showReEntryPopupIfNeeded() }
+                        }
                     }.onFailure { _, _ ->
                         reduce { copy(homeState = HomeContract.HomeState.Error) }
                     }
@@ -415,11 +420,22 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private suspend fun showReEntryPopupIfNeeded() {
+        val todayEpochDay = LocalDate.now().toEpochDay()
+        val lastShownEpochDay = userRepository.getLastShownReEntryPopupEpochDay()
+        if (lastShownEpochDay == todayEpochDay) return
+
+        val missionFailType = determineMissionFailType()
+        if (missionFailType != null) {
+            userRepository.updateLastShownReEntryPopupEpochDay(todayEpochDay)
+            updateMissionFailDialogState(isShowDialog = true, missionFailType = missionFailType)
+        }
+    }
+
     private fun finishTodayMission() {
         if(state.value.getFinishedMissionCount() == 0 ) {
-            val missionFailType = determineMissionFailType(todayDone = true)
             reduce { copy(homeInfo = homeInfo.copy(todayDone = true)) }
-            updateMissionFailDialogState(isShowDialog = true, missionFailType = missionFailType)
+            updateMissionFailDialogState(isShowDialog = true, missionFailType = MissionFailType.NORMAL)
             return
         }
         viewModelScope.launch {

@@ -15,6 +15,9 @@ class UserLocalDataSourceImpl @Inject constructor(
     override val hasSeenLoveMission: Flow<Boolean> =
         userProtoDataStore.data.map { it.hasSeenLoveMission }
 
+    override val lastShownReEntryPopupEpochDay: Flow<Long> =
+        userProtoDataStore.data.map { it.lastShownReEntryPopupEpochDay }
+
     override suspend fun setShownFortunePopup(shown: Boolean) {
         userProtoDataStore.updateData { pref ->
             pref.toBuilder().setIsShownFortunePopup(shown).build()
@@ -24,6 +27,12 @@ class UserLocalDataSourceImpl @Inject constructor(
     override suspend fun setHasSeenLoveMission(seen: Boolean) {
         userProtoDataStore.updateData { pref ->
             pref.toBuilder().setHasSeenLoveMission(seen).build()
+        }
+    }
+
+    override suspend fun setLastShownReEntryPopupEpochDay(epochDay: Long) {
+        userProtoDataStore.updateData { pref ->
+            pref.toBuilder().setLastShownReEntryPopupEpochDay(epochDay).build()
         }
     }
 

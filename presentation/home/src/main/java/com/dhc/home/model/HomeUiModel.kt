@@ -10,6 +10,7 @@ data class HomeUiModel(
     val todayDone: Boolean = false,
     val yesterdayMissionSuccess: Boolean = false,
     val longAbsence: Boolean = false,
+    val isFirstAccess: Boolean = false,
     val remainingMissionTimer: Long = 0L,
     val rewardEvent: RewardEvent = RewardEvent()
 ) {
@@ -21,6 +22,7 @@ data class HomeUiModel(
             todayDone = homeViewResponse.todayDone,
             yesterdayMissionSuccess = homeViewResponse.yesterdayMissionSuccess,
             longAbsence = homeViewResponse.longAbsence,
+            isFirstAccess = homeViewResponse.isFirstAccess,
             remainingMissionTimer = DateUtil.getTimeUntilMidnight(),
             rewardEvent = makeRewardEventContent(homeViewResponse)
         )
@@ -31,9 +33,24 @@ data class HomeUiModel(
                 listOfNotNull(homeViewResponse.longTermMission)
                     .count { it.finished } +
                         homeViewResponse.todayDailyMissionList.count { it.finished }
-            
+
             return when {
-                // 2일 이상 미접속 (최우선)
+                // 첫 접속 (가입 첫날): 어제 미션 기회 없음 → 이벤트 없음
+                homeViewResponse.isFirstAccess -> {
+                    val (title, subtitle) = when (finishedCount) {
+                        0 -> "오늘의 미션" to "단 3개만 도전해 보세요"
+                        1 -> "오늘의 미션" to "벌써 한개나 성공했네요!"
+                        2 -> "오늘의 미션" to "리워드까지 한 걸음 남았어요!"
+                        else -> "오늘의 미션" to "단 3개만 도전해 보세요"
+                    }
+                    RewardEvent(
+                        rewardEventTitle = title,
+                        rewardEventSubtitle = subtitle,
+                        rewardCompletedCount = finishedCount,
+                        rewardTotalCount = 3
+                    )
+                }
+                // 2일 이상 미접속
                 !homeViewResponse.todayDone && homeViewResponse.longAbsence -> {
                     RewardEvent(
                         rewardEventTitle = "웰컴백 이벤트",

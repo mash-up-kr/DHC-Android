@@ -1,41 +1,43 @@
 {
-  "year": 2025,
-  "generatedDate": "2025-01-15",
-  "totalScore": 79,
-  "summaryTitle": "도약의 해",
-  "summaryDetail": "올해는 새로운 시작과 도전이 가득한 한 해가 될 것입니다. 당신의 열정과 노력이 빛을 발하는 시기입니다.",
-  "summaryImageUrl": "",
+  "year": 2026,
+  "generatedDate": "2026-02-22",
+  "totalScore": 65,
+  "summaryTitle": "2026년, 뜨거운 열정 속에서 새로운 기회를 발견할 한 해!",
+  "summaryDetail": "2026년은 당신의 잠재된 열정과 추진력이 폭발하는 시기가 될 것입니다. 강한 화기운이 당신을 이끌어 새로운 도전을 두려워하지 않게 하지만, 때로는 과도한 자신감이 독이 될 수 있으니 주의가 필요합니다. 주변과의 조화를 중요시하며 균형을 잃지 않도록 노력한다면, 많은 성취를 이룰 수 있는 한 해가 될 것입니다.",
   "fortuneOverview": {
     "money": {
       "title": "금전운",
-      "description": "재물 운이 상승하는 시기입니다. 투자나 새로운 사업 기회를 잡기 좋은 해입니다."
+      "description": "수입을 늘릴 수 있는 좋은 기회가 찾아오지만, 충동적인 지출이나 과도한 투자는 피하는 것이 좋습니다. 안정적인 자산 관리와 현명한 판단이 필요한 시기입니다. 꼼꼼한 계획과 절제가 금전운을 상승시킬 열쇠입니다.",
+      "image": "https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/axircf8nexkb/b/dhc-storage/o/logos/fortune/svg/money.svg"
     },
     "love": {
       "title": "연애운",
-      "description": "좋은 인연을 만날 수 있는 해입니다. 기존 관계도 더욱 깊어질 수 있어요."
+      "description": "솔로라면 새로운 인연을 만날 기회가 많아지며, 현재 연인과의 관계에서는 더욱 깊은 유대감을 형성할 수 있습니다. 하지만 때로는 불같은 성격으로 인해 다툼이 생길 수도 있으니, 상대방의 입장을 이해하려는 노력이 필요합니다.",
+      "image": "https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/axircf8nexkb/b/dhc-storage/o/logos/fortune/svg/love.svg"
     },
     "study": {
       "title": "학업운",
-      "description": "집중력이 높아지는 시기입니다. 새로운 것을 배우기에 좋은 때입니다."
+      "description": "강한 의욕과 집중력으로 학업에서 좋은 성과를 기대할 수 있습니다. 새로운 분야에 대한 호기심이 커져 배움의 즐거움을 느낄 것입니다. 다만, 너무 앞서나가기보다는 꾸준히 기초를 다지는 것이 중요합니다.",
+      "image": "https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/axircf8nexkb/b/dhc-storage/o/logos/fortune/svg/study.svg"
     }
   },
   "fiveElements": {
-    "dominantElement": "화",
-    "dominantWarning": "화기운이 강하니 급한 마음을 다스리세요",
+    "dominantElement": "화기운",
+    "dominantWarning": "2026년은 화기운이 매우 강해지는 시기입니다! 과도한 열정은 번아웃을 초래할 수 있으니, 적절한 휴식과 마음의 평화를 찾는 것이 중요합니다.",
     "wood": {
-      "percentage": 15,
-      "status": "부족"
+      "percentage": 20,
+      "status": "적정"
     },
     "fire": {
       "percentage": 35,
-      "status": "과다"
+      "status": "적정"
     },
     "earth": {
       "percentage": 20,
       "status": "적정"
     },
     "metal": {
-      "percentage": 15,
+      "percentage": 10,
       "status": "부족"
     },
     "water": {
@@ -43,14 +45,35 @@
       "status": "부족"
     }
   },
-  "yearlyEnergyTitle": "상반기 집중",
-  "yearlyEnergyDetail": "상반기에 에너지가 집중되니 중요한 일은 상반기에 진행하세요.\n\n특히 1월부터 6월까지는 새로운 시작을 하기에 매우 좋은 시기입니다.\n하반기는 상반기에 시작한 일들을 마무리하고 정리하는 시간으로 활용하세요.",
-  "tips": {
-    "luckyMenu": "삼계탕",
-    "luckyColor": "파란색",
-    "luckyColorHex": "#0066CC",
-    "unluckyMenu": "매운 음식",
-    "unluckyColor": "빨간색",
-    "unluckyColorHex": "#FF0000"
+  "yearlyEnergyTitle": "화의 기운은 '결단력·집중·주체성'을 밝히는 에너지에요",
+  "yearlyEnergyDetail": "2026년은 병오(丙午)년으로, 강한 화(火)의 기운이 지배적인 한 해입니다. 이는 당신의 내면에 숨겨진 열정과 주체성을 폭발시키는 에너지로 작용할 것입니다. 새로운 아이디어를 떠올리고, 과감하게 실행에 옮길 수 있는 추진력을 얻게 될 것입니다. 하지만 너무 뜨거운 불꽃은 주변을 태울 수도 있으니, 감정 조절과 조화로운 관계 유지가 필수적입니다. 이 강한 에너지를 긍정적인 방향으로 잘 활용한다면, 인생의 중요한 전환점을 맞이할 수 있을 것입니다.",
+  "tips": [
+    {
+      "image": "https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/axircf8nexkb/b/dhc-storage/o/logos/fortune/svg/todayMenu.svg",
+      "title": "행운의 메뉴",
+      "description": "해산물 요리 (수기운 보충)"
+    },
+    {
+      "image": "https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/axircf8nexkb/b/dhc-storage/o/logos/fortune/svg/luckyColor.svg",
+      "title": "행운의 색상",
+      "description": "검정색",
+      "hexColor": "#000000"
+    },
+    {
+      "image": "https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/axircf8nexkb/b/dhc-storage/o/logos/fortune/svg/jinxedColor.svg",
+      "title": "피해야 할 색상",
+      "description": "빨간색",
+      "hexColor": "#FF0000"
+    },
+    {
+      "image": "https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/axircf8nexkb/b/dhc-storage/o/logos/fortune/svg/jinxedMenu.svg",
+      "title": "피해야 할 음식",
+      "description": "매운 음식 (화기운 강화)"
+    }
+  ],
+  "cardInfo": {
+    "image": "https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/axircf8nexkb/b/dhc-storage/o/logos/mainCard/png/62-65.png",
+    "title": "설레는 원숭이",
+    "subTitle": "기대되는 날"
   }
 }

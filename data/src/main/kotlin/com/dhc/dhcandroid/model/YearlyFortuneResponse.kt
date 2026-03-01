@@ -9,12 +9,12 @@ data class YearlyFortuneResponse(
     val totalScore: Int = 0,
     val summaryTitle: String = "",
     val summaryDetail: String = "",
-    val summaryImageUrl: String = "",
     val fortuneOverview: FortuneOverview = FortuneOverview(),
     val fiveElements: FiveElements = FiveElements(),
     val yearlyEnergyTitle: String = "",
     val yearlyEnergyDetail: String = "",
-    val tips: YearlyTips = YearlyTips()
+    val tips: List<TipItem> = emptyList(),
+    val cardInfo: CardInfo = CardInfo()
 )
 
 @Serializable
@@ -27,7 +27,8 @@ data class FortuneOverview(
 @Serializable
 data class FortuneItem(
     val title: String = "",
-    val description: String = ""
+    val description: String = "",
+    val image: String = ""
 )
 
 @Serializable
@@ -48,11 +49,16 @@ data class ElementStatus(
 )
 
 @Serializable
-data class YearlyTips(
-    val luckyMenu: String = "",
-    val luckyColor: String = "",
-    val luckyColorHex: String = "",
-    val unluckyMenu: String = "",
-    val unluckyColor: String = "",
-    val unluckyColorHex: String = ""
+data class TipItem(
+    val image: String = "",
+    val title: String = "",
+    val description: String = "",
+    val hexColor: String = ""
+)
+
+@Serializable
+data class CardInfo(
+    val image: String = "",
+    val title: String = "",
+    val subTitle: String = ""
 )

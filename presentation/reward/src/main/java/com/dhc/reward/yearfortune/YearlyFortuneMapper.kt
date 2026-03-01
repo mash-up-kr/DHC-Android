@@ -15,9 +15,9 @@ internal fun YearlyFortuneResponse.toYearFortuneInfo(): YearFortuneInfo {
             description = summaryTitle
         ),
         fortuneCard = FortuneCard(
-            title = summaryTitle,
-            message = "",
-            image = summaryImageUrl.takeIf { it.isNotEmpty() }?.let { ImageResource.Url(it) }
+            title = cardInfo.title,
+            message = cardInfo.subTitle,
+            image = cardInfo.image.takeIf { it.isNotEmpty() }?.let { ImageResource.Url(it) }
                 ?: ImageResource.Drawable(R.drawable.fortune_card_sample)
         ),
         overallFortune = summaryDetail,
@@ -75,39 +75,28 @@ internal fun YearlyFortuneResponse.toYearFortuneInfo(): YearFortuneInfo {
                 append(yearlyEnergyDetail)
             }
         },
-        yearTips = listOfNotNull(
-            tips.luckyMenu.takeIf { it.isNotEmpty() }?.let {
+        yearTips = tips.mapNotNull { tip ->
+            tip.description.takeIf { it.isNotEmpty() }?.let {
+                val (icon, color) = when (tip.title) {
+                    "행운의 메뉴" -> Pair(ImageResource.Drawable(R.drawable.ico_knife), null)
+                    "행운의 색상" -> Pair(
+                        ImageResource.Drawable(R.drawable.ico_clover),
+                        tip.hexColor.takeIf { hex -> hex.isNotEmpty() }
+                    )
+                    "피해야 할 색상" -> Pair(
+                        ImageResource.Drawable(R.drawable.ico_red_face),
+                        tip.hexColor.takeIf { hex -> hex.isNotEmpty() }
+                    )
+                    "피해야 할 음식" -> Pair(ImageResource.Drawable(R.drawable.ico_green_face), null)
+                    else -> Pair(null, null)
+                }
                 TipCardModel(
-                    title = "추천메뉴",
-                    icon = ImageResource.Drawable(R.drawable.ico_knife),
-                    color = null,
-                    cont = it
-                )
-            },
-            tips.luckyColor.takeIf { it.isNotEmpty() }?.let {
-                TipCardModel(
-                    title = "행운의 색상",
-                    icon = ImageResource.Drawable(R.drawable.ico_clover),
-                    color = tips.luckyColorHex.takeIf { hex -> hex.isNotEmpty() },
-                    cont = it
-                )
-            },
-            tips.unluckyMenu.takeIf { it.isNotEmpty() }?.let {
-                TipCardModel(
-                    title = "피해야 할 음식",
-                    icon = ImageResource.Drawable(R.drawable.ico_green_face),
-                    color = null,
-                    cont = it
-                )
-            },
-            tips.unluckyColor.takeIf { it.isNotEmpty() }?.let {
-                TipCardModel(
-                    title = "피해야 할 색상",
-                    icon = ImageResource.Drawable(R.drawable.ico_red_face),
-                    color = tips.unluckyColorHex.takeIf { hex -> hex.isNotEmpty() },
+                    title = tip.title,
+                    icon = icon,
+                    color = color,
                     cont = it
                 )
             }
-        )
+        }
     )
 }
