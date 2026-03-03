@@ -121,7 +121,7 @@ private fun OverallFortuneSection(
         Spacer(modifier = Modifier.height(12.dp))
         DhcMessageCard(
             modifier = Modifier.fillMaxWidth(),
-            title = "타이틀",
+            title = "",
             content = message
         )
     }
@@ -184,7 +184,7 @@ private fun EnergyChangeSection(
         Spacer(modifier = Modifier.height(12.dp))
         DhcMessageCard(
             modifier = Modifier.fillMaxWidth(),
-            title = "타이틀",
+            title = "",
             content = message
         )
     }

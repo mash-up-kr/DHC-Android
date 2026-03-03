@@ -31,12 +31,14 @@ fun DhcMessageCard(
             )
             .padding(horizontal = 16.dp, vertical = 20.dp)
     ) {
-        Text(
-            text = title,
-            style = DhcTypoTokens.Body5,
-            color = SurfaceColor.neutral400,
+        if(title.isNotEmpty()) {
+            Text(
+                text = title,
+                style = DhcTypoTokens.Body5,
+                color = SurfaceColor.neutral400,
 
-        )
+                )
+        }
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = content,
