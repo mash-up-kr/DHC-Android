@@ -99,7 +99,7 @@ fun HomeRoute(
 
             if (state.isShowMissionSuccessDialog) {
                 MissionSuccessDialog(
-                    savedMoney = state.todaySavedMoney,
+                    earnedPoint = state.earnedPoint,
                     eventHandler = viewModel::sendEvent
                 )
             }

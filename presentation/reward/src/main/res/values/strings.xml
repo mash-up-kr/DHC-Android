@@ -12,7 +12,10 @@
     <string name="reward_open_reward_button">리워드 열기</string>
     <string name="reward_graphic_placeholder">그래픽 (변경예정)</string>
     <string name="reward_explain_text_button">리워드는 뭔가요?></string>
+    <string name="reward_level_tooltip">경험치를 모아 복주머니 레벨을 올리면\n1년 운세를 볼 수 있어요</string>
     <string name="reward_received_rewards_title">받은 리워드들</string>
     <string name="next_year_five_gauge">내년 내 사주 오행의 균형</string>
+    <string name="year_fortune_n_year">%d년</string>
+    <string name="loading_year_fortune">나만의 1년 운세를 만들고 있어요..</string>
 </resources>
 

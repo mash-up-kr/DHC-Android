@@ -1,5 +1,6 @@
 package com.dhc.home
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.dhc.common.FormatterUtil.todayStringFormat
@@ -90,7 +91,7 @@ class HomeViewModel @Inject constructor(
             is Event.ClickMissionSuccess -> {
                 updateMissionSuccessDialogState(isShowDialog = false)
                 if (event.buttonType == MissionSuccessButtonType.StaticConfirm)
-                    postSideEffect(SideEffect.NavigateToMission)
+                    postSideEffect(SideEffect.NavigateToReward)
             }
 
             is Event.ClickMissionChange -> {
@@ -145,6 +146,8 @@ class HomeViewModel @Inject constructor(
                     fortuneRepository.addSeenFortune(currentLocalDateEpochSecond)
                 }
                 reduce { copy(homeState = HomeContract.HomeState.Success) }
+                // 플립 완료 후 Success 전환 시점에 팝업 체크
+                showReEntryPopupIfNeeded()
             }
 
             is Event.ClickErrorRetryButton -> {
@@ -196,19 +199,17 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun determineMissionFailType(todayDone: Boolean): MissionFailType {
-        val homeInfo = state.value.homeInfo.copy(todayDone = todayDone)
-        val finishedCount = state.value.getFinishedMissionCount()
-        
+    private fun determineMissionFailType(): MissionFailType? {
+        val homeInfo = state.value.homeInfo
         return when {
-            // 오늘 미션 완료했지만 실패 (finishedCount != 3)
-            homeInfo.todayDone && finishedCount == 0 -> MissionFailType.NORMAL
-            // 2일 이상 미접속
-            !homeInfo.todayDone && homeInfo.longAbsence -> MissionFailType.LONG_ABSENCE
-            // 어제 미션 실패
-            !homeInfo.todayDone && !homeInfo.yesterdayMissionSuccess -> MissionFailType.NEXT_DAY_REENTRY
-            // 기본값
-            else -> MissionFailType.NORMAL
+            // C: 가입 첫날 → 팝업 스킵
+            homeInfo.isFirstAccess -> null
+            // B: 2일 이상 미접속
+            homeInfo.longAbsence -> MissionFailType.LONG_ABSENCE
+            // A: 어제 미션 실패
+            !homeInfo.yesterdayMissionSuccess -> MissionFailType.NEXT_DAY_REENTRY
+            // A: 어제 미션 성공 → 팝업 없음
+            else -> null
         }
     }
 
@@ -247,10 +248,11 @@ class HomeViewModel @Inject constructor(
                         handleLoveMissionState(response, hasSeenLoveMission)
 
                         val newHomeInfo = HomeUiModel.from(response)
+                        val isFortuneAlreadySeen = seenFortuneList.contains(currentLocalDateEpochSecond)
                         reduce {
                             copy(
                                 homeInfo = newHomeInfo,
-                                homeState = if (seenFortuneList.contains(currentLocalDateEpochSecond)) {
+                                homeState = if (isFortuneAlreadySeen) {
                                     HomeContract.HomeState.Success
                                 } else {
                                     HomeContract.HomeState.FlipCard
@@ -260,6 +262,12 @@ class HomeViewModel @Inject constructor(
 
                         // LOVE 미션 최초 등장 시 깜빡임 적용
                         applyLoveMissionBlinkIfNeeded(response, hasSeenLoveMission)
+
+                        // 포춘 이미 본 경우: Success 상태이므로 바로 팝업 체크
+                        // FlipCard 상태인 경우: FortuneCardFlipped 이벤트에서 처리
+                        if (isFortuneAlreadySeen) {
+                            viewModelScope.launch { showReEntryPopupIfNeeded() }
+                        }
                     }.onFailure { _, _ ->
                         reduce { copy(homeState = HomeContract.HomeState.Error) }
                     }
@@ -306,22 +314,35 @@ class HomeViewModel @Inject constructor(
     ) {
         val mission = missionList.firstOrNull { it.missionId == missionId }
         if (mission == null) return
+
+        val updatedLongTermMission = if (state.value.homeInfo.longTermMission.missionId == mission.missionId) {
+            state.value.homeInfo.longTermMission.copy(isChecked = mission.finished)
+        } else {
+            state.value.homeInfo.longTermMission
+        }
+
+        val updatedDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
+            if (it.missionId == mission.missionId) {
+                it.copy(isChecked = mission.finished)
+            } else {
+                it
+            }
+        }
+
+        // rewardCompletedCount 계산
+        val finishedCount = (if (updatedLongTermMission.isChecked) 1 else 0) +
+            updatedDailyMissionList.count { it.isChecked }
+
         reduce {
             copy(
                 homeInfo = state.value.homeInfo.copy(
-                    longTermMission = if (state.value.homeInfo.longTermMission.missionId == mission.missionId) {
-                        state.value.homeInfo.longTermMission.copy(isChecked = mission.finished)
-                    } else {
-                        state.value.homeInfo.longTermMission
-                    },
-                    todayDailyMissionList = state.value.homeInfo.todayDailyMissionList.map {
-                        if (it.missionId == mission.missionId) {
-                            it.copy(isChecked = mission.finished)
-                        } else {
-                            it
-                    }
-                }
-            ))
+                    longTermMission = updatedLongTermMission,
+                    todayDailyMissionList = updatedDailyMissionList,
+                    rewardEvent = state.value.homeInfo.rewardEvent.copy(
+                        rewardCompletedCount = finishedCount
+                    )
+                )
+            )
         }
         if (missionStatusType == MissionStatusType.COMPLETE) {
             postSideEffect(SideEffect.ShowToast(FinishMissionToast.getRandomMessage()))
@@ -399,10 +420,22 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private suspend fun showReEntryPopupIfNeeded() {
+        val todayEpochDay = LocalDate.now().toEpochDay()
+        val lastShownEpochDay = userRepository.getLastShownReEntryPopupEpochDay()
+        if (lastShownEpochDay == todayEpochDay) return
+
+        val missionFailType = determineMissionFailType()
+        if (missionFailType != null) {
+            userRepository.updateLastShownReEntryPopupEpochDay(todayEpochDay)
+            updateMissionFailDialogState(isShowDialog = true, missionFailType = missionFailType)
+        }
+    }
+
     private fun finishTodayMission() {
         if(state.value.getFinishedMissionCount() == 0 ) {
-            val missionFailType = determineMissionFailType(todayDone = true)
-            updateMissionFailDialogState(isShowDialog = true, missionFailType = missionFailType)
+            reduce { copy(homeInfo = homeInfo.copy(todayDone = true)) }
+            updateMissionFailDialogState(isShowDialog = true, missionFailType = MissionFailType.NORMAL)
             return
         }
         viewModelScope.launch {
@@ -414,7 +447,7 @@ class HomeViewModel @Inject constructor(
                 )
             ).onSuccess {response ->
                 response ?: return@onSuccess
-                reduce { copy(todaySavedMoney = response.todaySavedMoney, homeInfo = state.value.homeInfo.copy(todayDone = true)) }
+                reduce { copy(todaySavedMoney = response.todaySavedMoney, earnedPoint = response.earnedPoint, homeInfo = state.value.homeInfo.copy(todayDone = true)) }
                 updateMissionSuccessDialogState(isShowDialog = true)
                 dhcRepository.clearCachedCalendarView()
             }.onFailure { code, message ->

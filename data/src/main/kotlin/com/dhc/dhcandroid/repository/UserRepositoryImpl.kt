@@ -46,6 +46,13 @@ class UserRepositoryImpl @Inject constructor(
         userLocalDataSource.setHasSeenLoveMission(seen)
     }
 
+    override suspend fun getLastShownReEntryPopupEpochDay(): Long =
+        userLocalDataSource.lastShownReEntryPopupEpochDay.firstOrNull() ?: 0L
+
+    override suspend fun updateLastShownReEntryPopupEpochDay(epochDay: Long) {
+        userLocalDataSource.setLastShownReEntryPopupEpochDay(epochDay)
+    }
+
     override suspend fun clear() {
         userMemoryDataSource.clear()
         userLocalDataSource.clear()

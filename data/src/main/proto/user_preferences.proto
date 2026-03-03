@@ -10,4 +10,5 @@ message UserPreferences {
   repeated sint64 fortuneDateSeenList = 4;
   bool isShownFortunePopup = 5;
   bool hasSeenLoveMission = 6;
+  sint64 lastShownReEntryPopupEpochDay = 7;
 }

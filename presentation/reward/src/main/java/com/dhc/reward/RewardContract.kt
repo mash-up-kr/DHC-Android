@@ -22,6 +22,7 @@ class RewardContract {
         data object ClickOpenRewardButton : Event
         data object ClickErrorRetryButton : Event
         data class ClickRewardItem(val itemId: Int) : Event
+        data class ClickLockedRewardItem(val message: String) : Event
         data object ClickRewardExplainButton : Event
     }
 

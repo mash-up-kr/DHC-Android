@@ -50,6 +50,7 @@ data object AccentColor {
 }
 
 data object GradientColor {
+
     val textGradient01 = Brush.verticalGradient(
         colorStops = arrayOf(
             0.16f to AccentColor.violet200,
@@ -197,11 +198,18 @@ data object GradientColor {
             0.28f to SurfaceColor.neutral400
         )
     )
+
+    val fortuneBackgroundGradient = Brush.verticalGradient(
+        colorStops = arrayOf(
+            0.0f to Color(0x057B8696), // rgba(123,134,150,0.02)
+            1.0f to AccentColor.violet200.copy(alpha = 0.15f), // rgba(230,223,255,0.15)
+        )
+    )
 }
 
 data object TransparentColor {
     val glassEffect: Color = Color(0x267B8696)
-    val badgePrimary: Color = Color(0x335E69D4)
+    val badgePrimary: Color = Color(0x20D9CEFF)
 }
 
 data class TextColors(

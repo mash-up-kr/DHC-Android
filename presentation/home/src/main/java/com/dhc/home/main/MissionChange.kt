@@ -51,12 +51,12 @@ fun MissionCardReRoll(
     subComposeMaximumRetry: Int = 2,
     content: @Composable () -> Unit,
 ) {
-    var isExpanded by remember { mutableStateOf(missionUiModel.isExpanded) }
+    var isExpanded by remember(missionUiModel.missionId) { mutableStateOf(missionUiModel.isExpanded) }
     val targetPadding = if (isExpanded) 16.dp else 0.dp
     val horizontalPadding by animateDpAsState(targetValue = targetPadding, label = "cardPadding")
     val density = LocalDensity.current
 
-    LaunchedEffect(missionUiModel.isExpanded) {
+    LaunchedEffect(missionUiModel.missionId, missionUiModel.isExpanded) {
         isExpanded = missionUiModel.isExpanded
     }
 

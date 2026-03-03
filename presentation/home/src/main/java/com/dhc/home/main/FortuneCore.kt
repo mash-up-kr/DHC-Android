@@ -19,10 +19,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
-import com.dhc.designsystem.GradientColor.fortuneFillGradient
-import com.dhc.designsystem.GradientColor.fortuneGradientLow
-import com.dhc.designsystem.GradientColor.fortuneGradientMid
-import com.dhc.designsystem.GradientColor.fortuneGradientTop
+import com.dhc.designsystem.GradientColor.fortuneBackgroundGradient
+import com.dhc.designsystem.GradientColor.fortuneBorderGradientLow
 import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.score.toGradientScoreColor
@@ -35,10 +33,10 @@ fun FortuneCore(
 
     Column(
         modifier = modifier
-            .background(shape = CircleShape, color = Color.Transparent)
+            .background(brush = fortuneBackgroundGradient, shape = CircleShape)
             .border(
                 width = 1.dp,
-                brush = fortuneFillGradient,
+                brush = fortuneBorderGradientLow,
                 shape = CircleShape
             ),
         verticalArrangement = Arrangement.Center,

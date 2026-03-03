@@ -18,5 +18,8 @@ interface UserRepository {
     suspend fun getHasSeenLoveMission(): Boolean
     suspend fun updateHasSeenLoveMission(seen: Boolean)
 
+    suspend fun getLastShownReEntryPopupEpochDay(): Long
+    suspend fun updateLastShownReEntryPopupEpochDay(epochDay: Long)
+
     suspend fun clear()
 }

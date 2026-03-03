@@ -77,11 +77,6 @@ fun MissionFailDialog(
                         textAlign = TextAlign.Center
                     )
                 }
-                Image(
-                    painter = painterResource(R.drawable.mission_success),
-                    contentDescription = "missionFail",
-                    modifier = Modifier.fillMaxWidth()
-                )
                 Spacer(modifier = Modifier.height(12.dp))
                 DhcButton(
                     text = stringResource(R.string.confirm),

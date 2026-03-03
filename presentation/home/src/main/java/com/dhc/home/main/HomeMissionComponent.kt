@@ -1,11 +1,13 @@
 package com.dhc.home.main
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -83,36 +85,39 @@ fun MonetaryLuckyDailyMission(
         )
         Spacer(modifier = Modifier.height(16.dp))
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            dailyMissionList.forEach { mission ->
-                val badgeLevelType = when {
-                    mission.type == MissionType.LOVE -> BadgeLevelType.LOVE
-                    mission.difficulty == "Easy" -> BadgeLevelType.EASY
-                    mission.difficulty == "Mid" -> BadgeLevelType.MEDIUM
-                    mission.difficulty == "Hard" -> BadgeLevelType.HARD
-                    else -> BadgeLevelType.EASY
-                }
-
-                val missionMode = if (mission.type == MissionType.LOVE) "Love" else mission.difficulty
-
-                MissionCardReRoll(
-                    type = MissionType.DAILY,
-                    missionUiModel = mission,
-                    onClickMissionChange = { onClickMissionChange(mission) },
-                    onExpandedChange = { onExpandedChange(it, mission.missionId)},
-                    canEnabled = if(isFinishedTodayMission) false else !mission.isChecked,
-                    content = {
-                        MoneyFortuneMissionCard(
-                            isBlink = mission.isBlink,
-                            missionMode = missionMode,
-                            isChecked = mission.isChecked,
-                            isFinishedTodayMission = isFinishedTodayMission,
-                            missionTitle = mission.title,
-                            badgeLevelType = badgeLevelType,
-                            onBlinkEnd = { onBlinkEnd(mission.missionId) },
-                            onCheckChange = { onCheckChange( !mission.isChecked, mission.missionId)}
-                        )
+            dailyMissionList.forEachIndexed { index, mission ->
+                Log.d("MissionCard", "Index: $index, MissionId: ${mission.missionId}, isExpanded: ${mission.isExpanded}")
+                key("${index}_${mission.missionId}") {
+                    val badgeLevelType = when {
+                        mission.type == MissionType.LOVE -> BadgeLevelType.LOVE
+                        mission.difficulty == "Easy" -> BadgeLevelType.EASY
+                        mission.difficulty == "Mid" -> BadgeLevelType.MEDIUM
+                        mission.difficulty == "Hard" -> BadgeLevelType.HARD
+                        else -> BadgeLevelType.EASY
                     }
-                )
+
+                    val missionMode = if (mission.type == MissionType.LOVE) "Love" else mission.difficulty
+
+                    MissionCardReRoll(
+                        type = MissionType.DAILY,
+                        missionUiModel = mission,
+                        onClickMissionChange = { onClickMissionChange(mission) },
+                        onExpandedChange = { onExpandedChange(it, mission.missionId)},
+                        canEnabled = if(isFinishedTodayMission) false else !mission.isChecked,
+                        content = {
+                            MoneyFortuneMissionCard(
+                                isBlink = mission.isBlink,
+                                missionMode = missionMode,
+                                isChecked = mission.isChecked,
+                                isFinishedTodayMission = isFinishedTodayMission,
+                                missionTitle = mission.title,
+                                badgeLevelType = badgeLevelType,
+                                onBlinkEnd = { onBlinkEnd(mission.missionId) },
+                                onCheckChange = { onCheckChange( !mission.isChecked, mission.missionId)}
+                            )
+                        }
+                    )
+                }
             }
         }
     }

@@ -39,6 +39,23 @@ fun Modifier.drawBalloonTail(
     )
 }
 
+fun Modifier.drawBalloonTail(
+    brush: Brush,
+    cornerWidth: Dp = 12.dp,
+    cornerHeight: Dp = 6.dp,
+    cornerRadius: Dp = 1.dp,
+): Modifier = this.drawWithContent {
+    drawContent()
+    drawPath(
+        path = getTrianglePath(
+            cornerWidth = cornerWidth,
+            cornerHeight = cornerHeight,
+            cornerRadius = cornerRadius,
+        ),
+        brush = brush,
+    )
+}
+
 private fun ContentDrawScope.getTrianglePath(
     cornerWidth: Dp = 12.dp,
     cornerHeight: Dp = 6.dp,

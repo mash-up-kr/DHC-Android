@@ -89,65 +89,65 @@ class YearFortuneViewModel @Inject constructor(
     private fun createSampleYearFortuneInfo(): YearFortuneInfo {
         return YearFortuneInfo(
             scoreInfo = com.dhc.presentation.ui.monetaryDetail.ScoreInfo(
-                date = "2025년 5월 20일",
-                score = 79,
-                description = "올 한해는 전반적으로 마음이 들뜨는 날이에요, \n한템포 쉬어가요."
+                date = "2026년 운세 총평",
+                score = 65,
+                description = "2026년, 뜨거운 열정 속에서 새로운 기회를 발견할 한 해!"
             ),
             fortuneCard = com.dhc.presentation.ui.monetaryDetail.FortuneCard(
-                title = "",
-                message = "",
+                title = "설레는 원숭이",
+                message = "기대되는 날",
                 image = ImageResource.Drawable(R.drawable.fortune_card_sample)
             ),
-            overallFortune = "이번 달은 마음이 한층 단단해지는 시기예요.\n불필요한 걱정에 에너지를 쓰기보단, 지금 눈앞의 상황에 집중하면 일이 자연스럽게 풀려갑니다.\n충동적인 선택이 아니라 조금 더 생각하고 결정하는 것만으로도 내일의 나에게 분명 고마운 한 달이 될 거예요.",
+            overallFortune = "2026년은 당신의 잠재된 열정과 추진력이 폭발하는 시기가 될 것입니다. 강한 화기운이 당신을 이끌어 새로운 도전을 두려워하지 않게 하지만, 때로는 과도한 자신감이 독이 될 수 있으니 주의가 필요합니다. 주변과의 조화를 중요시하며 균형을 잃지 않도록 노력한다면, 많은 성취를 이룰 수 있는 한 해가 될 것입니다.",
             quickViewFortune = listOf(
                 QuickViewFortuneItem(
                     title = "금전운",
-                    content = "현재의 상황을 최우선적으로 고려해보는 것이 좋아요. 과거의 상황까지 고려할 필요는 없어요.",
+                    content = "수입을 늘릴 수 있는 좋은 기회가 찾아오지만, 충동적인 지출이나 과도한 투자는 피하는 것이 좋습니다.",
                     ImageResource.Drawable(R.drawable.ico_money_pocket)
                 ),
                 QuickViewFortuneItem(
                     title = "연애운",
-                    content = "상대방의 말보다 분위기를 읽는 게 관계에 좋은 영향이 있어요.",
+                    content = "솔로라면 새로운 인연을 만날 기회가 많아지며, 현재 연인과의 관계에서는 더욱 깊은 유대감을 형성할 수 있습니다.",
                     ImageResource.Drawable(R.drawable.ico_heart_target)
                 ),
                 QuickViewFortuneItem(
                     title = "학업운",
-                    content = "현재의 상황을 최우선적으로 고려해보는 것이 좋아요. 과거의 상황까지 고려할 필요는 없어요.",
+                    content = "강한 의욕과 집중력으로 학업에서 좋은 성과를 기대할 수 있습니다. 새로운 분야에 대한 호기심이 커져 배움의 즐거움을 느낄 것입니다.",
                     ImageResource.Drawable(R.drawable.ico_study)
                 )
             ),
             fiveElementData = listOf(
                 FiveElementData.fromPercentage(FiveElementType.WOOD, 20),
-                FiveElementData.fromPercentage(FiveElementType.FIRE, 40),
-                FiveElementData.fromPercentage(FiveElementType.EARTH, 30),
-                FiveElementData.fromPercentage(FiveElementType.METAL, 20),
-                FiveElementData.fromPercentage(FiveElementType.WATER, 10)
+                FiveElementData.fromPercentage(FiveElementType.FIRE, 35),
+                FiveElementData.fromPercentage(FiveElementType.EARTH, 20),
+                FiveElementData.fromPercentage(FiveElementType.METAL, 10),
+                FiveElementData.fromPercentage(FiveElementType.WATER, 15)
             ),
-            energyChange = "화의 기운은\n'결단력・집중・주체성'을 밝히는 에너지예요.\n불안이나 충동으로 흐르면 지치기 쉽지만,\n올바르게 쓰이면 원하는 방향으로 크게 나아가는 달이 됩니다.\n\n그래서 이번 달엔…\n• 지금의 상황을 기준으로 결정해보세요.\n• 감정보다는 리듬을 안정시키면 잘 흘러가요.\n• 내일의 나에게 분명 고마운 선택을 하게 될 거예요.",
+            energyChange = "화의 기운은 '결단력·집중·주체성'을 밝히는 에너지에요\n\n2026년은 병오(丙午)년으로, 강한 화(火)의 기운이 지배적인 한 해입니다. 이는 당신의 내면에 숨겨진 열정과 주체성을 폭발시키는 에너지로 작용할 것입니다. 새로운 아이디어를 떠올리고, 과감하게 실행에 옮길 수 있는 추진력을 얻게 될 것입니다.",
             yearTips = listOf(
                 com.dhc.designsystem.tipcard.TipCardModel(
-                    title = "추천메뉴",
+                    title = "행운의 메뉴",
                     icon = ImageResource.Drawable(R.drawable.ico_knife),
                     color = null,
-                    cont = "카레"
+                    cont = "해산물 요리 (수기운 보충)"
+                ),
+                com.dhc.designsystem.tipcard.TipCardModel(
+                    title = "행운의 색상",
+                    icon = ImageResource.Drawable(R.drawable.ico_clover),
+                    color = "#000000",
+                    cont = "검정색"
+                ),
+                com.dhc.designsystem.tipcard.TipCardModel(
+                    title = "피해야 할 색상",
+                    icon = ImageResource.Drawable(R.drawable.ico_red_face),
+                    color = "#FF0000",
+                    cont = "빨간색"
                 ),
                 com.dhc.designsystem.tipcard.TipCardModel(
                     title = "피해야 할 음식",
                     icon = ImageResource.Drawable(R.drawable.ico_green_face),
                     color = null,
-                    cont = "치킨, 닭"
-                ),
-                com.dhc.designsystem.tipcard.TipCardModel(
-                    title = "행운의 색상",
-                    icon = ImageResource.Drawable(R.drawable.ico_clover),
-                    color = "#23B169",
-                    cont = "연두색"
-                ),
-                com.dhc.designsystem.tipcard.TipCardModel(
-                    title = "피해야 할 색상",
-                    icon = ImageResource.Drawable(R.drawable.ico_red_face),
-                    color = "#F4F4F5",
-                    cont = "흰색"
+                    cont = "매운 음식 (화기운 강화)"
                 )
             )
         )
