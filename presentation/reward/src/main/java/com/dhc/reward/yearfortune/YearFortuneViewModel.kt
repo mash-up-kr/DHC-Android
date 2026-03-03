@@ -80,7 +80,8 @@ class YearFortuneViewModel @Inject constructor(
             reduce {
                 copy(
                     yearFortuneInfo = sampleYearFortuneInfo,
-                    yearFortuneState = YearFortuneContract.YearFortuneState.Success
+                    yearFortuneState = YearFortuneContract.YearFortuneState.Success,
+                    isSampleData = true,
                 )
             }
         }

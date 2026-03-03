@@ -2,6 +2,7 @@ package com.dhc.reward.yearfortune
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,7 +13,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,9 +23,12 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dhc.common.drawBalloonTail
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
+import com.dhc.designsystem.GradientColor.fortuneBorderGradientLow
+import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.messagecard.DhcMessageCard
 import com.dhc.designsystem.score.DhcScoreText
@@ -38,8 +44,11 @@ import com.dhc.presentation.ui.monetaryDetail.ScoreInfo
 fun YearFortuneScreen(
     yearFortuneInfo: YearFortuneInfo,
     modifier: Modifier = Modifier,
+    isSampleData: Boolean = false,
     scrollState: ScrollState = rememberScrollState()
 ) {
+    val colors = LocalDhcColors.current
+
     Box(modifier = modifier) {
         Column(
             modifier = Modifier
@@ -49,6 +58,27 @@ fun YearFortuneScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(24.dp))
+            if (isSampleData) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .drawBalloonTail(
+                            brush = fortuneBorderGradientLow,
+                            cornerWidth = 12.dp,
+                            cornerHeight = 7.dp,
+                        )
+                        .background(
+                            brush = fortuneBorderGradientLow,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .padding(horizontal = 10.dp, vertical = 10.dp),
+                    text = "이번 내용은 예시 운세예요 👀\n레벨을 올리면 나의 실제 운세를 볼 수 있어요!",
+                    color = colors.text.textHighLightsPrimary,
+                    style = DhcTypoTokens.Body5,
+                    textAlign = TextAlign.Center,
+                )
+                Spacer(modifier = Modifier.height(19.dp))
+            }
             DhcScoreText(
                 badgeText = yearFortuneInfo.scoreInfo.date,
                 score = yearFortuneInfo.scoreInfo.score,

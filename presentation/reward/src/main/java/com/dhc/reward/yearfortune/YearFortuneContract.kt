@@ -9,6 +9,7 @@ class YearFortuneContract {
     data class State(
         val yearFortuneState: YearFortuneState = YearFortuneState.Loading,
         val yearFortuneInfo: YearFortuneInfo = YearFortuneInfo(),
+        val isSampleData: Boolean = false,
     ) : UiState
 
     sealed interface YearFortuneState {

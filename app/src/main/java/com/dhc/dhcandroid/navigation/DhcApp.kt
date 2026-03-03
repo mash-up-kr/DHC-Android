@@ -24,6 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.gnb.DhcBottomBar
 import com.dhc.designsystem.topbar.DhcTopBar
+import com.dhc.designsystem.topbar.model.DhcTopBarState
 import com.dhc.dhcandroid.MainViewModel
 
 @Composable
@@ -95,9 +96,20 @@ private fun currentScreenConfigAsState(navController: NavHostController): State<
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val route = navBackStackEntry?.destination?.route ?: DhcRoute.NONE.route
 
-    return remember(route) {
+    return remember(route, navBackStackEntry) {
         derivedStateOf {
-            DhcRoute.fromRoute(route).screenConfig
+            val dhcRoute = DhcRoute.fromRoute(route)
+            if (dhcRoute == DhcRoute.YEAR_FORTUNE) {
+                val isSampleData = navBackStackEntry?.arguments?.getBoolean("isSampleData") ?: false
+                dhcRoute.screenConfig.copy(
+                    topBarState = DhcTopBarState.Basic(
+                        title = if (isSampleData) "리워드는 뭔가요?" else "1년 운세",
+                        isShowBackButton = true,
+                    )
+                )
+            } else {
+                dhcRoute.screenConfig
+            }
         }
     }
 }

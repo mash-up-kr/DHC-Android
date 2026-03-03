@@ -24,6 +24,7 @@ fun YearFortuneRoute(
         YearFortuneContract.YearFortuneState.Success -> {
             YearFortuneScreen(
                 yearFortuneInfo = state.yearFortuneInfo,
+                isSampleData = state.isSampleData,
                 modifier = modifier
             )
         }
