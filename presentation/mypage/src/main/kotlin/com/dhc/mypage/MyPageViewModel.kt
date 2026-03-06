@@ -7,6 +7,7 @@ import com.dhc.common.onSuccess
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
 import com.dhc.dhcandroid.repository.DhcRepository
 import com.dhc.dhcandroid.repository.FortuneRepository
+import com.dhc.dhcandroid.repository.UserRepository
 import com.dhc.mypage.MyPageContract.Event
 import com.dhc.mypage.MyPageContract.SideEffect
 import com.dhc.mypage.MyPageContract.State
@@ -24,6 +25,7 @@ class MyPageViewModel @Inject constructor(
     private val authRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
     private val fortuneRepository: FortuneRepository,
+    private val userRepository: UserRepository,
 ) : BaseViewModel<State, Event, SideEffect>() {
 
     init {
@@ -48,6 +50,7 @@ class MyPageViewModel @Inject constructor(
                         dhcRepository.deleteUser(it)
                             .onSuccess {
                                 authRepository.clearUserId()
+                                userRepository.clear()
                                 dhcRepository.clearCachedCalendarView()
                                 fortuneRepository.clearSeenFortuneList()
                                 postSideEffect(SideEffect.NavigateToIntro)
@@ -61,6 +64,7 @@ class MyPageViewModel @Inject constructor(
             }
 
             is Event.ClickDialogDismissButton -> reduce { copy(isShowAppResetDialog = false) }
+            is Event.ClickFortuneSurveyButton -> { postSideEffect(SideEffect.NavigateToFortuneSurvey) }
         }
     }
 

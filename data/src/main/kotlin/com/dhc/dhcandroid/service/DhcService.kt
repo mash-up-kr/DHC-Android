@@ -2,6 +2,7 @@ package com.dhc.dhcandroid.service
 
 import com.dhc.dhcandroid.model.AnalysisViewResponse
 import com.dhc.dhcandroid.model.CalendarViewResponse
+import com.dhc.dhcandroid.model.CreateShareTokenResponse
 import com.dhc.dhcandroid.model.EndTodayMissionRequest
 import com.dhc.dhcandroid.model.EndTodayMissionResponse
 import com.dhc.dhcandroid.model.FortuneResponse
@@ -10,9 +11,11 @@ import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
+import com.dhc.dhcandroid.model.YearlyFortuneResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -87,4 +90,25 @@ interface DhcService {
     suspend fun updateEasterEggHistory(
         @Path("userId") userId: String,
     ): Response<Unit>
+
+    @GET("/view/users/{userId}/reward-progress")
+    suspend fun getRewardProgress(
+        @Path("userId") userId: String,
+    ): Response<RewardProgressResponse>
+
+    @POST("/api/users/{userId}/share")
+    suspend fun createShareToken(
+        @Path("userId") userId: String,
+    ): Response<CreateShareTokenResponse>
+
+    @GET("/view/users/{userId}/yearly-fortune")
+    suspend fun getYearlyFortune(
+        @Path("userId") userId: String,
+    ): Response<YearlyFortuneResponse>
+
+    @POST("/api/users/{userId}/yearly-fortune")
+    suspend fun unlockYearlyFortune(
+        @Path("userId") userId: String,
+    ): Response<Unit>
+
 }

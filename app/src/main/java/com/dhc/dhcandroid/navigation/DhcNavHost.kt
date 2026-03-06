@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.dhc.home.HomeRoute
 import com.dhc.home.detail.MonetaryLuckDetailRoute
@@ -25,6 +27,9 @@ import com.dhc.intro.splash.SplashRoute
 import com.dhc.intro.start.IntroRoute
 import com.dhc.missionstatus.MissionStatusRoute
 import com.dhc.mypage.MyPageRoute
+import com.dhc.reward.RewardRoute
+import com.dhc.reward.yearfortune.YearFortuneRoute
+import com.example.survey.SurveyRoute
 
 @Composable
 fun DhcNavHost(
@@ -125,21 +130,51 @@ fun DhcNavHost(
             MissionStatusRoute()
         }
 
+        composable(DhcRoute.MAIN_REWARD.route) {
+            RewardRoute(
+                navigateToYearFortune = { isSampleData ->
+                    navController.navigate("reward/yearFortune?isSampleData=$isSampleData")
+                },
+            )
+        }
+
         composable(DhcRoute.MAIN_MY.route) {
             MyPageRoute(
                 navigateToInitialScreen = { navController.navigateToIntroPageWithClearStack() },
+                navigateToFortuneSurvey = { navController.navigateTo(DhcRoute.FORTUNE_SURVEY) },
             )
         }
+
         composable(DhcRoute.MAIN_HOME.route) { navBackStackEntry ->
             HomeRoute(
                 navBackStackEntry = navBackStackEntry,
                 navigateToMission = { navController.navigateToMission() },
                 navigateToMonetaryLuckDetail = { navController.navigateTo(DhcRoute.HOME_MONETARY_DETAIL) },
+                navigateToFortuneSurvey = { navController.navigateTo(DhcRoute.FORTUNE_SURVEY) },
+                navigateToReward = { navController.navigateToReward() },
             )
         }
 
         composable(DhcRoute.HOME_MONETARY_DETAIL.route) {
             MonetaryLuckDetailRoute()
+        }
+
+        composable(DhcRoute.FORTUNE_SURVEY.route) {
+            SurveyRoute(
+                navigateToHome = { navController.navigateToHome() },
+                navigateToPrevScreen = { navController.navigateUp() },
+            )
+        }
+        composable(
+            route = DhcRoute.YEAR_FORTUNE.route,
+            arguments = listOf(
+                navArgument("isSampleData") {
+                    type = NavType.BoolType
+                    defaultValue = false
+                },
+            ),
+        ) {
+            YearFortuneRoute()
         }
     }
 }

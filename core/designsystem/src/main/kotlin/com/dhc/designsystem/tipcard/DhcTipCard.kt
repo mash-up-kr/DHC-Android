@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -38,7 +39,9 @@ import com.dhc.designsystem.getSvgImageLoader
 @Composable
 fun DhcTipCard(
     tipCardItem: TipCardModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    contentTextStyle: TextStyle = DhcTypoTokens.TitleH3,
+    contentTextAlign: TextAlign = TextAlign.Center,
 ) {
     Column(
         modifier = modifier
@@ -53,7 +56,9 @@ fun DhcTipCard(
         Spacer(modifier = Modifier.height(8.dp))
         TipCardContent(
             color = tipCardItem.color,
-            content = tipCardItem.cont
+            content = tipCardItem.cont,
+            textAlign = contentTextAlign,
+            textStyle = contentTextStyle
         )
     }
 }
@@ -140,6 +145,8 @@ fun TipCardTitle(
 fun TipCardContent(
     color: String?,
     content: String,
+    textStyle: TextStyle = DhcTypoTokens.TitleH3,
+    textAlign: TextAlign = TextAlign.Center,
     modifier: Modifier = Modifier,
 ) {
     val dhcColor = LocalDhcColors.current
@@ -159,9 +166,9 @@ fun TipCardContent(
 
         Text(
             text = content,
-            style = DhcTypoTokens.TitleH3,
+            style = textStyle,
             color = if (color.isNotNullOrEmpty()) hexToColor(color) else dhcColor.text.textBodyPrimary,
-            textAlign = TextAlign.Center,
+            textAlign = textAlign,
         )
     }
 }

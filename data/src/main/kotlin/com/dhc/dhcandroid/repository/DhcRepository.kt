@@ -9,11 +9,14 @@ import com.dhc.dhcandroid.model.FortuneResponse
 import com.dhc.dhcandroid.model.HomeViewResponse
 import com.dhc.dhcandroid.model.MissionsResponse
 import com.dhc.dhcandroid.model.MissionCategoriesResponse
+import com.dhc.dhcandroid.model.CreateShareTokenResponse
 import com.dhc.dhcandroid.model.MyPageResponse
 import com.dhc.dhcandroid.model.RegisterUserResponse
+import com.dhc.dhcandroid.model.RewardProgressResponse
 import com.dhc.dhcandroid.model.SearchUserByTokenResponse
 import com.dhc.dhcandroid.model.ToggleMissionRequest
 import com.dhc.dhcandroid.model.UserProfile
+import com.dhc.dhcandroid.model.YearlyFortuneResponse
 import java.time.LocalDate
 
 interface DhcRepository {
@@ -70,4 +73,22 @@ interface DhcRepository {
     suspend fun updateEasterEggHistory(
         userId: String,
     ): DhcResult<Unit>
+
+
+    suspend fun getRewardProgress(
+        userId: String,
+    ): DhcResult<RewardProgressResponse>
+
+    suspend fun createShareToken(
+        userId: String,
+    ): DhcResult<CreateShareTokenResponse>
+
+    suspend fun getYearlyFortune(
+        userId: String,
+    ): DhcResult<YearlyFortuneResponse>
+
+    suspend fun unlockYearlyFortune(
+        userId: String,
+    ): DhcResult<Unit>
+
 }

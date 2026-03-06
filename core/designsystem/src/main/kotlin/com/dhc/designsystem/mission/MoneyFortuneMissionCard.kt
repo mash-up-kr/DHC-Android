@@ -3,14 +3,12 @@ package com.dhc.designsystem.mission
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -20,6 +18,7 @@ import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.badge.DhcBadge
+import com.dhc.designsystem.badge.model.BadgeLevelType
 import com.dhc.designsystem.badge.model.BadgeType
 
 
@@ -31,9 +30,9 @@ fun MoneyFortuneMissionCard(
     modifier: Modifier = Modifier,
     isBlink: Boolean = false,
     isFinishedTodayMission: Boolean = false,
+    badgeLevelType: BadgeLevelType = BadgeLevelType.EASY,
     onBlinkEnd: () -> Unit = {},
     onCheckChange: () -> Unit = {},
-    onHeightChanged: (Int) -> Unit = {},
 ) {
     val colors = LocalDhcColors.current
     val missionColor =
@@ -42,9 +41,7 @@ fun MoneyFortuneMissionCard(
         else SurfaceColor.neutral400
 
     MissionItemBackGround(
-        modifier = modifier.onSizeChanged {
-            onHeightChanged(it.height)
-        },
+        modifier = modifier,
         isBlink = isBlink,
         onBlinkEnd = onBlinkEnd,
         isChecked = isChecked,
@@ -59,7 +56,10 @@ fun MoneyFortuneMissionCard(
             ) {
                 DhcBadge(
                     text = missionMode,
-                    type = BadgeType.Level(isEnabled = isFinishedTodayMission.not())
+                    type = BadgeType.Level(
+                        isEnabled = isFinishedTodayMission.not(),
+                        level = badgeLevelType
+                    )
                 )
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
@@ -85,7 +85,8 @@ private fun PreviewMoneyFortuneMissionCard(
             isChecked = parameter.isChecked,
             missionTitle = parameter.missionTitle,
             isBlink = false,
-            isFinishedTodayMission = false
+            isFinishedTodayMission = false,
+            badgeLevelType = BadgeLevelType.EASY
         )
     }
 }

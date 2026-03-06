@@ -9,6 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -31,7 +32,11 @@ fun DhcCheck(
         isChecked -> colors.text.textHighLightsPrimary
         else -> SurfaceColor.neutral400
     }
-    val iconTint = if (isEnabled) colors.text.textMain else SurfaceColor.neutral400
+    val iconTint = when {
+        !isEnabled -> SurfaceColor.neutral400
+        !isChecked -> Color.White
+        else -> colors.background.backgroundMain
+    }
 
     Box(
         modifier = Modifier

@@ -1,0 +1,25 @@
+{
+  "date": "2025-09-06",
+  "fortuneTitle": "오늘의 행운",
+  "fortuneDetail": "모든 일이 순조롭게 진행됩니다.",
+  "totalScore": 85,
+  "cardInfo": {
+    "image": "fortune_card.png",
+    "title": "행운 카드",
+    "subTitle": "성공의 조짐"
+  },
+  "tips": [
+    {
+      "image": "tip1.png",
+      "title": "긍정적인 마음가짐",
+      "description": "긍정적인 마음가짐이 좋은 결과를 가져옵니다.",
+      "hexColor": "#FFD700"
+    },
+    {
+      "image": "tip2.png",
+      "title": "계획 세우기",
+      "description": "하루 일과를 미리 계획해보세요.",
+      "hexColor": "#32CD32"
+    }
+  ]
+}

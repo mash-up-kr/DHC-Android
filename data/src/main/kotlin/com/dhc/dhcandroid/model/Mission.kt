@@ -24,4 +24,5 @@ data class Mission(
 enum class MissionType {
     LONG_TERM,
     DAILY,
+    LOVE
 }

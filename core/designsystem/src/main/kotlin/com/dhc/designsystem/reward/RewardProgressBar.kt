@@ -1,0 +1,133 @@
+package com.dhc.designsystem.reward
+
+import android.content.ContentValues.TAG
+import android.util.Log
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import com.dhc.designsystem.DhcTypoTokens
+import com.dhc.designsystem.LocalDhcColors
+import com.dhc.designsystem.R
+import com.dhc.designsystem.SurfaceColor
+import com.dhc.designsystem.TransparentColor
+
+@Composable
+fun RewardProgressBar(
+    currentStep: Int,
+    modifier: Modifier = Modifier,
+    isVisiblePresent: Boolean = true,
+    totalStepList: List<String> = listOf("시작", "1개", "2개", "Goal"),
+) {
+    val colors = LocalDhcColors.current
+
+    val progressWidthByStep = buildList {
+        val totalSteps = totalStepList.size
+        if (totalSteps <= 1) {
+            add(1.0f)
+        } else {
+            val startWidth = 0.094f
+            val stepIncrement = (1.0f - startWidth) / (totalSteps - 1)
+            for (i in 0 until totalSteps) {
+                add(startWidth + (stepIncrement * i))
+            }
+        }
+    }
+
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Box() {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(12.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(TransparentColor.badgePrimary)
+            ) {
+                val progressWidth = progressWidthByStep.getOrElse(currentStep) { 0.08f }
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(progressWidth)
+                        .height(12.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(colors.text.textHighLightsPrimary)
+                )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(12.dp)
+                        .padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    totalStepList.forEachIndexed { index, _ ->
+                        val isFilled = index <= currentStep
+                        Log.d(TAG, "RewardProgressBar: isFilled$isFilled $currentStep")
+                        Box(
+                            modifier = Modifier
+                                .size(6.dp)
+                                .background(
+                                    color = if (isFilled) colors.text.textHighLightsPrimary else TransparentColor.badgePrimary,
+                                    shape = CircleShape
+                                )
+                        )
+                    }
+                }
+            }
+            if(isVisiblePresent) {
+                Image(
+                    painter = painterResource(id = R.drawable.ico_present),
+                    contentDescription = "Goal Icon",
+                    modifier = Modifier
+                        .size(24.dp)
+                        .align(Alignment.TopEnd)
+                        .offset(x = (-4).dp, y = (-7).dp)
+                )
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            totalStepList.forEachIndexed { index, label ->
+                val isCompleted = index <= currentStep
+                Log.d(TAG, "isCompleted: $isCompleted :: $index :: $currentStep")
+                val isGoal = index == totalStepList.lastIndex
+
+                val textColor = when {
+                    isGoal -> colors.text.textMain
+                    isCompleted -> colors.text.textHighLightsPrimary
+                    else -> SurfaceColor.neutral500
+                }
+
+                Text(
+                    text = label,
+                    style = DhcTypoTokens.TitleH7,
+                    color = textColor,
+                )
+            }
+        }
+    }
+}

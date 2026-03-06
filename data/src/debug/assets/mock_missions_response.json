@@ -1,0 +1,70 @@
+{
+  "missions": [
+    {
+      "missionId": "lt_mission_01",
+      "category": "Health",
+      "difficulty": 3,
+      "type": "LONG_TERM",
+      "finished": false,
+      "cost": "100",
+      "endDate": "2025-12-31",
+      "title": "Run 10km every week",
+      "switchCount": 0
+    },
+    {
+      "missionId": "d_mission_01",
+      "category": "Study",
+      "difficulty": 1,
+      "type": "DAILY",
+      "finished": false,
+      "cost": "50",
+      "endDate": "2025-09-10",
+      "title": "Read a chapter every day",
+      "switchCount": 0
+    },
+    {
+      "missionId": "d_mission_02",
+      "category": "Meditation",
+      "difficulty": 2,
+      "type": "DAILY",
+      "finished": true,
+      "cost": "40",
+      "endDate": "2025-09-10",
+      "title": "Daily 10 minutes meditation",
+      "switchCount": 0
+    },
+    {
+      "missionId": "d_mission_03",
+      "category": "Writing",
+      "difficulty": 3,
+      "type": "DAILY",
+      "finished": false,
+      "cost": "30",
+      "endDate": "2025-09-10",
+      "title": "Journal entry every day",
+      "switchCount": 0
+    },
+    {
+      "missionId": "d_mission_04",
+      "category": "Language",
+      "difficulty": 2,
+      "type": "DAILY",
+      "finished": true,
+      "cost": "45",
+      "endDate": "2025-09-10",
+      "title": "Learn 5 new words daily",
+      "switchCount": 0
+    },
+    {
+      "missionId": "d_mission_05",
+      "category": "Exercise",
+      "difficulty": 1,
+      "type": "DAILY",
+      "finished": false,
+      "cost": "60",
+      "endDate": "2025-09-10",
+      "title": "Stretching for 15 minutes",
+      "switchCount": 0
+    }
+  ]
+}

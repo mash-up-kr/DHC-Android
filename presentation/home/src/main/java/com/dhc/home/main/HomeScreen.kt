@@ -1,12 +1,17 @@
 package com.dhc.home.main
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,16 +22,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dhc.common.ImageResource
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
 import com.dhc.designsystem.SurfaceColor
-import com.dhc.designsystem.floatingButton.DhcFloatingButton
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
+import com.dhc.designsystem.modal.DhcModal
 import com.dhc.home.R
+import com.dhc.home.main.component.TodayMissionCompleteTimer
+import com.dhc.home.main.component.TodayMissionGoal
 import com.dhc.home.model.SelectChangeMission
 import com.dhc.presentation.mvi.EventHandler
 
@@ -85,6 +94,21 @@ fun HomeScreen(
                 }
                 Spacer(modifier = Modifier.height(12.dp))
             }
+
+            TodayMissionCompleteTimer(
+                timerText = state.missionTimerText,
+                isUnderFourHours = state.isTimerUnderFourHours
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+            TodayMissionGoal(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                title = state.homeInfo.rewardEvent.rewardEventTitle,
+                subtitle = state.homeInfo.rewardEvent.rewardEventSubtitle,
+                completedCount = state.homeInfo.rewardEvent.rewardCompletedCount,
+                totalCount = state.homeInfo.rewardEvent.rewardTotalCount,
+                onClickRewardButton = { eventHandler(HomeContract.Event.ClickRewardButton) }
+            )
+            Spacer(modifier = Modifier.height(40.dp))
             SpendingHabitMission(
                 missionUiModel = state.homeInfo.longTermMission,
                 isFinishedTodayMission = state.homeInfo.todayDone,
@@ -113,20 +137,36 @@ fun HomeScreen(
                 )) },
                 onCheckChange = { isChecked, id ->
                     if(!state.homeInfo.todayDone) eventHandler(HomeContract.Event.ClickMissionCheck(isChecked = isChecked, missionId = id)) },
-                onExpandedChange = { isExpanded,id ->eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
+                onExpandedChange = { isExpanded, id -> eventHandler(HomeContract.Event.ChangeExpandCard(isExpanded = isExpanded, missionId = id)) },
                 onBlinkEnd = { missionId -> eventHandler(HomeContract.Event.BlinkEnd(missionId)) },
             )
+            AnimatedVisibility(
+                visible = state.isFortuneSurveyVisible,
+                enter = expandVertically(),
+                exit = shrinkVertically(),
+                label = "FortuneSurveyVisibleAnimation",
+            ) {
+                DhcModal(
+                    imageResource = ImageResource.Drawable(resId = R.drawable.fortune_survey_thumbnail),
+                    contentScale = ContentScale.FillWidth,
+                    onClickClose = { eventHandler(HomeContract.Event.ClickFortuneSurveyClose) },
+                    onClickSubmit = { eventHandler(HomeContract.Event.ClickFortuneSurveySubmit) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp, vertical = 24.dp),
+                )
+            }
             Spacer(modifier = Modifier.height(136.dp))
         }
 
         if(!state.homeInfo.todayDone) {
-            DhcFloatingButton(
+            Image(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .padding(bottom = 24.dp, end = 20.dp),
-                text = stringResource(R.string.finish_today_mission),
-                isEnabled = true,
-                onClick = { eventHandler(HomeContract.Event.ClickTodayMissionFinish) },
+                    .padding(bottom = 24.dp, end = 20.dp)
+                    .clickable{ eventHandler(HomeContract.Event.ClickTodayMissionFinish) },
+                painter = painterResource(R.drawable.mission_clear_floating),
+                contentDescription = "mission_clear_button"
             )
         }
     }

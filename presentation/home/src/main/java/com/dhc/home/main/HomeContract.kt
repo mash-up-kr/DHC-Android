@@ -3,6 +3,7 @@ package com.dhc.home.main
 import com.dhc.home.model.HomeUiModel
 import com.dhc.home.model.MissionChangeButtonType
 import com.dhc.home.model.MissionCompleteButtonType
+import com.dhc.home.model.MissionFailType
 import com.dhc.home.model.MissionSuccessButtonType
 import com.dhc.home.model.SelectChangeMission
 import com.dhc.presentation.mvi.UiEvent
@@ -15,11 +16,17 @@ class HomeContract {
         val homeState: HomeState = HomeState.Loading,
         val isShowMissionCompleteBottomSheet: Boolean = false,
         val isShowMissionSuccessDialog: Boolean = false,
+        val isShowMissionFailDialog: Boolean = false,
+        val missionFailType: MissionFailType = MissionFailType.NORMAL,
         val isShowMissionChangeBottomSheet: Boolean = false,
         val isShowFinishMissionChangeBottomSheet: Boolean = false,
         val selectedMissionInfo: SelectChangeMission = SelectChangeMission(),
         val homeInfo: HomeUiModel = HomeUiModel(),
         val todaySavedMoney: String = "",
+        val earnedPoint: Int = 0,
+        val isFortuneSurveyVisible: Boolean = false,
+        val missionTimerText: String = "00 : 00 : 00 남음",
+        val isTimerUnderFourHours: Boolean = false,
     ): UiState {
         val remainingMissionCount: Int
             get() = getMissionIdList().size - getFinishedMissionCount()
@@ -56,11 +63,17 @@ class HomeContract {
         data class ClickMissionCheck(val isChecked: Boolean, val missionId: String): Event
         data object FortuneCardFlipped: Event
         data object ClickErrorRetryButton: Event
+        data object ClickFortuneSurveyClose: Event
+        data object ClickFortuneSurveySubmit: Event
+        data object ClickRewardButton: Event
+        data object ClickMissionFailConfirmButton: Event
     }
 
     sealed interface SideEffect : UiSideEffect {
         data object NavigateToMonetaryDetailScreen: SideEffect
         data class ShowToast(val msg: String): SideEffect
         data object NavigateToMission: SideEffect
+        data object NavigateToFortuneSurvey: SideEffect
+        data object NavigateToReward: SideEffect
     }
 }

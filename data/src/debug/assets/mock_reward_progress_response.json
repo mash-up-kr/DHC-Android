@@ -1,0 +1,33 @@
+{
+  "user": {
+    "rewardImageUrl": "https://example.com/reward_lv3.png",
+    "rewardLevel": "LV3",
+    "totalExp": 750
+  },
+  "rewardList": [
+    {
+      "id": 1,
+      "title": "1년 운세"
+    },
+    {
+      "id": 2,
+      "title": "전반적 사주"
+    },
+    {
+      "id": 3,
+      "title": "복합 사주"
+    },
+    {
+      "id": 4,
+      "title": "애정운"
+    },
+    {
+      "id": 5,
+      "title": "재물운"
+    },
+    {
+      "id": 6,
+      "title": "건강운"
+    }
+  ]
+}

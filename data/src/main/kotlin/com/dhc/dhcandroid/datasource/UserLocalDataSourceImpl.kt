@@ -1,0 +1,44 @@
+package com.dhc.dhcandroid.datasource
+
+import androidx.datastore.core.DataStore
+import com.dhc.data.UserPreferences
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+
+class UserLocalDataSourceImpl @Inject constructor(
+    private val userProtoDataStore: DataStore<UserPreferences>,
+) : UserLocalDataSource {
+    override val isShownFortunePopup: Flow<Boolean> =
+        userProtoDataStore.data.map { it.isShownFortunePopup }
+
+    override val hasSeenLoveMission: Flow<Boolean> =
+        userProtoDataStore.data.map { it.hasSeenLoveMission }
+
+    override val lastShownReEntryPopupEpochDay: Flow<Long> =
+        userProtoDataStore.data.map { it.lastShownReEntryPopupEpochDay }
+
+    override suspend fun setShownFortunePopup(shown: Boolean) {
+        userProtoDataStore.updateData { pref ->
+            pref.toBuilder().setIsShownFortunePopup(shown).build()
+        }
+    }
+
+    override suspend fun setHasSeenLoveMission(seen: Boolean) {
+        userProtoDataStore.updateData { pref ->
+            pref.toBuilder().setHasSeenLoveMission(seen).build()
+        }
+    }
+
+    override suspend fun setLastShownReEntryPopupEpochDay(epochDay: Long) {
+        userProtoDataStore.updateData { pref ->
+            pref.toBuilder().setLastShownReEntryPopupEpochDay(epochDay).build()
+        }
+    }
+
+    override suspend fun clear() {
+        userProtoDataStore.updateData { pref ->
+            pref.toBuilder().clear().build()
+        }
+    }
+}

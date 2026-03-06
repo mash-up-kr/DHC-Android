@@ -1,0 +1,24 @@
+{
+  "animalCard": {
+    "name": "Leo",
+    "cardImage": "leo_card.png"
+  },
+  "birthDate": {
+    "date": "1990-05-21",
+    "calendarType": "SOLAR"
+  },
+  "birthTime": "15:30",
+  "preferredMissionCategoryList": [
+    {
+      "name": "HEALTH",
+      "displayName": "Health",
+      "image": "health_icon.png"
+    },
+    {
+      "name": "FINANCE",
+      "displayName": "Finance",
+      "image": "finance_icon.png"
+    }
+  ],
+  "alarm": true
+}

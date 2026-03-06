@@ -1,20 +1,19 @@
 package com.dhc.home.main
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.designsystem.DhcTheme
+import com.dhc.designsystem.badge.model.BadgeLevelType
 import com.dhc.designsystem.mission.MoneyFortuneMissionCard
 import com.dhc.designsystem.mission.SpendingHabitMissionCard
 import com.dhc.dhcandroid.model.MissionType
@@ -32,8 +31,6 @@ fun SpendingHabitMission(
     modifier: Modifier = Modifier,
     isFinishedTodayMission: Boolean = false,
 ) {
-    var missionChangeHeight by remember { mutableIntStateOf(0) }
-
     Column(
         modifier = modifier
     ) {
@@ -49,7 +46,6 @@ fun SpendingHabitMission(
         MissionCardReRoll(
             type = MissionType.LONG_TERM,
             modifier = Modifier.padding(top = 12.dp),
-            missionChangeHeight = missionChangeHeight,
             missionUiModel = missionUiModel,
             onClickMissionChange = { onClickMissionChange(missionUiModel) },
             onExpandedChange = { onExpandedChange(it, missionUiModel.missionId)},
@@ -60,7 +56,6 @@ fun SpendingHabitMission(
                     missionTitle = missionUiModel.title,
                     isChecked = missionUiModel.isChecked,
                     isFinishedTodayMission = isFinishedTodayMission,
-                    onHeightChanged = { missionChangeHeight = it },
                     onCheckChange = { onCheckChange( !missionUiModel.isChecked, missionUiModel.missionId)},
                     isBlink = missionUiModel.isBlink,
                     onBlinkEnd = { onBlinkEnd(missionUiModel.missionId) },
@@ -90,28 +85,39 @@ fun MonetaryLuckyDailyMission(
         )
         Spacer(modifier = Modifier.height(16.dp))
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            dailyMissionList.forEach { mission ->
-                var missionChangeHeight by remember { mutableIntStateOf(0) }
-                MissionCardReRoll(
-                    type = MissionType.DAILY,
-                    missionChangeHeight = missionChangeHeight,
-                    missionUiModel = mission,
-                    onClickMissionChange = { onClickMissionChange(mission) },
-                    onExpandedChange = { onExpandedChange(it, mission.missionId)},
-                    canEnabled = if(isFinishedTodayMission) false else !mission.isChecked,
-                    content = {
-                        MoneyFortuneMissionCard(
-                            isBlink = mission.isBlink,
-                            missionMode = mission.difficulty,
-                            isChecked = mission.isChecked,
-                            isFinishedTodayMission = isFinishedTodayMission,
-                            missionTitle = mission.title,
-                            onBlinkEnd = { onBlinkEnd(mission.missionId) },
-                            onHeightChanged = { missionChangeHeight = it },
-                            onCheckChange = { onCheckChange( !mission.isChecked, mission.missionId)}
-                        )
+            dailyMissionList.forEachIndexed { index, mission ->
+                Log.d("MissionCard", "Index: $index, MissionId: ${mission.missionId}, isExpanded: ${mission.isExpanded}")
+                key("${index}_${mission.missionId}") {
+                    val badgeLevelType = when {
+                        mission.type == MissionType.LOVE -> BadgeLevelType.LOVE
+                        mission.difficulty == "Easy" -> BadgeLevelType.EASY
+                        mission.difficulty == "Mid" -> BadgeLevelType.MEDIUM
+                        mission.difficulty == "Hard" -> BadgeLevelType.HARD
+                        else -> BadgeLevelType.EASY
                     }
-                )
+
+                    val missionMode = if (mission.type == MissionType.LOVE) "Love" else mission.difficulty
+
+                    MissionCardReRoll(
+                        type = MissionType.DAILY,
+                        missionUiModel = mission,
+                        onClickMissionChange = { onClickMissionChange(mission) },
+                        onExpandedChange = { onExpandedChange(it, mission.missionId)},
+                        canEnabled = if(isFinishedTodayMission) false else !mission.isChecked,
+                        content = {
+                            MoneyFortuneMissionCard(
+                                isBlink = mission.isBlink,
+                                missionMode = missionMode,
+                                isChecked = mission.isChecked,
+                                isFinishedTodayMission = isFinishedTodayMission,
+                                missionTitle = mission.title,
+                                badgeLevelType = badgeLevelType,
+                                onBlinkEnd = { onBlinkEnd(mission.missionId) },
+                                onCheckChange = { onCheckChange( !mission.isChecked, mission.missionId)}
+                            )
+                        }
+                    )
+                }
             }
         }
     }

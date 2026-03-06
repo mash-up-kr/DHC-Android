@@ -39,6 +39,7 @@ import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.Typography
+import com.dhc.designsystem.colors
 import kotlin.math.roundToInt
 
 @Composable
@@ -140,13 +141,14 @@ private fun PreviewSwipeTest() {
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ico_change),
+                        tint = colors.background.backgroundMain,
                         contentDescription = "change",
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = "미션 바꾸기",
                         style = Typography.bodyMedium,
-                        color = SurfaceColor.neutral500,
+                        color = colors.background.backgroundMain,
                         textAlign = TextAlign.Center
                     )
                 }

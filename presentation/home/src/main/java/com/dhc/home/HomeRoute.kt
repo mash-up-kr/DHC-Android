@@ -24,6 +24,8 @@ import com.dhc.home.main.HomeFlipCardScreen
 import com.dhc.home.main.HomeLoadingScreen
 import com.dhc.home.main.HomeScreen
 import com.dhc.home.main.MissionChangeBottomSheet
+import com.dhc.home.main.MissionFailDialog
+import com.dhc.home.model.MissionFailType
 import com.dhc.home.ui.MissionCompleteCheckBottomSheet
 import com.dhc.home.ui.MissionSuccessDialog
 import com.dhc.presentation.ui.ErrorScreen
@@ -34,6 +36,8 @@ fun HomeRoute(
     navBackStackEntry: NavBackStackEntry,
     navigateToMission: () -> Unit,
     navigateToMonetaryLuckDetail: () -> Unit,
+    navigateToFortuneSurvey: () -> Unit,
+    navigateToReward: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(navBackStackEntry)
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -45,11 +49,13 @@ fun HomeRoute(
             when (sideEffect) {
                 is HomeContract.SideEffect.NavigateToMonetaryDetailScreen -> navigateToMonetaryLuckDetail()
                 is HomeContract.SideEffect.NavigateToMission -> navigateToMission()
+                is HomeContract.SideEffect.NavigateToReward -> navigateToReward()
                 is HomeContract.SideEffect.ShowToast -> {
                     scope.launch {
                         snackBarHostState.showImmediately(sideEffect.msg)
                     }
                 }
+                is HomeContract.SideEffect.NavigateToFortuneSurvey -> navigateToFortuneSurvey()
             }
         }
     }
@@ -93,7 +99,7 @@ fun HomeRoute(
 
             if (state.isShowMissionSuccessDialog) {
                 MissionSuccessDialog(
-                    savedMoney = state.todaySavedMoney,
+                    earnedPoint = state.earnedPoint,
                     eventHandler = viewModel::sendEvent
                 )
             }
@@ -108,6 +114,13 @@ fun HomeRoute(
 
             if (state.isShowFinishMissionChangeBottomSheet) {
                 FinishMissionChangeBottomSheet(
+                    eventHandler = viewModel::sendEvent
+                )
+            }
+
+            if (state.isShowMissionFailDialog) {
+                MissionFailDialog(
+                    missionFailType = state.missionFailType,
                     eventHandler = viewModel::sendEvent
                 )
             }

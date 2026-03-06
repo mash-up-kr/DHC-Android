@@ -1,6 +1,6 @@
 package com.dhc.dhcandroid.navigation
 
-import androidx.compose.ui.graphics.Color
+import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.gnb.model.DhcBottomBarState
 import com.dhc.designsystem.topbar.model.DhcTopBarState
 import com.dhc.designsystem.topbar.model.TopBarPageState
@@ -10,43 +10,43 @@ enum class DhcRoute(
     val screenConfig: ScreenConfig,
 ) {
     SPLASH(
-        route = "splash",
+        route = DhcRouteConst.SPLASH,
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.None,
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
     INTRO(
-        route = "intro",
+        route = DhcRouteConst.INTRO,
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.None,
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
     INTRO_START(
-        route = "intro/start",
+        route = DhcRouteConst.INTRO_START,
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.None,
             bottomBarState = DhcBottomBarState.None,
-            containerBackground = ContainerBackground.ComposeColor(Color(0xFF020202)),
+            containerBackground = ContainerBackground.ComposeColor(SurfaceColor.neutral900),
         ),
     ),
     INTRO_DESCRIPTION(
-        route = "intro/description",
+        route = DhcRouteConst.INTRO_DESCRIPTION,
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.None,
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
     INTRO_FORTUNE_CARD(
-        route = "intro/fortuneCard",
+        route = DhcRouteConst.INTRO_FORTUNE_CARD,
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.None,
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
     INTRO_FORTUNE_DETAIL(
-        route = "intro/fortuneDetail",
+        route = DhcRouteConst.INTRO_FORTUNE_DETAIL,
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.None,
             bottomBarState = DhcBottomBarState.None,
@@ -54,14 +54,14 @@ enum class DhcRoute(
         ),
     ),
     INTRO_MISSION(
-        route = "intro/mission",
+        route = DhcRouteConst.INTRO_MISSION,
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.None,
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
     INTRO_GENDER(
-        route = "intro/gender",
+        route = DhcRouteConst.INTRO_GENDER,
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.Basic(
                 title = "",
@@ -75,7 +75,7 @@ enum class DhcRoute(
         ),
     ),
     INTRO_BIRTH_DAY(
-        route = "intro/birthDay",
+        route = DhcRouteConst.INTRO_BIRTH_DAY,
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.Basic(
                 title = "",
@@ -89,7 +89,7 @@ enum class DhcRoute(
         ),
     ),
     INTRO_BIRTH_TIME(
-        route = "intro/birthTime",
+        route = DhcRouteConst.INTRO_BIRTH_TIME,
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.Basic(
                 title = "",
@@ -103,7 +103,7 @@ enum class DhcRoute(
         ),
     ),
     INTRO_CATEGORY(
-        route = "intro/category",
+        route = DhcRouteConst.INTRO_CATEGORY,
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.Basic(
                 title = "",
@@ -117,27 +117,38 @@ enum class DhcRoute(
         ),
     ),
     MAIN_HOME(
-        route = "main/home",
+        route = DhcRouteConst.MAIN_HOME,
         screenConfig = ScreenConfig(
-            bottomBarState = DhcBottomBarState.BottomNavigation,
+            bottomBarState = NavigationItemConst.mainGnbItemList,
             containerBackground = ContainerBackground.BackgroundWithTopRightGradientColor(),
         ),
     ),
     MAIN_MISSION(
-        route = "main/mission",
+        route = DhcRouteConst.MAIN_MISSION,
         screenConfig = ScreenConfig(
-            bottomBarState = DhcBottomBarState.BottomNavigation,
+            bottomBarState = NavigationItemConst.mainGnbItemList,
+            containerBackground = ContainerBackground.BackgroundWithTopRightGradientColor(),
+        ),
+    ),
+    MAIN_REWARD(
+        route = DhcRouteConst.MAIN_REWARD,
+        screenConfig = ScreenConfig(
+            topBarState = DhcTopBarState.Basic(
+                title = "리워드",
+                isShowBackButton = false,
+            ),
+            bottomBarState = NavigationItemConst.mainGnbItemList,
             containerBackground = ContainerBackground.BackgroundWithTopRightGradientColor(),
         ),
     ),
     MAIN_MY(
-        route = "main/my",
+        route = DhcRouteConst.MAIN_MY,
         screenConfig = ScreenConfig(
-            bottomBarState = DhcBottomBarState.BottomNavigation,
+            bottomBarState = NavigationItemConst.mainGnbItemList,
         ),
     ),
     HOME_MONETARY_DETAIL(
-        route = "home/monetaryDetail",
+        route = DhcRouteConst.HOME_MONETARY_DETAIL,
         screenConfig = ScreenConfig(
             topBarState = DhcTopBarState.Basic(
                 title = "오늘의 금전운",
@@ -146,19 +157,35 @@ enum class DhcRoute(
             bottomBarState = DhcBottomBarState.None,
         ),
     ),
+    FORTUNE_SURVEY(
+        route = DhcRouteConst.FORTUNE_SURVEY,
+        screenConfig = ScreenConfig(),
+    ),
+    YEAR_FORTUNE(
+        route = DhcRouteConst.YEAR_FORTUNE,
+        screenConfig = ScreenConfig(
+            topBarState = DhcTopBarState.Basic(
+                title = "1년 운세",
+                isShowBackButton = true,
+            ),
+            bottomBarState = DhcBottomBarState.None,
+        ),
+    ),
     NONE(
-        route = "none",
+        route = DhcRouteConst.NONE,
         screenConfig = ScreenConfig(),
     ), ;
 
     companion object {
-        fun fromName(name: String): DhcRoute {
-            return entries.find { it.name == name } ?: NONE
-        }
-
         fun fromRoute(route: String): DhcRoute {
-            return entries.find { it.route.replace("{id}", "[^/]+").toRegex().matches(route) }
-                ?: NONE
+            return entries.find {
+                it.route
+                    .replace("{id}", "[^/]+")
+                    .replace("{isSampleData}", "[^&]+")
+                    .replace("?", "\\?")
+                    .toRegex()
+                    .matches(route)
+            } ?: NONE
         }
     }
 }

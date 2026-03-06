@@ -26,15 +26,32 @@ class IntroCategoryViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val categoryItems = dhcRepository.getMissionCategories().getSuccessOrNull()?.categories?.map {
-                CategoryItem(
-                    name = it.name,
-                    displayName = it.displayName,
-                    imageUrl = it.image
-                )
-            } ?: emptyList()
+            loadData()
+        }
+    }
 
-            reduce { copy(categoryItems = categoryItems) }
+    private suspend fun loadData() {
+        val categoryItems = dhcRepository.getMissionCategories().getSuccessOrNull()?.categories?.map {
+            CategoryItem(
+                name = it.name,
+                displayName = it.displayName,
+                imageUrl = it.image
+            )
+        }
+
+        if (categoryItems == null) {
+            reduce {
+                copy(
+                    loadState = IntroCategoryContract.LoadState.Error,
+                )
+            }
+        } else {
+            reduce {
+                copy(
+                    categoryItems = categoryItems,
+                    loadState = IntroCategoryContract.LoadState.Success,
+                )
+            }
         }
     }
 
@@ -65,6 +82,14 @@ class IntroCategoryViewModel @Inject constructor(
                         selectedIndexSet + event.selectedIndex
                     }
                 )
+            }
+            is Event.ClickRetryButton -> {
+                reduce {
+                    copy(
+                        loadState = IntroCategoryContract.LoadState.Loading,
+                    )
+                }
+                loadData()
             }
         }
     }

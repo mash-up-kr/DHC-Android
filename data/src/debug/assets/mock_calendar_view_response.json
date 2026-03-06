@@ -1,0 +1,58 @@
+{
+  "threeMonthViewResponse": [
+    {
+      "month": 7,
+      "averageSucceedProbability": 75,
+      "calendarDayMissionViews": [
+        {
+          "day": 1,
+          "date": "2025-07-01",
+          "finishedMissionCount": 3,
+          "totalMissionCount": 5
+        },
+        {
+          "day": 2,
+          "date": "2025-07-02",
+          "finishedMissionCount": 2,
+          "totalMissionCount": 5
+        }
+      ]
+    },
+    {
+      "month": 8,
+      "averageSucceedProbability": 80,
+      "calendarDayMissionViews": [
+        {
+          "day": 15,
+          "date": "2025-08-15",
+          "finishedMissionCount": 4,
+          "totalMissionCount": 6
+        },
+        {
+          "day": 16,
+          "date": "2025-08-16",
+          "finishedMissionCount": 5,
+          "totalMissionCount": 6
+        }
+      ]
+    },
+    {
+      "month": 9,
+      "averageSucceedProbability": 70,
+      "calendarDayMissionViews": [
+        {
+          "day": 10,
+          "date": "2025-09-10",
+          "finishedMissionCount": 1,
+          "totalMissionCount": 3
+        },
+        {
+          "day": 11,
+          "date": "2025-09-11",
+          "finishedMissionCount": 2,
+          "totalMissionCount": 3
+        }
+      ]
+    }
+  ]
+}

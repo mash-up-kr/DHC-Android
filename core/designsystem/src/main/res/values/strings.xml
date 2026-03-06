@@ -17,6 +17,7 @@
 
     <string name="btn_bottom_home">홈</string>
     <string name="btn_bottom_mission">리포트</string>
+    <string name="btn_bottom_reward">리워드</string>
     <string name="btn_bottom_my_page">마이페이지</string>
 
     <string name="money_fortune">금전운</string>

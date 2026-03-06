@@ -25,6 +25,7 @@ import com.dhc.common.FormatterUtil
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor
+import com.dhc.designsystem.GradientColor.textGradient01
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.fortunecard.DhcFortuneCard
 import com.dhc.designsystem.fortunecard.FlippableBox
@@ -100,6 +101,7 @@ private fun NotFlippedDescription() {
         score = stringResource(R.string.question_score),
         description = stringResource(R.string.home_fortune_card_description),
         modifier = Modifier.fillMaxWidth(),
+        scoreTextColor = textGradient01
     )
     Spacer(modifier = Modifier.height(24.dp))
     WordBalloon(
@@ -109,7 +111,7 @@ private fun NotFlippedDescription() {
         Text(
             text = stringResource(R.string.balloon_message_flip),
             style = DhcTypoTokens.TitleH7,
-            color = colors.text.textHighLightsPrimary,
+            color = colors.background.backgroundMain,
         )
     }
     Spacer(modifier = Modifier.height(23.dp))

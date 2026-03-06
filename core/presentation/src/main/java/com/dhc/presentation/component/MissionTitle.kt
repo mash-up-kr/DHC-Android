@@ -26,7 +26,7 @@ import com.dhc.designsystem.R
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.badge.DhcBadge
 import com.dhc.designsystem.badge.model.BadgeType
-import com.dhc.tooltip.DhcTooltip
+import com.dhc.designsystem.tooltip.DhcTooltip
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

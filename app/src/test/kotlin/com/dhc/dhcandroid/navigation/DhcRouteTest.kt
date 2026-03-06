@@ -18,20 +18,4 @@ class DhcRouteTest {
             assert(DhcRoute.fromRoute(route) == dhcRoute)
         }
     }
-
-    @Test
-    fun `fromName() Test`() {
-        val routeListTestCase: List<Pair<String, DhcRoute>> = listOf(
-            Pair("INTRO", DhcRoute.INTRO),
-            Pair("MAIN_HOME", DhcRoute.MAIN_HOME),
-            Pair("MAIN_MISSION", DhcRoute.MAIN_MISSION),
-            Pair("MAIN_MY", DhcRoute.MAIN_MY),
-            Pair("main", DhcRoute.NONE),
-            Pair("dhcdhcdhc/dhc", DhcRoute.NONE),
-        )
-
-        routeListTestCase.forEach { (route, dhcRoute) ->
-            assert(DhcRoute.fromName(route) == dhcRoute)
-        }
-    }
 }
