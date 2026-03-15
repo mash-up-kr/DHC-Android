@@ -131,15 +131,32 @@ print(f"✅ spec 저장: {path}")
 PYEOF
 ```
 
-### 6단계: validate_ui.py 실행 + HTML 리포트
+### 6단계: Roborazzi 스크린샷 캡처
+
+대상 파일이 속한 presentation 모듈을 파악해 아래 Gradle 태스크를 실행한다.
+모듈 경로는 targetFile의 `presentation/{module}/` 부분에서 추출한다.
+
+```bash
+./gradlew :{module}:recordRoborazziDebug 2>&1 | tail -20
+```
+
+예시:
+- `presentation/reward/...` → `./gradlew :presentation:reward:recordRoborazziDebug`
+- `presentation/home/...` → `./gradlew :presentation:home:recordRoborazziDebug`
+
+실패하거나 모듈 파악 불가 시 이 단계를 건너뛰고 계속 진행한다.
+성공 시 `scripts/figma_specs/roborazzi/` 에 PNG가 생성된다.
+
+### 7단계: validate_ui.py 실행 + HTML 리포트
 
 ```bash
 python3 scripts/validate_ui.py && open build/reports/figma-validation/report.html
 ```
 
 실패해도 (`exit 1`) HTML은 생성되므로 반드시 열어서 결과를 보여준다.
+HTML 리포트에 Roborazzi PNG가 있으면 Figma 스크린샷 옆에 나란히 표시된다.
 
-### 7단계: 결과 리포트 출력 (터미널)
+### 8단계: 결과 리포트 출력 (터미널)
 
 ```
 ## Figma 검증 결과: {컴포넌트명}
@@ -153,6 +170,7 @@ python3 scripts/validate_ui.py && open build/reports/figma-validation/report.htm
 
 ### 수정 필요 코드 (불일치 항목이 있을 경우)
 
+📱 Roborazzi 스크린샷: scripts/figma_specs/roborazzi/
 📄 HTML 리포트: build/reports/figma-validation/report.html
 ```
 

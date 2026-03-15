@@ -44,6 +44,10 @@ exoplayer = "1.6.1"
 #lottie
 lottie = "6.6.6"
 
+#roborazzi
+roborazzi = "1.7.0"
+robolectric = "4.13"
+
 # 프로젝트 설정
 targetSdk = "35"
 versionCode = "8"
@@ -119,6 +123,12 @@ exoplayer-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "e
 
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
 
+#roborazzi
+roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
+roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
+roborazzi-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-junit-rule", version.ref = "roborazzi" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
+
 [bundles]
 hilt = [
     "hilt-navigation",
@@ -189,3 +199,4 @@ protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
 google-gms = { id = "com.google.gms.google-services", version.ref = "firebase-gms" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
+roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }

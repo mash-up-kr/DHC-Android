@@ -190,7 +190,8 @@ def run_check(check: dict, source: str) -> CheckResult:
                        figma_value, section, f"알 수 없는 type: {check_type}")
 
 
-def validate_spec(spec: dict, project_root: Path, spec_path: Path) -> ComponentResult:
+def validate_spec(spec: dict, project_root: Path, spec_path: Path) -> tuple["ComponentResult", Optional[str]]:
+    roborazzi_b64 = load_roborazzi_b64(spec, project_root)
     result = ComponentResult(
         node_id=spec.get("nodeId", ""),
         component=spec.get("component", "Unknown"),
@@ -209,12 +210,12 @@ def validate_spec(spec: dict, project_root: Path, spec_path: Path) -> ComponentR
             expected=spec["targetFile"],
             actual="(파일 없음)",
         ))
-        return result
+        return result, roborazzi_b64
 
     for check in spec.get("checks", []):
         result.checks.append(run_check(check, source))
 
-    return result
+    return result, roborazzi_b64
 
 
 # ──────────────────────────────────────────────
@@ -232,35 +233,64 @@ def status_badge(status: str) -> str:
     )
 
 
-def render_screenshot_panel(result: ComponentResult) -> str:
+def load_roborazzi_b64(spec: dict, project_root: Path) -> Optional[str]:
+    """scripts/figma_specs/roborazzi/ 에서 컴포넌트에 맞는 PNG를 찾아 base64로 반환."""
+    roborazzi_dir = project_root / "scripts" / "figma_specs" / "roborazzi"
+    if not roborazzi_dir.exists():
+        return None
+    component = spec.get("component", "")
+    # {Component}_lv1.png 같은 패턴을 우선 탐색
+    candidates = sorted(roborazzi_dir.glob(f"{component}*.png"))
+    if not candidates:
+        candidates = sorted(roborazzi_dir.glob("*.png"))
+    if not candidates:
+        return None
+    return base64.b64encode(candidates[0].read_bytes()).decode()
+
+
+def render_screenshot_panel(result: ComponentResult, roborazzi_b64: Optional[str] = None) -> str:
     fail_sections = {c.section for c in result.checks if c.status == "fail" and c.section}
 
     if result.screenshot_b64:
-        img_tag = f'<img src="data:image/png;base64,{result.screenshot_b64}" style="width:100%;border-radius:8px;display:block;" alt="Figma screenshot">'
+        figma_img = f'<img src="data:image/png;base64,{result.screenshot_b64}" style="width:100%;border-radius:8px;display:block;" alt="Figma screenshot">'
     elif result.figma_url:
-        img_tag = f'''
+        figma_img = f'''
         <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:300px;background:#1f2127;border-radius:8px;gap:12px;">
           <span style="font-size:32px;">🎨</span>
           <span style="color:#7b8696;font-size:13px;">스크린샷 없음</span>
           <a href="{result.figma_url}" target="_blank" style="color:#8d83e8;font-size:12px;">Figma에서 보기 ↗</a>
         </div>'''
     else:
-        return ""
+        figma_img = ""
 
     fail_list = ""
     if fail_sections:
         items = "".join(f'<li style="margin-bottom:4px;color:#ef4444;">❌ {s}</li>' for s in sorted(fail_sections))
         fail_list = f'<div style="margin-top:12px;"><p style="color:#7b8696;font-size:12px;margin-bottom:6px;">불일치 섹션</p><ul style="padding-left:16px;font-size:13px;">{items}</ul></div>'
 
-    return f'''
-    <div style="width:220px;flex-shrink:0;">
-      <p style="color:#7b8696;font-size:12px;margin-bottom:8px;font-weight:600;">FIGMA 디자인</p>
-      {img_tag}
+    figma_panel = f'''
+    <div style="width:200px;flex-shrink:0;">
+      <p style="color:#7b8696;font-size:11px;margin-bottom:6px;font-weight:600;text-transform:uppercase;">Figma 디자인</p>
+      {figma_img}
       {fail_list}
+    </div>''' if figma_img else ""
+
+    roborazzi_panel = ""
+    if roborazzi_b64:
+        roborazzi_panel = f'''
+    <div style="width:200px;flex-shrink:0;">
+      <p style="color:#7b8696;font-size:11px;margin-bottom:6px;font-weight:600;text-transform:uppercase;">코드 렌더링 (Roborazzi)</p>
+      <img src="data:image/png;base64,{roborazzi_b64}" style="width:100%;border-radius:8px;display:block;" alt="Roborazzi screenshot">
     </div>'''
 
+    if not figma_panel and not roborazzi_panel:
+        return ""
 
-def render_component(r: ComponentResult) -> str:
+    panels = figma_panel + roborazzi_panel
+    return f'<div style="display:flex;gap:12px;flex-shrink:0;">{panels}</div>'
+
+
+def render_component(r: ComponentResult, roborazzi_b64: Optional[str] = None) -> str:
     # 섹션별로 체크 그룹화
     sections: dict[str, list[CheckResult]] = {}
     for c in r.checks:
@@ -308,7 +338,7 @@ def render_component(r: ComponentResult) -> str:
 
     overall_bg = "#1a2a1a" if r.overall == "pass" else "#2a1a1a"
     figma_link = f'<a href="{r.figma_url}" style="color:#8d83e8;font-size:12px;" target="_blank">Figma ↗</a>' if r.figma_url else ""
-    screenshot_panel = render_screenshot_panel(r)
+    screenshot_panel = render_screenshot_panel(r, roborazzi_b64=roborazzi_b64)
 
     return f"""
     <div style="background:#17191f;border:1px solid #2a2f38;border-radius:12px;margin-bottom:32px;overflow:hidden;">
@@ -348,7 +378,7 @@ def generate_html(results: list[ComponentResult], generated_at: str) -> str:
     pass_rate = round(total_pass / total * 100) if total > 0 else 0
     overall_color = "#22c55e" if total_fail == 0 else "#ef4444"
 
-    components_html = "".join(render_component(r) for r in results)
+    components_html = "".join(render_component(r, roborazzi_b64=getattr(r, "_roborazzi_b64", None)) for r in results)
 
     return f"""<!DOCTYPE html>
 <html lang="ko">
@@ -427,11 +457,13 @@ def main():
     results = []
     for spec_file in spec_files:
         spec = load_spec(spec_file)
-        result = validate_spec(spec, project_root, spec_file)
+        result, roborazzi_b64 = validate_spec(spec, project_root, spec_file)
+        result._roborazzi_b64 = roborazzi_b64
         results.append(result)
         screenshot_icon = "🖼️" if result.screenshot_b64 else "  "
+        roborazzi_icon = "📱" if roborazzi_b64 else "  "
         icon = "✅" if result.overall == "pass" else "❌"
-        print(f"  {icon} {screenshot_icon} {result.component}: {result.pass_count} 통과 / {result.fail_count} 실패")
+        print(f"  {icon} {screenshot_icon}{roborazzi_icon} {result.component}: {result.pass_count} 통과 / {result.fail_count} 실패")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     html = generate_html(results, datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
