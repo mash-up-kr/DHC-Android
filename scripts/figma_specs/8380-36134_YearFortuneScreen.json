@@ -1,0 +1,125 @@
+{
+  "nodeId": "8380:36134",
+  "component": "YearFortuneScreen",
+  "figmaUrl": "https://www.figma.com/design/7xHHLZb5X78nH2Is3CIpFC/Design---Flifin-v3.0.0?node-id=8380-36134",
+  "targetFile": "presentation/reward/src/main/java/com/dhc/reward/yearfortune/YearFortuneScreen.kt",
+  "extractedAt": "2026-03-15",
+  "screenshot_nodeId": "8380:36134",
+  "checks": [
+    {
+      "id": "tooltip_text",
+      "description": "[말풍선] 텍스트 문구",
+      "type": "text_contains",
+      "expected": "아래 내용은 예시 운세예요 👀",
+      "figma_value": "아래 내용은 예시 운세예요 👀",
+      "section": "SampleData Tooltip"
+    },
+    {
+      "id": "tooltip_padding_h",
+      "description": "[말풍선] horizontal padding",
+      "type": "dp_value",
+      "expected": "10",
+      "pattern": "padding\\(horizontal\\s*=\\s*(\\d+)\\.dp",
+      "figma_value": "10dp",
+      "section": "SampleData Tooltip"
+    },
+    {
+      "id": "tooltip_corner_radius",
+      "description": "[말풍선] corner radius",
+      "type": "dp_value",
+      "expected": "8",
+      "pattern": "RoundedCornerShape\\((\\d+)\\.dp\\)",
+      "figma_value": "8dp",
+      "section": "SampleData Tooltip"
+    },
+    {
+      "id": "tooltip_text_style",
+      "description": "[말풍선] 텍스트 스타일 (Body5: 14sp, W500, lh 20sp)",
+      "type": "token",
+      "expected": "Body5",
+      "pattern": "style\\s*=\\s*DhcTypoTokens\\.(\\w+)",
+      "figma_value": "Body/B5 — 14sp, Medium 500, lineHeight 20sp",
+      "section": "SampleData Tooltip"
+    },
+    {
+      "id": "overall_fortune_title_style",
+      "description": "[전반적인 운세] 제목 스타일 (H4-1: 18sp, W600, lh 24sp)",
+      "type": "token",
+      "expected": "TitleH4_1",
+      "pattern": "titleStyle\\s*=\\s*DhcTypoTokens\\.(\\w+)",
+      "figma_value": "Head/H4-1 — 18sp, SemiBold 600, lineHeight 24sp, -0.1sp",
+      "section": "전반적인 운세"
+    },
+    {
+      "id": "overall_fortune_message_title",
+      "description": "[전반적인 운세] MessageCard title 라벨",
+      "type": "text_contains",
+      "expected": "title = \"운세\"",
+      "figma_value": "\"운세\" 라벨 (neutral/400, Body5)",
+      "section": "전반적인 운세"
+    },
+    {
+      "id": "quickview_title_style",
+      "description": "[한 눈에 보는 운세] 제목 스타일 (H5-1: 16sp, W600, lh 22sp)",
+      "type": "token",
+      "expected": "TitleH5_1",
+      "pattern": "titleStyle\\s*=\\s*DhcTypoTokens\\.(TitleH\\w+)",
+      "figma_value": "Head/H5-1 — 16sp, SemiBold 600, lineHeight 22sp, -0.1sp",
+      "section": "한 눈에 보는 운세"
+    },
+    {
+      "id": "quickview_card_gap",
+      "description": "[한 눈에 보는 운세] 카드 간격",
+      "type": "dp_value",
+      "expected": "12",
+      "pattern": "spacedBy\\((\\d+)\\.dp\\)",
+      "figma_value": "spacing/12 = 12dp",
+      "section": "한 눈에 보는 운세"
+    },
+    {
+      "id": "section_gap",
+      "description": "[섹션 간격] 각 섹션 사이 Spacer",
+      "type": "dp_value",
+      "expected": "24",
+      "pattern": "Modifier\\.height\\((\\d+)\\.dp\\)",
+      "figma_value": "spacing/24 = 24dp",
+      "section": "전체 레이아웃"
+    },
+    {
+      "id": "fortune_card_width",
+      "description": "[운세 카드] 카드 width",
+      "type": "dp_value",
+      "expected": "144",
+      "pattern": "size\\(width\\s*=\\s*(\\d+)\\.dp",
+      "figma_value": "144dp",
+      "section": "Fortune Card"
+    },
+    {
+      "id": "fortune_card_height",
+      "description": "[운세 카드] 카드 height",
+      "type": "dp_value",
+      "expected": "200",
+      "pattern": "size\\(.*height\\s*=\\s*(\\d+)\\.dp",
+      "figma_value": "200dp",
+      "section": "Fortune Card"
+    },
+    {
+      "id": "message_card_padding_bottom",
+      "description": "[MessageCard] padding 비대칭 (top 20dp, bottom 16dp)",
+      "type": "text_contains",
+      "expected": "padding(top = 20.dp, bottom = 16.dp, start = 16.dp, end = 16.dp)",
+      "figma_value": "pt-20dp, pb-16dp, px-16dp",
+      "section": "DhcMessageCard"
+    },
+    {
+      "id": "screen_horizontal_padding",
+      "description": "[전체 화면] horizontal padding",
+      "type": "dp_value",
+      "expected": "20",
+      "pattern": "padding\\(horizontal\\s*=\\s*(\\d+)\\.dp\\)",
+      "figma_value": "padding/padding-md = 20dp",
+      "section": "전체 레이아웃"
+    }
+  ],
+  "screenshot_path": "screenshots/8380-36134.png"
+}
