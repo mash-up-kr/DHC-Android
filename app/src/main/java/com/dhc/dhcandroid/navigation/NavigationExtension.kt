@@ -1,5 +1,6 @@
 package com.dhc.dhcandroid.navigation
 
+import android.net.Uri
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
@@ -50,6 +51,11 @@ fun NavHostController.navigateToMy() {
 
 fun NavHostController.navigateToReward() {
     navigateToBottomNavigation(DhcRoute.MAIN_REWARD)
+}
+
+fun NavHostController.navigateToFortuneSurvey(url: String) {
+    val encodedUrl = Uri.encode(url)
+    navigate(DhcRoute.FORTUNE_SURVEY.route.replace("{url}", encodedUrl))
 }
 
 fun NavHostController.navigateToIntroPageWithClearStack() {

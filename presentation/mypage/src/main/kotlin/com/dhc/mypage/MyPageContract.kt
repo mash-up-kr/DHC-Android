@@ -19,12 +19,12 @@ class MyPageContract {
         data object ClickAppResetButton : Event
         data object ClickAppResetConfirmButton : Event
         data object ClickDialogDismissButton : Event
-        data object ClickFortuneSurveyButton : Event
+        data class ClickFortuneSurveyButton(val url: String) : Event
     }
 
     sealed interface SideEffect : UiSideEffect {
         data object NavigateToIntro : SideEffect
-        data object NavigateToFortuneSurvey : SideEffect
+        data class NavigateToFortuneSurvey(val url: String) : SideEffect
         data class ShowToast(val message: String) : SideEffect
     }
 }

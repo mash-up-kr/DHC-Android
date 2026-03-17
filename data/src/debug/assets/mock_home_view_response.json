@@ -75,5 +75,16 @@
     "negativeScore": 25,
     "cardInfo": {}
   },
-  "todayDone": false
+  "todayDone": false,
+  "yesterdayMissionSuccess": true,
+  "longAbsence": false,
+  "isFirstAccess": false,
+  "point": 150,
+  "testBanner": {
+    "version": 1,
+    "title": "궁합 테스트에 참여하고\n스페셜 미션 받아보세요",
+    "subTitle": "지금까지 389명이 참여했어요!",
+    "imageUrl": "https://contents.kyobobook.co.kr/sih/fit-in/400x0/pdt/9788927107651.jpg",
+    "testUrl": "https://dhc-web.vercel.app/love-test"
+  }
 }

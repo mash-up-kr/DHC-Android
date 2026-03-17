@@ -141,7 +141,7 @@ fun DhcNavHost(
         composable(DhcRoute.MAIN_MY.route) {
             MyPageRoute(
                 navigateToInitialScreen = { navController.navigateToIntroPageWithClearStack() },
-                navigateToFortuneSurvey = { navController.navigateTo(DhcRoute.FORTUNE_SURVEY) },
+                navigateToFortuneSurvey = { navController.navigateToFortuneSurvey(it) },
             )
         }
 
@@ -150,7 +150,7 @@ fun DhcNavHost(
                 navBackStackEntry = navBackStackEntry,
                 navigateToMission = { navController.navigateToMission() },
                 navigateToMonetaryLuckDetail = { navController.navigateTo(DhcRoute.HOME_MONETARY_DETAIL) },
-                navigateToFortuneSurvey = { navController.navigateTo(DhcRoute.FORTUNE_SURVEY) },
+                navigateToFortuneSurvey = { navController.navigateToFortuneSurvey(it) },
                 navigateToReward = { navController.navigateToReward() },
             )
         }
@@ -159,7 +159,15 @@ fun DhcNavHost(
             MonetaryLuckDetailRoute()
         }
 
-        composable(DhcRoute.FORTUNE_SURVEY.route) {
+        composable(
+            route = DhcRoute.FORTUNE_SURVEY.route,
+            arguments = listOf(
+                navArgument("url") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                },
+            ),
+        ) {
             SurveyRoute(
                 navigateToHome = { navController.navigateToHome() },
                 navigateToPrevScreen = { navController.navigateUp() },

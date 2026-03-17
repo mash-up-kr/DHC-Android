@@ -1,5 +1,6 @@
 package com.example.survey
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.dhc.common.onSuccess
 import com.dhc.dhcandroid.repository.AuthDataStoreRepository
@@ -9,12 +10,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.text.orEmpty
 
 @HiltViewModel
 class SurveyViewModel @Inject constructor(
     private val authRepository: AuthDataStoreRepository,
     private val dhcRepository: DhcRepository,
+    savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<SurveyContract.State, SurveyContract.Event, SurveyContract.SideEffect>() {
+
+    private val url = savedStateHandle.get<String>("url").orEmpty()
 
     init {
         fetchShareToken()
@@ -37,6 +42,7 @@ class SurveyViewModel @Inject constructor(
                         copy(
                             shareToken = response?.shareCode,
                             isLoading = false,
+                            landingUrl = url,
                         )
                     }
                 }

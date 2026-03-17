@@ -147,10 +147,12 @@ fun HomeScreen(
                 label = "FortuneSurveyVisibleAnimation",
             ) {
                 DhcModal(
-                    imageResource = ImageResource.Drawable(resId = R.drawable.fortune_survey_thumbnail),
+                    title = state.homeInfo.testBanner.title,
+                    subTitle = state.homeInfo.testBanner.subTitle,
+                    imageResource = ImageResource.Url(url = state.homeInfo.testBanner.imageUrl),
                     contentScale = ContentScale.FillWidth,
                     onClickClose = { eventHandler(HomeContract.Event.ClickFortuneSurveyClose) },
-                    onClickSubmit = { eventHandler(HomeContract.Event.ClickFortuneSurveySubmit) },
+                    onClickSubmit = { eventHandler(HomeContract.Event.ClickFortuneSurveySubmit(state.homeInfo.testBanner.testUrl)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 20.dp, vertical = 24.dp),
