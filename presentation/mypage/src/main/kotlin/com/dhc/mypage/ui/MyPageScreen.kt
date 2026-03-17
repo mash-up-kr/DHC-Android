@@ -36,6 +36,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dhc.common.DHC_WEB_URL_LOVE_TEST
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor.backgroundGradient01
@@ -201,7 +202,7 @@ private fun Setting(
                 SettingItem.Normal(
                     text = stringResource(R.string.check_fortune_test),
                     iconRes = DR.drawable.ico_couple,
-                    onClick = { eventHandler(Event.ClickFortuneSurveyButton) },
+                    onClick = { eventHandler(Event.ClickFortuneSurveyButton(DHC_WEB_URL_LOVE_TEST)) },
                     isArrowVisible = true,
                 ),
             )

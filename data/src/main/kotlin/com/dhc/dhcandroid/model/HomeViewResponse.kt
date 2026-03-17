@@ -11,4 +11,5 @@ data class HomeViewResponse(
     val yesterdayMissionSuccess: Boolean = false,
     val longAbsence: Boolean = false,
     val isFirstAccess: Boolean = false,
+    val testBanner: TestBannerResponse = TestBannerResponse(),
 )

@@ -13,7 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.dhc.mypage.MyPageContract.*
+import com.dhc.mypage.MyPageContract.Event
+import com.dhc.mypage.MyPageContract.SideEffect
 import com.dhc.mypage.ui.AppResetDialog
 import com.dhc.mypage.ui.MyPageScreen
 import kotlinx.coroutines.launch
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MyPageRoute(
     navigateToInitialScreen: () -> Unit,
-    navigateToFortuneSurvey: () -> Unit,
+    navigateToFortuneSurvey: (url: String) -> Unit,
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -32,7 +33,7 @@ fun MyPageRoute(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 is SideEffect.NavigateToIntro -> navigateToInitialScreen()
-                is SideEffect.NavigateToFortuneSurvey -> navigateToFortuneSurvey()
+                is SideEffect.NavigateToFortuneSurvey -> navigateToFortuneSurvey(sideEffect.url)
                 is SideEffect.ShowToast -> {
                     coroutineScope.launch {
                         snackBarState.showSnackbar(

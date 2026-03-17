@@ -182,6 +182,7 @@ enum class DhcRoute(
                 it.route
                     .replace("{id}", "[^/]+")
                     .replace("{isSampleData}", "[^&]+")
+                    .replace("{url}", "[^&]+")
                     .replace("?", "\\?")
                     .toRegex()
                     .matches(route)

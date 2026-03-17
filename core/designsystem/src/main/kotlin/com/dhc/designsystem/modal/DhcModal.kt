@@ -36,6 +36,8 @@ import com.dhc.designsystem.button.model.DhcButtonStyle
 
 @Composable
 fun DhcModal(
+    title: String,
+    subTitle: String,
     imageResource: ImageResource,
     contentScale: ContentScale,
     onClickClose: () -> Unit,
@@ -98,7 +100,7 @@ fun DhcModal(
 
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "궁합 테스트에 참여하고\n스페셜 미션 받아보세요",
+            text = title,
             style = DhcTypoTokens.TitleH4_1,
             color = colors.text.textBodyPrimary,
             textAlign = TextAlign.Center,
@@ -106,7 +108,7 @@ fun DhcModal(
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "지금까지 389명이 참여했어요!",
+            text = subTitle,
             style = DhcTypoTokens.Body5,
             color = SurfaceColor.neutral300,
             textAlign = TextAlign.Center,
@@ -131,6 +133,8 @@ fun DhcModal(
 private fun DhcPopupPreview() {
     DhcTheme {
         DhcModal(
+            title = "궁합 테스트에 참여하고\n스페셜 미션 받아보세요",
+            subTitle= "지금까지 389명이 참여했어요!",
             imageResource = ImageResource.Drawable(R.drawable.ico_couple),
             contentScale = ContentScale.FillWidth,
             onClickClose = {},

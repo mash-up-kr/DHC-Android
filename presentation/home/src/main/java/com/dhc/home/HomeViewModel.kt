@@ -162,7 +162,7 @@ class HomeViewModel @Inject constructor(
             is Event.ClickFortuneSurveySubmit -> {
                 reduce { copy(isFortuneSurveyVisible = false) }
                 userRepository.updateIsShownFortunePopup(true)
-                postSideEffect(SideEffect.NavigateToFortuneSurvey)
+                postSideEffect(SideEffect.NavigateToFortuneSurvey(event.url))
             }
 
             is Event.ClickMissionFailConfirmButton -> {
