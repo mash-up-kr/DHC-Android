@@ -12,7 +12,8 @@ data class HomeUiModel(
     val longAbsence: Boolean = false,
     val isFirstAccess: Boolean = false,
     val remainingMissionTimer: Long = 0L,
-    val rewardEvent: RewardEvent = RewardEvent()
+    val rewardEvent: RewardEvent = RewardEvent(),
+    val testBanner: TestBannerUiModel = TestBannerUiModel(),
 ) {
     companion object {
         fun from(homeViewResponse: HomeViewResponse) = HomeUiModel(
@@ -24,7 +25,8 @@ data class HomeUiModel(
             longAbsence = homeViewResponse.longAbsence,
             isFirstAccess = homeViewResponse.isFirstAccess,
             remainingMissionTimer = DateUtil.getTimeUntilMidnight(),
-            rewardEvent = makeRewardEventContent(homeViewResponse)
+            rewardEvent = makeRewardEventContent(homeViewResponse),
+            testBanner = TestBannerUiModel.from(homeViewResponse.testBanner),
         )
 
 

@@ -70,7 +70,7 @@ fun SurveyScreen(
                         canGoBack = updatedCanGoBack
                     },
                 )
-                loadUrl(DhcWebUrl)
+                loadUrl(state.landingUrl)
             }.also {
                 webView = it
             }

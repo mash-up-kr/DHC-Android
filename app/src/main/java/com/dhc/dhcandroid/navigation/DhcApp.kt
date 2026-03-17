@@ -105,7 +105,7 @@ private fun currentScreenConfigAsState(navController: NavHostController): State<
                     topBarState = DhcTopBarState.Basic(
                         title = if (isSampleData) "리워드는 뭔가요?" else "1년 운세",
                         isShowBackButton = true,
-                    )
+                    ),
                 )
             } else {
                 dhcRoute.screenConfig

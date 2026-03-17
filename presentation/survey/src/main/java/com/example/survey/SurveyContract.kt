@@ -9,6 +9,7 @@ class SurveyContract {
     data class State(
         val shareToken: String? = null,
         val isLoading: Boolean = true,
+        val landingUrl: String = "",
     ) : UiState
 
     sealed interface Event : UiEvent

@@ -64,7 +64,7 @@ class HomeContract {
         data object FortuneCardFlipped: Event
         data object ClickErrorRetryButton: Event
         data object ClickFortuneSurveyClose: Event
-        data object ClickFortuneSurveySubmit: Event
+        data class ClickFortuneSurveySubmit(val url: String): Event
         data object ClickRewardButton: Event
         data object ClickMissionFailConfirmButton: Event
     }
@@ -73,7 +73,7 @@ class HomeContract {
         data object NavigateToMonetaryDetailScreen: SideEffect
         data class ShowToast(val msg: String): SideEffect
         data object NavigateToMission: SideEffect
-        data object NavigateToFortuneSurvey: SideEffect
+        data class NavigateToFortuneSurvey(val url: String): SideEffect
         data object NavigateToReward: SideEffect
     }
 }
