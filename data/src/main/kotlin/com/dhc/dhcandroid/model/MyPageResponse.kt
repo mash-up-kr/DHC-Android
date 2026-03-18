@@ -9,10 +9,18 @@ data class MyPageResponse(
     val birthTime: String? = null,
     val preferredMissionCategoryList: List<MissionCategoryResponse> = emptyList(),
     val alarm: Boolean = false,
+    val fortuneTests: List<FortuneTestInfo> = emptyList(),
 )
 
 @Serializable
 data class AnimalCard(
     val name: String = "",
     val cardImage: String? = null
+)
+
+@Serializable
+data class FortuneTestInfo(
+    val image: String = "",
+    val displayName: String = "",
+    val testUrl: String = "",
 )

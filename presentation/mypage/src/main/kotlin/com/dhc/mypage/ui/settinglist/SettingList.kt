@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dhc.common.ImageResource
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
@@ -63,11 +64,11 @@ private fun SettingListPreview() {
     DhcTheme {
         SettingList(
             settingItems = listOf(
-                SettingItem.Normal(text = "내 정보", iconRes = DR.drawable.ico_sign_out, isArrowVisible = false),
-                SettingItem.Toggle(text = "알림 설정", iconRes = DR.drawable.ico_sign_out, isOn = true),
-                SettingItem.Normal(text = "고객센터", iconRes = DR.drawable.ico_sign_out, isArrowVisible = false),
-                SettingItem.Normal(text = "약관 및 정책", iconRes = DR.drawable.ico_sign_out, isArrowVisible = true),
-                SettingItem.Normal(text = "로그아웃", iconRes = DR.drawable.ico_sign_out, isArrowVisible = false),
+                SettingItem.Normal(text = "내 정보", imageResource = ImageResource.Drawable(DR.drawable.ico_sign_out), isArrowVisible = false),
+                SettingItem.Toggle(text = "알림 설정", imageResource = ImageResource.Drawable(DR.drawable.ico_sign_out), isOn = true),
+                SettingItem.Normal(text = "고객센터", imageResource = ImageResource.Drawable(DR.drawable.ico_sign_out), isArrowVisible = false),
+                SettingItem.Normal(text = "약관 및 정책", imageResource = ImageResource.Drawable(DR.drawable.ico_sign_out), isArrowVisible = true),
+                SettingItem.Normal(text = "로그아웃", imageResource = ImageResource.Drawable(DR.drawable.ico_sign_out), isArrowVisible = false),
             )
         )
     }

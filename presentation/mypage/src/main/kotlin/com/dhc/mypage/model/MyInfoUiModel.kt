@@ -1,5 +1,6 @@
 package com.dhc.mypage.model
 
+import com.dhc.dhcandroid.model.FortuneTestInfo
 import com.dhc.dhcandroid.model.MyPageResponse
 import java.time.LocalDate
 import java.time.LocalTime
@@ -9,6 +10,7 @@ data class MyInfoUiModel(
     val animalImageUrl: String? = null,
     val birthDate: LocalDate? = null,
     val birthTime: LocalTime? = null,
+    val fortuneTestInfoList: List<FortuneTestInfo> = emptyList(),
 ) {
     companion object {
         fun from(myPageResponse: MyPageResponse) = MyInfoUiModel(
@@ -16,6 +18,7 @@ data class MyInfoUiModel(
             animalImageUrl = myPageResponse.animalCard.cardImage,
             birthDate = myPageResponse.birthDate?.let { runCatching { LocalDate.parse(it.date) }.getOrNull() },
             birthTime = myPageResponse.birthTime?.let { runCatching { LocalTime.parse(it) }.getOrNull() },
+            fortuneTestInfoList = myPageResponse.fortuneTests
         )
     }
 }

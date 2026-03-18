@@ -3,6 +3,7 @@ package com.dhc.mypage.ui
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.util.Log
 import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
@@ -37,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dhc.common.DHC_WEB_URL_LOVE_TEST
+import com.dhc.common.ImageResource
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor.backgroundGradient01
@@ -194,19 +196,21 @@ private fun Setting(
             style = DhcTypoTokens.Body3,
             color = SurfaceColor.neutral30,
         )
-        SettingList(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
-            settingItems = listOf(
-                SettingItem.Normal(
-                    text = stringResource(R.string.check_fortune_test),
-                    iconRes = DR.drawable.ico_couple,
-                    onClick = { eventHandler(Event.ClickFortuneSurveyButton(DHC_WEB_URL_LOVE_TEST)) },
-                    isArrowVisible = true,
-                ),
+        state.myInfo.fortuneTestInfoList.forEach { fortuneTestInfo ->
+            SettingList(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                settingItems = listOf(
+                    SettingItem.Normal(
+                        text = stringResource(R.string.check_fortune_test),
+                        imageResource = ImageResource.Url(fortuneTestInfo.image),
+                        onClick = { eventHandler(Event.ClickFortuneSurveyButton(fortuneTestInfo.testUrl)) },
+                        isArrowVisible = true,
+                    ),
+                )
             )
-        )
+        }
 
         Text(
             modifier = Modifier.padding(start = 20.dp, top = 24.dp, bottom = 12.dp, end = 20.dp),
@@ -221,7 +225,7 @@ private fun Setting(
             settingItems = listOf(
                 SettingItem.Normal(
                     text = stringResource(R.string.initial_app),
-                    iconRes = DR.drawable.ico_sign_out,
+                    imageResource = ImageResource.Drawable(DR.drawable.ico_sign_out),
                     onClick = { eventHandler(Event.ClickAppResetButton) },
                     isArrowVisible = false,
                 ),
