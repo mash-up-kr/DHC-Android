@@ -10,7 +10,7 @@ data class RewardProgressResponse(
 
 @Serializable
 data class RewardUser(
-    val rewardImageUrl: String = "",
+    val image: String = "",
     val rewardLevel: RewardLevel = RewardLevel(),
     val totalPoint: Int = 0,
     val currentLevelPoint: Int = 0,
@@ -30,5 +30,6 @@ data class RewardItem(
     val title: String = "",
     val isUnlocked: Boolean = false,
     val isUsed: Boolean = false,
+    val icon: String = "",
     val message: String = "",
 )
