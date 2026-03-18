@@ -1,22 +1,21 @@
 package com.dhc.mypage.ui.settinglist
 
-import androidx.annotation.DrawableRes
+import com.dhc.common.ImageResource
 
 internal sealed interface SettingItem {
     val text: String
-    @get:DrawableRes
-    val iconRes: Int
+    val imageResource: ImageResource
 
     data class Normal(
         override val text: String,
-        @DrawableRes override val iconRes: Int,
+        override val imageResource: ImageResource,
         val isArrowVisible: Boolean,
         val onClick: () -> Unit = {},
     ): SettingItem
 
     data class Toggle(
         override val text: String,
-        @DrawableRes override val iconRes: Int,
+        override val imageResource: ImageResource,
         val isOn: Boolean,
         val onCheckedChange: (Boolean) -> Unit = {},
     ): SettingItem
