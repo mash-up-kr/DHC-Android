@@ -7,6 +7,6 @@ data class TestBannerResponse(
     val version: Int = 0,
     val title: String = "",
     val subTitle: String = "",
-    val imageUrl: String = "",
+    val image: String = "",
     val testUrl: String = "",
 )

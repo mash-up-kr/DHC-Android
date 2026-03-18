@@ -34,7 +34,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build Release AAB
-        run: ./gradlew bundleRelease
+        run: ./gradlew bundleRealRelease
 
       - name: Sign AAB
         id: sign_app

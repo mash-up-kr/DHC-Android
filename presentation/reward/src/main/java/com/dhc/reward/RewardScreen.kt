@@ -24,26 +24,19 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TooltipBox
-import androidx.compose.material3.TooltipDefaults
 import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.IntRect
-import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -52,13 +45,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntRect
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.PopupPositionProvider
 import coil3.compose.AsyncImage
 import com.dhc.common.drawBalloonTail
 import com.dhc.designsystem.DhcTheme
 import com.dhc.designsystem.DhcTypoTokens
 import com.dhc.designsystem.GradientColor.fortuneBorderGradientLow
-import com.dhc.designsystem.GradientColor.fortuneGradientLow
 import com.dhc.designsystem.LocalDhcColors
 import com.dhc.designsystem.SurfaceColor
 import com.dhc.designsystem.TransparentColor
@@ -258,6 +255,7 @@ fun RewardScreen(
                         isUnlocked = it.isUnlocked,
                         isUsed = it.isUsed,
                         message = it.message,
+                        icon = it.icon,
                     )
                 },
                 onClickItem = { reward ->
@@ -419,6 +417,7 @@ private data class ReceivedReward(
     val isUnlocked: Boolean = false,
     val isUsed: Boolean = false,
     val message: String = "",
+    val icon: String = "",
 )
 
 @Composable
@@ -497,10 +496,10 @@ private fun ReceivedRewardItem(
             contentAlignment = Alignment.Center
         ) {
             if(reward.isUnlocked && reward.isUsed){
-                Image(
-                    painter = painterResource(com.dhc.designsystem.R.drawable.ico_gold_medal),
-                    contentDescription = "lock icon",
-                    modifier = Modifier.size(28.dp)
+                AsyncImage(
+                    model = reward.icon,
+                    contentDescription = "",
+                    modifier = Modifier.size(28.dp),
                 )
             } else {
                 Image(

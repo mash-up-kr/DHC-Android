@@ -33,4 +33,4 @@ jobs:
         run: chmod +x gradlew
 
       - name: run assembleRelease
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRealRelease

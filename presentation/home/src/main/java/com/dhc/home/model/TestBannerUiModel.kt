@@ -12,7 +12,7 @@ data class TestBannerUiModel(
         fun from(model: TestBannerResponse): TestBannerUiModel = TestBannerUiModel(
             title = model.title,
             subTitle = model.subTitle,
-            imageUrl = model.imageUrl,
+            imageUrl = model.image,
             testUrl = model.testUrl,
         )
     }
